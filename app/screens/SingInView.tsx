@@ -12,7 +12,7 @@ import {
   View,
   ViewBase,
 } from "react-native";
-
+import { LinearGradient } from "expo-linear-gradient";
 import { useEffect } from "react";
 import React from "react";
 const screenHeight = Dimensions.get("window").height;
