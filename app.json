@@ -21,10 +21,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.creshsofresh.Artbitsfinalproject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e010e7e7-06da-400c-829f-43c8e08c06e6"
+      }
+    },
+    "scheme": "Artbits-final-project",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
