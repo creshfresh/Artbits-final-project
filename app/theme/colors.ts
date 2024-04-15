@@ -26,6 +26,7 @@ export const colors = {
   text: palette.black100,
 
   textDim: palette.primary100,
+  secondary: palette.secondary100,
 
   background: palette.neutral100,
 };
