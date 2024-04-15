@@ -1,4 +1,5 @@
 //Android ClientId: 1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com
+//                  1006799876952-5lsho05s7c1kj1edc01kp8ljvp85marj.apps.googleusercontent.com
 // Import the functions you need from the SDKs you need
 
 import { getAuth } from "firebase/auth";

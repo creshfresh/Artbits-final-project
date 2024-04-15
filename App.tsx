@@ -6,8 +6,10 @@ import * as WebBrowser from "expo-web-browser";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
+  initializeAuth,
   signInWithCredential,
 } from "firebase/auth";
+
 import { useIdTokenAuthRequest } from "expo-auth-session/providers/google";
 
 import { auth } from "./firebaseConfig";
@@ -18,6 +20,8 @@ export default function App() {
   const [userInfo, setUserInfo] = useState();
   const [request, response, promptAsync] = useIdTokenAuthRequest({
     iosClientId: "",
+    webClientId:
+      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
     androidClientId:
       "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
   });
