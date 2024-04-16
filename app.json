@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -32,9 +30,8 @@
         "projectId": "e010e7e7-06da-400c-829f-43c8e08c06e6"
       }
     },
-    "scheme": "Artbits-final-project",
-    "plugins": [
-      "expo-font"
-    ]
+    "scheme": "@creshsofresh/Artbits-final-project",
+    "plugins": ["expo-font"],
+    "originalFullName": "@creshsofresh/Artbits-final-project"
   }
 }
