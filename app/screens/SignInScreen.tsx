@@ -17,109 +17,110 @@ import { colors } from "../theme/colors";
 
 export default function SignInScreen({ promptAsync }) {
   const welcomeLogo = require("../../assets/logoPollo_complete.png");
-  let [fontsLoaded, fontError] = useFonts({
+  let [fontsLoaded] = useFonts({
     Montserrat_600SemiBold,
   });
 
-  if (!fontsLoaded && !fontError) {
+  if (!fontsLoaded) {
     return null;
-  }
-
-  return (
-    <>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: colors.background,
-        }}
-      >
-        <Text
+  } else
+    return (
+      <>
+        <SafeAreaView
           style={{
-            fontSize: 32,
-            marginTop: 50,
-            fontFamily: "Montserrat_600SemiBold",
-            fontWeight: "bold",
-            color: colors.main,
-          }}
-        >
-          Welcome back to
-        </Text>
-        <Image style={styles.logo} source={welcomeLogo} />
-      </SafeAreaView>
-      <View style={[styles.loginCard, styles.shadowProp]}>
-        <Text
-          style={{
-            color: "#323232",
-            fontSize: 17,
-            textAlign: "center",
-            fontWeight: "bold",
-            marginVertical: 20,
-          }}
-        >
-          Login
-        </Text>
-        <Pressable style={styles.google_button} onPress={() => promptAsync()}>
-          <AntDesign name="google" size={30} />
-          <Text style={{ color: "#323232", fontSize: 17 }}>
-            Log in with Google{" "}
-          </Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.google_button}
-          disabled={true}
-          onPress={() => promptAsync()}
-        >
-          <AntDesign name="mail" size={30} />
-          <Text style={{ color: "#323232", fontSize: 17 }}>
-            Log in with Email{" "}
-          </Text>
-        </Pressable>
-        <View
-          style={{
+            flex: 1,
             alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            marginTop: 20,
+            justifyContent: "center",
+            backgroundColor: colors.background,
           }}
         >
-          <Text style={{ textAlign: "left" }}>Don’t you have an account?</Text>
-          <View
+          <Text
             style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 10,
+              fontSize: 32,
+              marginTop: 50,
+              fontFamily: "Montserrat_600SemiBold",
+              fontWeight: "bold",
+              color: colors.main,
             }}
           >
-            <AntDesign
-              name="arrowright"
-              size={25}
-              color={colors.secondary}
-              style={{ textAlign: "right" }}
-            />
-            <Text
-              style={{ textAlign: "right", fontWeight: "bold", fontSize: 17 }}
-            >
-              Sing up
+            Welcome back to
+          </Text>
+          <Image style={styles.logo} source={welcomeLogo} />
+        </SafeAreaView>
+        <View style={[styles.loginCard, styles.shadowProp]}>
+          <Text
+            style={{
+              color: "#323232",
+              fontSize: 17,
+              textAlign: "center",
+              fontWeight: "bold",
+              marginVertical: 20,
+            }}
+          >
+            Login
+          </Text>
+          <Pressable style={styles.google_button} onPress={() => promptAsync()}>
+            <AntDesign name="google" size={30} />
+            <Text style={{ color: "#323232", fontSize: 17 }}>
+              Log in with Google{" "}
             </Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.google_button}
+            disabled={true}
+            onPress={() => promptAsync()}
+          >
+            <AntDesign name="mail" size={30} />
+            <Text style={{ color: "#323232", fontSize: 17 }}>
+              Log in with Email{" "}
+            </Text>
+          </Pressable>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: "row",
+              marginTop: 20,
+            }}
+          >
+            <Text style={{ textAlign: "left" }}>
+              Don’t you have an account?
+            </Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 10,
+              }}
+            >
+              <AntDesign
+                name="arrowright"
+                size={25}
+                color={colors.secondary}
+                style={{ textAlign: "right" }}
+              />
+              <Text
+                style={{ textAlign: "right", fontWeight: "bold", fontSize: 17 }}
+              >
+                Sing up
+              </Text>
+            </View>
           </View>
+          <Text
+            style={{
+              textAlign: "center",
+              marginTop: 50,
+              color: "grey",
+              fontSize: 12,
+            }}
+          >
+            By clicking sign up you state that you have read and understood the
+            terms and conditions.
+          </Text>
         </View>
-        <Text
-          style={{
-            textAlign: "center",
-            marginTop: 50,
-            color: "grey",
-            fontSize: 12,
-          }}
-        >
-          By clicking sign up you state that you have read and understood the
-          terms and conditions.
-        </Text>
-      </View>
-    </>
-  );
+      </>
+    );
 }
 const styles = StyleSheet.create({
   linearGradient: {
