@@ -1,32 +1,23 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import SignInScreen from "./app/screens/SignInScreen";
-import * as WebBrowser from "expo-web-browser";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
-  initializeAuth,
   signInWithCredential,
 } from "firebase/auth";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Google from "expo-auth-session/providers/google";
 import { auth } from "./firebaseConfig";
+import { StatusBar } from "expo-status-bar";
+import * as WebBrowser from "expo-web-browser";
+import React, { useEffect, useState } from "react";
+import SignInScreen from "./app/screens/SignInScreen";
 import { Navigation } from "./app/navigation/TabNavigator";
+import * as Google from "expo-auth-session/providers/google";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   const [userInfo, setUserInfo] = useState(null);
-
   const [loading, setLoading] = useState(false);
   // const discovery = {
   //   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
@@ -72,10 +63,10 @@ export default function App() {
         setUserInfo(user);
       } else console.log("user not authenticated");
     });
+
     return () => unsub();
   }),
     [];
-
   if (loading) return;
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <ActivityIndicator size={"small"} />
