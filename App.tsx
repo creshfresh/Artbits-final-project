@@ -13,17 +13,19 @@ import { Navigation } from "./app/navigation/TabNavigator";
 import * as Google from "expo-auth-session/providers/google";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { usePersonStore } from "./store/store";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   // const discovery = {
   //   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
   //   tokenEndpoint: "https://oauth2.googleapis.com/token",
   //   revocationEndpoint: "https://oauth2.googleapis.com/revoke",
   // };
+  const user = usePersonStore((state) => state.user);
+  const setUser = usePersonStore((state) => state.setUser);
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     expoClientId:
       "1006799876952-fd27ptn97km3flsb8iimb42v7acquea2.apps.googleusercontent.com",
@@ -39,7 +41,7 @@ export default function App() {
       const userJson = await AsyncStorage.getItem("@user");
       setLoading(false);
       const userData = userJson ? JSON.parse(userJson) : null;
-      setUserInfo(userData);
+      setUser(userData);
     } catch (error) {
       console.log("Error", error);
     } finally {
@@ -60,7 +62,7 @@ export default function App() {
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
         console.log(JSON.stringify(user, null, 2));
-        setUserInfo(user);
+        setUser(user);
       } else console.log("user not authenticated");
     });
 
@@ -72,7 +74,7 @@ export default function App() {
     <ActivityIndicator size={"small"} />
   </View>;
 
-  return userInfo ? (
+  return user ? (
     <Navigation />
   ) : (
     <View style={styles.container}>
@@ -90,3 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+function useUserStore(arg0: (state: any) => any) {
+  throw new Error("Function not implemented.");
+}

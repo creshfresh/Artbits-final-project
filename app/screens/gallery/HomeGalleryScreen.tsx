@@ -1,7 +1,44 @@
 import { useState } from "react";
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
-
+import {
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+} from "react-native";
+import { GalleryCarrousel } from "./Gallery";
+import { FlashList } from "@shopify/flash-list";
+import { Dimensions } from "react-native";
 export const HomeGalleryScreen = () => {
+  const welcomeLogo = require("../../../assets/logoPollo_complete.png");
+  type ProyectImages = {
+    id: number;
+    url: string;
+  };
+
+  const data: ProyectImages[] = [
+    {
+      id: 1,
+      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
+    },
+    {
+      id: 2,
+      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
+    },
+    {
+      id: 3,
+      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
+    },
+    {
+      id: 4,
+      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
+    },
+    {
+      id: 5,
+      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
+    },
+  ];
   type ViewMode = "Traditional" | "Digital";
   const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
   return (
@@ -26,10 +63,36 @@ export const HomeGalleryScreen = () => {
           <Text style={styles.switchText}>Digital</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.contentContainer}>
+      {/* <ScrollView contentContainerStyle={{ flexGrow: 2 }}>
+        <FlashList
+          data={data}
+          horizontal={false}
+          showsHorizontalScrollIndicator={false}
+          estimatedItemSize={300}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View
+              style={{ height: 200, width: Dimensions.get("screen").width }}
+            >
+              <Image
+                source={{ uri: item.url }}
+                style={{
+                  width: 260,
+                  height: 300,
+                  backgroundColor: "#d35647",
+                  borderWidth: 2,
+                  borderRadius: 5,
+                  borderColor: "#d35647",
+                  resizeMode: "contain",
+                }}
+              />
+            </View>
+          )}
+        /> 
+
         <Text>{viewMode} Content</Text>
-      </View>
-      <View style={styles.bottomNavigation}></View>
+      </ScrollView>*/}
+      <GalleryCarrousel />
     </View>
   );
 };
@@ -59,7 +122,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   contentContainer: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },

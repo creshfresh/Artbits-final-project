@@ -2,14 +2,22 @@ import { signOut } from "firebase/auth";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { auth } from "../../firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { colors } from "../theme/colors";
+import { usePersonStore } from "../../store/store";
 
 export const SettingsScreenKK = () => {
+  const user = usePersonStore((state) => state.user);
+
   return (
     <View>
       <Text style={{ fontSize: 30, textAlign: "center", marginTop: "50%" }}>
         Settings
       </Text>
+      <Text style={{ textAlign: "center", marginVertical: 20 }}>
+        {user
+          ? `Logged in as: ${user.displayName}, ${user.email}`
+          : "Not logged in"}
+      </Text>
+
       <Pressable
         style={styles.button}
         onPress={async () => {
