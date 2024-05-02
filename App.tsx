@@ -24,8 +24,10 @@ export default function App() {
   //   tokenEndpoint: "https://oauth2.googleapis.com/token",
   //   revocationEndpoint: "https://oauth2.googleapis.com/revoke",
   // };
+
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
+
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     expoClientId:
       "1006799876952-fd27ptn97km3flsb8iimb42v7acquea2.apps.googleusercontent.com",
@@ -92,6 +94,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-function useUserStore(arg0: (state: any) => any) {
-  throw new Error("Function not implemented.");
-}

@@ -1,11 +1,16 @@
 import { signOut } from "firebase/auth";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Button, Text, Pressable, StyleSheet } from "react-native";
 import { auth } from "../../firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "../../store/store";
 
-export const SettingsScreenKK = () => {
+export const SettingsScreenKK = ({ navigation }) => {
+  const { signOutZustand } = usePersonStore();
   const user = usePersonStore((state) => state.user);
+  const handleSignout = () => {
+    signOutZustand();
+    navigation.navigate("Sign in");
+  };
 
   return (
     <View>
@@ -18,15 +23,14 @@ export const SettingsScreenKK = () => {
           : "Not logged in"}
       </Text>
 
-      <Pressable
-        style={styles.button}
+      <Button
+        title="Log out"
         onPress={async () => {
           await signOut(auth);
           await AsyncStorage.removeItem("@user");
+          handleSignout;
         }}
-      >
-        <Text style={styles.text}>Log out</Text>
-      </Pressable>
+      />
     </View>
   );
 };

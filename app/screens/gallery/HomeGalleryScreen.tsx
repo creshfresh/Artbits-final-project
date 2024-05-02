@@ -10,89 +10,54 @@ import {
 import { GalleryCarrousel } from "./Gallery";
 import { FlashList } from "@shopify/flash-list";
 import { Dimensions } from "react-native";
+import { colors } from "../../theme/colors";
 export const HomeGalleryScreen = () => {
-  const welcomeLogo = require("../../../assets/logoPollo_complete.png");
-  type ProyectImages = {
-    id: number;
-    url: string;
-  };
-
-  const data: ProyectImages[] = [
-    {
-      id: 1,
-      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
-    },
-    {
-      id: 2,
-      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
-    },
-    {
-      id: 3,
-      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
-    },
-    {
-      id: 4,
-      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
-    },
-    {
-      id: 5,
-      url: "https://m.media-amazon.com/images/I/81mM+jmQu-L._AC_UF894,1000_QL80_.jpg",
-    },
-  ];
   type ViewMode = "Traditional" | "Digital";
   const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
+
   return (
     <View style={styles.container}>
       <View style={styles.switchContainer}>
         <TouchableOpacity
           style={[
             styles.switchButton,
-            viewMode === "Traditional" ? styles.active : {},
+            viewMode === "Traditional" ? styles.active : styles.inactive,
           ]}
-          onPress={() => setViewMode("Traditional")}
+          onPress={() => {
+            setViewMode("Traditional");
+          }}
         >
-          <Text style={styles.switchText}>Tradicional</Text>
+          <Text
+            style={
+              viewMode === "Traditional"
+                ? styles.switchTextActive
+                : styles.switchTextinactive
+            }
+          >
+            Tradicional
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.switchButton,
-            viewMode === "Digital" ? styles.active : {},
+            viewMode === "Digital" ? styles.active : styles.inactive,
           ]}
-          onPress={() => setViewMode("Digital")}
+          onPress={() => {
+            setViewMode("Digital");
+          }}
         >
-          <Text style={styles.switchText}>Digital</Text>
+          <Text
+            style={
+              viewMode === "Digital"
+                ? styles.switchTextActive
+                : styles.switchTextinactive
+            }
+          >
+            Digital
+          </Text>
         </TouchableOpacity>
       </View>
-      {/* <ScrollView contentContainerStyle={{ flexGrow: 2 }}>
-        <FlashList
-          data={data}
-          horizontal={false}
-          showsHorizontalScrollIndicator={false}
-          estimatedItemSize={300}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View
-              style={{ height: 200, width: Dimensions.get("screen").width }}
-            >
-              <Image
-                source={{ uri: item.url }}
-                style={{
-                  width: 260,
-                  height: 300,
-                  backgroundColor: "#d35647",
-                  borderWidth: 2,
-                  borderRadius: 5,
-                  borderColor: "#d35647",
-                  resizeMode: "contain",
-                }}
-              />
-            </View>
-          )}
-        /> 
-
-        <Text>{viewMode} Content</Text>
-      </ScrollView>*/}
-      <GalleryCarrousel />
+      <GalleryCarrousel viewMode={viewMode} />
     </View>
   );
 };
@@ -100,7 +65,7 @@ export const HomeGalleryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   switchContainer: {
     flexDirection: "row",
@@ -109,27 +74,39 @@ const styles = StyleSheet.create({
   },
   switchButton: {
     flex: 1,
+    marginHorizontal: 10,
     alignItems: "center",
-    paddingVertical: 10,
-    borderBottomWidth: 3,
-    borderBottomColor: "transparent",
+    padding: 10,
+    borderRadius: 30,
+    borderColor: "transparent",
+    justifyContent: "center",
+    height: "80%",
   },
   active: {
-    borderBottomColor: "orange",
+    backgroundColor: colors.main,
   },
-  switchText: {
-    fontSize: 18,
-    fontWeight: "600",
+  inactive: {
+    backgroundColor: "#D3D3D3",
+  },
+  switchTextActive: {
+    fontSize: 14,
+    color: "white",
+    fontWeight: "500",
+  },
+  switchTextinactive: {
+    fontSize: 14,
+    color: "#323232",
+    fontWeight: "400",
   },
   contentContainer: {
     alignItems: "center",
     justifyContent: "center",
   },
-  bottomNavigation: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderTopColor: "grey",
-  },
+  // bottomNavigation: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-around",
+  //   paddingVertical: 20,
+  //   borderTopWidth: 1,
+  //   borderTopColor: "grey",
+  // },
 });

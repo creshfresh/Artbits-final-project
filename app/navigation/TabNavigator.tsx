@@ -5,9 +5,10 @@ import { SettingsScreenKK } from "../screens/SettingsScreenKK";
 import { ProfileScreen } from "../screens/profile/ProfileScreen";
 import { HomeGalleryScreen } from "../screens/gallery/HomeGalleryScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { UploadList } from "../screens/uploads/UploadList";
 
-const Tab = createBottomTabNavigator();
 export const TabNavigator = () => {
+  const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -35,7 +36,7 @@ export const TabNavigator = () => {
     >
       <Tab.Screen name="Home" component={HomeGalleryScreen} />
       <Tab.Screen name="Search" component={SettingsScreenKK} />
-      <Tab.Screen name="Settings" component={SettingsScreenKK} />
+      <Tab.Screen name="Settings" component={UploadList} />
       <Tab.Screen name="Jobs" component={SettingsScreenKK} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
