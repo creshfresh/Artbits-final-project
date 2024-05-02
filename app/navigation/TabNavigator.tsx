@@ -6,6 +6,7 @@ import { ProfileScreen } from "../screens/profile/ProfileScreen";
 import { HomeGalleryScreen } from "../screens/gallery/HomeGalleryScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { UploadList } from "../screens/uploads/UploadList";
+import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
 
 export const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -35,7 +36,7 @@ export const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeGalleryScreen} />
-      <Tab.Screen name="Search" component={SettingsScreenKK} />
+      <Tab.Screen name="Search" component={FlatListContestInternships} />
       <Tab.Screen name="Settings" component={UploadList} />
       <Tab.Screen name="Jobs" component={SettingsScreenKK} />
       <Tab.Screen name="Profile" component={ProfileScreen} />

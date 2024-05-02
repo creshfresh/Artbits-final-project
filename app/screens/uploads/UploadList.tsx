@@ -10,6 +10,8 @@ import { FlashList } from "@shopify/flash-list";
 
 //En esta vista se tendrá que evaluar
 // El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
+// Listas de subir proyecto, beca o concurso
+//Para los usuarios de academia subir cursos y las empresas subir ofertas de trabajo
 export const UploadList = () => {
   const data: string[] = ["Subir concurso / Beca", "Subir proyecto"];
 
