@@ -50,8 +50,7 @@ const data: ProyectImages[] = [
   },
 ];
 export const GalleryCarrousel = ({ viewMode }) => {
-  const getItemCount = (datas) => 1000; // Simular muchas imágenes
-  const getItem = (datas, index) => datas[index % data.length];
+
   const filteredData = data.filter((item) => item.type === viewMode);
 
   return (
@@ -59,6 +58,7 @@ export const GalleryCarrousel = ({ viewMode }) => {
       <FlashList
         data={filteredData}
         horizontal={false}
+        showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         estimatedItemSize={300}
         keyExtractor={(item) => item.id.toString()}

@@ -4,15 +4,16 @@ import { View, Text, StyleSheet, Button, Image } from "react-native";
 import { usePersonStore } from "../../../store/store";
 import { auth } from "../../../firebaseConfig";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "../../theme/colors";
 
-export const ProfileScreen = (userInfo: User, navigation) => {
+export const ProfileScreen = ({navigation}) => {
   const { signOutZustand } = usePersonStore();
   const user = usePersonStore((state) => state.user);
+
   const handleSignout = () => {
     signOutZustand();
-    navigation.navigate("Sign in");
+    navigation.navigate("SearchArtGrantScreen");
   };
+
 
   return (
     <>
@@ -51,7 +52,7 @@ export const ProfileScreen = (userInfo: User, navigation) => {
       <Button
         title="Log out"
         onPress={async () => {
-          await signOut(auth);
+       await signOut(auth);
           await AsyncStorage.removeItem("@user");
           handleSignout();
         }}

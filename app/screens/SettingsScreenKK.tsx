@@ -28,7 +28,7 @@ export const SettingsScreenKK = ({ navigation }) => {
         onPress={async () => {
           await signOut(auth);
           await AsyncStorage.removeItem("@user");
-          handleSignout;
+           handleSignout();
         }}
       />
     </View>

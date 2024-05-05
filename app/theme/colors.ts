@@ -6,6 +6,7 @@ const palette = {
   neutral400: "#ADABAB",
   neutral500: "#72809C",
   neutral600: "#D9D9D9",
+  neutral700: "#747474",
 
   //Main color, same color of logo
   primary100: "#E53A12",
@@ -24,6 +25,8 @@ export const colors = {
   transparent: "rgba(0, 0, 0, 0)",
   main: palette.primary100,
   text: palette.black100,
+
+  dateText: palette.neutral700,
 
   textDim: palette.primary100,
   secondary: palette.secondary100,

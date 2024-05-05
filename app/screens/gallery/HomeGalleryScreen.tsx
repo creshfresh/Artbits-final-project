@@ -12,8 +12,8 @@ import { FlashList } from "@shopify/flash-list";
 import { Dimensions } from "react-native";
 import { colors } from "../../theme/colors";
 export const HomeGalleryScreen = () => {
-  type ViewMode = "Traditional" | "Digital";
-  const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
+  type ViewMode = "Traditional" | "Digital" | "All";
+  const [viewMode, setViewMode] = useState<ViewMode>("All");
 
   return (
     <View style={styles.container}>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "transparent",
     justifyContent: "center",
-    height: "80%",
+    height: 40,
   },
   active: {
     backgroundColor: colors.main,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   switchTextActive: {
     fontSize: 14,
     color: "white",
-    fontWeight: "500",
+    fontWeight: "800",
   },
   switchTextinactive: {
     fontSize: 14,
@@ -102,11 +102,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // bottomNavigation: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-around",
-  //   paddingVertical: 20,
-  //   borderTopWidth: 1,
-  //   borderTopColor: "grey",
-  // },
+
 });

@@ -5,42 +5,47 @@ import {
   Dimensions,
   Text,
   ScrollView,
+  Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { FlashList } from "@shopify/flash-list";
-import { colors } from "../../theme/colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "../../components/Card";
+import { colors } from "../../theme/colors";
 
-export const FlatListContestInternships = () => {
+export const FlatListContestInternships = ({ navigation }) => {
   const data: string[] = ["Concursos ", "Becas"];
-
+  const handleNavigation = (item) => {
+    console.log(item);
+    item === "Becas"
+      ? navigation.navigate("ArtGrantScreen")
+      : navigation.navigate("ContestScreen");
+  };
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={{ flex: 1, padding: 10 }}>
-        <FlashList
-          horizontal={false}
-          data={data}
-          showsHorizontalScrollIndicator={false}
-          estimatedItemSize={300}
-          keyExtractor={(item) => item.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.container}>
-              <Text style={styles.text}>{item}</Text>
-              <TouchableOpacity onPress={() => console.log("Holi")}>
-                <Ionicons
-                  size={25}
-                  name="chevron-forward-outline"
-                  color={colors.secondary}
-                ></Ionicons>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-        <Card />
-      </View>
-    </ScrollView>
+    <View style={{ flex: 1, padding: 10 }}>
+      <FlashList
+        horizontal={false}
+        data={data}
+        showsHorizontalScrollIndicator={false}
+        estimatedItemSize={300}
+        keyExtractor={(item) => item.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.container}>
+            <Text style={styles.text}>{item}</Text>
+            <Pressable
+              onPress={() =>
+                handleNavigation(item)
+              }>
+              <Ionicons
+                size={25}
+                name="chevron-forward-outline"
+                color={colors.secondary}
+              ></Ionicons>
+            </Pressable>
+          </View>
+        )}
+      />
+    </View>
   );
 };
 const styles = StyleSheet.create({

@@ -9,7 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
 import SignInScreen from "./app/screens/SignInScreen";
-import { Navigation } from "./app/navigation/TabNavigator";
+import { CustomNavigator } from "./app/navigation/CustomNavigator";
 import * as Google from "expo-auth-session/providers/google";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,12 +19,6 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   const [loading, setLoading] = useState(false);
-  // const discovery = {
-  //   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
-  //   tokenEndpoint: "https://oauth2.googleapis.com/token",
-  //   revocationEndpoint: "https://oauth2.googleapis.com/revoke",
-  // };
-
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
 
@@ -77,7 +71,7 @@ export default function App() {
   </View>;
 
   return user ? (
-    <Navigation />
+    <CustomNavigator />
   ) : (
     <View style={styles.container}>
       <SignInScreen promptAsync={promptAsync} />
