@@ -1,12 +1,14 @@
 import {
   View,
-  Image,
   StyleSheet,
-  Dimensions,
   Text,
   ScrollView,
+  Pressable,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import React from "react";
+import { colors } from "../../theme/colors";
+import { Ionicons } from "@expo/vector-icons";
 
 //En esta vista se tendrá que evaluar
 // El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
@@ -25,18 +27,19 @@ export const UploadList = () => {
           estimatedItemSize={300}
           keyExtractor={(item) => item.toString()}
           renderItem={({ item }) => (
-            <View
-              style={{
-                paddingHorizontal: 10,
-                paddingVertical: 20,
-                marginVertical: 5,
-                borderRadius: 5,
-                backgroundColor: "#E9E8E8",
-              }}
-            >
-              <Text style={{ color: "#323232", fontWeight: "700" }}>
-                {item}
-              </Text>
+            <View style={styles.container}>
+              <Text style={styles.text}>{item}</Text>
+              <Pressable
+                onPress={() => 
+                  console.log(item)
+                  // handleNavigation(item)
+                }>
+                <Ionicons
+                  size={25}
+                  name="chevron-forward-outline"
+                  color={colors.secondary}
+                ></Ionicons>
+              </Pressable>
             </View>
           )}
         />
@@ -44,3 +47,21 @@ export const UploadList = () => {
     </ScrollView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    marginVertical: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    backgroundColor: "#E9E8E8",
+    justifyContent: "space-between",
+  },
+  text: {
+    color: "#323232",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+});

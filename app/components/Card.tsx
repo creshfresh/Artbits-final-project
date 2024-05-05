@@ -1,6 +1,7 @@
 import { View, Image, Text } from "react-native";
 import { colors } from "../theme/colors";
 
+
 export const Card = ({ data }) => {
   return (
 
@@ -36,16 +37,16 @@ export const Card = ({ data }) => {
           <Text
             style={{
               paddingTop: 3,
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: "700",
               color: colors.dateText,
             }}
           >
-            {data.date}
+          {data.date}
           </Text>
           <Text
             style={{
-              fontSize: 17.33,
+              fontSize: 18,
               fontWeight: "700",
               color: colors.main,
             }}
@@ -55,8 +56,8 @@ export const Card = ({ data }) => {
           <Text
             style={{
               paddingTop: 3,
-              fontSize: 10,
-              fontWeight: "100",
+              fontSize: 12,
+              fontWeight: "200",
               color: colors.text,
             }}
           >

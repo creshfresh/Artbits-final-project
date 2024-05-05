@@ -12,22 +12,28 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignInScreen from "../screens/SignInScreen";
 import { ContestScreen } from "../screens/contest/ContestScreen";
 import { ArtGrantScreen } from "../screens/artGrants/ArtGrantsScreen";
+import { PorfolioDetail } from "../screens/profile/PortfolioDetail";
 
 const Tab = createBottomTabNavigator();
-
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = () => {
+const InternShipsAndContestStackNavigator = () => {
   return (
-    <Stack.Navigator  screenOptions={{
-      headerShown: true,
-      headerBackTitleVisible: false,
-      headerShadowVisible:false,
-      headerStyle: {
-        backgroundColor:"transparent"}
-}} >
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerStyle: {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
       <Stack.Screen
-      options={{headerShown:false}}
+        options={{ headerShown: false }}
         name="FlatListContestInternships"
         component={FlatListContestInternships}
       />
@@ -37,40 +43,81 @@ const StackNavigator = () => {
         component={ArtGrantScreen}
         options={({ navigation }) => ({
           headerShown: true,
-          headerShadowVisible:false,
+          headerShadowVisible: false,
           headerTitle: "Becas",
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
-              size={30}
+              size={25}
               color={colors.secondary}
               onPress={() => navigation.goBack()}
             />
           ),
-      
         })}
       />
       <Stack.Screen
         name="ContestScreen"
         component={ContestScreen}
         options={({ navigation }) => ({
-          
           headerShown: true,
           headerTitle: "Concursos",
           headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
-              size={30}
+              size={25}
               color={colors.secondary}
               onPress={() => navigation.goBack()}
             />
-          )
+          ),
         })}
       />
     </Stack.Navigator>
   );
 };
+const PortfolioStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerStyle: {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="UserProfile"
+        component={ProfileScreen}
+      />
+      <Stack.Screen
+        name="PorfolioDetail"
+        component={PorfolioDetail}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: "Detail",
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+
+    </Stack.Navigator>
+  );
+};
+
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -98,10 +145,13 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeGalleryScreen} />
-      <Tab.Screen name="Search" component={StackNavigator} />
+      <Tab.Screen
+        name="Search"
+        component={InternShipsAndContestStackNavigator}
+      />
       <Tab.Screen name="Settings" component={UploadList} />
       <Tab.Screen name="Jobs" component={SettingsScreenKK} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={PortfolioStackNavigator} />
     </Tab.Navigator>
   );
 };

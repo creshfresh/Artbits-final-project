@@ -7,13 +7,14 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import { GalleryCarrousel } from "./Gallery";
 import { FlashList } from "@shopify/flash-list";
 import { Dimensions } from "react-native";
 import { colors } from "../../theme/colors";
+import {GalleryCarousel} from"./GalleryCarrousel"
+
 export const HomeGalleryScreen = () => {
-  type ViewMode = "Traditional" | "Digital" | "All";
-  const [viewMode, setViewMode] = useState<ViewMode>("All");
+  type ViewMode = "Traditional" | "Digital";
+  const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
 
   return (
     <View style={styles.container}>
@@ -57,7 +58,7 @@ export const HomeGalleryScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <GalleryCarrousel viewMode={viewMode} />
+      <GalleryCarousel viewMode={viewMode} />
     </View>
   );
 };
@@ -66,11 +67,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-around",
+    margin:10
   },
   switchContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    padding: 10,
+    paddingHorizontal: 10,
+    marginBottom:5
   },
   switchButton: {
     flex: 1,
