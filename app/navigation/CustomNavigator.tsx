@@ -13,9 +13,75 @@ import SignInScreen from "../screens/SignInScreen";
 import { ContestScreen } from "../screens/contest/ContestScreen";
 import { ArtGrantScreen } from "../screens/artGrants/ArtGrantsScreen";
 import { PorfolioDetail } from "../screens/profile/PortfolioDetail";
+import { ProjectUploadScreen } from "../screens/uploads/ProjectUploadScreen";
+import { PublishProjectScreen } from "../screens/uploads/PublishProjectScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const UploadStackNavigation = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerTransparent: true,
+      }}
+    >
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="UploadList"
+        component={UploadList}
+      />
+      <Stack.Screen
+        name="ProjectUploadScreen"
+        component={ProjectUploadScreen}
+        options={({ navigation }) => ({
+          // headerShown: true,
+          // headerShadowVisible: false,
+          headerTitle: "Subir",
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          // headerStyle: {
+          //   backgroundColor: "transparent",
+          // },
+        })}
+      />
+       <Stack.Screen
+        name="PublishProjectScreen"
+        component={PublishProjectScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+
+          headerShadowVisible: false,
+          headerTitle: "Info",
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+        })}
+      />
+     
+    </Stack.Navigator>
+  );
+};
 
 const InternShipsAndContestStackNavigator = () => {
   return (
@@ -130,7 +196,7 @@ const TabNavigator = () => {
           let iconSize = 25;
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Settings") {
+          } else if (route.name === "Upload") {
             (iconName = focused ? "add-circle" : "add-circle"), (iconSize = 50);
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
@@ -149,7 +215,7 @@ const TabNavigator = () => {
         name="Search"
         component={InternShipsAndContestStackNavigator}
       />
-      <Tab.Screen name="Settings" component={UploadList} />
+      <Tab.Screen name="Upload" component={UploadStackNavigation} />
       <Tab.Screen name="Jobs" component={SettingsScreenKK} />
       <Tab.Screen name="Profile" component={PortfolioStackNavigator} />
     </Tab.Navigator>

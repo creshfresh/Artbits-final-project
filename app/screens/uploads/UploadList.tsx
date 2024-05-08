@@ -1,28 +1,26 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  ScrollView,
-  Pressable,
-} from "react-native";
+import { View, StyleSheet, Text, ScrollView, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { BottomTabBarHeightCallbackContext } from "@react-navigation/bottom-tabs";
 
-//En esta vista se tendrá que evaluar
-// El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
-// Listas de subir proyecto, beca o concurso
-//Para los usuarios de academia subir cursos y las empresas subir ofertas de trabajo
-export const UploadList = () => {
-  const data: string[] = ["Subir concurso / Beca", "Subir proyecto"];
+/*En esta vista se tendrá que evaluar
+ El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
+ Listas de subir proyecto, beca o concurso
+Para los usuarios de academia subir cursos y las empresas subir ofertas de trabajo*/
+export const UploadList = ({ navigation }) => {
+  const BottomTabBarHeightCallbackContext: string[] = [
+    "Subir concurso / Beca",
+    "Subir proyecto",
+  ];
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={{ flex: 1, padding: 10 }}>
         <FlashList
           horizontal={false}
-          data={data}
+          data={BottomTabBarHeightCallbackContext}
           showsHorizontalScrollIndicator={false}
           estimatedItemSize={300}
           keyExtractor={(item) => item.toString()}
@@ -30,10 +28,8 @@ export const UploadList = () => {
             <View style={styles.container}>
               <Text style={styles.text}>{item}</Text>
               <Pressable
-                onPress={() => 
-                  console.log(item)
-                  // handleNavigation(item)
-                }>
+                onPress={() => navigation.navigate("ProjectUploadScreen")}
+              >
                 <Ionicons
                   size={25}
                   name="chevron-forward-outline"

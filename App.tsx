@@ -7,28 +7,56 @@ import {
 import { auth } from "./firebaseConfig";
 import { StatusBar } from "expo-status-bar";
 import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google"
 import React, { useEffect, useState } from "react";
 import SignInScreen from "./app/screens/SignInScreen";
 import { CustomNavigator } from "./app/navigation/CustomNavigator";
-import * as Google from "expo-auth-session/providers/google";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
+import { makeRedirectUri } from 'expo-auth-session'
+import Constants from 'expo-constants';
+
+console.log("Comeme los huevoasfdasfsdfdss")
 
 WebBrowser.maybeCompleteAuthSession();
+
 
 export default function App() {
   const [loading, setLoading] = useState(false);
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
+  // Configuración de los parámetros de redireccionamiento según el entorno
+  const EXPO_REDIRECT_PARAMS = {
+    useProxy: true, // Utilizar proxy en entorno Expo para evitar problemas con URI
+    projectNameForProxy: '@creshsofresh/Artbits-final-project',
+  };
+
+  const NATIVE_REDIRECT_PARAMS = {
+    native: 'Artbits-final-project://', // Especifica el esquema URL personalizado para apps nativas
+  };
+
+  // Elegir entre configuraciones Expo o nativa según el entorno de la aplicación
+  const REDIRECT_PARAMS = Constants.appOwnership === 'expo'
+    ? EXPO_REDIRECT_PARAMS
+    : NATIVE_REDIRECT_PARAMS;
+  const preferLocalhost = Constants.appOwnership === 'expo' // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
+  const scheme = 'miappesquema';
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    expoClientId:
-      "1006799876952-fd27ptn97km3flsb8iimb42v7acquea2.apps.googleusercontent.com",
-    webClientId:
-      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-    androidClientId:
-      "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
+
+    redirectUri: makeRedirectUri({
+      native: 'Artbits-final-project://redirect',
+      scheme: 'Artbits-final-project',
+      queryParams: ({
+        url
+        https://auth.expo.io/@creshsofresh/Artbits-final-project
+      })
+
+    }),
+    clientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    webClientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    androidClientId: "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
   });
 
   const getLocalUser = async () => {

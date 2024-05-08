@@ -73,7 +73,7 @@ export default function SignInScreen({ promptAsync }) {
           >
             <AntDesign name="mail" size={30} />
             <Text style={{ color: "#323232", fontSize: 17 }}>
-              Log in with Email{" "}
+              Log in with Email
             </Text>
           </Pressable>
           <View

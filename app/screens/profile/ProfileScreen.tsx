@@ -10,25 +10,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { usePersonStore } from "../../../store/store";
-import { auth } from "../../../firebaseConfig";
-import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import { ProfolioCarrousel } from "./PortfolioCarrousel";
+import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { AboutScreen } from "./AboutScreen";
+import { DummyData } from "../../../Constants";
+
 
 export const ProfileScreen = ({ navigation }) => {
-  const { signOutZustand } = usePersonStore();
   const user = usePersonStore((state) => state.user);
   type ViewMode = "Portfolio" | "About";
 
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
 
-  const handleSignout = () => {
-    signOutZustand();
-    navigation.navigate("SearchArtGrantScreen");
-  };
 
   return (
     <>
@@ -125,18 +120,10 @@ export const ProfileScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {viewMode === "Portfolio"  ? <ProfolioCarrousel/> :<AboutScreen/>}
+      {viewMode === "Portfolio"  ? <ProfolioCarrousel navigation={navigation} data={DummyData}/> :<AboutScreen/>}
 
 
-      <Pressable
-        onPress={async () => {
-          await signOut(auth);
-          await AsyncStorage.removeItem("@user");
-          handleSignout();
-        }}
-      >
-        <Text>Log out</Text>
-      </Pressable>
+     
     </>
   );
 };
