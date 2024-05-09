@@ -21,7 +21,9 @@ export const HomeGalleryScreen = () => {
             viewMode === "Traditional" ? styles.active : styles.inactive,
           ]}
           onPress={() => {
-            setViewMode("Traditional");
+           { setViewMode("Traditional");
+            console.log(viewMode)
+           }
           }}
         >
           <Text
@@ -40,7 +42,9 @@ export const HomeGalleryScreen = () => {
             viewMode === "Digital" ? styles.active : styles.inactive,
           ]}
           onPress={() => {
-            setViewMode("Digital");
+            {setViewMode("Digital");
+              console.log(viewMode)
+            }
           }}
         >
           <Text

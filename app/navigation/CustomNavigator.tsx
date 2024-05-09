@@ -16,6 +16,7 @@ import { PorfolioDetail } from "../screens/profile/PortfolioDetail";
 import { ProjectUploadScreen } from "../screens/uploads/ProjectUploadScreen";
 import { PublishProjectScreen } from "../screens/uploads/PublishProjectScreen";
 import { SuccesUpload } from "../screens/uploads/SuccesUpload";
+import { ContestArtGrantViewForms } from "../screens/uploads/ContestArtGrantViewForms";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,26 @@ const UploadStackNavigation = () => {
           // headerShown: true,
           // headerShadowVisible: false,
           headerTitle: "Subir",
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          // headerStyle: {
+          //   backgroundColor: "transparent",
+          // },
+        })}
+      />
+      <Stack.Screen
+        name="ContestArtGrantViewForms"
+        component={ContestArtGrantViewForms}
+        options={({ navigation }) => ({
+          headerShown: true,
+          // headerShadowVisible: false,
+          headerTitle: "Publicar Concuro o Beca",
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
