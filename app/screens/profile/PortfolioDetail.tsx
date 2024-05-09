@@ -8,6 +8,8 @@ export const PorfolioDetail = ({route}) => {
 
   const win = Dimensions.get("window");
 
+  //Aqui no funciona el gotodetail porqe está con los datos de prueba, hay que ver la manera de pasar todos los datos sin hacer
+  //una nueva query
   const filteredData = DummyData.filter((item) => item.id === id);
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

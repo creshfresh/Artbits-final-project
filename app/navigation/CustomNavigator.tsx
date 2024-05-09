@@ -15,6 +15,7 @@ import { ArtGrantScreen } from "../screens/artGrants/ArtGrantsScreen";
 import { PorfolioDetail } from "../screens/profile/PortfolioDetail";
 import { ProjectUploadScreen } from "../screens/uploads/ProjectUploadScreen";
 import { PublishProjectScreen } from "../screens/uploads/PublishProjectScreen";
+import { SuccesUpload } from "../screens/uploads/SuccesUpload";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -57,7 +58,7 @@ const UploadStackNavigation = () => {
           // },
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="PublishProjectScreen"
         component={PublishProjectScreen}
         options={({ navigation }) => ({
@@ -78,7 +79,18 @@ const UploadStackNavigation = () => {
           },
         })}
       />
-     
+      <Stack.Screen
+        name="SuccesUpload"
+        component={SuccesUpload}
+        options={({navigation}) => ({
+          headerShown: false,
+          headerShadowVisible: false,
+          headerTitle: "Info",
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -178,11 +190,9 @@ const PortfolioStackNavigator = () => {
           ),
         })}
       />
-
     </Stack.Navigator>
   );
 };
-
 
 const TabNavigator = () => {
   return (

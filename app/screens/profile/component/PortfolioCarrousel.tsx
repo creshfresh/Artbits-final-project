@@ -8,16 +8,42 @@ import {
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { ProjectImages } from "../../../../Constants";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { database } from "../../../../firebaseConfig";
 
 
 type ProfolioCarrouselProps = {
   navigation: any;  
-  data: ProjectImages[];
+  // data: ProjectImages[];
 };
 
-export const ProfolioCarrousel = ({ navigation, data }:ProfolioCarrouselProps) => {
-  
-/*Esta pantalla recibe todos los proyectos pertenecientes*/
+export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
+  const [data, setData] = useState([]);
+
+
+  // const filteredData = data.filter((item) => item.type === viewMode);
+
+  useEffect(() => {
+    const collectionRef = collection(database, "Projects");
+    const q = query(collectionRef, where("user_id" ,"==" ,"3828")); // El ide 3828 es harcodeado
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      // onSnapshot is a listener that listens to changes in the database in realtime
+      console.log("querySnapshot unsusbscribe");
+      setData(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          url: doc.data().url,
+          title: doc.data().title,
+          description: doc.data().description,
+        
+        }))
+      );
+    });
+    return unsubscribe; 
+
+  }, []);
+/*Esta pantalla recibe todos los proyectos pertenecientes al usuario logueado*/
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <FlashList
@@ -30,9 +56,9 @@ export const ProfolioCarrousel = ({ navigation, data }:ProfolioCarrouselProps) =
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={{ flex: 1, margin: 2 }}>
-            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ id:item.id} )}>
+            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ id:item.url} )}>
               <Image
-                source={{ uri: item.url[0] }}
+                source={{ uri: item.url}}
                 style={{
                   width: "100%",
                   minHeight: 200,

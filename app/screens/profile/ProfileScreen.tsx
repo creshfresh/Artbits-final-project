@@ -49,12 +49,15 @@ export const ProfileScreen = ({ navigation }) => {
         /> */}
       </View>
 
-      {user?.photoURL && (
+      {/* {user?.photoURL && (
         <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
-      )}
+      )} */}
+        <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
+
+
       <View style={styles.card}>
-        <Text style={styles.textTittle}>{user.displayName}</Text>
-        <Text style={styles.text}>{user.email}</Text>
+        {/* <Text style={styles.textTittle}>{user.displayName}</Text> */}
+        {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{
             display: "flex",
@@ -120,7 +123,7 @@ export const ProfileScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {viewMode === "Portfolio"  ? <ProfolioCarrousel navigation={navigation} data={DummyData}/> :<AboutScreen/>}
+      {viewMode === "Portfolio"  ? <ProfolioCarrousel navigation={navigation}/> :<AboutScreen/>}
 
 
      
@@ -178,6 +181,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderColor: "white",
+    backgroundColor:"#DEDEDE",
     borderWidth: 3,
     borderRadius: 50,
     position: "absolute",

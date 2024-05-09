@@ -43,21 +43,22 @@ export default function App() {
   const preferLocalhost = Constants.appOwnership === 'expo' // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
   const scheme = 'miappesquema';
 
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-
+  const [request, response, promptAsync] = Google.useAuthRequest({
     redirectUri: makeRedirectUri({
       native: 'Artbits-final-project://redirect',
-      scheme: 'Artbits-final-project',
-      queryParams: ({
-        url
-        https://auth.expo.io/@creshsofresh/Artbits-final-project
-      })
+      scheme: 'https',
+      queryParams: {
+        "url" : "https://auth.expo.io/@creshsofresh/Artbits-final-project"
+      },
+      preferLocalhost: false,
+      path: "expo-development-client/"
 
     }),
     clientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
     webClientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
     androidClientId: "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
-  });
+  },);
+  // console.log(request)
 
   const getLocalUser = async () => {
     try {
@@ -87,25 +88,27 @@ export default function App() {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
         console.log(JSON.stringify(user, null, 2));
         setUser(user);
-      } else console.log("user not authenticated");
+      } else 
+      console.log("user not authenticated");
     });
 
     return () => unsub();
   }),
     [];
-  if (loading) return;
-  <View style={{ alignItems: "center", justifyContent: "center" }}>
-    <ActivityIndicator size={"small"} />
-  </View>;
+  // if (loading) return;
+  // <View style={{ alignItems: "center", justifyContent: "center" }}>
+  //   <ActivityIndicator size={"small"} />
+  // </View>;
 
-  return user ? (
-    <CustomNavigator />
-  ) : (
-    <View style={styles.container}>
-      <SignInScreen promptAsync={promptAsync} />
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <CustomNavigator/>
+  // return user ? (
+  //   <CustomNavigator />
+  // ) : (
+  //   <View style={styles.container}>
+  //     <SignInScreen promptAsync={promptAsync} />
+  //     <StatusBar style="auto" />
+  //   </View>
+  // );
 }
 
 const styles = StyleSheet.create({

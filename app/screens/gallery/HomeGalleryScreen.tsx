@@ -1,14 +1,10 @@
 import { useState } from "react";
 import {
   TouchableOpacity,
-  Image,
   StyleSheet,
   View,
   Text,
-  ScrollView,
 } from "react-native";
-import { FlashList } from "@shopify/flash-list";
-import { Dimensions } from "react-native";
 import { colors } from "../../theme/colors";
 import {GalleryCarousel} from"./GalleryCarrousel"
 

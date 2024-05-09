@@ -1,5 +1,8 @@
 import { View, Image, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { database } from "../../../firebaseConfig";
+import { useEffect, useState } from "react";
 
 type ProyectImages = {
   id: number;
@@ -237,12 +240,36 @@ const data: ProyectImages[] = [
   },
 ];
 export const GalleryCarousel = ({ viewMode }) => {
-  const filteredData = data.filter((item) => item.type === viewMode);
 
+
+  const [data, setData] = useState([]);
+
+
+  // const filteredData = data.filter((item) => item.type === viewMode);
+
+  useEffect(() => {
+    const collectionRef = collection(database, "Projects");
+    const q = query(collectionRef, orderBy("publish_date", "desc"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      // onSnapshot is a listener that listens to changes in the database in realtime
+      console.log("querySnapshot unsusbscribe");
+      setData(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          url: doc.data().url,
+          title: doc.data().title,
+          description: doc.data().description,
+        
+        }))
+      );
+    });
+    return unsubscribe; 
+
+  }, []);
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <FlashList
-        data={filteredData}
+        data={data}
         numColumns={2} 
         horizontal={false}
         showsVerticalScrollIndicator={false}

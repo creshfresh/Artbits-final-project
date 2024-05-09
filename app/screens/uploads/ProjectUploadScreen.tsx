@@ -11,53 +11,31 @@ import {
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
-// import * as ImagePicker from "expo-image-picker";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapshot, doc } from "firebase/firestore";
+import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { database, storage } from "../../../firebaseConfig";
+import { ProjectUploadControler } from "./controler/ProjectUploadControler";
+const win = Dimensions.get("window");
 
 export const ProjectUploadScreen = ({ navigation }) => {
-  const win = Dimensions.get("window");
-
-  const handleNavigation = () => {
-    navigation.navigate("PublishProjectScreen");
-  };
   const [image, setImage] = useState("");
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     // allowsEditing: true,
-  //     // allowsMultipleSelection:true,
-  //     selectionLimit: 5,
-  //     quality: 0.2,
-  //     aspect: [3, 4],
-  //   });
 
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //   }
-  // };
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+    //   selectionLimit: 5,
+      quality: 0.2,
+      aspect: [3, 4],
+    });
 
-  async function uploadImage(uri: string, fileType: string) {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    const storageRef = ref(storage, "Project");
-  }
-
-  async function saveRecord(fileType, url, createdAt) {
-    try {
-      const docRef = await addDoc(collection(database, "Projects"), {
-        fileType,
-        url,
-        createdAt,
-      });
-      console.log("document saved correctly", docRef.id);
-    } catch (e) {
-      console.log(e);
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
-  }
+  };
+  const goToDetail = () => {
+      navigation.navigate('PublishProjectScreen', {image:image} )
+ 
+ }
 
   return (
     <View style={{ flex: 1, padding: 10 }}>
@@ -86,13 +64,13 @@ export const ProjectUploadScreen = ({ navigation }) => {
           Tamaño máximo: 20MB
         </Text>
         <View style={{ marginTop: 50 }}>
-          {/* <Button title="Selecciona una imagen" onPress={pickImage} /> */}
+          <Button title="Selecciona una imagen" onPress={pickImage} />
         </View>
         <View style={{ marginTop: 50, display: "flex" }}>
           {image && <Image source={{ uri: image }} style={styles.image} />}
         </View>
-
-        {image && (
+{/* 
+        {image && ( */}
           <View
             style={{
             flex: 1,
@@ -118,7 +96,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
                 borderColor: "transparent",
                 height: "auto",
               }}
-              onPress={handleNavigation}
+              onPress={()=>goToDetail()}
             >
               <Text
                 style={{
@@ -133,7 +111,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        {/* )} */}
       </View>
     </View>
   );
