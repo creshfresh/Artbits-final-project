@@ -5,19 +5,19 @@ import {
   signInWithCredential,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
-import { StatusBar } from "expo-status-bar";
+// import i18next, {languageResources} from './i18next';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google"
 import React, { useEffect, useState } from "react";
 import SignInScreen from "./app/screens/SignInScreen";
 import { CustomNavigator } from "./app/navigation/CustomNavigator";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
 import { makeRedirectUri } from 'expo-auth-session'
 import Constants from 'expo-constants';
+import "./i18next"
 
-console.log("Comeme los huevoasfdasfsdfdss")
 
 WebBrowser.maybeCompleteAuthSession();
 

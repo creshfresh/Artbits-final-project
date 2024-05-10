@@ -12,8 +12,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
 import { Card } from "../../components/Card";
 import { colors } from "../../theme/colors";
+import { useTranslation } from "react-i18next";
+
 
 export const FlatListContestInternships = ({ navigation }) => {
+  const { t } = useTranslation();
+
   const data: string[] = ["Concursos ", "Becas"];
   const handleNavigation = (item) => {
     console.log(item);

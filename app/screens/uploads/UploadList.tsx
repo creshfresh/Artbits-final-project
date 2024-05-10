@@ -3,15 +3,19 @@ import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "../../hooks/useTranslations";
 
 /*En esta vista se tendrá que evaluar
  El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
  Listas de subir proyecto, beca o concurso
 Para los usuarios de academia subir cursos y las empresas subir ofertas de trabajo*/
 export const UploadList = ({ navigation }) => {
+  const { t } = useTranslation();
+
   const data: string[] = [
+
     "Subir concurso / Beca",
-    "Subir proyecto",
+    t("upload-project"),
   ];
 
   const handleNavigation = (item) => {

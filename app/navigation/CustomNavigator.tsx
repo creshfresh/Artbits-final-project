@@ -134,7 +134,7 @@ const InternShipsAndContestStackNavigator = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="FlatListContestInternships"
-        component={FlatListContestInternships}
+        component={ContestArtGrantViewForms}
       />
       <Stack.Screen name="Sign in" component={SignInScreen} />
       <Stack.Screen

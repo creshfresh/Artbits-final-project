@@ -10,8 +10,7 @@ const palette = {
 
   //Main color, same color of logo
   primary100: "#E53A12",
-  primary200: "#E53A12",
-
+  primary200: "#F19C88",
   //Secondary color
   secondary100: "#3A7ED7",
 
@@ -26,6 +25,7 @@ export const colors = {
   main: palette.primary100,
   text: palette.black100,
 
+  contest:palette.primary200,
   dateText: palette.neutral700,
 
   textDim: palette.primary100,
