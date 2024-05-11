@@ -3,43 +3,51 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
+  ToastAndroid,
 } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
-
-import { useTranslation } from "../../../hooks/useTranslations";
-import { useState } from "react";
-import { colors } from "../../../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../../../theme/colors";
+import { ArtGrantControler } from "./ArtGrantControler";
+import { useTranslation } from "../../../hooks/useTranslations";
 
 export const ArtGrantForm = () => {
   const { t } = useTranslation();
-  const [isChecked, setChecked] = useState(false);
-  const height = useHeaderHeight();
-
+  const { handleChangeTex, saveGrant, state } = ArtGrantControler();
+  const handlePressSaveGrant = async () => {
+    const success = await saveGrant();
+    if (success) {
+      ToastAndroid.show("Grant saved successfully!", ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show(
+        "Error occurred while saving grant!",
+        ToastAndroid.SHORT
+      );
+    }
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: "transparent" }}
     >
       <View style={{ flexDirection: "column" }}>
-      <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "700",
-              color: colors.secondary,
-              paddingBottom:20
-            }}
-          >
-            {t("all.mandatory.field")}</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "700",
+            color: colors.secondary,
+            paddingBottom: 20,
+          }}
+        >
+          {t("all.mandatory.field")}
+        </Text>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("name")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "name")}
+            value={state.name}
             placeholder={t("name.placeholder.grant")}
             keyboardType="default"
           />
@@ -48,7 +56,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("organization.centre")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "organization")}
+            value={state.organization}
             placeholder={t("organization.placeholder")}
             keyboardType="default"
           />
@@ -58,7 +67,8 @@ export const ArtGrantForm = () => {
 
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "totalGranted")}
+            value={state.totalGranted}
             placeholder={t("total.granted.placeholder")}
             keyboardType="default"
           />
@@ -67,7 +77,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("start.date")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "startDate")}
+            value={state.startDate}
             placeholder={t("start.date.placeholder")}
             keyboardType="default"
           />
@@ -76,7 +87,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("dead.line")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "finishDate")}
+            value={state.finishDate}
             placeholder={t("dead.line.placeholder")}
             keyboardType="default"
           />
@@ -85,7 +97,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("min.age")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "minAge")}
+            value={state.minAge}
             placeholder={t("min.age.placeholder")}
             keyboardType="default"
           />
@@ -94,7 +107,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("max.age")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "maxAge")}
+            value={state.maxAge}
             placeholder={t("max.age.placeholder")}
             keyboardType="default"
           />
@@ -103,7 +117,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("participants")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "participants")}
+            value={state.participants}
             placeholder={t("participants.placeholder")}
             keyboardType="default"
           />
@@ -112,7 +127,8 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("work.specifications")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "specifications")}
+            value={state.specifications}
             placeholder={t("description.placeholder")}
             keyboardType="default"
           />
@@ -121,7 +137,16 @@ export const ArtGrantForm = () => {
           <Text style={styles.title}>{t("bases")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "bases")}
+            value={state.bases}
+            placeholder={t("bases.placeholder")}
+            keyboardType="default"
+          />
+        </View>
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("cartel")}</Text>
+          <TextInput
+            style={styles.text_intup}
             placeholder={t("bases.placeholder")}
             keyboardType="default"
           />
@@ -135,7 +160,6 @@ export const ArtGrantForm = () => {
           }}
         >
           <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
-          
             {t("add.offical.bases")}
           </Text>
 
@@ -156,7 +180,7 @@ export const ArtGrantForm = () => {
         }}
       >
         {/* Si los campos obligatorios no están cumplidos, que el botón esté desactivado */}
-        <Pressable style={styles.publish_button}>
+        <Pressable style={styles.publish_button} onPress={handlePressSaveGrant}>
           <Text style={styles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>

@@ -1,23 +1,23 @@
-import React from "react";
-import { colors } from "../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
-import { SettingsScreenKK } from "../screens/SettingsScreenKK";
-import { ProfileScreen } from "../screens/profile/ProfileScreen";
-import { HomeGalleryScreen } from "../screens/gallery/HomeGalleryScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { UploadList } from "../screens/uploads/UploadList";
-import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { useTranslation } from "../hooks/useTranslations";
+import { SettingsScreenKK } from "../screens/SettingsScreenKK";
 import SignInScreen from "../screens/SignInScreen";
-import { ContestScreen } from "../screens/contest/ContestScreen";
 import { ArtGrantScreen } from "../screens/artGrants/ArtGrantsScreen";
+import { ContestScreen } from "../screens/contest/ContestScreen";
+import { HomeGalleryScreen } from "../screens/gallery/HomeGalleryScreen";
 import { PorfolioDetail } from "../screens/profile/PortfolioDetail";
+import { ProfileScreen } from "../screens/profile/ProfileScreen";
+import { ContestArtGrantViewForms } from "../screens/uploads/ContestArtGrantViewForms";
 import { ProjectUploadScreen } from "../screens/uploads/ProjectUploadScreen";
 import { PublishProjectScreen } from "../screens/uploads/PublishProjectScreen";
 import { SuccesUpload } from "../screens/uploads/SuccesUpload";
-import { ContestArtGrantViewForms } from "../screens/uploads/ContestArtGrantViewForms";
-import { useTranslation } from "../hooks/useTranslations";
+import { UploadList } from "../screens/uploads/UploadList";
+import { JobFormView } from "../screens/uploads/jobs/JobForm";
+import { colors } from "../theme/colors";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,7 +66,27 @@ const UploadStackNavigation = () => {
         options={({ navigation }) => ({
           headerShown: true,
           // headerShadowVisible: false,
-          headerTitle: "Publicar Concuro o Beca",
+          headerTitle: t("upload.contest.artGrant"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          // headerStyle: {
+          //   backgroundColor: "transparent",
+          // },
+        })}
+      />
+      <Stack.Screen
+        name="JobFormView"
+        component={JobFormView}
+        options={({ navigation }) => ({
+          headerShown: true,
+          // headerShadowVisible: false,
+          headerTitle: t("upload.job"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -118,6 +138,8 @@ const UploadStackNavigation = () => {
 };
 
 const InternShipsAndContestStackNavigator = () => {
+  const { t } = useTranslation();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -144,7 +166,7 @@ const InternShipsAndContestStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerShadowVisible: false,
-          headerTitle: "Becas",
+          headerTitle: t("art.grants"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -160,7 +182,7 @@ const InternShipsAndContestStackNavigator = () => {
         component={ContestScreen}
         options={({ navigation }) => ({
           headerShown: true,
-          headerTitle: "Concursos",
+          headerTitle: t("contests"),
           headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons
@@ -176,6 +198,8 @@ const InternShipsAndContestStackNavigator = () => {
   );
 };
 const PortfolioStackNavigator = () => {
+  const { t } = useTranslation();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -201,7 +225,7 @@ const PortfolioStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerShadowVisible: false,
-          headerTitle: "Detail",
+          headerTitle: t("detail"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"

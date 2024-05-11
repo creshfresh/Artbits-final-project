@@ -66,8 +66,10 @@
     "work.specifications.placeholder": "Dimentions and cuantity",
     "bases.placeholder": "Write a summary of the bases",
     "cash.price.placeholder": "Total cash price",
-    "vacancies.placeholder": "Number of vacancies"
+    "vacancies.placeholder": "Number of vacancies",
  
+    "upload.job":"Upload jobs",
+    "upload.course":" Upload course"
     
 
 

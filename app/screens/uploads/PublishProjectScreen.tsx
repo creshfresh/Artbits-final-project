@@ -19,6 +19,11 @@ import { useTranslation } from "../../hooks/useTranslations";
 const win = Dimensions.get("window");
 
 export const PublishProjectScreen = ({ route, navigation }) => {
+  
+  const { image } = route.params;
+  const [value, setValue] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const options = [
     { label: "Traditional", value: "traditional" },
     { label: "Digital", value: "digital" },
@@ -31,11 +36,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       </View>
     );
   };
-  const { image } = route.params;
-
-  const [value, setValue] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
   async function saveRecord(
     user_id,
@@ -146,21 +146,14 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             >
             {t("mandatory.field")}
           </Text>
-          <View
-            style={{
-              marginVertical: 25,
-            }}
-            >
-            <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-              *{t("title")}
-            </Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={setTitle}
-              placeholder={t("title.placeholder")}
-              keyboardType="default"
-              />
-          </View>
+      
+        </View>
+        <View
+          style={{
+            marginTop: 15,
+          }}
+          >
+
           <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
             {t("description")}
           </Text>
@@ -170,10 +163,10 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             placeholder={t("description.placeholder")}
             keyboardType="default"
             />
-        </View>
+            </View>
         <View
           style={{
-            marginVertical: 25,
+            marginVertical: 15,
           }}
           >
           <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
@@ -196,6 +189,21 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
             renderItem={renderItem}
             />
+                <View
+            style={{
+              marginVertical: 15,
+            }}
+            >
+            <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
+              *{t("title")}
+            </Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setTitle}
+              placeholder={t("title.placeholder")}
+              keyboardType="default"
+              />
+          </View>
         </View>
         {title !== "" ? (
           <View
@@ -277,7 +285,8 @@ const styles = StyleSheet.create({
     borderColor: "#DEDEDE",
     borderBottomWidth: 1,
     borderRadius: 12,
-    padding: 12,
+    padding: 10,
+    marginTop:-5
   },
   item: {
     padding: 17,

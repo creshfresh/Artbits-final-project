@@ -1,35 +1,56 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  ToastAndroid,
+} from "react-native";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { useState } from "react";
 import Checkbox from "expo-checkbox";
 import { colors } from "../../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
+import { ConestControler } from "./ContestControler";
 
 export const ContestForm = () => {
   const { t } = useTranslation();
   const [isChecked, setChecked] = useState(false);
-
+  const { handleChangeTex, saveContest, state } = ConestControler();
+  const handlePressSaveGrant = async () => {
+    const success = await saveContest();
+    if (success) {
+      ToastAndroid.show(" successfully!", ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show(
+        "Error occurred while saving grant!",
+        ToastAndroid.SHORT
+      );
+    }
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: "transparent" }}
     >
       <View style={{ flexDirection: "column" }}>
-      <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "700",
-              color: colors.secondary,
-              paddingBottom:20
-            }}
-          >
-            {t("all.mandatory.field")}</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "700",
+            color: colors.secondary,
+            paddingBottom: 20,
+          }}
+        >
+          {t("all.mandatory.field")}
+        </Text>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("name")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "name")}
+            value={state.name}
             placeholder={t("name.placeholder.contest")}
             keyboardType="default"
           />
@@ -39,7 +60,8 @@ export const ContestForm = () => {
           <Text style={styles.title}>{t("organization.centre")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "organization")}
+            value={state.organization}
             placeholder={t("organization.placeholder")}
             keyboardType="default"
           />
@@ -69,7 +91,8 @@ export const ContestForm = () => {
           </View>
           <TextInput
             style={[styles.text_intup, styles.cash_texinput]}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "totalCash")}
+            value={state.totalCash.toString()}
             placeholder={t("cash.price.placeholder")}
             keyboardType="numeric"
           />
@@ -79,7 +102,8 @@ export const ContestForm = () => {
           <Text style={styles.title}>{t("start.date")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "startDate")}
+            value={state.startDate}
             placeholder={t("start.date.placeholder")}
             keyboardType="default"
           />
@@ -88,7 +112,8 @@ export const ContestForm = () => {
           <Text style={styles.title}>{t("dead.line")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "finishDate")}
+            value={state.finishDate}
             placeholder={t("dead.line.placeholder")}
             keyboardType="default"
           />
@@ -97,7 +122,8 @@ export const ContestForm = () => {
           <Text style={styles.title}>{t("min.age")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "minAge")}
+            value={state.minAge}
             placeholder={t("min.age.placeholder")}
             keyboardType="numeric"
           />
@@ -106,16 +132,19 @@ export const ContestForm = () => {
           <Text style={styles.title}>{t("max.age")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "maxAge")}
+            value={state.maxAge}
             placeholder={t("max.age.placeholder")}
-            keyboardType="numeric"          />
+            keyboardType="numeric"
+          />
         </View>
       </View>
       <View style={styles.divided}>
         <Text style={styles.title}>{t("participants")}</Text>
         <TextInput
           style={styles.text_intup}
-          onChangeText={() => {}}
+          onChangeText={(value) => handleChangeTex(value, "participants")}
+          value={state.participants}
           placeholder={t("participants.placeholder")}
           keyboardType="default"
         />
@@ -124,15 +153,18 @@ export const ContestForm = () => {
         <Text style={styles.title}>{t("work.specifications")}</Text>
         <TextInput
           style={styles.text_intup}
-          onChangeText={() => {}}
+          onChangeText={(value) => handleChangeTex(value, "specifications")}
+          value={state.specifications}
+
           placeholder={t("work.specifications.placeholder")}
-          keyboardType="numeric"        />
+          keyboardType="numeric"
+        />
       </View>
       <View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("bases")}</Text>
           <TextInput
-            multiline= {true}
+            multiline={true}
             style={styles.text_intup}
             onChangeText={() => {}}
             placeholder={t("bases.placeholder")}
@@ -223,5 +255,4 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     letterSpacing: 1.25,
   },
-
 });

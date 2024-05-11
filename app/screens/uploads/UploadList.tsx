@@ -1,9 +1,9 @@
-import { View, StyleSheet, Text, ScrollView, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
-import { colors } from "../../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 /*En esta vista se tendrá que evalua
  El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
@@ -13,12 +13,23 @@ Para los usuarios de academia subir cursos
 export const UploadList = ({ navigation }) => {
   const { t } = useTranslation();
 
-  const data: string[] = [t("upload.contest.artGrant"), t("upload.project")];
+  const data: string[] = [
+    t("upload.contest.artGrant"),
+    t("upload.project"),
+    t("upload.course"), t("upload.job"),
+  ];
 
   const handleNavigation = (item) => {
-    item === t("upload.project")
-      ? navigation.navigate("ProjectUploadScreen")
-      : navigation.navigate("ContestArtGrantViewForms");
+    if (item === t("upload.project"))
+      navigation.navigate("ProjectUploadScreen");
+    else if (item === t("upload.contest.artGrant"))
+      navigation.navigate("ContestArtGrantViewForms");
+    else if(item ===("upload.course")
+     ) navigation.navigate("ContestArtGrantViewForms");
+    else {
+   navigation.navigate("JobFormView");
+
+    }
   };
 
   return (

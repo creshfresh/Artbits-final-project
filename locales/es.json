@@ -68,5 +68,10 @@
     "work.specifications.placeholder": "Dimensiones y cantidad",
     "bases.placeholder": "Escribe un resumen de las bases",
     "cash price.placeholder": "Premio total en efectivo",
-    "vacancies.placeholder": "Número de plazas"
+    "vacancies.placeholder": "Número de plazas",
+
+    "upload.job":"Subir trabajos",
+    "upload.course":"Subir cursos"
+    
+
   }
