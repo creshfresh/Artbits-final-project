@@ -14,11 +14,12 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { ProjectUploadControler } from "./controler/ProjectUploadControler";
+import { useTranslation } from "../../hooks/useTranslations";
 const win = Dimensions.get("window");
 
 export const ProjectUploadScreen = ({ navigation }) => {
   const [image, setImage] = useState("");
-
+  const {t} = useTranslation();
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -58,13 +59,13 @@ export const ProjectUploadScreen = ({ navigation }) => {
         <Ionicons size={40} name="cloud-upload-outline" color={colors.text} />
 
         <Text style={{ fontSize: 20, fontWeight: "700", padding: 10 }}>
-          Subir archivos multimedia
+         {t("upload.multimedia.archives")}
         </Text>
         <Text style={{ fontSize: 15, fontWeight: "200" }}>
-          Tamaño máximo: 20MB
+          {t("max.size")}
         </Text>
         <View style={{ marginTop: 50 }}>
-          <Button title="Selecciona una imagen" onPress={pickImage} />
+          <Button title={t("select.image")} onPress={pickImage} />
         </View>
         <View style={{ marginTop: 50, display: "flex" }}>
           {image && <Image source={{ uri: image }} style={styles.image} />}
@@ -107,11 +108,11 @@ export const ProjectUploadScreen = ({ navigation }) => {
                   textAlign: "center",
                 }}
               >
-                Continuar
+                {t("continue")}
               </Text>
             </TouchableOpacity>
           </View>
-        {/* )} */}
+ 
       </View>
     </View>
   );

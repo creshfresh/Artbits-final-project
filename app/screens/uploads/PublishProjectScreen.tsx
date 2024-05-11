@@ -14,12 +14,16 @@ import React, { useState } from "react";
 import { database, storage } from "../../../firebaseConfig";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useTranslation } from "../../hooks/useTranslations";
 
 const win = Dimensions.get("window");
 
 export const PublishProjectScreen = ({ route, navigation }) => {
-  const options = [{ label: "Traditional", value: "traditional" }, { label: "Digital", value: "digital" }];
-  
+  const options = [
+    { label: "Traditional", value: "traditional" },
+    { label: "Digital", value: "digital" },
+  ];
+  const { t } = useTranslation();
   const renderItem = (item) => {
     return (
       <View style={styles.item}>
@@ -28,7 +32,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
     );
   };
   const { image } = route.params;
-  
+
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -41,7 +45,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
     description,
     fileType,
     medium_type
-
   ) {
     try {
       const docRef = await addDoc(collection(database, "Projects"), {
@@ -51,7 +54,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
         publish_date,
         description,
         fileType,
-        medium_type
+        medium_type,
       });
       console.log("document saved correctly", docRef.id);
     } catch (e) {
@@ -91,7 +94,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                 description,
                 fileType,
                 value
-
               ).then;
               navigation.navigate("SuccesUpload");
             })
@@ -141,7 +143,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               padding: 10,
             }}
           >
-            Todo marcado con un (*) es un campo obligatorio
+            {t("mandatory.field")}
           </Text>
           <View
             style={{
@@ -149,50 +151,50 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-              *Titulo
+              *{t("title")}
             </Text>
             <TextInput
               style={styles.input}
               onChangeText={setTitle}
-              placeholder="Cuál es el título de tu obra"
+              placeholder={t("title.placeholder")}
               keyboardType="default"
             />
           </View>
           <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-            Descripción
+            {t("description")}
           </Text>
           <TextInput
             style={styles.input}
             onChangeText={setDescription}
-            placeholder="Añade una descripción al proyecto"
+            placeholder={t("description.placeholder")}
             keyboardType="default"
           />
         </View>
         <View
-            style={{
-              marginVertical: 25,
-            }}
-          >
-        <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-            Tipo de medium
-          </Text>
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          data={options}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder="Select item"
-          searchPlaceholder="Search..."
-          value={value}
-          onChange={(item) => {
-            setValue(item.value);
+          style={{
+            marginVertical: 25,
           }}
-          renderItem={renderItem}
-        />
+        >
+          <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
+            {t("medium.type")}
+          </Text>
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={options}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={t("select.option")}
+            searchPlaceholder="Search..."
+            value={value}
+            onChange={(item) => {
+              setValue(item.value);
+            }}
+            renderItem={renderItem}
+          />
         </View>
         {title !== "" ? (
           <View
@@ -231,7 +233,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                   textAlign: "center",
                 }}
               >
-                Publicar proyecto
+                {t("publish.project")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -275,15 +277,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderRadius: 12,
     padding: 12,
-    
-
   },
   item: {
     padding: 17,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    color:colors.secondary
+    color: colors.secondary,
   },
   textItem: {
     flex: 1,

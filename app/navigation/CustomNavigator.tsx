@@ -17,11 +17,12 @@ import { ProjectUploadScreen } from "../screens/uploads/ProjectUploadScreen";
 import { PublishProjectScreen } from "../screens/uploads/PublishProjectScreen";
 import { SuccesUpload } from "../screens/uploads/SuccesUpload";
 import { ContestArtGrantViewForms } from "../screens/uploads/ContestArtGrantViewForms";
+import { useTranslation } from "../hooks/useTranslations";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
 const UploadStackNavigation = () => {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -45,7 +46,7 @@ const UploadStackNavigation = () => {
         options={({ navigation }) => ({
           // headerShown: true,
           // headerShadowVisible: false,
-          headerTitle: "Subir",
+          headerTitle: t("upload"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -103,7 +104,7 @@ const UploadStackNavigation = () => {
       <Stack.Screen
         name="SuccesUpload"
         component={SuccesUpload}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerShown: false,
           headerShadowVisible: false,
           headerTitle: "Info",

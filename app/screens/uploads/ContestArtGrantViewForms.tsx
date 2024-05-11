@@ -4,6 +4,7 @@ import { colors } from "../../theme/colors";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
+import { ContestForm } from "../contest/ContestForm";
 
 export const ContestArtGrantViewForms = () => {
   const [lng, setLng] = useState("en");
@@ -16,6 +17,8 @@ export const ContestArtGrantViewForms = () => {
   type ViewMode = "Beca" | "Concurso";
   const [viewMode, setViewMode] = useState<ViewMode>("Beca");
   return (
+    <>
+    
     <View
       style={{
         display: "flex",
@@ -33,7 +36,6 @@ export const ContestArtGrantViewForms = () => {
         onPress={() => {
           {
             setViewMode("Concurso");
-            console.log(viewMode);
           }
         }}
       >
@@ -57,7 +59,6 @@ export const ContestArtGrantViewForms = () => {
         onPress={() => {
           {
             setViewMode("Beca");
-            console.log(viewMode);
           }
         }}
       >
@@ -69,7 +70,7 @@ export const ContestArtGrantViewForms = () => {
               : styles.switchTextinactive)
           }
         >
-          Beca
+         { t("artGrant")}
         </Text>
       </Pressable>
 
@@ -79,7 +80,17 @@ export const ContestArtGrantViewForms = () => {
         color={colors.secondary}
         onPress={handleTranslation}
       />
+
+     
     </View>
+     <View style={{flexDirection:"column", display:"flex", flex:1, margin:10}}>
+                {viewMode === "Beca" ? (
+        <ContestForm />
+      ) : (
+        <ContestForm />
+      )}
+     </View>
+     </>
   );
 };
 const styles = StyleSheet.create({
@@ -100,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 40,
     borderWidth: 2,
-    width: "auto",
+    width: 140,
     marginEnd: -1,
     borderColor: "#323232",
     paddingHorizontal: 35,
@@ -113,6 +124,8 @@ const styles = StyleSheet.create({
     height: 40,
     marginStart: -1,
     borderWidth: 2,
+    width: 140,
+
     borderColor: "#323232",
     paddingHorizontal: 35,
   },

@@ -7,8 +7,11 @@ import {
 } from "react-native";
 import { colors } from "../../theme/colors";
 import {GalleryCarousel} from"./GalleryCarrousel"
+import { useTranslation } from "../../hooks/useTranslations";
 
 export const HomeGalleryScreen = () => {
+
+  const {t} = useTranslation();
   type ViewMode = "Traditional" | "Digital";
   const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
 
@@ -33,7 +36,7 @@ export const HomeGalleryScreen = () => {
                 : styles.switchTextinactive
             }
           >
-            Tradicional
+           {t("traditional")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

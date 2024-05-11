@@ -5,22 +5,21 @@ import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
 
-/*En esta vista se tendrá que evaluar
+/*En esta vista se tendrá que evalua
  El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
  Listas de subir proyecto, beca o concurso
-Para los usuarios de academia subir cursos y las empresas subir ofertas de trabajo*/
+Para los usuarios de academia subir cursos
+ y las empresas subir ofertas de trabajo*/
 export const UploadList = ({ navigation }) => {
   const { t } = useTranslation();
 
-  const data: string[] = [
-
-    "Subir concurso / Beca",
-    t("upload-project"),
-  ];
+  const data: string[] = [t("upload.contest.artGrant"), t("upload.project")];
 
   const handleNavigation = (item) => {
-    item === "Subir proyecto" ?navigation.navigate("ProjectUploadScreen") : navigation.navigate("ContestArtGrantViewForms")
-  }
+    item === "Subir proyecto"
+      ? navigation.navigate("ProjectUploadScreen")
+      : navigation.navigate("ContestArtGrantViewForms");
+  };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -34,10 +33,7 @@ export const UploadList = ({ navigation }) => {
           renderItem={({ item }) => (
             <View style={styles.container}>
               <Text style={styles.text}>{item}</Text>
-              <Pressable
-                 onPress={() =>
-                  handleNavigation(item)
-                }>
+              <Pressable onPress={() => handleNavigation(item)}>
                 <Ionicons
                   size={25}
                   name="chevron-forward-outline"

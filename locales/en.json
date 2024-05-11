@@ -1,6 +1,37 @@
 {
+    "welcome": "Welcome to",
+
     "contest": "Contest",
-    "welcome": "Welcome to my app",
-    "upload-project":"Upload project"
+    "artGrant": "Art grant",
+    "upload": "Upload",
+    "sign.in":"Sign in",
+    "log.out":"Log out",
+      
+    "portfolio":"Portfolio",
+    "summary":"Summary",
+    "personal.web":"Personal web",
+    "follow.social":"Follow me on social media",
+    "contact":"Contact",
+    "about":"About",
+
+    "upload.project":"Upload project",
+    "upload.contest.artGrant":"Upload Contest or Art Grant",
+    "traditional":"Traditional",
+    "digital":"Digital",
+  
+    "upload.multimedia.archives":"Upload mulimedia archives",
+    "continue":"Continue",
+    "select.image":"Select image",
+    "max.size":"Maximum size: 20MB",
+
+    "mandatory.field":"Everything marked with an (*) is a required field",
+    "title":"Title",
+    "medium.type":"Medium type",
+    "description":"Description",
+    "publish.project":"Publish project",
+    "title.placeholder":"What is the title of your work",
+    "description.placeholder":"Add a description to the project",
+    "select.option":"Select an option"
+
 
   }

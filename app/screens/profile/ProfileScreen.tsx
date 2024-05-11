@@ -16,14 +16,16 @@ import { useState } from "react";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { AboutScreen } from "./AboutScreen";
 import { DummyData } from "../../../Constants";
-
+import { useTranslation } from "../../hooks/useTranslations";
 
 export const ProfileScreen = ({ navigation }) => {
+
+
+
   const user = usePersonStore((state) => state.user);
-  type ViewMode = "Portfolio" | "About";
-
+  type ViewMode = "Portfolio" | "About"| "Favourite";
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
-
 
   return (
     <>
@@ -52,8 +54,7 @@ export const ProfileScreen = ({ navigation }) => {
       {/* {user?.photoURL && (
         <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
       )} */}
-        <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
-
+      <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
 
       <View style={styles.card}>
         {/* <Text style={styles.textTittle}>{user.displayName}</Text> */}
@@ -62,7 +63,7 @@ export const ProfileScreen = ({ navigation }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            margin:5,
+            margin: 5,
             justifyContent: "center",
           }}
         >
@@ -78,8 +79,8 @@ export const ProfileScreen = ({ navigation }) => {
         style={{
           display: "flex",
           flexDirection: "row",
-          marginTop:10,
-          marginBottom:5,
+          marginTop: 10,
+          marginBottom: 5,
           justifyContent: "center",
         }}
       >
@@ -99,7 +100,7 @@ export const ProfileScreen = ({ navigation }) => {
                 : styles.switchTextinactive
             }
           >
-            Portfolio
+            {t("portfolio")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -118,15 +119,16 @@ export const ProfileScreen = ({ navigation }) => {
                 : styles.switchTextinactive
             }
           >
-            About
+            {t("about")}
           </Text>
         </TouchableOpacity>
       </View>
 
-      {viewMode === "Portfolio"  ? <ProfolioCarrousel navigation={navigation}/> :<AboutScreen/>}
-
-
-     
+      {viewMode === "Portfolio" ? (
+        <ProfolioCarrousel navigation={navigation} />
+      ) : (
+        <AboutScreen />
+      )}
     </>
   );
 };
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderColor: "white",
-    backgroundColor:"#DEDEDE",
+    backgroundColor: "#DEDEDE",
     borderWidth: 3,
     borderRadius: 50,
     position: "absolute",
