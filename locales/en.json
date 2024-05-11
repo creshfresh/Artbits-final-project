@@ -6,6 +6,7 @@
     "upload": "Upload",
     "sign.in":"Sign in",
     "log.out":"Log out",
+    "publish":"Publish",
       
     "portfolio":"Portfolio",
     "summary":"Summary",
@@ -25,13 +26,49 @@
     "max.size":"Maximum size: 20MB",
 
     "mandatory.field":"Everything marked with an (*) is a required field",
+    "all.mandatory.field":"Every field is required",
     "title":"Title",
     "medium.type":"Medium type",
     "description":"Description",
     "publish.project":"Publish project",
     "title.placeholder":"What is the title of your work",
     "description.placeholder":"Add a description to the project",
-    "select.option":"Select an option"
+    "select.option":"Select an option",
+
+      
+    "name":"Name",
+    "organization.centre":"Organization centre",
+    "destiny.center":"Organization centre",
+    "total.granted":"Total granted",
+    "start.date":"Start date",
+    "dead.line":"Finish date",
+    "min.age":"Minimun age",
+    "max.age":"Maximum age",
+    "participants":"Participants",
+    "work.specifications":"Art work specifications",
+    "bases":"Bases",
+    "cash.price":"Cash price",
+    "cuantity":"Cuantity",
+    "vacancies":"Number of vacancies",
+    "add.offical.bases":"Add offical bases in pdf format",
+    
+
+    "name.placeholder.contest":"Name of the contest",
+    "name.placeholder.grant":"Name of the art grant",
+    "organization.placeholder": "Name of the organization",
+    "destiny.center.placeholder": "Name of the education centre to study",
+    "total.granted.placeholder": "Total cash granted",
+    "start.date.placeholder": "Format dd/mm/yy",
+    "dead.line.placeholder": "Format dd/mm/yy",
+    "min.age.placeholder":  "Minimun age to participate",
+    "max.age.placeholder": "Maximum age to participate ",
+    "participants.placeholder": "Spain or international",
+    "work.specifications.placeholder": "Dimentions and cuantity",
+    "bases.placeholder": "Write a summary of the bases",
+    "cash.price.placeholder": "Total cash price",
+    "vacancies.placeholder": "Number of vacancies"
+ 
+    
 
 
   }

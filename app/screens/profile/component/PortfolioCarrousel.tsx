@@ -45,7 +45,7 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
   }, []);
 /*Esta pantalla recibe todos los proyectos pertenecientes al usuario logueado*/
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView  showsVerticalScrollIndicator={false}  style= {{backgroundColor:"transparent"}}>
       <FlashList
         data={data}
         numColumns={2}

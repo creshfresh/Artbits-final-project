@@ -4,7 +4,7 @@ const palette = {
   neutral200: "#E9E8E8",
   neutral300: "#E3E3E3",
   neutral400: "#ADABAB",
-  neutral500: "#72809C",
+  neutral500: "#D3D3D3",
   neutral600: "#D9D9D9",
   neutral700: "#747474",
 
@@ -16,6 +16,8 @@ const palette = {
 
   //Blacks
   black100: "#323232",
+  //Whites
+  white: "#FFFF"
 } as const;
 
 export const colors = {

@@ -1,20 +1,9 @@
-import { signOut } from "firebase/auth";
-import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
-import { useEffect } from "react";
-import { Card } from "../../components/Card";
-import { FlashList } from "@shopify/flash-list";
 import { colors } from "../../theme/colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { auth } from "../../../firebaseConfig";
-import { usePersonStore } from "../../../store/store";
+import { View, Text, StyleSheet, } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
 
 export const AboutScreen = ({}) => {
-  const { signOutZustand } = usePersonStore();
   const { t } = useTranslation();
-  const handleSignout = () => {
-    signOutZustand();
-  };
 
   /* Esta pantalla eseña los datos del usuario logeado*/
   return (
@@ -31,15 +20,6 @@ export const AboutScreen = ({}) => {
         <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
         <Text style={styles.mainTitle}>{t("contact")}</Text>
         <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
-        <Pressable
-          onPress={async () => {
-            await signOut(auth);
-            await AsyncStorage.removeItem("@user");
-            handleSignout();
-          }}
-        >
-          <Text>{t("log.out")}</Text>
-        </Pressable>
       </View>
     </View>
   );

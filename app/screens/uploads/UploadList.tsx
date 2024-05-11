@@ -16,7 +16,7 @@ export const UploadList = ({ navigation }) => {
   const data: string[] = [t("upload.contest.artGrant"), t("upload.project")];
 
   const handleNavigation = (item) => {
-    item === "Subir proyecto"
+    item === t("upload.project")
       ? navigation.navigate("ProjectUploadScreen")
       : navigation.navigate("ContestArtGrantViewForms");
   };

@@ -242,7 +242,7 @@ const TabNavigator = () => {
         tabBarStyle: { height: 60 },
       })}
     >
-      <Tab.Screen name="Home" component={HomeGalleryScreen} />
+      <Tab.Screen name="Home" component={HomeGalleryScreen} options={{headerShown: false,}}/>
       <Tab.Screen
         name="Search"
         component={InternShipsAndContestStackNavigator}

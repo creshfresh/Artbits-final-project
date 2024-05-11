@@ -20,17 +20,53 @@
     "traditional":"Traditional",
     "digital":"Digital",
     "continue":"Continuar",
+    "publish":"Publicar",
 
     "upload.multimedia.archives":"Subir archivos multimedia",
     "select.image":"Selecciona una imagen",
     "max.size":"Tamaño máximo: 20MB",
 
     "mandatory.field":"Todo marcado con un (*) es un campo obligatorio",
+    "all.mandatory.field":"Todos los campos son obligatorios",
+
     "title":"Título",
     "medium.type":"Tipo de medium",
     "description":"Descripción",
     "publish.project":"Publicar proyecto",
     "title.placeholder":"Cuál es el título de tu obra",
     "description.placeholder":"Añade una descripción al proyecto",
-    "select.option":"Seleciona una opción"
+    "select.option":"Seleciona una opción",
+
+      
+    "name":"Nombre",
+    "organization.centre":"Centro organizativo",
+    "destiny.center":"Centro destino",
+    "total.granted":"Total becado",
+    "start.date":"Fecha de apertura",
+    "dead.line":"Fecha de cierre",
+    "min.age":"Edad mínima",
+    "max.age":"Edad máxima",
+    "participants":"Participantes",
+    "work.specifications":"Especificaciones de la obra",
+    "bases":"Bases",
+    "cash.price":"Premio en metático",   
+    "cuantity":"Cantidad", 
+    "vacancies":"Número de vacantes",
+    "add.offical.bases":"Añade las bases oficiales en formato pdf",
+    
+    "name.placeholder.contest":"Nombre del concurso",
+    "name.placeholder.grant":"Nombre de la beca artística",
+  
+    "organization.placeholder": "Nombre de la organización",
+    "destiny.center.placeholder": "Nombre del centro educativo para estudiar",
+    "total.granted.placeholder": "Total en efectivo concedido",
+    "start.date.placeholder": "Formato dd/mm/aa",
+    "dead.line.placeholder": "Formato dd/mm/aa",
+    "min.age.placeholder": "Edad mínima para participar",
+    "max.age.placeholder": "Edad máxima para participar",
+    "participants.placeholder": "España o internacional",
+    "work.specifications.placeholder": "Dimensiones y cantidad",
+    "bases.placeholder": "Escribe un resumen de las bases",
+    "cash price.placeholder": "Premio total en efectivo",
+    "vacancies.placeholder": "Número de plazas"
   }

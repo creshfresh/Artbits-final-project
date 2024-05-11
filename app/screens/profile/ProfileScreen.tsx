@@ -7,37 +7,71 @@ import {
   Button,
   Image,
   Pressable,
+  Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { usePersonStore } from "../../../store/store";
 import { colors } from "../../theme/colors";
+import { Feather } from "@expo/vector-icons";
+
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { AboutScreen } from "./AboutScreen";
-import { DummyData } from "../../../Constants";
 import { useTranslation } from "../../hooks/useTranslations";
+import { auth } from "../../../firebaseConfig";
 
+const windowWidth = Dimensions.get("window").width;
 export const ProfileScreen = ({ navigation }) => {
-
-
-
   const user = usePersonStore((state) => state.user);
-  type ViewMode = "Portfolio" | "About"| "Favourite";
+  type ViewMode = "Portfolio" | "About" | "Favourite";
   const { t } = useTranslation();
+  const { signOutZustand } = usePersonStore();
+  const handleSignout = () => {
+    signOutZustand();
+  };
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
 
   return (
     <>
       <View
         style={{
-          height: 120,
+          height: 150,
           borderBottomEndRadius: 20,
           borderBottomStartRadius: 20,
           backgroundColor: colors.main,
         }}
       >
-        {/* <LinearGradient
+        <View
+          style={{
+            position: "absolute",
+            flexDirection: "row",
+            marginStart:windowWidth*0.78,
+            alignItems: "center",
+            display: "flex",
+            gap:15
+          }}
+        >
+          <Ionicons
+            name="log-out-outline"
+            size={28}
+            onPress={async () => {
+              await signOut(auth);
+              await AsyncStorage.removeItem("@user");
+              handleSignout();
+            }}
+            color={colors.palette.white}
+            style={{ marginTop: 20, }}
+          ></Ionicons>
+          <Feather
+            name="edit-2"
+            onPress={()=>{}}
+            size={22}
+            color={colors.palette.white}
+            style={{ marginTop: 20 }}
+          ></Feather>
+        </View>
+        {/* <LinearGradients
           colors={["#AA99DB", "#3A7ED7"]}
           style={{
             position: "absolute",
@@ -189,7 +223,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "center",
     justifyContent: "center",
-    top: 55,
+    top: 85,
   },
   active: {
     backgroundColor: "#D9D9D9",
@@ -206,5 +240,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#323232",
     fontWeight: "600",
+  },
+  ellipsis_vertical: {
+    position: "absolute",
+    marginStart: windowWidth * 0.9,
   },
 });

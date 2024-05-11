@@ -1,96 +1,105 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, View, Text } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { colors } from "../../theme/colors";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
-import { ContestForm } from "../contest/ContestForm";
+import { ContestForm } from "./contest/ContestForm";
+import { ArtGrantForm } from "./artGrant/ArtGrantForm";
 
 export const ContestArtGrantViewForms = () => {
   const [lng, setLng] = useState("en");
 
   const { t, changeLanguage, getCurrentLocale } = useTranslation();
   const handleTranslation = () => {
-   changeLanguage(getCurrentLocale() === "en" ? "es" :"en");
+    changeLanguage(getCurrentLocale() === "en" ? "es" : "en");
   };
 
   type ViewMode = "Beca" | "Concurso";
   const [viewMode, setViewMode] = useState<ViewMode>("Beca");
   return (
     <>
-    
-    <View
-      style={{
-        display: "flex",
-        marginTop: 60,
-        flexDirection: "row",
-        justifyContent: "center",
-        paddingHorizontal: 10,
-      }}
-    >
-      <Pressable
-        style={[
-          styles.switchButtonRight,
-          viewMode === "Concurso" ? styles.active : styles.inactive,
-        ]}
-        onPress={() => {
-          {
-            setViewMode("Concurso");
-          }
+      <View
+        style={{
+          display: "flex",
+          marginTop: 100,
+          flexDirection: "row",
+          justifyContent: "center",
+          paddingHorizontal: 10,
         }}
       >
-        <Text
-          style={
-            (styles.switchButtonRight,
-            viewMode === "Beca"
-              ? styles.switchTextActive
-              : styles.switchTextinactive)
-          }
+        <Pressable
+          style={[
+            styles.switchButtonRight,
+            viewMode === "Concurso" ? styles.active : styles.inactive,
+          ]}
+          onPress={() => {
+            {
+              setViewMode("Concurso");
+            }
+          }}
         >
-          {t("contest")}
-        </Text>
-      </Pressable>
+          <Text
+            style={
+              (styles.switchButtonRight,
+              viewMode === "Beca"
+                ? styles.switchTextActive
+                : styles.switchTextinactive)
+            }
+          >
+            {t("contest")}
+          </Text>
+        </Pressable>
 
-      <Pressable
-        style={[
-          styles.switchButtonLeft,
-          viewMode === "Beca" ? styles.active : styles.inactive,
-        ]}
-        onPress={() => {
-          {
-            setViewMode("Beca");
-          }
+        <Pressable
+          style={[
+            styles.switchButtonLeft,
+            viewMode === "Beca" ? styles.active : styles.inactive,
+          ]}
+          onPress={() => {
+            {
+              setViewMode("Beca");
+            }
+          }}
+        >
+          <Text
+            style={
+              (styles.switchButtonLeft,
+              viewMode === "Concurso"
+                ? styles.switchTextActive
+                : styles.switchTextinactive)
+            }
+          >
+            {t("artGrant")}
+          </Text>
+        </Pressable>
+      </View>
+        <View style={{flexDirection:"row", justifyContent:"center"}}>
+          <Ionicons
+            name="globe-outline"
+            size={25}
+            color={colors.secondary}
+            onPress={handleTranslation}
+          />
+        </View>
+      <View
+        style={{
+          flexDirection: "column",
+          display: "flex",
+          flex: 1,
+          margin: 10,
         }}
       >
-        <Text
-          style={
-            (styles.switchButtonLeft,
-            viewMode === "Concurso"
-              ? styles.switchTextActive
-              : styles.switchTextinactive)
-          }
-        >
-         { t("artGrant")}
-        </Text>
-      </Pressable>
-
-      <Ionicons
-        name="globe-outline"
-        size={25}
-        color={colors.secondary}
-        onPress={handleTranslation}
-      />
-
-     
-    </View>
-     <View style={{flexDirection:"column", display:"flex", flex:1, margin:10}}>
-                {viewMode === "Beca" ? (
-        <ContestForm />
-      ) : (
-        <ContestForm />
-      )}
-     </View>
-     </>
+        {viewMode === "Beca" ?  <ArtGrantForm />:<ContestForm /> }
+      </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
@@ -125,7 +134,6 @@ const styles = StyleSheet.create({
     marginStart: -1,
     borderWidth: 2,
     width: 140,
-
     borderColor: "#323232",
     paddingHorizontal: 35,
   },

@@ -22,6 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "softwarekeyboardlayoutmode":"pan",
       "package": "com.creshsofresh.Artbitsfinalproject",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",

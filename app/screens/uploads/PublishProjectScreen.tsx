@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -13,7 +14,6 @@ import { addDoc, collection, onSnapshot, doc } from "firebase/firestore";
 import React, { useState } from "react";
 import { database, storage } from "../../../firebaseConfig";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useTranslation } from "../../hooks/useTranslations";
 
 const win = Dimensions.get("window");
@@ -108,7 +108,8 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   }
 
   return (
-    <>
+    <><ScrollView>
+
       <View style={{ flex: 1, padding: 10 }}>
         <View
           style={{
@@ -116,15 +117,15 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             justifyContent: "center",
             flexDirection: "row",
           }}
-        >
+          >
           {image ? (
             <Image source={{ uri: image }} style={styles.image} />
           ) : (
             <Image
-              source={{
-                uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
-              }}
-              style={styles.image}
+            source={{
+              uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
+            }}
+            style={styles.image}
             />
           )}
         </View>
@@ -134,7 +135,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             alignItems: "flex-start",
             justifyContent: "center",
           }}
-        >
+          >
           <Text
             style={{
               fontSize: 12,
@@ -142,14 +143,14 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               color: colors.secondary,
               padding: 10,
             }}
-          >
+            >
             {t("mandatory.field")}
           </Text>
           <View
             style={{
               marginVertical: 25,
             }}
-          >
+            >
             <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
               *{t("title")}
             </Text>
@@ -158,7 +159,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               onChangeText={setTitle}
               placeholder={t("title.placeholder")}
               keyboardType="default"
-            />
+              />
           </View>
           <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
             {t("description")}
@@ -168,13 +169,13 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             onChangeText={setDescription}
             placeholder={t("description.placeholder")}
             keyboardType="default"
-          />
+            />
         </View>
         <View
           style={{
             marginVertical: 25,
           }}
-        >
+          >
           <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
             {t("medium.type")}
           </Text>
@@ -194,21 +195,21 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               setValue(item.value);
             }}
             renderItem={renderItem}
-          />
+            />
         </View>
         {title !== "" ? (
           <View
-            style={{
-              flex: 1,
-              position: "absolute",
-              height: 120,
-              bottom: -20,
-              borderTopEndRadius: 20,
-              borderTopStartRadius: 20,
-              alignItems: "center",
-              width: win.width,
-              backgroundColor: "white",
-            }}
+          style={{
+            flex: 1,
+            position: "absolute",
+            height: 120,
+            bottom: -20,
+            borderTopEndRadius: 20,
+            borderTopStartRadius: 20,
+            alignItems: "center",
+            width: win.width,
+            backgroundColor: "white",
+          }}
           >
             <TouchableOpacity
               style={{
@@ -223,7 +224,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                 height: "auto",
               }}
               onPress={() => uploadImage(image, "image")}
-            >
+              >
               <Text
                 style={{
                   color: "white",
@@ -232,13 +233,14 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                   alignContent: "center",
                   textAlign: "center",
                 }}
-              >
+                >
                 {t("publish.project")}
               </Text>
             </TouchableOpacity>
           </View>
         ) : null}
       </View>
+</ScrollView>
     </>
   );
 };
@@ -268,11 +270,10 @@ const styles = StyleSheet.create({
     height: 40,
     width: win.width * 0.9,
     marginStart: 10,
-    borderColor: "#DEDEDE",
+    borderColor: colors.palette.neutral500,
     borderBottomWidth: 1,
   },
   dropdown: {
-    marginTop: 10,
     borderColor: "#DEDEDE",
     borderBottomWidth: 1,
     borderRadius: 12,
