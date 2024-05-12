@@ -11,19 +11,65 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../theme/colors";
 import { ArtGrantControler } from "./ArtGrantControler";
 import { useTranslation } from "../../../hooks/useTranslations";
+import { useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-export const ArtGrantForm = () => {
+export const ArtGrantForm = ({ navigation }) => {
   const { t } = useTranslation();
-  const { handleChangeTex, saveGrant, state } = ArtGrantControler();
+  const [startDate, seStartDate] = useState(new Date());
+  const [endDate, seEndDate] = useState(new Date());
+  const [endDateError, setEndDateError] = useState(false);
+  const [endStartDateError, setStartDateError] = useState(false);
+  const [showStartDatePicker, setShowDatePicker] = useState(false);
+  const [showFinishDatePicker, setShowFinishDatePicker] = useState(false);
+  const [formattedStarDate, setFormattedStarDate] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
+
+  const { handleChangeTex, saveGrant, state, setShowErrors, showErrors } =
+    ArtGrantControler(startDate, endDate);
+  const handleSave = async () => {
+    const success = await saveGrant();
+    console.log(success);
+    console.log(state);
+    if (success) {
+      await navigation.navigate("SuccesUpload");
+    }
+  };
+  const onChangeStartDate = (event, selectedDate) => {
+    const currentDate: Date = selectedDate || startDate;
+    setShowDatePicker(false);
+    const formattedStarDate = currentDate.toLocaleDateString("en-GB");
+    setFormattedStarDate(formattedStarDate);
+
+    seStartDate(currentDate);
+    handleChangeTex(formattedStarDate, "startDate");
+  };
+
+  const onChangeEndDate = (event, selectedDate) => {
+    const currentDate: Date = selectedDate || endDate;
+    setShowFinishDatePicker(false);
+    const formattedDate = currentDate.toLocaleDateString("en-GB");
+    setFormattedDate(formattedDate);
+
+    if (currentDate < startDate) {
+      setEndDateError(true);
+      return;
+    }
+    setEndDateError(false);
+    seEndDate(currentDate);
+    handleChangeTex(formattedDate, "finishDate");
+  };
+
+  const toggleShowPicker = () => {
+    setShowDatePicker(!showStartDatePicker);
+  };
+  const toggleShowFinishDatePicker = () => {
+    setShowFinishDatePicker(!showFinishDatePicker);
+  };
   const handlePressSaveGrant = async () => {
     const success = await saveGrant();
     if (success) {
-      ToastAndroid.show("Grant saved successfully!", ToastAndroid.SHORT);
-    } else {
-      ToastAndroid.show(
-        "Error occurred while saving grant!",
-        ToastAndroid.SHORT
-      );
+      await navigation.navigate("SuccesUpload");
     }
   };
   return (
@@ -50,7 +96,11 @@ export const ArtGrantForm = () => {
             value={state.name}
             placeholder={t("name.placeholder.grant")}
             keyboardType="default"
+            onFocus={() => setShowErrors(false)}
           />
+          {showErrors && !state.name ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("organization.centre")}</Text>
@@ -59,8 +109,12 @@ export const ArtGrantForm = () => {
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
             placeholder={t("organization.placeholder")}
+            onFocus={() => setShowErrors(false)}
             keyboardType="default"
           />
+          {showErrors && !state.organization ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("total.granted")}</Text>
@@ -70,28 +124,64 @@ export const ArtGrantForm = () => {
             onChangeText={(value) => handleChangeTex(value, "totalGranted")}
             value={state.totalGranted}
             placeholder={t("total.granted.placeholder")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
+          {showErrors && !state.totalGranted ? (
+            <Text style={[styles.errors, { marginBottom: 10 }]}>
+              {t("error")}
+            </Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("start.date")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "startDate")}
-            value={state.startDate}
-            placeholder={t("start.date.placeholder")}
-            keyboardType="default"
-          />
+          <Pressable onPress={toggleShowPicker}>
+            <TextInput
+              style={styles.text_intup}
+              value={formattedStarDate}
+              placeholder={t("start.date.placeholder")}
+              editable={false}
+            />
+
+            {showStartDatePicker ? (
+              <DateTimePicker
+                mode="date"
+                display="calendar"
+                value={startDate}
+                onChange={onChangeStartDate}
+              />
+            ) : null}
+            {showErrors && !state.startDate ? (
+              <Text style={styles.errors}>{t("error")}</Text>
+            ) : null}
+          </Pressable>
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("dead.line")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "finishDate")}
-            value={state.finishDate}
-            placeholder={t("dead.line.placeholder")}
-            keyboardType="default"
-          />
+          <Pressable onPress={toggleShowFinishDatePicker}>
+            <TextInput
+              style={styles.text_intup}
+              value={formattedDate}
+              editable={false}
+
+              placeholder={t("dead.line.placeholder")}
+              keyboardType="default"
+              
+            />
+          </Pressable>
+          {showFinishDatePicker ? (
+            <DateTimePicker
+              mode="date"
+              display="calendar"
+              value={endDate}
+              onChange={onChangeEndDate}
+            />
+          ) : null}
+          {endDateError ? (
+            <Text style={styles.errors}>{t("error.date")}</Text>
+          ) : null}
+          {showErrors && !state.finishDate ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("min.age")}</Text>
@@ -100,8 +190,11 @@ export const ArtGrantForm = () => {
             onChangeText={(value) => handleChangeTex(value, "minAge")}
             value={state.minAge}
             placeholder={t("min.age.placeholder")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
+          {showErrors && !state.minAge ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("max.age")}</Text>
@@ -110,8 +203,11 @@ export const ArtGrantForm = () => {
             onChangeText={(value) => handleChangeTex(value, "maxAge")}
             value={state.maxAge}
             placeholder={t("max.age.placeholder")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
+          {showErrors && !state.maxAge ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("participants")}</Text>
@@ -122,6 +218,9 @@ export const ArtGrantForm = () => {
             placeholder={t("participants.placeholder")}
             keyboardType="default"
           />
+          {showErrors && !state.participants ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("work.specifications")}</Text>
@@ -132,16 +231,20 @@ export const ArtGrantForm = () => {
             placeholder={t("description.placeholder")}
             keyboardType="default"
           />
+          {showErrors && !state.specifications ?  <Text style={styles.errors}>{t("error")}</Text> : null}
         </View>
         <View style={styles.divided}>
-          <Text style={styles.title}>{t("bases")}</Text>
+          <Text style={styles.title}>{t("terms")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "bases")}
-            value={state.bases}
+            onChangeText={(value) => handleChangeTex(value, "terms")}
+            value={state.terms}
             placeholder={t("bases.placeholder")}
             keyboardType="default"
           />
+          {showErrors && !state.terms ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("cartel")}</Text>
@@ -180,7 +283,7 @@ export const ArtGrantForm = () => {
         }}
       >
         {/* Si los campos obligatorios no están cumplidos, que el botón esté desactivado */}
-        <Pressable style={styles.publish_button} onPress={handlePressSaveGrant}>
+        <Pressable style={styles.publish_button} onPress={handleSave}>
           <Text style={styles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>
@@ -228,5 +331,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     letterSpacing: 1.25,
+  },
+  errors: {
+    fontSize: 12,
+    color: "red",
   },
 });

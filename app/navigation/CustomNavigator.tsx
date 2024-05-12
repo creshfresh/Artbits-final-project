@@ -18,6 +18,7 @@ import { SuccesUpload } from "../screens/uploads/SuccesUpload";
 import { UploadList } from "../screens/uploads/UploadList";
 import { JobFormView } from "../screens/uploads/jobs/JobForm";
 import { colors } from "../theme/colors";
+import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -105,7 +106,6 @@ const UploadStackNavigation = () => {
         component={PublishProjectScreen}
         options={({ navigation }) => ({
           headerShown: true,
-
           headerShadowVisible: false,
           headerTitle: "Info",
           headerLeft: () => (
@@ -157,7 +157,7 @@ const InternShipsAndContestStackNavigator = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="FlatListContestInternships"
-        component={ContestArtGrantViewForms}
+        component={FlatListContestInternships}
       />
       <Stack.Screen name="Sign in" component={SignInScreen} />
       <Stack.Screen

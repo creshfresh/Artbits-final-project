@@ -8,22 +8,22 @@ import {
   Platform,
 } from "react-native";
 import { colors } from "../../theme/colors";
-
+import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
 import { ContestForm } from "./contest/ContestForm";
 import { ArtGrantForm } from "./artGrant/ArtGrantForm";
 
-export const ContestArtGrantViewForms = () => {
-  const [lng, setLng] = useState("en");
+export const ContestArtGrantViewForms = ({navigation}) => {
 
+ 
   const { t, changeLanguage, getCurrentLocale } = useTranslation();
   const handleTranslation = () => {
     changeLanguage(getCurrentLocale() === "en" ? "es" : "en");
   };
 
   type ViewMode = "Beca" | "Concurso";
-  const [viewMode, setViewMode] = useState<ViewMode>("Beca");
+  const [viewMode, setViewMode] = useState<ViewMode>("Concurso");
   return (
     <>
       <View
@@ -97,7 +97,7 @@ export const ContestArtGrantViewForms = () => {
           margin: 10,
         }}
       >
-        {viewMode === "Beca" ?  <ArtGrantForm />:<ContestForm /> }
+        {viewMode === "Beca" ?  <ArtGrantForm navigation={navigation} />:<ContestForm navigation={navigation}/> }
       </View>
     </>
   );

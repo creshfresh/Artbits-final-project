@@ -1,6 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 
-export const SuccesUpload = ({  }) => {
+export const SuccesUpload = ({navigation }) => {
+
+  
+  const handleNavigateToHome = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
+  };
+
   return (
     <View
       style={{
@@ -10,6 +19,7 @@ export const SuccesUpload = ({  }) => {
       }}
     >
       <Text style={{ textAlign: "center" }}>Proyecto subido yay</Text>
+      <Button title="Volver a la home" onPress={handleNavigateToHome}></Button>
     </View>
   );
 };

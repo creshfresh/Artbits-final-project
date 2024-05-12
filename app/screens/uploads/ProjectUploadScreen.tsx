@@ -18,25 +18,28 @@ import { useTranslation } from "../../hooks/useTranslations";
 const win = Dimensions.get("window");
 
 export const ProjectUploadScreen = ({ navigation }) => {
-  const [image, setImage] = useState("");
-  const {t} = useTranslation();
+  const [image, setImages] = useState([]);
+  const { t } = useTranslation();
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-    //   selectionLimit: 5,
+      // allowsEditing: true,
+      allowsMultipleSelection:true,
+      selectionLimit: 5,
       quality: 0.2,
       aspect: [3, 4],
     });
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if (!result.canceled && result.assets.length > 0) {
+      setImages((prevImages) => [
+        ...prevImages,
+        ...result.assets.map((asset) => asset.uri),
+      ]);
     }
   };
   const goToDetail = () => {
-      navigation.navigate('PublishProjectScreen', {image:image} )
- 
- }
+    navigation.navigate("PublishProjectScreen", { image: image });
+  };
 
   return (
     <View style={{ flex: 1, padding: 10 }}>
@@ -59,60 +62,60 @@ export const ProjectUploadScreen = ({ navigation }) => {
         <Ionicons size={40} name="cloud-upload-outline" color={colors.text} />
 
         <Text style={{ fontSize: 20, fontWeight: "700", padding: 10 }}>
-         {t("upload.multimedia.archives")}
+          {t("upload.multimedia.archives")}
         </Text>
-        <Text style={{ fontSize: 15, fontWeight: "200" }}>
-          {t("max.size")}
-        </Text>
+        <Text style={{ fontSize: 15, fontWeight: "200" }}>{t("max.size")}</Text>
         <View style={{ marginTop: 50 }}>
           <Button title={t("select.image")} onPress={pickImage} />
         </View>
         <View style={{ marginTop: 50, display: "flex" }}>
-          {image && <Image source={{ uri: image }} style={styles.image} />}
+          {image &&
+            image.map((uri, index) => (
+              <Image key={index} source={{ uri: uri }} style={styles.image} />
+            ))}
         </View>
-{/* 
+        {/* 
         {image && ( */}
-          <View
-            style={{
+        <View
+          style={{
             flex: 1,
-              position: "absolute",
-              height: 120,
-              bottom: -20,
-              borderTopEndRadius: 20,
-              borderTopStartRadius: 20,
-              alignItems:"center",
-              width: win.width,
-              backgroundColor: "white",
+            position: "absolute",
+            height: 120,
+            bottom: -20,
+            borderTopEndRadius: 20,
+            borderTopStartRadius: 20,
+            alignItems: "center",
+            width: win.width,
+            backgroundColor: "white",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              marginTop: 30,
+              justifyContent: "center",
+              paddingVertical: 10,
+              paddingHorizontal: 10,
+              borderRadius: 30,
+              width: 150,
+              backgroundColor: colors.secondary,
+              borderColor: "transparent",
+              height: "auto",
             }}
+            onPress={() => goToDetail()}
           >
-            <TouchableOpacity
+            <Text
               style={{
-                marginTop:30,
-                justifyContent: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                borderRadius: 30,
-                width: 150,
-                backgroundColor: colors.secondary,
-                borderColor: "transparent",
-                height: "auto",
+                color: "white",
+                fontSize: 16,
+                fontWeight: "600",
+                alignContent: "center",
+                textAlign: "center",
               }}
-              onPress={()=>goToDetail()}
             >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 16,
-                  fontWeight: "600",
-                  alignContent: "center",
-                  textAlign: "center",
-                }}
-              >
-                {t("continue")}
-              </Text>
-            </TouchableOpacity>
-          </View>
- 
+              {t("continue")}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

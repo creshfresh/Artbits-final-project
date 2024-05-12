@@ -15,14 +15,12 @@ import { database } from "../../../../firebaseConfig";
 
 type ProfolioCarrouselProps = {
   navigation: any;  
-  // data: ProjectImages[];
 };
 
 export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
   const [data, setData] = useState([]);
 
 
-  // const filteredData = data.filter((item) => item.type === viewMode);
 
   useEffect(() => {
     const collectionRef = collection(database, "Projects");

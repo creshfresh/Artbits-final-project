@@ -1,53 +1,77 @@
 import { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { database, storage } from "../../../../firebaseConfig";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
-import { ToastAndroid } from "react-native";
+import { database, storage } from "../../../../firebaseConfig";
 
+export const ArtGrantControler = (startDate, endDate ) => {
+  const grantState = {
+    name: "",
+    organization: "",
+    totalGranted: "",
+    startDate: null,
+    finishDate: null,
+    minAge: "",
+    maxAge: "",
+    participants: "",
+    specifications: "",
+    terms: "",
+  };
 
-export const ArtGrantControler = () => {
-
-    const grantState = {
-        title:"",
-        name:"",
-        organization:"",
-        totalGranted:"",
-        startDate:"",
-        finishDate:"",
-        minAge:"",
-        maxAge:"",
-        participants:"",
-        specifications:"",
-        bases:"",
-        image:"",
-        officalBases:"",
-    }
-
-const handleChangeTex = (value, name) => {
-    setState({...state, [name]:value})
-}
+  const handleChangeTex = (value, name) => {
+    setState({ ...state, [name]: value });
+  };
+  const checkAllTextFields = () => {
+    const {
+      name,
+      organization,
+      totalGranted,
+      startDate,
+      finishDate,
+      minAge,
+      maxAge,
+      participants,
+      specifications,
+      terms,
+    } = state;
+    return (
+      name &&
+      organization &&
+      totalGranted &&
+      startDate &&
+      finishDate &&
+      minAge &&
+      maxAge &&
+      participants &&
+      specifications &&
+      terms 
+      
+    );
+  };
+  const [showErrors, setShowErrors] = useState(false);
 
   const [state, setState] = useState(grantState);
 
-    const saveGrant = async () => {
-        try {
-            await addDoc(collection(database, 'Art_Grants'), { ...state });
-            return true; 
-        } catch (error) {
-            console.error("error:", error);
-            return false; 
-        }
-    };
+  const saveGrant = async () => {
+    if (checkAllTextFields()) {
+      try {
+        const data = { ...state, startDate: startDate, finishDate: endDate };
+        await addDoc(collection(database, "Art_Grants"), data);
+        return true;
+      } catch (error) {
+        console.error("error:", error);
+        return false;
+      }
+    } else {
+      setShowErrors(true);
+      console.error("Error en las validaciones");
+      return false;
+    }
+  };
 
-  
- 
-  return{
+  return {
     handleChangeTex,
     saveGrant,
-    state
-
-}
+    state,
+    showErrors,
+    setShowErrors,
+  };
 };
-
-

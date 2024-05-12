@@ -1,30 +1,27 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User, signOut } from "firebase/auth";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-  Pressable,
   Dimensions,
-  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
 } from "react-native";
-import { usePersonStore } from "../../../store/store";
+import { useState } from "react";
+import { signOut } from "firebase/auth";
+import { AboutScreen } from "./AboutScreen";
 import { colors } from "../../theme/colors";
 import { Feather } from "@expo/vector-icons";
-
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
-import { AboutScreen } from "./AboutScreen";
-import { useTranslation } from "../../hooks/useTranslations";
 import { auth } from "../../../firebaseConfig";
+import { usePersonStore } from "../../../store/store";
+import { useTranslation } from "../../hooks/useTranslations";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 
 const windowWidth = Dimensions.get("window").width;
 export const ProfileScreen = ({ navigation }) => {
   const user = usePersonStore((state) => state.user);
-  type ViewMode = "Portfolio" | "About" | "Favourite";
+  type ViewMode = "Portfolio" | "About" | "Saved";
   const { t } = useTranslation();
   const { signOutZustand } = usePersonStore();
   const handleSignout = () => {
@@ -46,10 +43,10 @@ export const ProfileScreen = ({ navigation }) => {
           style={{
             position: "absolute",
             flexDirection: "row",
-            marginStart:windowWidth*0.78,
+            marginStart: windowWidth * 0.78,
             alignItems: "center",
             display: "flex",
-            gap:15
+            gap: 15,
           }}
         >
           <Ionicons
@@ -61,11 +58,11 @@ export const ProfileScreen = ({ navigation }) => {
               handleSignout();
             }}
             color={colors.palette.white}
-            style={{ marginTop: 20, }}
+            style={{ marginTop: 20 }}
           ></Ionicons>
           <Feather
             name="edit-2"
-            onPress={()=>{}}
+            onPress={() => {}}
             size={22}
             color={colors.palette.white}
             style={{ marginTop: 20 }}
@@ -118,7 +115,7 @@ export const ProfileScreen = ({ navigation }) => {
           justifyContent: "center",
         }}
       >
-        <TouchableOpacity
+        <Pressable
           style={[
             styles.switchButton,
             viewMode === "Portfolio" ? styles.active : styles.inactive,
@@ -136,8 +133,27 @@ export const ProfileScreen = ({ navigation }) => {
           >
             {t("portfolio")}
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
+          style={[
+            styles.switchButton,
+            viewMode === "Saved" ? styles.active : styles.inactive,
+          ]}
+          onPress={() => {
+            setViewMode("Saved");
+          }}
+        >
+          <Text
+            style={
+              viewMode === "Saved"
+                ? styles.switchTextActive
+                : styles.switchTextinactive
+            }
+          >
+            {t("saved")}
+          </Text>
+        </Pressable>
+        <Pressable
           style={[
             styles.switchButton,
             viewMode === "About" ? styles.active : styles.inactive,
@@ -155,11 +171,13 @@ export const ProfileScreen = ({ navigation }) => {
           >
             {t("about")}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {viewMode === "Portfolio" ? (
         <ProfolioCarrousel navigation={navigation} />
+      ) : viewMode === "About" ? (
+        <AboutScreen />
       ) : (
         <AboutScreen />
       )}

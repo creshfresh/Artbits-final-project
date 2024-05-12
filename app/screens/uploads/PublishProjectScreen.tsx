@@ -19,10 +19,9 @@ import { useTranslation } from "../../hooks/useTranslations";
 const win = Dimensions.get("window");
 
 export const PublishProjectScreen = ({ route, navigation }) => {
-  
   const { image } = route.params;
   const [value, setValue] = useState(null);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(""); 
   const [description, setDescription] = useState("");
   const options = [
     { label: "Traditional", value: "traditional" },
@@ -61,31 +60,33 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       console.log(e);
     }
   }
-  async function uploadImage(uri: string, fileType) {
+  async function uploadImages(uris: string[], fileType) {
     try {
-      const response = await fetch(uri);
-      const blob = await response.blob();
-
-      const storageRef = ref(storage, "Images/" + new Date().getTime());
-      const uploadTask = uploadBytesResumable(storageRef, blob);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          console.log(
-            "Uploading:",
-            snapshot.totalBytes,
-            "bytes transferred out of",
-            snapshot.totalBytes
-          );
-        },
-        (error) => {
-          console.error("Upload failed:", error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then(async (downloadURL) => {
-              console.log("File available at", downloadURL);
+      // Iterar sobre cada URI de imagen en el array
+      await Promise.all(uris.map(async (uri) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+  
+        const storageRef = ref(storage, "Images/" + new Date().getTime());
+        const uploadTask = uploadBytesResumable(storageRef, blob);
+  
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            console.log(
+              "Uploading:",
+              snapshot.totalBytes,
+              "bytes transferred out of",
+              snapshot.totalBytes
+            );
+          },
+          (error) => {
+            console.error("Upload failed:", error);
+          },
+          async () => {
+            // Obtener la URL de descarga una vez que se complete la carga de la imagen
+            try {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
               await saveRecord(
                 "3828",
                 title,
@@ -94,161 +95,150 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                 description,
                 fileType,
                 value
-              ).then;
+              );
               navigation.navigate("SuccesUpload");
-            })
-            .catch((error) => {
+            } catch (error) {
               console.error("Error getting download URL:", error);
-            });
-        }
-      );
+            }
+          }
+        );
+      }));
     } catch (error) {
-      console.error("Error uploading image and saving record:", error);
+      console.error("Error uploading images and saving records:", error);
     }
   }
-
   return (
-    <><ScrollView>
-
-      <View style={{ flex: 1, padding: 10 }}>
-        <View
-          style={{
-            marginTop: 80,
-            justifyContent: "center",
-            flexDirection: "row",
-          }}
-          >
-          {image ? (
-            <Image source={{ uri: image }} style={styles.image} />
-          ) : (
-            <Image
-            source={{
-              uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
-            }}
-            style={styles.image}
-            />
-          )}
-        </View>
-
-        <View
-          style={{
-            alignItems: "flex-start",
-            justifyContent: "center",
-          }}
-          >
-          <Text
+    <>
+      <ScrollView>
+        <View style={{ flex: 1, padding: 10 }}>
+          <View
             style={{
-              fontSize: 12,
-              fontWeight: "700",
-              color: colors.secondary,
-              padding: 10,
+              marginTop: 80,
+              justifyContent: "center",
+              flexDirection: "row",
             }}
-            >
-            {t("mandatory.field")}
-          </Text>
-      
-        </View>
-        <View
-          style={{
-            marginTop: 15,
-          }}
           >
+            {image ? (
+              image.map((uri, index) => (
+                <Image key={index} source={{ uri: uri }} style={styles.image} />
+              ))
+            ) : (
+              <Image
+                source={{
+                  uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
+                }}
+                style={styles.image}
+              />
+            )}
+          </View>
 
-          <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-            {t("description")}
-          </Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setDescription}
-            placeholder={t("description.placeholder")}
-            keyboardType="default"
-            />
-            </View>
-        <View
-          style={{
-            marginVertical: 15,
-          }}
-          >
-          <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-            {t("medium.type")}
-          </Text>
-          <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            data={options}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={t("select.option")}
-            searchPlaceholder="Search..."
-            value={value}
-            onChange={(item) => {
-              setValue(item.value);
-            }}
-            renderItem={renderItem}
-            />
-                <View
+          <View
             style={{
-              marginVertical: 15,
+              alignItems: "flex-start",
+              justifyContent: "center",
             }}
+          >
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "700",
+                color: colors.secondary,
+                padding: 10,
+              }}
             >
+              {t("mandatory.field")}
+            </Text>
+          </View>
+          <View
+            style={{
+              marginTop: 15,
+            }}
+          >
             <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-              *{t("title")}
+              {t("description")}
             </Text>
             <TextInput
               style={styles.input}
-              onChangeText={setTitle}
-              placeholder={t("title.placeholder")}
+              onChangeText={setDescription}
+              placeholder={t("description.placeholder")}
               keyboardType="default"
-              />
+            />
           </View>
-        </View>
-        {title !== "" ? (
           <View
-          style={{
-            flex: 1,
-            position: "absolute",
-            height: 120,
-            bottom: -20,
-            borderTopEndRadius: 20,
-            borderTopStartRadius: 20,
-            alignItems: "center",
-            width: win.width,
-            backgroundColor: "white",
-          }}
+            style={{
+              marginVertical: 15,
+            }}
           >
-            <TouchableOpacity
-              style={{
-                marginTop: 30,
-                justifyContent: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                borderRadius: 30,
-                width: win.width * 0.9,
-                backgroundColor: colors.main,
-                borderColor: "transparent",
-                height: "auto",
+            <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
+              {t("medium.type")}
+            </Text>
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              data={options}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={t("select.option")}
+              searchPlaceholder="Search..."
+              value={value}
+              onChange={(item) => {
+                setValue(item.value);
               }}
-              onPress={() => uploadImage(image, "image")}
-              >
+              renderItem={renderItem}
+            />
+            <View
+              style={{
+                marginVertical: 15,
+              }}
+            >
               <Text
-                style={{
-                  color: "white",
-                  fontSize: 18,
-                  fontWeight: "600",
-                  alignContent: "center",
-                  textAlign: "center",
-                }}
-                >
-                {t("publish.project")}
+                style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}
+              >
+                *{t("title")}
               </Text>
-            </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                onChangeText={setTitle}
+                placeholder={t("title.placeholder")}
+                keyboardType="default"
+              />
+            </View>
           </View>
-        ) : null}
-      </View>
-</ScrollView>
+          {title !== "" ? (
+       
+              <TouchableOpacity
+                style={{
+                  marginTop: 30,
+                  justifyContent: "center",
+                  paddingVertical: 10,
+                  paddingHorizontal: 10,
+                  borderRadius: 30,
+                  width: win.width * 0.9,
+                  backgroundColor: colors.main,
+                  borderColor: "transparent",
+                  height: "auto",
+                }}
+                onPress={() => uploadImages(image, "image")}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: "600",
+                    alignContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  {t("publish.project")}
+                </Text>
+              </TouchableOpacity>
+      
+          ) : null}
+        </View>
+      </ScrollView>
     </>
   );
 };
@@ -286,7 +276,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderRadius: 12,
     padding: 10,
-    marginTop:-5
+    marginTop: -5,
   },
   item: {
     padding: 17,

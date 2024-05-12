@@ -15,6 +15,7 @@ export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {
 
   /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
 let filter = viewMode.toLowerCase()
+
 console.log(filter)
   useEffect(() => {
     const collectionRef = collection(database, "Projects");
@@ -34,6 +35,7 @@ console.log(filter)
     return unsubscribe; 
 
   }, [filter]);
+  
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <FlashList

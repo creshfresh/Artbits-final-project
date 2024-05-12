@@ -7,6 +7,7 @@
     "sign.in":"Sign in",
     "log.out":"Log out",
     "publish":"Publish",
+    "saved": "Saved",
       
     "portfolio":"Portfolio",
     "summary":"Summary",
@@ -46,7 +47,9 @@
     "max.age":"Maximum age",
     "participants":"Participants",
     "work.specifications":"Art work specifications",
-    "bases":"Bases",
+    "terms":"Terms",
+    "object.and.pourpose":"Object and pourpose",
+    "url.bases":"Web for offical bases",
     "cash.price":"Cash price",
     "cuantity":"Cuantity",
     "vacancies":"Number of vacancies",
@@ -67,10 +70,13 @@
     "bases.placeholder": "Write a summary of the bases",
     "cash.price.placeholder": "Total cash price",
     "vacancies.placeholder": "Number of vacancies",
- 
-    "upload.job":"Upload jobs",
-    "upload.course":" Upload course"
-    
+    "url.bases.placeholder":"Add the link to download the bases",
+    "object.and.pourpose.placeholder":"Write the brief justification",
 
+    "upload.job":"Upload jobs",
+    "upload.course":" Upload course",
+    "error": "Error, value is required",
+
+    "error.date":"date cannot be earlier than the start date"
 
   }

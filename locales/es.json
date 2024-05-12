@@ -3,7 +3,7 @@
 
     "contest": "Concurso",
     "artGrant": "Beca",
-    
+    "saved":"Guardado",
     "upload": "Subir",
     "sign.in":"Iniciar sesión",
     "log.out":"Cerrar sesión",
@@ -48,9 +48,10 @@
     "max.age":"Edad máxima",
     "participants":"Participantes",
     "work.specifications":"Especificaciones de la obra",
-    "bases":"Bases",
+    "terms":"Términos",
     "cash.price":"Premio en metático",   
     "cuantity":"Cantidad", 
+    "object.and.pourpose":"Objetivo y propósito",
     "vacancies":"Número de vacantes",
     "add.offical.bases":"Añade las bases oficiales en formato pdf",
     
@@ -66,12 +67,16 @@
     "max.age.placeholder": "Edad máxima para participar",
     "participants.placeholder": "España o internacional",
     "work.specifications.placeholder": "Dimensiones y cantidad",
-    "bases.placeholder": "Escribe un resumen de las bases",
+    "terms.placeholder": "Escribe un resumen de los términos",
     "cash price.placeholder": "Premio total en efectivo",
     "vacancies.placeholder": "Número de plazas",
+    "object.and.pourpose.placeholder":"Escribe una breve justificación",
 
     "upload.job":"Subir trabajos",
-    "upload.course":"Subir cursos"
+    "upload.course":"Subir cursos",
+    "error": "Error, el campo es obligatorio",
+    "error.date":"La fecha no puede ser anterior a la fecha de inicio"
+
     
 
   }

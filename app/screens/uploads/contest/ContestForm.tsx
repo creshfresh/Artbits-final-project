@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Pressable,
-  ToastAndroid,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { useState } from "react";
 import Checkbox from "expo-checkbox";
@@ -13,22 +6,62 @@ import { colors } from "../../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 import { ConestControler } from "./ContestControler";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-export const ContestForm = () => {
+export const ContestForm = ({ navigation }) => {
+
   const { t } = useTranslation();
-  const [isChecked, setChecked] = useState(false);
-  const { handleChangeTex, saveContest, state } = ConestControler();
-  const handlePressSaveGrant = async () => {
-    const success = await saveContest();
-    if (success) {
-      ToastAndroid.show(" successfully!", ToastAndroid.SHORT);
-    } else {
-      ToastAndroid.show(
-        "Error occurred while saving grant!",
-        ToastAndroid.SHORT
-      );
-    }
+  const [isChecked, setIsChecked] = useState(false);
+  const [startDate, seStartDate] = useState(new Date());
+  const [endDate, seEndDate] = useState(new Date());
+  const [endDateError, setEndDateError] = useState(false); 
+  const [showStartDatePicker, setShowDatePicker] = useState(false);
+  const [showFinishDatePicker, setShowFinishDatePicker] = useState(false);
+  const [formattedStarDate, setFormattedStarDate] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
+
+  const { handleChangeTex, saveContest, state, setShowErrors, showErrors } =
+    ConestControler(startDate, endDate);
+
+    const handleSave = async () => {
+      const success = await saveContest(); 
+      console.log(success)
+      console.log(state)
+      if (success) {
+        await navigation.navigate("SuccesUpload");
+      }
+    };
+  const onChangeStartDate = (event, selectedDate) => {
+    const currentDate: Date = selectedDate || startDate;
+    setShowDatePicker(false);
+    seStartDate(currentDate);
+    const formattedStarDate = currentDate.toLocaleDateString("en-GB");
+    setFormattedStarDate(formattedStarDate);
+    handleChangeTex(formattedStarDate, "startDate");
   };
+
+  const onChangeEndDate = (event, selectedDate) => {
+    const currentDate: Date = selectedDate || endDate;
+    setShowFinishDatePicker(false);
+    const formattedDate = currentDate.toLocaleDateString("en-GB");
+    setFormattedDate(formattedDate);
+
+    if (currentDate < startDate) {
+      setEndDateError(true);
+      return;
+    }
+    setEndDateError(false);
+    seEndDate(currentDate);
+    handleChangeTex(formattedDate, "finishDate");
+  };
+
+  const toggleShowPicker = () => {
+    setShowDatePicker(!showStartDatePicker);
+  };
+  const toggleShowFinishDatePicker = () => {
+    setShowFinishDatePicker(!showFinishDatePicker);
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -53,7 +86,11 @@ export const ContestForm = () => {
             value={state.name}
             placeholder={t("name.placeholder.contest")}
             keyboardType="default"
+            onFocus={() => setShowErrors(false)}
           />
+          {showErrors && !state.name ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
 
         <View style={styles.divided}>
@@ -63,8 +100,12 @@ export const ContestForm = () => {
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
             placeholder={t("organization.placeholder")}
+            onFocus={() => setShowErrors(false)}
             keyboardType="default"
           />
+          {showErrors && !state.organization ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View
           style={{
@@ -81,42 +122,94 @@ export const ContestForm = () => {
               alignItems: "center",
             }}
           >
-            <Checkbox
-              style={styles.checkbox}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? colors.secondary : undefined}
-            />
-            <Text style={styles.cash_title}>{t("cash.price")}</Text>
+            <Pressable
+              onPress={() => setIsChecked(!isChecked)}
+              style={{
+                justifyContent: "flex-start",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Checkbox
+                style={styles.checkbox}
+                value={isChecked}
+                onValueChange={setIsChecked}
+                color={isChecked ? colors.secondary : undefined}
+              />
+              <Text style={styles.cash_title}>{t("cash.price")}</Text>
+            </Pressable>
           </View>
           <TextInput
-            style={[styles.text_intup, styles.cash_texinput]}
+            style={[
+              styles.text_intup,
+              styles.cash_texinput,
+              !isChecked && { backgroundColor: "#d9d9d9", color: "#b8b8b8" },
+            ]}
             onChangeText={(value) => handleChangeTex(value, "totalCash")}
             value={state.totalCash.toString()}
             placeholder={t("cash.price.placeholder")}
+            placeholderTextColor={!isChecked ? "#b8b8b8" : colors.text}
+            onFocus={() => setShowErrors(false)}
             keyboardType="numeric"
+            editable={isChecked}
           />
         </View>
+        {showErrors && !state.totalCash && !isChecked? (
+          <Text style={[styles.errors, { marginBottom: 10 }]}>
+            {t("error")}
+          </Text>
+        ) : null}
 
         <View style={styles.divided}>
           <Text style={styles.title}>{t("start.date")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "startDate")}
-            value={state.startDate}
-            placeholder={t("start.date.placeholder")}
-            keyboardType="default"
-          />
+
+          <Pressable onPress={toggleShowPicker}>
+            <TextInput
+              style={styles.text_intup}
+              value={formattedStarDate}
+              placeholder={t("start.date.placeholder")}
+              editable={false}
+            />
+          </Pressable>
+
+          {showStartDatePicker ? (
+            <DateTimePicker
+              mode="date"
+              display="calendar"
+              value={startDate}
+              onChange={onChangeStartDate}
+            />
+          ) : null}
+          {showErrors && !state.startDate ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
+      
         </View>
+
         <View style={styles.divided}>
           <Text style={styles.title}>{t("dead.line")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "finishDate")}
-            value={state.finishDate}
-            placeholder={t("dead.line.placeholder")}
-            keyboardType="default"
-          />
+          <Pressable onPress={toggleShowFinishDatePicker}>
+            <TextInput
+              style={styles.text_intup}
+              value={formattedDate}
+              placeholder={t("dead.line.placeholder")}
+              editable={false}
+            />
+          </Pressable>
+          {showFinishDatePicker ? (
+            <DateTimePicker
+              mode="date"
+              display="calendar"
+              value={endDate}
+              onChange={onChangeEndDate}
+            />
+          ) : null}
+          {endDateError ? (
+            <Text style={styles.errors}>{t("error.date")}</Text>
+          ) : null}
+          {showErrors && !state.finishDate ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("min.age")}</Text>
@@ -127,6 +220,9 @@ export const ContestForm = () => {
             placeholder={t("min.age.placeholder")}
             keyboardType="numeric"
           />
+          {showErrors && !state.minAge ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("max.age")}</Text>
@@ -137,6 +233,9 @@ export const ContestForm = () => {
             placeholder={t("max.age.placeholder")}
             keyboardType="numeric"
           />
+          {showErrors && !state.maxAge ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
       </View>
       <View style={styles.divided}>
@@ -148,6 +247,7 @@ export const ContestForm = () => {
           placeholder={t("participants.placeholder")}
           keyboardType="default"
         />
+        {showErrors && !state.participants ? <Text style={styles.errors}>{t("error")}</Text> : null}
       </View>
       <View style={styles.divided}>
         <Text style={styles.title}>{t("work.specifications")}</Text>
@@ -155,42 +255,64 @@ export const ContestForm = () => {
           style={styles.text_intup}
           onChangeText={(value) => handleChangeTex(value, "specifications")}
           value={state.specifications}
-
           placeholder={t("work.specifications.placeholder")}
-          keyboardType="numeric"
+          keyboardType="default"
         />
+        {showErrors ? <Text style={styles.errors}>{t("error")}</Text> : null}
       </View>
       <View>
         <View style={styles.divided}>
-          <Text style={styles.title}>{t("bases")}</Text>
+          <Text style={styles.title}>{t("terms")}</Text>
           <TextInput
             multiline={true}
             style={styles.text_intup}
-            onChangeText={() => {}}
+            onChangeText={(value) => handleChangeTex(value, "terms")}
+            value={state.terms}
             placeholder={t("bases.placeholder")}
             keyboardType="default"
           />
+          {showErrors && !state.terms? <Text style={styles.errors}>{t("error")}</Text> : null}
         </View>
-        <View
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("object.and.pourpose")}</Text>
+          <TextInput
+            multiline={true}
+            style={styles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "objetive")}
+            value={state.objetive}
+            placeholder={t("object.and.pourpose.placeholder")}
+            keyboardType="default"
+          />
+          {showErrors && !state.objetive ?<Text style={styles.errors}>{t("error")}</Text> : null}
+        </View>
+        {/* <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             marginVertical: 10,
             justifyContent: "flex-end",
           }}
-        >
-          <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
-            {t("add.offical.bases")}
-          </Text>
-
-          <Ionicons
+        > */}
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("url.bases")}</Text>
+          <TextInput
+            multiline={true}
+            style={styles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "urlbases")}
+            value={state.urlbases}
+            placeholder={t("url.bases.placeholder")}
+            keyboardType="default"
+          />
+          {showErrors && !state.terms ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
+          {/* </View> */}
+          {/* <Ionicons
             name="add-circle"
             size={30}
             color={colors.secondary}
-            onPress={() => {
-              console.log("añadir bases");
-            }}
-          />
+            onPress={pickSomething}
+          /> */}
         </View>
       </View>
       <View
@@ -199,8 +321,7 @@ export const ContestForm = () => {
           marginVertical: 10,
         }}
       >
-        {/* Si los campos obligatorios no están cumplidos, que el botón esté desactivado */}
-        <Pressable style={styles.publish_button}>
+        <Pressable style={styles.publish_button} onPress={handleSave}>
           <Text style={styles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>
@@ -254,5 +375,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     letterSpacing: 1.25,
+  },
+  errors: {
+    fontSize: 12,
+    color: "red",
   },
 });

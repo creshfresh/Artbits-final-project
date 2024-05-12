@@ -1,9 +1,11 @@
 import { signOut } from "firebase/auth";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../components/Card";
 import { FlashList } from "@shopify/flash-list";
 import { colors } from "../../theme/colors";
+import { database } from "../../../firebaseConfig";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const cardData = [
   {
@@ -77,8 +79,29 @@ const cardData = [
     state: "abierto",
   },
 ];
-
+// Para el state, tendré que comprar el finish date con el día de hoy
 export const ArtGrantScreen = ({ navigation }) => {
+
+  //Habrá que 
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const collectionRef = collection(database, "Art_Grants");
+    const q = query(collectionRef, orderBy("finishDate", "asc"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      console.log("querySnapshot unsusbscribe");
+      setData(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          url: doc.data().url,
+          title: doc.data().title,
+          description: doc.data().description,
+        
+        }))
+      );
+    });
+    return unsubscribe; 
+
+  }, []);
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
 
@@ -88,10 +111,35 @@ export const ArtGrantScreen = ({ navigation }) => {
   }, []);
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      <View style={{display:"flex", justifyContent:"space-between",     flexDirection: "row",}}>
-
-      <Text style={{ fontSize: 11,color: colors.secondary , fontWeight:'600', paddingHorizontal:5, paddingBottom:10}}>Find {cardData.length} Contests</Text>
-      <Text style={{ fontSize: 11,color: colors.secondary , fontWeight:'600', paddingHorizontal:5, paddingBottom:10}}>Find {cardData.length} Contests</Text>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 11,
+            color: colors.secondary,
+            fontWeight: "600",
+            paddingHorizontal: 5,
+            paddingBottom: 10,
+          }}
+        >
+          Find {cardData.length} Contests
+        </Text>
+        <Text
+          style={{
+            fontSize: 11,
+            color: colors.secondary,
+            fontWeight: "600",
+            paddingHorizontal: 5,
+            paddingBottom: 10,
+          }}
+        >
+          Find {cardData.length} Art Grants
+        </Text>
       </View>
 
       <FlashList
