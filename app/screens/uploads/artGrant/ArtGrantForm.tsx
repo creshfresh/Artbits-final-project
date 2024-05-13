@@ -3,6 +3,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  Image,
   Pressable,
   ToastAndroid,
 } from "react-native";
@@ -12,9 +13,20 @@ import { colors } from "../../../theme/colors";
 import { ArtGrantControler } from "./ArtGrantControler";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { useState } from "react";
+import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Dropdown } from "react-native-element-dropdown";
+import { options } from "../../../../Constants";
 
 export const ArtGrantForm = ({ navigation }) => {
+
+  const renderItem = (item) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+      </View>
+    );
+  };
   const { t } = useTranslation();
   const [startDate, seStartDate] = useState(new Date());
   const [endDate, seEndDate] = useState(new Date());
@@ -24,9 +36,17 @@ export const ArtGrantForm = ({ navigation }) => {
   const [showFinishDatePicker, setShowFinishDatePicker] = useState(false);
   const [formattedStarDate, setFormattedStarDate] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
+  const [participants, setParticipants] = useState(null);
 
-  const { handleChangeTex, saveGrant, state, setShowErrors, showErrors } =
-    ArtGrantControler(startDate, endDate);
+  const {
+    handleChangeTex,
+    saveGrant,
+    state,
+    setShowErrors,
+    showErrors,
+    pickerPdf,
+    pickDocument
+  } = ArtGrantControler(startDate, endDate, participants);
   const handleSave = async () => {
     const success = await saveGrant();
     console.log(success);
@@ -162,10 +182,8 @@ export const ArtGrantForm = ({ navigation }) => {
               style={styles.text_intup}
               value={formattedDate}
               editable={false}
-
               placeholder={t("dead.line.placeholder")}
               keyboardType="default"
-              
             />
           </Pressable>
           {showFinishDatePicker ? (
@@ -211,13 +229,23 @@ export const ArtGrantForm = ({ navigation }) => {
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("participants")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "participants")}
-            value={state.participants}
-            placeholder={t("participants.placeholder")}
-            keyboardType="default"
-          />
+          <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              data={options}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={t("select.option")}
+              searchPlaceholder="Search..."
+              value={state.participants}
+              onChange={(item) => {
+                setParticipants(item.value);
+              }}
+              renderItem={renderItem}
+            />
           {showErrors && !state.participants ? (
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
@@ -231,7 +259,9 @@ export const ArtGrantForm = ({ navigation }) => {
             placeholder={t("description.placeholder")}
             keyboardType="default"
           />
-          {showErrors && !state.specifications ?  <Text style={styles.errors}>{t("error")}</Text> : null}
+          {showErrors && !state.specifications ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("terms")}</Text>
@@ -246,14 +276,7 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("cartel")}</Text>
-          <TextInput
-            style={styles.text_intup}
-            placeholder={t("bases.placeholder")}
-            keyboardType="default"
-          />
-        </View>
+        
         <View
           style={{
             flexDirection: "row",
@@ -270,10 +293,29 @@ export const ArtGrantForm = ({ navigation }) => {
             name="add-circle"
             size={30}
             color={colors.secondary}
-            onPress={() => {
-              console.log("añadir bases");
-            }}
+            onPress={pickDocument}
           />
+          
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
+            marginEnd:5,
+            justifyContent: "flex-end",
+          }}
+        >
+          {pickerPdf && (
+            <>
+              <FontAwesome
+                name="file-pdf-o"
+                size={20}
+                color={colors.main}
+              ></FontAwesome>
+              <Text style={{color:colors.main,fontWeight:"500", marginLeft:5}}>Pdf seleccionado</Text>
+            </>
+          )}
         </View>
       </View>
       <View
@@ -336,4 +378,32 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red",
   },
+  placeholderStyle: {
+    fontSize: 15,
+  },
+  dropdown: {
+    borderColor: "#DEDEDE",
+    borderBottomWidth: 1,
+    borderRadius: 12,
+    padding: 10,
+    marginTop: -5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: colors.secondary,
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },  selectedTextStyle: {
+    fontSize: 15,
+  },
+
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  }
 });

@@ -48,7 +48,7 @@
     "participants":"Participants",
     "work.specifications":"Art work specifications",
     "terms":"Terms",
-    "object.and.pourpose":"Object and pourpose",
+    "object.and.purpose":"Object and purpose",
     "url.bases":"Web for offical bases",
     "cash.price":"Cash price",
     "cuantity":"Cuantity",
@@ -71,12 +71,14 @@
     "cash.price.placeholder": "Total cash price",
     "vacancies.placeholder": "Number of vacancies",
     "url.bases.placeholder":"Add the link to download the bases",
-    "object.and.pourpose.placeholder":"Write the brief justification",
+    "object.and.purpose.placeholder":"Write the brief justification",
 
     "upload.job":"Upload jobs",
     "upload.course":" Upload course",
     "error": "Error, value is required",
+    "error.pdf": "Error, document must be a pdf",
+    "pdf.selected":"Pdf selected",
 
-    "error.date":"date cannot be earlier than the start date"
-
+    "error.date":"The provided date is inconsistent",
+    "error.age":"There is a discrepancy between the specified ages."
   }

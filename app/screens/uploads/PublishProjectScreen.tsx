@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { database, storage } from "../../../firebaseConfig";
 import { Dropdown } from "react-native-element-dropdown";
 import { useTranslation } from "../../hooks/useTranslations";
+import { options } from "../../../Constants";
 
 const win = Dimensions.get("window");
 
@@ -23,10 +24,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState(""); 
   const [description, setDescription] = useState("");
-  const options = [
-    { label: "Traditional", value: "traditional" },
-    { label: "Digital", value: "digital" },
-  ];
+
   const { t } = useTranslation();
   const renderItem = (item) => {
     return (

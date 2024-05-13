@@ -1,8 +1,9 @@
-import { useState } from "react";
+import * as DocumentPicker from "expo-document-picker";
 import { addDoc, collection } from "firebase/firestore";
-import { database, storage } from "../../../../firebaseConfig";
-
-export const ArtGrantControler = (startDate, endDate ) => {
+import { useState } from "react";
+import { database } from "../../../../firebaseConfig";
+export const ArtGrantControler = (startDate, endDate, participants) => {
+  const [pickerPdf, setPickedPDF] = useState(false);
   const grantState = {
     name: "",
     organization: "",
@@ -14,6 +15,16 @@ export const ArtGrantControler = (startDate, endDate ) => {
     participants: "",
     specifications: "",
     terms: "",
+    officalPdf: "",
+  };
+  const pickDocument = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({});
+      console.log(result, result.assets[0].uri);
+      setPickedPDF(true);
+    } catch (error) {
+      // alert(error);
+    }
   };
 
   const handleChangeTex = (value, name) => {
@@ -30,6 +41,7 @@ export const ArtGrantControler = (startDate, endDate ) => {
       maxAge,
       participants,
       specifications,
+      officalPdf,
       terms,
     } = state;
     return (
@@ -42,8 +54,8 @@ export const ArtGrantControler = (startDate, endDate ) => {
       maxAge &&
       participants &&
       specifications &&
-      terms 
-      
+      terms &&
+      officalPdf
     );
   };
   const [showErrors, setShowErrors] = useState(false);
@@ -53,7 +65,12 @@ export const ArtGrantControler = (startDate, endDate ) => {
   const saveGrant = async () => {
     if (checkAllTextFields()) {
       try {
-        const data = { ...state, startDate: startDate, finishDate: endDate };
+        const data = {
+          ...state,
+          startDate: startDate,
+          finishDate: endDate,
+          participants: participants,
+        };
         await addDoc(collection(database, "Art_Grants"), data);
         return true;
       } catch (error) {
@@ -73,5 +90,7 @@ export const ArtGrantControler = (startDate, endDate ) => {
     state,
     showErrors,
     setShowErrors,
+    pickerPdf,
+    pickDocument,
   };
 };

@@ -8,7 +8,6 @@ import {
   Platform,
 } from "react-native";
 import { colors } from "../../theme/colors";
-import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
 import { ContestForm } from "./contest/ContestForm";

@@ -1,43 +1,83 @@
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "../../../hooks/useTranslations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "expo-checkbox";
 import { colors } from "../../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 import { ConestControler } from "./ContestControler";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Dropdown } from "react-native-element-dropdown";
+import { participantsOptions } from "../../../../Constants";
+import { FontAwesome } from "@expo/vector-icons";
+import { futureDate } from "../../../../helpers";
 
 export const ContestForm = ({ navigation }) => {
-
   const { t } = useTranslation();
+  const renderItem = (item) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+      </View>
+    );
+  };
+
+  const [participants, setParticipants] = useState("Spain");
+  const [ageError, setAgeError] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [startDate, seStartDate] = useState(new Date());
-  const [endDate, seEndDate] = useState(new Date());
-  const [endDateError, setEndDateError] = useState(false); 
+  const [endDateError, setEndDateError] = useState(false);
+  const [startDateError, setStartDateError] = useState(false);
   const [showStartDatePicker, setShowDatePicker] = useState(false);
   const [showFinishDatePicker, setShowFinishDatePicker] = useState(false);
   const [formattedStarDate, setFormattedStarDate] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
+  const [endDate, setEndDate] = useState(futureDate);
+  const {
+    handleChangeTex,
+    saveContest,
+    state,
+    setShowErrors,
+    showErrors,
+    pickedPdf,
+    pickDocument,
+  } = ConestControler(startDate, endDate, participants);
 
-  const { handleChangeTex, saveContest, state, setShowErrors, showErrors } =
-    ConestControler(startDate, endDate);
+  useEffect(() => {
+    if (
+      state.minAge &&
+      state.maxAge &&
+      parseInt(state.minAge) >= parseInt(state.maxAge)
+    ) {
+      setAgeError(true);
+      return;
+    } else {
+      setAgeError(false);
+    }
+  }, [state.minAge, state.maxAge]);
 
-    const handleSave = async () => {
-      const success = await saveContest(); 
-      console.log(success)
-      console.log(state)
-      if (success) {
-        await navigation.navigate("SuccesUpload");
-      }
-    };
+  const handleSave = async () => {
+    const success = await saveContest(pickedPdf);
+    console.log(success);
+    console.log(state);
+    if (success) {
+      await navigation.navigate("SuccesUpload");
+    }
+  };
+
   const onChangeStartDate = (event, selectedDate) => {
     const currentDate: Date = selectedDate || startDate;
     setShowDatePicker(false);
+    const formattedStartDate = currentDate.toLocaleDateString("en-GB");
+    setFormattedStarDate(formattedStartDate);
+    if (currentDate > endDate) {
+      console.log(endDate);
+      setStartDateError(true);
+      return;
+    }
+    setStartDateError(false);
     seStartDate(currentDate);
-    const formattedStarDate = currentDate.toLocaleDateString("en-GB");
-    setFormattedStarDate(formattedStarDate);
-    handleChangeTex(formattedStarDate, "startDate");
+    handleChangeTex(formattedStartDate, "startDate");
   };
 
   const onChangeEndDate = (event, selectedDate) => {
@@ -51,7 +91,7 @@ export const ContestForm = ({ navigation }) => {
       return;
     }
     setEndDateError(false);
-    seEndDate(currentDate);
+    setEndDate(currentDate);
     handleChangeTex(formattedDate, "finishDate");
   };
 
@@ -61,7 +101,10 @@ export const ContestForm = ({ navigation }) => {
   const toggleShowFinishDatePicker = () => {
     setShowFinishDatePicker(!showFinishDatePicker);
   };
-
+  useEffect(() => {
+    onChangeStartDate(null, startDate);
+    onChangeEndDate(null, endDate);
+  }, [endDate, startDate]);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -154,7 +197,7 @@ export const ContestForm = ({ navigation }) => {
             editable={isChecked}
           />
         </View>
-        {showErrors && !state.totalCash && !isChecked? (
+        {showErrors && !state.totalCash && !isChecked ? (
           <Text style={[styles.errors, { marginBottom: 10 }]}>
             {t("error")}
           </Text>
@@ -180,10 +223,12 @@ export const ContestForm = ({ navigation }) => {
               onChange={onChangeStartDate}
             />
           ) : null}
+          {startDateError ? (
+            <Text style={styles.errors}>{t("error.date")}</Text>
+          ) : null}
           {showErrors && !state.startDate ? (
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
-      
         </View>
 
         <View style={styles.divided}>
@@ -200,7 +245,7 @@ export const ContestForm = ({ navigation }) => {
             <DateTimePicker
               mode="date"
               display="calendar"
-              value={endDate}
+              value={new Date()}
               onChange={onChangeEndDate}
             />
           ) : null}
@@ -220,6 +265,9 @@ export const ContestForm = ({ navigation }) => {
             placeholder={t("min.age.placeholder")}
             keyboardType="numeric"
           />
+          {ageError ? (
+            <Text style={styles.errors}>{t("error.age")}</Text>
+          ) : null}
           {showErrors && !state.minAge ? (
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
@@ -233,6 +281,9 @@ export const ContestForm = ({ navigation }) => {
             placeholder={t("max.age.placeholder")}
             keyboardType="numeric"
           />
+          {ageError ? (
+            <Text style={styles.errors}>{t("error.age")}</Text>
+          ) : null}
           {showErrors && !state.maxAge ? (
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
@@ -240,14 +291,26 @@ export const ContestForm = ({ navigation }) => {
       </View>
       <View style={styles.divided}>
         <Text style={styles.title}>{t("participants")}</Text>
-        <TextInput
-          style={styles.text_intup}
-          onChangeText={(value) => handleChangeTex(value, "participants")}
+        <Dropdown
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          data={participantsOptions}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={t("select.option")}
+          searchPlaceholder="Search..."
           value={state.participants}
-          placeholder={t("participants.placeholder")}
-          keyboardType="default"
+          onChange={(item) => {
+            setParticipants(item.value)
+          }}
+          renderItem={renderItem}
         />
-        {showErrors && !state.participants ? <Text style={styles.errors}>{t("error")}</Text> : null}
+        {showErrors && !state.participants ? (
+          <Text style={styles.errors}>{t("error")}</Text>
+        ) : null}
       </View>
       <View style={styles.divided}>
         <Text style={styles.title}>{t("work.specifications")}</Text>
@@ -271,49 +334,73 @@ export const ContestForm = ({ navigation }) => {
             placeholder={t("bases.placeholder")}
             keyboardType="default"
           />
-          {showErrors && !state.terms? <Text style={styles.errors}>{t("error")}</Text> : null}
+          {showErrors && !state.terms ? (
+            <Text style={styles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
-          <Text style={styles.title}>{t("object.and.pourpose")}</Text>
+          <Text style={styles.title}>{t("object.and.purpose")}</Text>
           <TextInput
             multiline={true}
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "objetive")}
             value={state.objetive}
-            placeholder={t("object.and.pourpose.placeholder")}
+            placeholder={t("object.and.purpose.placeholder")}
             keyboardType="default"
           />
-          {showErrors && !state.objetive ?<Text style={styles.errors}>{t("error")}</Text> : null}
-        </View>
-        {/* <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: 10,
-            justifyContent: "flex-end",
-          }}
-        > */}
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("url.bases")}</Text>
-          <TextInput
-            multiline={true}
-            style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "urlbases")}
-            value={state.urlbases}
-            placeholder={t("url.bases.placeholder")}
-            keyboardType="default"
-          />
-          {showErrors && !state.terms ? (
+          {showErrors && !state.objetive ? (
             <Text style={styles.errors}>{t("error")}</Text>
           ) : null}
-          {/* </View> */}
-          {/* <Ionicons
-            name="add-circle"
-            size={30}
-            color={colors.secondary}
-            onPress={pickSomething}
-          /> */}
         </View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
+          justifyContent: "flex-end",
+        }}
+      >
+        <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
+          {t("add.offical.bases")}
+        </Text>
+
+        <Ionicons
+          name="add-circle"
+          size={30}
+          color={colors.secondary}
+          onPress={pickDocument}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
+          marginEnd: 5,
+          justifyContent: "flex-end",
+        }}
+      >
+        {showErrors && pickedPdf.assets[0].uri === "" ? (
+          <Text style={styles.errors}>{t("error.pdf")}</Text>
+        ) : (
+          pickedPdf &&
+          pickedPdf.assets[0].uri.endsWith(".pdf") && (
+            <>
+              <FontAwesome
+                name="file-pdf-o"
+                size={20}
+                color={colors.main}
+              ></FontAwesome>
+              <Text
+                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+              >
+                {t("pdf.selected")}
+              </Text>
+            </>
+          )
+        )}
       </View>
       <View
         style={{
@@ -379,5 +466,35 @@ const styles = StyleSheet.create({
   errors: {
     fontSize: 12,
     color: "red",
+  },
+  placeholderStyle: {
+    fontSize: 15,
+  },
+  dropdown: {
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: "#C9C6C6",
+    height: 40,
+    padding: 5,
+    marginTop: 5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: colors.secondary,
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 15,
+  },
+
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });

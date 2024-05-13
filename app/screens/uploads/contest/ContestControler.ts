@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { database, storage } from "../../../../firebaseConfig";
-import * as DocumentPicker from 'expo-document-picker';
+import * as DocumentPicker from "expo-document-picker";
 import { addDoc, collection } from "firebase/firestore";
-export const ConestControler = (startDate, endDate) => {
+import { useState } from "react";
+import { database } from "../../../../firebaseConfig";
+import { Alert } from "react-native";
+
+export const ConestControler = (minDate, endDate, participants) => {
+
   const grantState = {
     name: "",
     organization: "",
@@ -11,24 +14,25 @@ export const ConestControler = (startDate, endDate) => {
     finishDate: null,
     minAge: "",
     maxAge: "",
-    participants: "",
+    participants: "Spain",
     specifications: "",
     terms: "",
-    objetive:"",
-    urlbases:"",
+    objetive: "",
+    urlbases: null,
   };
   const pickSomething = async () => {
     try {
       const docRes = await DocumentPicker.getDocumentAsync({
-        type: 'application/pdf',
-    });
-      
+        type: "application/pdf",
+      });
+
       console.log(docRes);
     } catch (error) {
       console.log("Error while selecting file: ", error);
     }
-  };  
+  };
   const [showErrors, setShowErrors] = useState(false);
+  const [pickedPdf, setPickedPDF] = useState< DocumentPicker.DocumentPickerResult>();
 
   const [state, setState] = useState(grantState);
   const handleChangeTex = (value, name) => {
@@ -39,7 +43,6 @@ export const ConestControler = (startDate, endDate) => {
     const {
       name,
       organization,
-      startDate,
       finishDate,
       minAge,
       maxAge,
@@ -47,27 +50,50 @@ export const ConestControler = (startDate, endDate) => {
       specifications,
       terms,
       objetive,
-      urlbases
     } = state;
     return (
       name &&
       organization &&
-      startDate &&
+
       finishDate &&
       minAge &&
       maxAge &&
+      minAge < maxAge &&
+      maxAge > minAge &&
       participants &&
       specifications &&
-      terms&&
-      objetive &&
-      urlbases
+      terms &&
+      objetive 
+ 
     );
   };
+  const pickDocument = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({});
+      if (result && result.assets) {
+        handleChangeTex(result, "urlbases");
+        setPickedPDF(result);
+        console.log(pickedPdf);
+      } else {
+        console.log("No se seleccionó ningún documento.");
+      }
+    } catch (error) {
+      console.error("Error al seleccionar el documento:", error);
+    }
+  };
+  const saveContest = async (url: DocumentPicker.DocumentPickerResult) => {
 
-  const saveContest = async () => {
     if (checkAllTextFields()) {
       try {
-        const data = { ...state, startDate: startDate, finishDate: endDate };
+        
+        const data = {
+          ...state,
+          startDate: minDate,
+          finishDate: endDate,
+          participants: participants,
+          urlbases: url
+        };
+        console.log("data",data)
         await addDoc(collection(database, "Contest"), data);
         return true;
       } catch (error) {
@@ -76,6 +102,7 @@ export const ConestControler = (startDate, endDate) => {
       }
     } else {
       setShowErrors(true);
+      Alert.alert("Error en validaciones ")
       console.error("Error en las validaciones");
       return false;
     }
@@ -87,5 +114,9 @@ export const ConestControler = (startDate, endDate) => {
     state,
     showErrors,
     setShowErrors,
-pickSomething  };
+    pickedPdf,
+    pickDocument,
+    pickSomething,
+    
+  };
 };

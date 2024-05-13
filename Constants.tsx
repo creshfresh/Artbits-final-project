@@ -9,7 +9,14 @@ export type ProjectImages = {
  
 };
 
-
+export const options = [
+  { label: "Traditional", value: "traditional" },
+  { label: "Digital", value: "digital" },
+];
+export const participantsOptions = [
+  { label: "Spain", value: "spain" },
+  { label: "International", value: "international" },
+];
 
 export const DummyData: ProjectImages []= [
     {

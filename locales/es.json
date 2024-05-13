@@ -51,7 +51,7 @@
     "terms":"Términos",
     "cash.price":"Premio en metático",   
     "cuantity":"Cantidad", 
-    "object.and.pourpose":"Objetivo y propósito",
+    "object.and.purpose":"Objetivo y propósito",
     "vacancies":"Número de vacantes",
     "add.offical.bases":"Añade las bases oficiales en formato pdf",
     
@@ -70,13 +70,17 @@
     "terms.placeholder": "Escribe un resumen de los términos",
     "cash price.placeholder": "Premio total en efectivo",
     "vacancies.placeholder": "Número de plazas",
-    "object.and.pourpose.placeholder":"Escribe una breve justificación",
+    "object.and.purpose.placeholder":"Escribe una breve justificación",
 
     "upload.job":"Subir trabajos",
     "upload.course":"Subir cursos",
     "error": "Error, el campo es obligatorio",
-    "error.date":"La fecha no puede ser anterior a la fecha de inicio"
 
+    "error.pdf": "El documento debe ser pdf",
+    "pdf.selected":"Pdf seleccionado",
     
+    "error.date":"Existe una discrepancia entre las fechas especificadas",
+    "error.age":"Existe una discrepancia entre las edades especificadas"
+
 
   }
