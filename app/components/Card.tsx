@@ -51,7 +51,7 @@ export const Card = ({ data }) => {
               color: colors.main,
             }}
           >
-            {data.title}
+            {data.name}
           </Text>
           <Text
             style={{

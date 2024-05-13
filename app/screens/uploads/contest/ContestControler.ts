@@ -3,10 +3,10 @@ import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { database } from "../../../../firebaseConfig";
 import { Alert } from "react-native";
+import { ContestData } from "../../../../types";
 
 export const ConestControler = (minDate, endDate, participants) => {
-
-  const grantState = {
+  const contestData: ContestData = {
     name: "",
     organization: "",
     totalCash: "",
@@ -19,6 +19,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     terms: "",
     objetive: "",
     urlbases: null,
+    publishDate: new Date(),
   };
   const pickSomething = async () => {
     try {
@@ -32,9 +33,10 @@ export const ConestControler = (minDate, endDate, participants) => {
     }
   };
   const [showErrors, setShowErrors] = useState(false);
-  const [pickedPdf, setPickedPDF] = useState< DocumentPicker.DocumentPickerResult>();
+  const [pickedPdf, setPickedPDF] =
+    useState<DocumentPicker.DocumentPickerResult>();
 
-  const [state, setState] = useState(grantState);
+  const [state, setState] = useState(contestData);
   const handleChangeTex = (value, name) => {
     setState({ ...state, [name]: value });
   };
@@ -50,11 +52,11 @@ export const ConestControler = (minDate, endDate, participants) => {
       specifications,
       terms,
       objetive,
+      publishDate
     } = state;
     return (
       name &&
       organization &&
-
       finishDate &&
       minAge &&
       maxAge &&
@@ -63,8 +65,7 @@ export const ConestControler = (minDate, endDate, participants) => {
       participants &&
       specifications &&
       terms &&
-      objetive 
- 
+      objetive
     );
   };
   const pickDocument = async () => {
@@ -82,18 +83,17 @@ export const ConestControler = (minDate, endDate, participants) => {
     }
   };
   const saveContest = async (url: DocumentPicker.DocumentPickerResult) => {
-
     if (checkAllTextFields()) {
       try {
-        
         const data = {
           ...state,
           startDate: minDate,
           finishDate: endDate,
           participants: participants,
-          urlbases: url
+          urlbases: url,
+          publishDate: new Date ()
         };
-        console.log("data",data)
+        console.log("data", data);
         await addDoc(collection(database, "Contest"), data);
         return true;
       } catch (error) {
@@ -102,7 +102,7 @@ export const ConestControler = (minDate, endDate, participants) => {
       }
     } else {
       setShowErrors(true);
-      Alert.alert("Error en validaciones ")
+      Alert.alert("Error en validaciones ");
       console.error("Error en las validaciones");
       return false;
     }
@@ -117,6 +117,5 @@ export const ConestControler = (minDate, endDate, participants) => {
     pickedPdf,
     pickDocument,
     pickSomething,
-    
   };
 };
