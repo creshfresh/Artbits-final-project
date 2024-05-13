@@ -16,7 +16,6 @@ export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {
   /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
 let filter = viewMode.toLowerCase()
 
-console.log(filter)
   useEffect(() => {
     const collectionRef = collection(database, "Projects");
     const q = query(collectionRef, where("medium_type", "==", filter),orderBy("publish_date", "desc"));

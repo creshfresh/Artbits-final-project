@@ -81,5 +81,21 @@
     "pdf.selected":"Pdf selected",
 
     "error.date":"The provided date is inconsistent",
-    "error.age":"There is a discrepancy between the specified ages."
+    "error.age":"There is a discrepancy between the specified ages.",
+
+
+    "january": "Enero",
+    "february": "Febrero",
+    "march": "Marzo",
+    "april": "Abril",
+    "may": "Mayo",
+    "june": "Junio",
+    "july": "Julio",
+    "august": "Agosto",
+    "september": "Septiembre",
+    "october": "Octubre",
+    "november": "Noviembre",
+    "december": "Diciembre",
+    "open": "ABIERTO",
+    "close": "CERRADO"
   }

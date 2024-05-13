@@ -6,6 +6,8 @@ import { Alert } from "react-native";
 import { ContestData } from "../../../../types";
 
 export const ConestControler = (minDate, endDate, participants) => {
+
+  const currentDate = new Date().toISOString()
   const contestData: ContestData = {
     name: "",
     organization: "",
@@ -19,7 +21,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     terms: "",
     objetive: "",
     urlbases: null,
-    publishDate: new Date(),
+    publishDate: currentDate,
   };
   const pickSomething = async () => {
     try {
@@ -91,7 +93,7 @@ export const ConestControler = (minDate, endDate, participants) => {
           finishDate: endDate,
           participants: participants,
           urlbases: url,
-          publishDate: new Date ()
+          publishDate: currentDate
         };
         console.log("data", data);
         await addDoc(collection(database, "Contest"), data);

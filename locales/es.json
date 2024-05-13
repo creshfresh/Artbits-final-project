@@ -82,7 +82,21 @@
     "pdf.selected":"Pdf seleccionado",
     
     "error.date":"Existe una discrepancia entre las fechas especificadas",
-    "error.age":"Existe una discrepancia entre las edades especificadas"
+    "error.age":"Existe una discrepancia entre las edades especificadas",
 
+    "january": "Enero",
+    "february": "Febrero",
+    "march": "Marzo",
+    "april": "Abril",
+    "may": "Mayo",
+    "june": "Junio",
+    "july": "Julio",
+    "august": "Agosto",
+    "september": "Septiembre",
+    "october": "Octubre",
+    "november": "Noviembre",
+    "december": "Diciembre",
+    "open": "OPEN",
+    "close": "CLOSE"
 
   }

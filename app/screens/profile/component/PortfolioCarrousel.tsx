@@ -26,7 +26,7 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
     const collectionRef = collection(database, "Projects");
     const q = query(collectionRef, where("user_id" ,"==" ,"3828")); // El ide 3828 es harcodeado
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      // onSnapshot is a listener that listens to changes in the database in realtime
+
       console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({

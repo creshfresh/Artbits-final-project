@@ -1,37 +1,47 @@
-import { FlashList } from "@shopify/flash-list";
-import { useEffect } from "react";
-import {
-  StyleSheet,
-  View
-} from "react-native";
+import { useEffect, useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Card } from "../../components/Card";
-import {ContesteViewControler} from "./ContestScreenControler"
+import { ScrollView } from "react-native";
+import { ContesteViewControler } from "./ContestScreenControler";
+import { FlashList } from "@shopify/flash-list";
 
 // Aqui coger todos los concursos de toda la aplicación
 
-
 export const ContestScreen = ({ navigation }) => {
-  
   const data = ContesteViewControler()
+
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
-    
+
     return () => {
       navigation.setOptions({ tabBarVisible: true });
     };
   }, []);
 
 
-  
+  // Esta función recibe todos los datos de los concursos
+  //TODO: implementar filtros
+
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      <FlashList
+      {/* <ScrollView>
+        {data.map((item) => (
+          <Card key={item.id} data={item} />
+        ))}
+      </ScrollView> */}
+    <FlashList
+        data={data}
+        horizontal={false}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        data={data}
-        estimatedItemSize={200}
-        renderItem={({ item }) => <Card data={item} />}
-      ></FlashList>
+        estimatedItemSize={Dimensions.get("window").width}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={{ flex: 1, margin: 2 }}>
+             <Card key={item.id} data={item} />
+          </View>
+        )}
+      />
     </View>
   );
 };

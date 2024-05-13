@@ -5,8 +5,8 @@ export interface ContestData {
     name: string;
     organization: string;
     totalCash: string;
-    startDate: Date | null;
-    finishDate: Date | null;
+    startDate: string | null;
+    finishDate: string | null;
     minAge: string;
     maxAge: string;
     participants: string;
@@ -14,5 +14,5 @@ export interface ContestData {
     terms: string;
     objetive: string;
     urlbases: DocumentPicker.DocumentPickerResult | null;
-    publishDate: Date | null;
+    publishDate: string | null;
   }

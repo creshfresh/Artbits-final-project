@@ -12,16 +12,26 @@ export const ContesteViewControler = () => {
   useEffect(() => {
 
     const collectionRef = collection(database, "Contest");
-    const q = query(collectionRef,orderBy("publishDate", "desc"));
+    //Aquí hay que poner los filtros
+    const q = query(collectionRef);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          url: doc.data().url,
-          title: doc.data().title,
-          description: doc.data().description,
-        
+          maxAge:doc.data().maxAge,
+          minAge:doc.data().minAge,
+          organization:doc.data().organization,
+          participants:doc.data().participants,
+          publishDate:doc.data().publishDate,
+          startDate:doc.data().startDate,
+          finishDate:doc.data().finishDate,
+          specifications:doc.data().specifications,
+          terms: doc.data().terms,
+          name: doc.data().name,
+          objetive: doc.data().objetive,
+          urlbases: doc.data().urlbases,
+    
         }))
       );
     });
