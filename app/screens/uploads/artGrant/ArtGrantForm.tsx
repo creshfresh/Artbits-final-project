@@ -128,9 +128,23 @@ export const ArtGrantForm = ({ navigation }) => {
           <Text style={grantContesttSyles.title}>{t("destinty.centre")}</Text>
           <TextInput
             style={grantContesttSyles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "destinyCentre")}
+            value={state.destinyCentre}
+            placeholder={t("destinty.centre.placeholder")}
+            onFocus={() => setShowErrors(false)}
+            keyboardType="default"
+          />
+          {showErrors && !state.destinyCentre ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("organization.centre")}</Text>
+          <TextInput
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
-            placeholder={t("destinty.centre.placeholder")}
+            placeholder={t("organization.placeholder")}
             onFocus={() => setShowErrors(false)}
             keyboardType="default"
           />

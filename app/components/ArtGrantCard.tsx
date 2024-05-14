@@ -1,18 +1,15 @@
 import { View, Image, Text } from "react-native";
 import { colors } from "../theme/colors";
-import { ContestData } from "../../types";
+import { ArtGrantData } from "../../types";
 import { useTranslation } from "../hooks/useTranslations";
 
 //aqui recibo la data de los concursos
 
 // Necesito: name, fecha, y centro organizatio
 
-export const Card = (item: ContestData | any) => {
+export const ArtGrantCard = (item: ArtGrantData | any) => {
   const { t } = useTranslation();
   const finishDateFormated = new Date(item.data.finishDate.seconds * 1000);
-
-  // Reemplazar la parte del mes en la cadena original
-
   const formateToDate = (date) => {
     return date.toLocaleDateString("es-ES", {
       day: "numeric",
@@ -93,6 +90,16 @@ export const Card = (item: ContestData | any) => {
           }}
         >
           {item.data.organization}
+        </Text>
+        <Text
+          style={{
+            paddingTop: 3,
+            fontSize: 12,
+            fontWeight: "200",
+            color: colors.text,
+          }}
+        >
+          {item.data.destinyCentre}
         </Text>
       </View>
     </View>

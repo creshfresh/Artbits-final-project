@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
-import { Card } from "../../components/Card";
+import { ContestCard } from "../../components/ContestCard";
 import { ScrollView } from "react-native";
 import { ContesteViewControler } from "./ContestScreenControler";
 import { FlashList } from "@shopify/flash-list";
@@ -42,7 +42,7 @@ export const ContestScreen = ({ navigation }) => {
                 navigation.navigate("ContestDetailScreen", { item: item })
               }
             >
-              <Card key={item.id} data={item} />
+              <ContestCard key={item.id} data={item} />
             </Pressable>
           </View>
         )}

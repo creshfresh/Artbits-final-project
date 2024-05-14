@@ -23,6 +23,7 @@ export interface ContestData {
     user_id:string,
     name: string;
     organization: string;
+    destinyCentre: string;
     totalGranted: string;
     startDate: string | null;
     finishDate: string | null;
@@ -31,7 +32,6 @@ export interface ContestData {
     participants: string;
     specifications: string;
     terms: string;
-    objetive: string;
     urlbases: DocumentPicker.DocumentPickerResult | null;
     publishDate: string | null;
     weburl:string

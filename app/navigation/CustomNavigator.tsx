@@ -20,6 +20,7 @@ import { JobFormView } from "../screens/uploads/jobs/JobForm";
 import { colors } from "../theme/colors";
 import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
 import { ContestDetailScreen } from "../screens/contest/ContestDetailScreen";
+import { ArtGrantDetailScreen } from "../screens/artGrants/ArtGrantDetailScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -201,6 +202,23 @@ const InternShipsAndContestStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTitle: t("contest.detail"),
+          headerBackTitleVisible: true,
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+          <Stack.Screen
+        name="ArtGrantDetailScreen"
+        component={ArtGrantDetailScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTitle: t("art.grant.detail"),
           headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons

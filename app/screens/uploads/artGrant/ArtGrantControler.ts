@@ -19,10 +19,10 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     participants: "Spain",
     specifications: "",
     terms: "",
-    objetive: "",
     urlbases: null,
     publishDate: currentDate,
     weburl: "",
+    destinyCentre:""
   };
 
 
@@ -40,6 +40,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       name,
       organization,
       totalGranted,
+      destinyCentre,
       startDate,
       finishDate,
       minAge,
@@ -55,7 +56,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       name &&
       organization &&
       totalGranted &&
-      startDate &&
+      destinyCentre &&
+      // startDate &&
       finishDate &&
       minAge &&
       maxAge &&

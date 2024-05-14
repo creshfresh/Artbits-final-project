@@ -1,22 +1,18 @@
 import { useState } from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Text,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { colors } from "../../theme/colors";
-import {GalleryCarousel} from"./GalleryCarrousel"
+import { GalleryCarousel } from "./GalleryCarrousel";
 import { useTranslation } from "../../hooks/useTranslations";
+import { Feather } from "@expo/vector-icons";
 
 export const HomeGalleryScreen = () => {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   type ViewMode = "Traditional" | "Digital";
   const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
 
   return (
     <View style={styles.container}>
+
       <View style={styles.switchContainer}>
         <TouchableOpacity
           style={[
@@ -24,9 +20,10 @@ export const HomeGalleryScreen = () => {
             viewMode === "Traditional" ? styles.active : styles.inactive,
           ]}
           onPress={() => {
-           { setViewMode("Traditional");
-            console.log(viewMode)
-           }
+            {
+              setViewMode("Traditional");
+              console.log(viewMode);
+            }
           }}
         >
           <Text
@@ -36,7 +33,7 @@ export const HomeGalleryScreen = () => {
                 : styles.switchTextinactive
             }
           >
-           {t("traditional")}
+            {t("traditional")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -45,8 +42,9 @@ export const HomeGalleryScreen = () => {
             viewMode === "Digital" ? styles.active : styles.inactive,
           ]}
           onPress={() => {
-            {setViewMode("Digital");
-              console.log(viewMode)
+            {
+              setViewMode("Digital");
+              console.log(viewMode);
             }
           }}
         >
@@ -70,13 +68,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-around",
-    margin:10,
+    margin: 10,
   },
   switchContainer: {
     flexDirection: "row",
     justifyContent: "center",
     paddingHorizontal: 10,
-    marginBottom:5
+    marginBottom: 5,
   },
   switchButton: {
     flex: 1,
@@ -108,5 +106,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
 });
