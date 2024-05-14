@@ -22,7 +22,7 @@ const win = Dimensions.get("window");
 export const PublishProjectScreen = ({ route, navigation }) => {
   const { image } = route.params;
   const [value, setValue] = useState(null);
-  const [title, setTitle] = useState(""); 
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const { t } = useTranslation();
@@ -61,46 +61,50 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   async function uploadImages(uris: string[], fileType) {
     try {
       // Iterar sobre cada URI de imagen en el array
-      await Promise.all(uris.map(async (uri) => {
-        const response = await fetch(uri);
-        const blob = await response.blob();
-  
-        const storageRef = ref(storage, "Images/" + new Date().getTime());
-        const uploadTask = uploadBytesResumable(storageRef, blob);
-  
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            console.log(
-              "Uploading:",
-              snapshot.totalBytes,
-              "bytes transferred out of",
-              snapshot.totalBytes
-            );
-          },
-          (error) => {
-            console.error("Upload failed:", error);
-          },
-          async () => {
-            // Obtener la URL de descarga una vez que se complete la carga de la imagen
-            try {
-              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-              await saveRecord(
-                "3828",
-                title,
-                downloadURL,
-                new Date().toISOString(),
-                description,
-                fileType,
-                value
+      await Promise.all(
+        uris.map(async (uri) => {
+          const response = await fetch(uri);
+          const blob = await response.blob();
+
+          const storageRef = ref(storage, "Images/" + new Date().getTime());
+          const uploadTask = uploadBytesResumable(storageRef, blob);
+
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              console.log(
+                "Uploading:",
+                snapshot.totalBytes,
+                "bytes transferred out of",
+                snapshot.totalBytes
               );
-              navigation.navigate("SuccesUpload");
-            } catch (error) {
-              console.error("Error getting download URL:", error);
+            },
+            (error) => {
+              console.error("Upload failed:", error);
+            },
+            async () => {
+              // Obtener la URL de descarga una vez que se complete la carga de la imagen
+              try {
+                const downloadURL = await getDownloadURL(
+                  uploadTask.snapshot.ref
+                );
+                await saveRecord(
+                  "3828",
+                  title,
+                  downloadURL,
+                  new Date().toISOString(),
+                  description,
+                  fileType,
+                  value
+                );
+                navigation.navigate("SuccesUpload");
+              } catch (error) {
+                console.error("Error getting download URL:", error);
+              }
             }
-          }
-        );
-      }));
+          );
+        })
+      );
     } catch (error) {
       console.error("Error uploading images and saving records:", error);
     }
@@ -117,9 +121,15 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
           >
             {image ? (
-              image.map((uri, index) => (
-                <Image key={index} source={{ uri: uri }} style={styles.image} />
-              ))
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {image.map((uri, index) => (
+                  <Image
+                    key={index}
+                    source={{ uri: uri }}
+                    style={styles.image}
+                  />
+                ))}
+              </ScrollView>
             ) : (
               <Image
                 source={{
@@ -206,34 +216,32 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             </View>
           </View>
           {title !== "" ? (
-       
-              <TouchableOpacity
+            <TouchableOpacity
+              style={{
+                marginTop: 30,
+                justifyContent: "center",
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                borderRadius: 30,
+                width: win.width * 0.9,
+                backgroundColor: colors.main,
+                borderColor: "transparent",
+                height: "auto",
+              }}
+              onPress={() => uploadImages(image, "image")}
+            >
+              <Text
                 style={{
-                  marginTop: 30,
-                  justifyContent: "center",
-                  paddingVertical: 10,
-                  paddingHorizontal: 10,
-                  borderRadius: 30,
-                  width: win.width * 0.9,
-                  backgroundColor: colors.main,
-                  borderColor: "transparent",
-                  height: "auto",
+                  color: "white",
+                  fontSize: 18,
+                  fontWeight: "600",
+                  alignContent: "center",
+                  textAlign: "center",
                 }}
-                onPress={() => uploadImages(image, "image")}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 18,
-                    fontWeight: "600",
-                    alignContent: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  {t("publish.project")}
-                </Text>
-              </TouchableOpacity>
-      
+                {t("publish.project")}
+              </Text>
+            </TouchableOpacity>
           ) : null}
         </View>
       </ScrollView>

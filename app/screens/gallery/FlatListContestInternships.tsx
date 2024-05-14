@@ -15,7 +15,6 @@ export const FlatListContestInternships = ({ navigation }) => {
 
   const data: string[] = ["Concursos ", "Becas"];
   const handleNavigation = (item) => {
-    console.log(item);
     item === "Becas"
       ? navigation.navigate("ArtGrantScreen")
       : navigation.navigate("ContestScreen");

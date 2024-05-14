@@ -26,7 +26,7 @@
 
     "upload.multimedia.archives":"Subir archivos multimedia",
     "select.image":"Selecciona una imagen",
-    "max.size":"Tamaño máximo: 20MB",
+    "max.size":"Máximo número de imágenes: 5",
 
     "mandatory.field":"Todo marcado con un (*) es un campo obligatorio",
     "all.mandatory.field":"Todos los campos son obligatorios",
@@ -101,6 +101,11 @@
     "november": "Noviembre",
     "december": "Diciembre",
     "open": "OPEN",
-    "close": "CLOSE"
+    "close": "CLOSE",
+
+
+   "save.first.work": "Guarda tu primer proyecto",
+   "save.first.work.body": "Tus proyectos guardados se mostrarán aquí",
+   "find.work":"Encuentra obras"
 
   }

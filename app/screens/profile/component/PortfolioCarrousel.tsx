@@ -27,7 +27,6 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
     const q = query(collectionRef, where("user_id" ,"==" ,"3828")); // El ide 3828 es harcodeado
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
-      console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,

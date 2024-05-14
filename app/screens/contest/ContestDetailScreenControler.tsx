@@ -15,7 +15,6 @@ export const ContestDetailScreenControler = (name:string) => {
     //Aquí hay que poner los filtros
     const q = query(collectionRef, where("name", "==", name)); 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,

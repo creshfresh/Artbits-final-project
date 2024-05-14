@@ -53,8 +53,7 @@ export const ArtGrantForm = ({ navigation }) => {
 
   const handleSave = async () => {
     const success = await saveGrant(pickedPdf);
-    console.log(success);
-    console.log(state);
+
     if (success) {
       await navigation.navigate("SuccesUpload");
     }

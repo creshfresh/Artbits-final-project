@@ -57,8 +57,6 @@ export const ContestForm = ({ navigation }) => {
 
   const handleSave = async () => {
     const success = await saveContest(pickedPdf);
-    console.log(success);
-    console.log(state);
     if (success) {
       await navigation.navigate("SuccesUpload");
     }
@@ -70,7 +68,6 @@ export const ContestForm = ({ navigation }) => {
     const formattedStartDate = currentDate.toLocaleDateString("en-GB");
     setFormattedStarDate(formattedStartDate);
     if (currentDate > endDate) {
-      console.log(endDate);
       setStartDateError(true);
       return;
     }

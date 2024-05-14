@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
 import { useEffect, useState } from "react";
+import { Feather } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
 
 export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {

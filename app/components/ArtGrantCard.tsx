@@ -23,14 +23,12 @@ export const ArtGrantCard = (item: ArtGrantData | any) => {
     const [day, month, year] = dd.split(" ");
     const translatedMont = t(month).toUpperCase();
     const newDateTranslated = `${day} ${translatedMont} ${year}`;
-    console.log(translatedMont);
 
     return newDateTranslated;
   };
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 
-  console.log(item.data);
 
   return (
     <View

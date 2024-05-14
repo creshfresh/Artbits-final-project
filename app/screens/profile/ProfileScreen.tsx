@@ -17,10 +17,13 @@ import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
+import { SavedScreen } from "./SavedScreen";
+
 
 const windowWidth = Dimensions.get("window").width;
 
 export const ProfileScreen = ({ navigation }) => {
+  const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
   const user = usePersonStore((state) => state.user);
   type ViewMode = "Portfolio" | "About" | "Saved";
   const { t } = useTranslation();
@@ -28,7 +31,6 @@ export const ProfileScreen = ({ navigation }) => {
   const handleSignout = () => {
     signOutZustand();
   };
-  const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
 
   return (
     <>
@@ -69,25 +71,13 @@ export const ProfileScreen = ({ navigation }) => {
             style={{ marginTop: 20 }}
           ></Feather>
         </View>
-        {/* <LinearGradients
-          colors={["#AA99DB", "#3A7ED7"]}
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: 0,
-            height: 120,
-            borderBottomEndRadius: 20,
-            borderBottomStartRadius: 20,
-          }}
-        /> */}
+    
       </View>
 
       {/* {user?.photoURL && (
         <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
       )} */}
       <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
-
       <View style={styles.card}>
         {/* <Text style={styles.textTittle}>{user.displayName}</Text> */}
         {/* <Text style={styles.text}>{user.email}</Text> */}
@@ -180,18 +170,13 @@ export const ProfileScreen = ({ navigation }) => {
       ) : viewMode === "About" ? (
         <AboutScreen />
       ) : (
-        <AboutScreen />
+        <SavedScreen />
       )}
     </>
   );
 };
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
+
   switchButton: {
     flex: 1,
     marginHorizontal: 10,

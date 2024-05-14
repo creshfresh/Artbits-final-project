@@ -7,7 +7,7 @@ import { useTranslation } from "../hooks/useTranslations";
 
 // Necesito: name, fecha, y centro organizatio
 
-export const ContestCard = (item: ContestData | any) => {
+export const ContestCard = (item: ContestData | ArtGrantData | any) => {
   const { t } = useTranslation();
   const finishDateFormated = new Date(item.data.finishDate.seconds * 1000);
   const formateToDate = (date) => {
@@ -30,7 +30,6 @@ export const ContestCard = (item: ContestData | any) => {
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 
-  console.log(item.data);
 
   return (
     <View

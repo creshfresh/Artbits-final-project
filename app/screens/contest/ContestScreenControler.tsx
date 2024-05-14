@@ -15,7 +15,6 @@ export const ContesteViewControler = () => {
     //Aquí hay que poner los filtros
     const q = query(collectionRef);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,

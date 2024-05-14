@@ -77,7 +77,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       if (result && result.assets) {
         handleChangeTex(result, "urlbases");
         setPickedPDF(result);
-        console.log(pickedPdf);
+
       } else {
         console.log("No se seleccionó ningún documento.");
       }

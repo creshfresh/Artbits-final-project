@@ -188,7 +188,6 @@ import { JobControler } from "./JobControler";
               size={30}
               color={colors.secondary}
               onPress={() => {
-                console.log("añadir bases");
               }}
             />
           </View>

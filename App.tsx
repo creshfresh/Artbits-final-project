@@ -58,7 +58,7 @@ export default function App() {
     webClientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
     androidClientId: "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
   },);
-  // console.log(request)
+
 
   const getLocalUser = async () => {
     try {

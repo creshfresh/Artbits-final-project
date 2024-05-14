@@ -25,7 +25,7 @@
     "upload.multimedia.archives":"Upload mulimedia archives",
     "continue":"Continue",
     "select.image":"Select image",
-    "max.size":"Maximum size: 20MB",
+    "max.size":"Maximum number of files: 5",
 
     "mandatory.field":"Everything marked with an (*) is a required field",
     "all.mandatory.field":"Every field is required",
@@ -98,5 +98,11 @@
     "november": "Noviembre",
     "december": "Diciembre",
     "open": "ABIERTO",
-    "close": "CERRADO"
+    "close": "CERRADO",
+
+    
+   "save.first.work": "Save your first project",
+   "save.first.work.body": "Projects that you like will be listed here",
+   "find.work":"Find projects"
+
   }
