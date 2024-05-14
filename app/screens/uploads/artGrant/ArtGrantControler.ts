@@ -48,7 +48,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       specifications,
       urlbases,
       terms,
-      publishDate
+      publishDate,
+      weburl
     } = state;
     return (
       name &&
@@ -63,7 +64,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       participants &&
       specifications &&
       terms &&
-      urlbases
+      urlbases&&
+      weburl
     );
   };
 

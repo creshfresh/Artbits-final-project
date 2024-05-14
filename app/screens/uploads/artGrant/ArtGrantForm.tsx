@@ -287,6 +287,19 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("web.url")}</Text>
+          <TextInput
+            style={grantContesttSyles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "weburl")}
+            value={state.weburl}
+            placeholder={t("web.url.placeholder")}
+            keyboardType="default"
+          />
+          {showErrors && !state.terms ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
 
         <View
           style={{

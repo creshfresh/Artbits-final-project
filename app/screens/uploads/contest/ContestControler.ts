@@ -46,7 +46,7 @@ export const ConestControler = (minDate, endDate, participants) => {
       specifications,
       terms,
       objetive,
-      publishDate
+      weburl
     } = state;
     return (
       name &&
@@ -59,7 +59,8 @@ export const ConestControler = (minDate, endDate, participants) => {
       participants &&
       specifications &&
       terms &&
-      objetive
+      objetive &&
+      weburl
     );
   };
   const pickDocument = async () => {
