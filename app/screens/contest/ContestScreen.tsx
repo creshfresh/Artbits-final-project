@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import { Card } from "../../components/Card";
 import { ScrollView } from "react-native";
 import { ContesteViewControler } from "./ContestScreenControler";
@@ -8,7 +8,7 @@ import { FlashList } from "@shopify/flash-list";
 // Aqui coger todos los concursos de toda la aplicación
 
 export const ContestScreen = ({ navigation }) => {
-  const data = ContesteViewControler()
+  const data = ContesteViewControler();
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -17,7 +17,6 @@ export const ContestScreen = ({ navigation }) => {
       navigation.setOptions({ tabBarVisible: true });
     };
   }, []);
-
 
   // Esta función recibe todos los datos de los concursos
   //TODO: implementar filtros
@@ -29,7 +28,7 @@ export const ContestScreen = ({ navigation }) => {
           <Card key={item.id} data={item} />
         ))}
       </ScrollView> */}
-    <FlashList
+      <FlashList
         data={data}
         horizontal={false}
         showsVerticalScrollIndicator={false}
@@ -38,7 +37,13 @@ export const ContestScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={{ flex: 1, margin: 2 }}>
-             <Card key={item.id} data={item} />
+            <Pressable
+              onPress={() =>
+                navigation.navigate("ContestDetailScreen", { item: item })
+              }
+            >
+              <Card key={item.id} data={item} />
+            </Pressable>
           </View>
         )}
       />

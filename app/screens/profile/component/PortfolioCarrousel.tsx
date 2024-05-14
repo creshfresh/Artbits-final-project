@@ -54,7 +54,7 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={{ flex: 1, margin: 2 }}>
-            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ id:item.url} )}>
+            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ item:item} )}>
               <Image
                 source={{ uri: item.url}}
                 style={{

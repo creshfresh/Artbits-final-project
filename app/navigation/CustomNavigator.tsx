@@ -19,6 +19,7 @@ import { UploadList } from "../screens/uploads/UploadList";
 import { JobFormView } from "../screens/uploads/jobs/JobForm";
 import { colors } from "../theme/colors";
 import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
+import { ContestDetailScreen } from "../screens/contest/ContestDetailScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -194,7 +195,26 @@ const InternShipsAndContestStackNavigator = () => {
           ),
         })}
       />
+          <Stack.Screen
+        name="ContestDetailScreen"
+        component={ContestDetailScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTitle: t("contest.detail"),
+          headerBackTitleVisible: true,
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+
     </Stack.Navigator>
+    
   );
 };
 const PortfolioStackNavigator = () => {

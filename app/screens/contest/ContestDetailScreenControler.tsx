@@ -1,0 +1,44 @@
+import { collection, onSnapshot, getDoc, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { database, } from "../../../firebaseConfig";
+
+export const ContestDetailScreenControler = (name:string) => {
+    
+  const [data, setData] = useState([]);
+
+
+  // Esta función recibe todos los datos de los concursos
+  //TODO: implementar filtros
+  useEffect(() => {
+
+    const collectionRef = collection(database, "Contest");
+    //Aquí hay que poner los filtros
+    const q = query(collectionRef, where("name", "==", name)); 
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      console.log("querySnapshot unsusbscribe");
+      setData(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          maxAge:doc.data().maxAge,
+          minAge:doc.data().minAge,
+          organization:doc.data().organization,
+          participants:doc.data().participants,
+          publishDate:doc.data().publishDate,
+          startDate:doc.data().startDate,
+          finishDate:doc.data().finishDate,
+          specifications:doc.data().specifications,
+          terms: doc.data().terms,
+          name: doc.data().name,
+          objetive: doc.data().objetive,
+          urlbases: doc.data().urlbases,
+    
+        }))
+      );
+    });
+    return unsubscribe; 
+
+  }, []);
+
+  return data
+  
+}

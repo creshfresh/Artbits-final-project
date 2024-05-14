@@ -19,6 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 
 const windowWidth = Dimensions.get("window").width;
+
 export const ProfileScreen = ({ navigation }) => {
   const user = usePersonStore((state) => state.user);
   type ViewMode = "Portfolio" | "About" | "Saved";

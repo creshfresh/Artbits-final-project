@@ -1,18 +1,13 @@
-import {
-  View,
-  Image,
-  StyleSheet,
-  Dimensions,
-  Text,
-  ScrollView,
-  Pressable,
-} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { Card } from "../../components/Card";
-import { colors } from "../../theme/colors";
 import { useTranslation } from "react-i18next";
+import { colors } from "../../theme/colors";
 
 
 export const FlatListContestInternships = ({ navigation }) => {

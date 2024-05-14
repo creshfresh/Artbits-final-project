@@ -108,6 +108,7 @@ export const ContestForm = ({ navigation }) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
+      contentOffset={{x:-2000 ,y: 0}}
       style={{ backgroundColor: "transparent" }}
     >
       <View style={{ flexDirection: "column" }}>
