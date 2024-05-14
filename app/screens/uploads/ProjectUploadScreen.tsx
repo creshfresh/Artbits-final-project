@@ -20,10 +20,10 @@ const win = Dimensions.get("window");
 export const ProjectUploadScreen = ({ navigation }) => {
   const [image, setImages] = useState([]);
   const { t } = useTranslation();
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      // allowsEditing: true,
       allowsMultipleSelection:true,
       selectionLimit: 5,
       quality: 0.2,

@@ -60,15 +60,15 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   }
   async function uploadImages(uris: string[], fileType) {
     try {
-      // Iterar sobre cada URI de imagen en el array
+      const downloadURLs: string[] = [];
+  
       await Promise.all(
         uris.map(async (uri) => {
           const response = await fetch(uri);
           const blob = await response.blob();
-
           const storageRef = ref(storage, "Images/" + new Date().getTime());
           const uploadTask = uploadBytesResumable(storageRef, blob);
-
+  
           uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -83,21 +83,26 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               console.error("Upload failed:", error);
             },
             async () => {
-              // Obtener la URL de descarga una vez que se complete la carga de la imagen
               try {
                 const downloadURL = await getDownloadURL(
                   uploadTask.snapshot.ref
                 );
-                await saveRecord(
-                  "3828",
-                  title,
-                  downloadURL,
-                  new Date().toISOString(),
-                  description,
-                  fileType,
-                  value
-                );
-                navigation.navigate("SuccesUpload");
+                downloadURLs.push(downloadURL);
+                console.log("Download URL:", downloadURL);
+  
+                // Si todas las URL de descarga se han obtenido, llamar a saveRecord()
+                if (downloadURLs.length === uris.length) {
+                  await saveRecord(
+                    "3828",
+                    title,
+                    downloadURLs,
+                    new Date().toISOString(),
+                    description,
+                    fileType,
+                    value
+                  );
+                  navigation.navigate("SuccesUpload");
+                }
               } catch (error) {
                 console.error("Error getting download URL:", error);
               }
@@ -109,6 +114,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       console.error("Error uploading images and saving records:", error);
     }
   }
+  
   return (
     <>
       <ScrollView>

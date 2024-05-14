@@ -55,7 +55,7 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
           <View style={{ flex: 1, margin: 2 }}>
             <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ item:item} )}>
               <Image
-                source={{ uri: item.url}}
+                source={{ uri: item.url[0]}}
                 style={{
                   width: "100%",
                   minHeight: 200,

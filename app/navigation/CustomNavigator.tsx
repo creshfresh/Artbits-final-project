@@ -139,6 +139,8 @@ const UploadStackNavigation = () => {
   );
 };
 
+const GalleryStackNavigator = () => {};
+
 const InternShipsAndContestStackNavigator = () => {
   const { t } = useTranslation();
 
@@ -196,7 +198,7 @@ const InternShipsAndContestStackNavigator = () => {
           ),
         })}
       />
-          <Stack.Screen
+      <Stack.Screen
         name="ContestDetailScreen"
         component={ContestDetailScreen}
         options={({ navigation }) => ({
@@ -213,7 +215,7 @@ const InternShipsAndContestStackNavigator = () => {
           ),
         })}
       />
-          <Stack.Screen
+      <Stack.Screen
         name="ArtGrantDetailScreen"
         component={ArtGrantDetailScreen}
         options={({ navigation }) => ({
@@ -230,9 +232,7 @@ const InternShipsAndContestStackNavigator = () => {
           ),
         })}
       />
-
     </Stack.Navigator>
-    
   );
 };
 const PortfolioStackNavigator = () => {
@@ -304,7 +304,11 @@ const TabNavigator = () => {
         tabBarStyle: { height: 60 },
       })}
     >
-      <Tab.Screen name="Home" component={HomeGalleryScreen} options={{headerShown: false,}}/>
+      <Tab.Screen
+        name="Home"
+        component={HomeGalleryScreen}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen
         name="Search"
         component={InternShipsAndContestStackNavigator}

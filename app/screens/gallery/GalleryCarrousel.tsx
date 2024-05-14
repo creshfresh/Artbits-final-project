@@ -1,4 +1,11 @@
-import { View, Image, StyleSheet, Dimensions, ScrollView } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import {
   collection,
@@ -9,10 +16,9 @@ import {
 } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
 import { useEffect, useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import { colors } from "../../theme/colors";
+import { useNavigation } from "@react-navigation/native";
 
-export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {
+export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, navigation}) => {
   const [data, setData] = useState([]);
 
   // const filteredData = data.filter((item) => item.type === viewMode);
@@ -43,7 +49,6 @@ export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {
 
   return (
     <>
-       
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <FlashList
           data={data}
@@ -55,16 +60,18 @@ export const GalleryCarousel = ({ viewMode }: { viewMode: string }) => {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={{ flex: 1, margin: 2 }}>
-              <Image
-                source={{ uri: item.url }}
-                style={{
-                  width: "100%",
-                  minHeight: 200,
-                  borderRadius: 10,
-                  borderColor: "#d35647",
-                  resizeMode: "cover",
-                }}
-              />
+              <Pressable onPress={()=> {navigation.navigate("Jobs")}}>
+                <Image
+                  source={{ uri: item.url[0] }}
+                  style={{
+                    width: "100%",
+                    minHeight: 200,
+                    borderRadius: 10,
+                    borderColor: "#d35647",
+                    resizeMode: "cover",
+                  }}
+                />
+              </Pressable>
             </View>
           )}
         />

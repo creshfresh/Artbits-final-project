@@ -5,7 +5,7 @@ import { GalleryCarousel } from "./GalleryCarrousel";
 import { useTranslation } from "../../hooks/useTranslations";
 import { Feather } from "@expo/vector-icons";
 
-export const HomeGalleryScreen = () => {
+export const HomeGalleryScreen = ({navigation}) => {
   const { t } = useTranslation();
   type ViewMode = "Traditional" | "Digital";
   const [viewMode, setViewMode] = useState<ViewMode>("Traditional");
@@ -57,7 +57,7 @@ export const HomeGalleryScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <GalleryCarousel viewMode={viewMode} />
+      <GalleryCarousel viewMode={viewMode} navigation={navigation}/>
     </View>
   );
 };
