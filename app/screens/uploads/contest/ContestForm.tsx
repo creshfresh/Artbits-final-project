@@ -1,23 +1,22 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { useTranslation } from "../../../hooks/useTranslations";
-import { useEffect, useState } from "react";
-import Checkbox from "expo-checkbox";
-import { colors } from "../../../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { ScrollView } from "react-native";
-import { ConestControler } from "./ContestControler";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Checkbox from "expo-checkbox";
+import { useEffect, useState } from "react";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { participantsOptions } from "../../../../Constants";
-import { FontAwesome } from "@expo/vector-icons";
 import { futureDate } from "../../../../helpers";
+import { useTranslation } from "../../../hooks/useTranslations";
+import { colors } from "../../../theme/colors";
+import { grantContesttSyles } from "../styles";
+import { ConestControler } from "./ContestControler";
 
 export const ContestForm = ({ navigation }) => {
   const { t } = useTranslation();
   const renderItem = (item) => {
     return (
-      <View style={styles.item}>
-        <Text style={styles.textItem}>{item.label}</Text>
+      <View style={grantContesttSyles.item}>
+        <Text style={grantContesttSyles.textItem}>{item.label}</Text>
       </View>
     );
   };
@@ -122,10 +121,10 @@ export const ContestForm = ({ navigation }) => {
         >
           {t("all.mandatory.field")}
         </Text>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("name")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("name")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "name")}
             value={state.name}
             placeholder={t("name.placeholder.contest")}
@@ -133,14 +132,14 @@ export const ContestForm = ({ navigation }) => {
             onFocus={() => setShowErrors(false)}
           />
           {showErrors && !state.name ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
 
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("organization.centre")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("organization.centre")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
             placeholder={t("organization.placeholder")}
@@ -148,7 +147,7 @@ export const ContestForm = ({ navigation }) => {
             keyboardType="default"
           />
           {showErrors && !state.organization ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
         <View
@@ -175,18 +174,18 @@ export const ContestForm = ({ navigation }) => {
               }}
             >
               <Checkbox
-                style={styles.checkbox}
+                style={grantContesttSyles.checkbox}
                 value={isChecked}
                 onValueChange={setIsChecked}
                 color={isChecked ? colors.secondary : undefined}
               />
-              <Text style={styles.cash_title}>{t("cash.price")}</Text>
+              <Text style={grantContesttSyles.cash_title}>{t("cash.price")}</Text>
             </Pressable>
           </View>
           <TextInput
             style={[
-              styles.text_intup,
-              styles.cash_texinput,
+              grantContesttSyles.text_intup,
+              grantContesttSyles.cash_texinput,
               !isChecked && { backgroundColor: "#d9d9d9", color: "#b8b8b8" },
             ]}
             onChangeText={(value) => handleChangeTex(value, "totalCash")}
@@ -199,17 +198,17 @@ export const ContestForm = ({ navigation }) => {
           />
         </View>
         {showErrors && !state.totalCash && !isChecked ? (
-          <Text style={[styles.errors, { marginBottom: 10 }]}>
+          <Text style={[grantContesttSyles.errors, { marginBottom: 10 }]}>
             {t("error")}
           </Text>
         ) : null}
 
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("start.date")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("start.date")}</Text>
 
           <Pressable onPress={toggleShowPicker}>
             <TextInput
-              style={styles.text_intup}
+              style={grantContesttSyles.text_intup}
               value={formattedStarDate}
               placeholder={t("start.date.placeholder")}
               editable={false}
@@ -225,18 +224,18 @@ export const ContestForm = ({ navigation }) => {
             />
           ) : null}
           {startDateError ? (
-            <Text style={styles.errors}>{t("error.date")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
           {showErrors && !state.startDate ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
 
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("dead.line")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("dead.line")}</Text>
           <Pressable onPress={toggleShowFinishDatePicker}>
             <TextInput
-              style={styles.text_intup}
+              style={grantContesttSyles.text_intup}
               value={formattedDate}
               placeholder={t("dead.line.placeholder")}
               editable={false}
@@ -251,52 +250,52 @@ export const ContestForm = ({ navigation }) => {
             />
           ) : null}
           {endDateError ? (
-            <Text style={styles.errors}>{t("error.date")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
           {showErrors && !state.finishDate ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("min.age")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("min.age")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "minAge")}
             value={state.minAge}
             placeholder={t("min.age.placeholder")}
             keyboardType="numeric"
           />
           {ageError ? (
-            <Text style={styles.errors}>{t("error.age")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error.age")}</Text>
           ) : null}
           {showErrors && !state.minAge ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("max.age")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("max.age")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "maxAge")}
             value={state.maxAge}
             placeholder={t("max.age.placeholder")}
             keyboardType="numeric"
           />
           {ageError ? (
-            <Text style={styles.errors}>{t("error.age")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error.age")}</Text>
           ) : null}
           {showErrors && !state.maxAge ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
       </View>
-      <View style={styles.divided}>
-        <Text style={styles.title}>{t("participants")}</Text>
+      <View style={grantContesttSyles.divided}>
+        <Text style={grantContesttSyles.title}>{t("participants")}</Text>
         <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
+          style={grantContesttSyles.dropdown}
+          placeholderStyle={grantContesttSyles.placeholderStyle}
+          selectedTextStyle={grantContesttSyles.selectedTextStyle}
+          inputSearchStyle={grantContesttSyles.inputSearchStyle}
           data={participantsOptions}
           maxHeight={300}
           labelField="label"
@@ -310,47 +309,47 @@ export const ContestForm = ({ navigation }) => {
           renderItem={renderItem}
         />
         {showErrors && !state.participants ? (
-          <Text style={styles.errors}>{t("error")}</Text>
+          <Text style={grantContesttSyles.errors}>{t("error")}</Text>
         ) : null}
       </View>
-      <View style={styles.divided}>
-        <Text style={styles.title}>{t("work.specifications")}</Text>
+      <View style={grantContesttSyles.divided}>
+        <Text style={grantContesttSyles.title}>{t("work.specifications")}</Text>
         <TextInput
-          style={styles.text_intup}
+          style={grantContesttSyles.text_intup}
           onChangeText={(value) => handleChangeTex(value, "specifications")}
           value={state.specifications}
           placeholder={t("work.specifications.placeholder")}
           keyboardType="default"
         />
-        {showErrors ? <Text style={styles.errors}>{t("error")}</Text> : null}
+        {showErrors ? <Text style={grantContesttSyles.errors}>{t("error")}</Text> : null}
       </View>
       <View>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("terms")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("terms")}</Text>
           <TextInput
             multiline={true}
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "terms")}
             value={state.terms}
             placeholder={t("bases.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.terms ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
-          <Text style={styles.title}>{t("object.and.purpose")}</Text>
+        <View style={grantContesttSyles.divided}>
+          <Text style={grantContesttSyles.title}>{t("object.and.purpose")}</Text>
           <TextInput
             multiline={true}
-            style={styles.text_intup}
+            style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "objetive")}
             value={state.objetive}
             placeholder={t("object.and.purpose.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.objetive ? (
-            <Text style={styles.errors}>{t("error")}</Text>
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
       </View>
@@ -383,8 +382,8 @@ export const ContestForm = ({ navigation }) => {
           justifyContent: "flex-end",
         }}
       >
-        {showErrors && pickedPdf.assets[0].uri === "" ? (
-          <Text style={styles.errors}>{t("error.pdf")}</Text>
+        {showErrors && pickedPdf.assets[0].uri == "" ? (
+          <Text style={grantContesttSyles.errors}>{t("error.pdf")}</Text>
         ) : (
           pickedPdf &&
           pickedPdf.assets[0].uri.endsWith(".pdf") && (
@@ -402,6 +401,7 @@ export const ContestForm = ({ navigation }) => {
             </>
           )
         )}
+     
       </View>
       <View
         style={{
@@ -409,93 +409,11 @@ export const ContestForm = ({ navigation }) => {
           marginVertical: 10,
         }}
       >
-        <Pressable style={styles.publish_button} onPress={handleSave}>
-          <Text style={styles.publis_button_text}>{t("publish")}</Text>
+        <Pressable style={grantContesttSyles.publish_button} onPress={handleSave}>
+          <Text style={grantContesttSyles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>
     </ScrollView>
   );
 };
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 17,
-    letterSpacing: 1,
-    fontWeight: "700",
-    color: colors.text,
-  },
-  divided: {
-    paddingBottom: 10,
-  },
-  text_intup: {
-    marginVertical: 5,
-    paddingHorizontal: 10,
-    borderWidth: 2,
-    borderRadius: 5,
-    borderColor: "#C9C6C6",
-    height: 40,
-  },
-  container: {
-    flex: 1,
-  },
-  section: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  checkbox: {
-    margin: 8,
-  },
-  cash_texinput: {
-    width: "50%",
-  },
-  cash_title: { fontSize: 14, letterSpacing: 1 },
-  publish_button: {
-    display: "flex",
-    height: 45,
-    borderRadius: 30,
-    width: "90%",
-    paddingHorizontal: 40,
-    justifyContent: "center",
-    backgroundColor: colors.main,
-  },
-  publis_button_text: {
-    textAlign: "center",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "600",
-    letterSpacing: 1.25,
-  },
-  errors: {
-    fontSize: 12,
-    color: "red",
-  },
-  placeholderStyle: {
-    fontSize: 15,
-  },
-  dropdown: {
-    borderWidth: 2,
-    borderRadius: 5,
-    borderColor: "#C9C6C6",
-    height: 40,
-    padding: 5,
-    marginTop: 5,
-  },
-  item: {
-    padding: 17,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    color: colors.secondary,
-  },
-  textItem: {
-    flex: 1,
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 15,
-  },
 
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});

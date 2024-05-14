@@ -9,6 +9,7 @@ export const ConestControler = (minDate, endDate, participants) => {
 
   const currentDate = new Date().toISOString()
   const contestData: ContestData = {
+    user_id:"3232",
     name: "",
     organization: "",
     totalCash: "",
@@ -22,18 +23,9 @@ export const ConestControler = (minDate, endDate, participants) => {
     objetive: "",
     urlbases: null,
     publishDate: currentDate,
+    weburl: "",
   };
-  const pickSomething = async () => {
-    try {
-      const docRes = await DocumentPicker.getDocumentAsync({
-        type: "application/pdf",
-      });
 
-      console.log(docRes);
-    } catch (error) {
-      console.log("Error while selecting file: ", error);
-    }
-  };
   const [showErrors, setShowErrors] = useState(false);
   const [pickedPdf, setPickedPDF] =
     useState<DocumentPicker.DocumentPickerResult>();
@@ -118,6 +110,6 @@ export const ConestControler = (minDate, endDate, participants) => {
     setShowErrors,
     pickedPdf,
     pickDocument,
-    pickSomething,
+    
   };
 };

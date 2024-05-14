@@ -2,9 +2,13 @@ import * as DocumentPicker from "expo-document-picker";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { database } from "../../../../firebaseConfig";
-export const ArtGrantControler = (startDate, endDate, participants) => {
-  const [pickerPdf, setPickedPDF] = useState(false);
-  const grantState = {
+import { ArtGrantData } from "../../../../types";
+
+export const ArtGrantControler = (minDate, endDate, participants) => {
+
+  const currentDate = new Date().toISOString()
+  const grantState: ArtGrantData = {
+    user_id:"3232",
     name: "",
     organization: "",
     totalGranted: "",
@@ -12,24 +16,25 @@ export const ArtGrantControler = (startDate, endDate, participants) => {
     finishDate: null,
     minAge: "",
     maxAge: "",
-    participants: "",
+    participants: "Spain",
     specifications: "",
     terms: "",
-    officalPdf: "",
-  };
-  const pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      console.log(result, result.assets[0].uri);
-      setPickedPDF(true);
-    } catch (error) {
-      // alert(error);
-    }
+    objetive: "",
+    urlbases: null,
+    publishDate: currentDate,
+    weburl: "",
   };
 
+
+  const [showErrors, setShowErrors] = useState(false);
+  const [pickedPdf, setPickedPDF] =
+    useState<DocumentPicker.DocumentPickerResult>();
+
+  const [state, setState] = useState(grantState);
   const handleChangeTex = (value, name) => {
     setState({ ...state, [name]: value });
   };
+
   const checkAllTextFields = () => {
     const {
       name,
@@ -41,8 +46,9 @@ export const ArtGrantControler = (startDate, endDate, participants) => {
       maxAge,
       participants,
       specifications,
-      officalPdf,
+      urlbases,
       terms,
+      publishDate
     } = state;
     return (
       name &&
@@ -52,24 +58,39 @@ export const ArtGrantControler = (startDate, endDate, participants) => {
       finishDate &&
       minAge &&
       maxAge &&
+      minAge < maxAge &&
+      maxAge > minAge &&
       participants &&
       specifications &&
       terms &&
-      officalPdf
+      urlbases
     );
   };
-  const [showErrors, setShowErrors] = useState(false);
 
-  const [state, setState] = useState(grantState);
-
-  const saveGrant = async () => {
+  const pickDocument = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({});
+      if (result && result.assets) {
+        handleChangeTex(result, "urlbases");
+        setPickedPDF(result);
+        console.log(pickedPdf);
+      } else {
+        console.log("No se seleccionó ningún documento.");
+      }
+    } catch (error) {
+      console.error("Error al seleccionar el documento:", error);
+    }
+  };
+  const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
     if (checkAllTextFields()) {
       try {
         const data = {
           ...state,
-          startDate: startDate,
+          startDate: minDate,
           finishDate: endDate,
           participants: participants,
+          urlbases: url,
+          publishDate: currentDate
         };
         await addDoc(collection(database, "Art_Grants"), data);
         return true;
@@ -90,7 +111,7 @@ export const ArtGrantControler = (startDate, endDate, participants) => {
     state,
     showErrors,
     setShowErrors,
-    pickerPdf,
+    pickedPdf,
     pickDocument,
   };
 };

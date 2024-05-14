@@ -56,7 +56,9 @@
     "object.and.purpose":"Objetivo y propósito",
     "vacancies":"Número de vacantes",
     "add.offical.bases":"Añade las bases oficiales en formato pdf",
-    
+    "destinty.centre":"Centro de destino",
+
+
     "name.placeholder.contest":"Nombre del concurso",
     "name.placeholder.grant":"Nombre de la beca artística",
   
@@ -73,6 +75,7 @@
     "cash price.placeholder": "Premio total en efectivo",
     "vacancies.placeholder": "Número de plazas",
     "object.and.purpose.placeholder":"Escribe una breve justificación",
+    "destinty.centre.placeholder":"Centro al que se acudirá a estudiar",
 
     "upload.job":"Subir trabajos",
     "upload.course":"Subir cursos",
