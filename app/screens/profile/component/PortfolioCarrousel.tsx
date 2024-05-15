@@ -32,6 +32,9 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
           id: doc.id,
           url: doc.data().url,
           title: doc.data().title,
+          publish_date:doc.data().publish_date,
+          medium_type:doc.data().medium_type,
+          user_id:doc.data().user_id,
           description: doc.data().description,
         
         }))

@@ -1,39 +1,112 @@
-import { View, Image, StyleSheet, Dimensions, ScrollView,Text } from "react-native";
-import { FlashList } from "@shopify/flash-list";
+import {
+  View,
+  Image,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from "react-native";
 
-export const PorfolioDetail = ({route}) => {
-  /*Este componente renderiza solo las imágenes ptertenecientes a un id de proyecto, de un id de Usuario */
+import { useEffect, useState } from "react";
+import { colors } from "../../theme/colors";
+
+
+export const PorfolioDetail = ({ route }) => {
   const { item } = route.params;
+  const welcomeLogo = require("../../../assets/stars.png");
+  const [imageSizes, setImageSizes] = useState([]);
+  useEffect(() => {
+    const calculateImageSizes = async () => {
+      const sizes = await Promise.all(item.url.map((uri) => getImageSize(uri)));
+      setImageSizes(sizes);
+    };
 
-  const win = Dimensions.get("window");
+    calculateImageSizes();
+  }, [item.url]);
+
+  const getImageSize = (uri) => {
+    return new Promise((resolve, reject) => {
+      Image.getSize(
+        uri,
+        (width, height) => {
+          const aspectRatio = width / height;
+          const imageWidth = Dimensions.get("window").width;
+          const imageHeight = imageWidth / aspectRatio;
+          resolve({ width: imageWidth, height: imageHeight });
+        },
+        reject
+      );
+    });
+  };
 
   return (
-    
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <Text>{item.title}</Text>
-      <FlashList
-        data={item.url}
-        horizontal={false}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        estimatedItemSize={500}
-        keyExtractor={(url) => url.toString()}
-        renderItem={({ item: url }) => (
-          <View style={{ flex: 1, justifyContent: "center", margin: 2 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      showsVerticalScrollIndicator={false}
+    >
+      <View>
+        <Text style={styles.title}>{item.title}</Text>
+        <View
+          style={{ flexDirection: "row", marginLeft: 10, marginVertical: 7 }}
+        >
+          <Image
+            source={welcomeLogo}
+            style={{
+              width: 30,
+              height: 30,
+              backgroundColor: "#FFA5A5",
+              resizeMode: "center",
+              borderRadius: 30,
+            }}
+          />
+          <Text style={styles.subtitle}>{item.user_id}</Text>
+        </View>
+
+        <View></View>
+        {item.url.map((url, index) => (
+          <View
+            key={index}
+            style={{ flex: 1, justifyContent: "center", margin: 2 }}
+          >
             <Image
               source={{ uri: url }}
               style={{
-                flex: 1,
-                width: win.width,
-                height: 400,
+                width: imageSizes[index]?.width * 0.99 || 0,
+                height: imageSizes[index]?.height || 0,
                 borderRadius: 10,
                 borderColor: "#d35647",
                 resizeMode: "cover",
               }}
             />
           </View>
-        )}
-      />
+        ))}
+      </View>
+      <View style={{ marginHorizontal: 12, marginVertical: 20, minHeight:60 }}>
+        <Text style={styles.body}>{item.description}</Text>
+      </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    marginLeft: 15,
+    marginBottom: 3,
+    fontSize: 30,
+    fontWeight: "800",
+    letterSpacing: 1.25,
+    color: colors.text,
+  },
+  subtitle: {
+    marginHorizontal: 8,
+    marginVertical: 5,
+    fontSize: 14,
+    letterSpacing: 1.25,
+    color: colors.text,
+  },
+  body: {
+    fontSize: 14,
+    letterSpacing: 1.25,
+    color: colors.text,
+  },
+});

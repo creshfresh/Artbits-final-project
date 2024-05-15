@@ -49,7 +49,7 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
 
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <FlashList
           data={data}
           numColumns={2}
