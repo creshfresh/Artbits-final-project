@@ -39,6 +39,7 @@
     "select.option":"Select an option",
 
     "art.grants":"Art grants",
+    "art.grant.detail":"Art grant detail",
     "name":"Name",
     "organization.centre":"Organization centre",
     "destiny.center":"Organization centre",
@@ -104,6 +105,8 @@
     
    "save.first.work": "Save your first project",
    "save.first.work.body": "Projects that you like will be listed here",
-   "find.work":"Find projects"
+   "find.work":"Find projects",
+   "not.saved.artwork": "Any favourite artwork yet!"
+
 
   }

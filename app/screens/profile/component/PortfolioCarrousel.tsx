@@ -15,18 +15,24 @@ import { database } from "../../../../firebaseConfig";
 
 type ProfolioCarrouselProps = {
   navigation: any;  
+  navigateUser: any
 };
 
-export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
+export const ProfolioCarrousel = ({ navigation, navigateUser }:ProfolioCarrouselProps) => {
   const [data, setData] = useState([]);
 
+  console.log("aaaaaaaaaaa·",navigateUser)
 
-
+  
   useEffect(() => {
-    const collectionRef = collection(database, "Projects");
-    const q = query(collectionRef, where("user_id" ,"==" ,"3828")); // El ide 3828 es harcodeado
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    
 
+    const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "3828";
+    // console.log("Using userId:", userId);
+  
+    const collectionRef = collection(database, "Projects");
+    const q = query(collectionRef, where("user_id" ,"==" ,userId)); // El ide 3828 es harcodeado
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -39,10 +45,12 @@ export const ProfolioCarrousel = ({ navigation }:ProfolioCarrouselProps) => {
         
         }))
       );
+      console.log("userodid:",userId)
     });
+
     return unsubscribe; 
 
-  }, []);
+  }, [navigateUser]);
 /*Esta pantalla recibe todos los proyectos pertenecientes al usuario logueado*/
   return (
     <ScrollView  showsVerticalScrollIndicator={false}  style= {{backgroundColor:"transparent"}}>

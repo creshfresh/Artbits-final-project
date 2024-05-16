@@ -35,7 +35,7 @@ const UploadStackNavigation = () => {
         headerTitleStyle: {
           fontSize: 16,
         },
-        headerTransparent: true,
+        // headerTransparent: true,
       }}
     >
       <Stack.Screen
@@ -119,7 +119,7 @@ const UploadStackNavigation = () => {
             />
           ),
           headerStyle: {
-            backgroundColor: "transparent",
+            // backgroundColor: "transparent",
           },
         })}
       />
@@ -139,8 +139,64 @@ const UploadStackNavigation = () => {
   );
 };
 
-const GalleryStackNavigator = () => {};
-
+const GalleryStackNavigator = () => {
+  const { t } = useTranslation();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerStyle: {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="HomeGalleryScreen"
+        component={HomeGalleryScreen}
+        options={{ headerShown: true, headerTitle: "", headerTitleAlign:"center"}}
+      />
+      <Stack.Screen
+        name="PorfolioDetail"
+        component={PorfolioDetail}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: t("detail"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: t("detail"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
 const InternShipsAndContestStackNavigator = () => {
   const { t } = useTranslation();
 
@@ -159,7 +215,7 @@ const InternShipsAndContestStackNavigator = () => {
       }}
     >
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
         name="FlatListContestInternships"
         component={FlatListContestInternships}
       />
@@ -187,6 +243,8 @@ const InternShipsAndContestStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTitle: t("contests"),
+          animation: "ios",
+
           headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons
@@ -203,8 +261,10 @@ const InternShipsAndContestStackNavigator = () => {
         component={ContestDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
+          animation: "ios",
+          headerBackTitle: "",
           headerTitle: t("contest.detail"),
-          headerBackTitleVisible: true,
+
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -220,6 +280,8 @@ const InternShipsAndContestStackNavigator = () => {
         component={ArtGrantDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
+          animation: "ios",
+
           headerTitle: t("art.grant.detail"),
           headerBackTitleVisible: true,
           headerLeft: () => (
@@ -306,8 +368,8 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeGalleryScreen}
-        options={{ headerShown: false }}
+        component={GalleryStackNavigator}
+        // options={{ headerShown: false }}
       />
       <Tab.Screen
         name="Search"

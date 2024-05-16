@@ -5,22 +5,25 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Pressable,
 } from "react-native";
 
 import { useEffect, useState } from "react";
 import { colors } from "../../theme/colors";
+import { database } from "../../../firebaseConfig";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
-
-export const PorfolioDetail = ({ route }) => {
+export const PorfolioDetail = ({ route, navigation }) => {
   const { item } = route.params;
-  const welcomeLogo = require("../../../assets/stars.png");
-  const [imageSizes, setImageSizes] = useState([]);
+  const defaultAvatar = require("../../../assets/stars.png");
+  const [imageSizes, setImageSizes] = useState({});
+  const [name, setName] = useState([]);
+
   useEffect(() => {
     const calculateImageSizes = async () => {
       const sizes = await Promise.all(item.url.map((uri) => getImageSize(uri)));
       setImageSizes(sizes);
     };
-
     calculateImageSizes();
   }, [item.url]);
 
@@ -39,6 +42,34 @@ export const PorfolioDetail = ({ route }) => {
     });
   };
 
+  useEffect(() => {
+    if (!item || !item.user_id) return;
+
+    const collectionRef = collection(database, "Users");
+    const q = query(collectionRef, where("user_id", "==", item.user_id));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setName(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          fullname: doc.data().full_name,
+          contact_email: doc.data().contact_email,
+          country: doc.data().country,
+          city: doc.data().city,
+          about_decription: doc.data().about_decription,
+          avatar: doc.data().avatar,
+          web_url:doc.data().web_url,
+          user_id:doc.data().user_id
+        }))
+      );
+    });
+
+    return () => unsubscribe();
+  }, [item, setName]);
+
+  console.log(item)
+  console.log(name)
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -46,23 +77,26 @@ export const PorfolioDetail = ({ route }) => {
     >
       <View>
         <Text style={styles.title}>{item.title}</Text>
+        <Pressable
+          onPress={() => navigation.navigate("ProfileScreen", { item: name })}
+        >
         <View
           style={{ flexDirection: "row", marginLeft: 10, marginVertical: 7 }}
         >
-          <Image
-            source={welcomeLogo}
-            style={{
-              width: 30,
-              height: 30,
-              backgroundColor: "#FFA5A5",
-              resizeMode: "center",
-              borderRadius: 30,
-            }}
-          />
-          <Text style={styles.subtitle}>{item.user_id}</Text>
+            <Image
+              source={defaultAvatar}
+              style={{
+                width: 30,
+                height: 30,
+                backgroundColor: "#FFA5A5",
+                resizeMode: "center",
+                borderRadius: 30,
+              }}
+            />
+            <Text style={styles.subtitle}>{name[0]?.fullname}</Text>
         </View>
+          </Pressable>
 
-        <View></View>
         {item.url.map((url, index) => (
           <View
             key={index}
@@ -81,7 +115,7 @@ export const PorfolioDetail = ({ route }) => {
           </View>
         ))}
       </View>
-      <View style={{ marginHorizontal: 12, marginVertical: 20, minHeight:60 }}>
+      <View style={{ marginHorizontal: 12, marginVertical: 20, minHeight: 60 }}>
         <Text style={styles.body}>{item.description}</Text>
       </View>
     </ScrollView>

@@ -1,8 +1,8 @@
 import { colors } from "../../theme/colors";
-import { View, Text, StyleSheet, } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
 
-export const AboutScreen = ({}) => {
+export const AboutScreen = ({ navigateUser }) => {
   const { t } = useTranslation();
 
   /* Esta pantalla eseña los datos del usuario logeado*/
@@ -10,16 +10,27 @@ export const AboutScreen = ({}) => {
     <View style={{ flex: 1, padding: 10 }}>
       <View style={{ display: "flex", justifyContent: "flex-start" }}>
         <Text style={styles.mainTitle}>{t("summary")}</Text>
-        <Text style={styles.text}>
-          My name is Cristina Ramos, I have more than 10 years of experience
-          working as Principal 3D artist. currently living in Zaragoza (Spain).
-        </Text>
-        <Text style={styles.mainTitle}>{t("personal.web")}</Text>
-        <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
-        <Text style={styles.mainTitle}>{t("follow.social")}</Text>
-        <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
-        <Text style={styles.mainTitle}>{t("contact")}</Text>
-        <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+        {navigateUser === null || navigateUser === undefined ? (
+          <>
+            <Text style={styles.text}>AAAAAAAAAAAAAAAAAAAA</Text>
+            <Text style={styles.mainTitle}>{t("personal.web")}</Text>
+            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+            <Text style={styles.mainTitle}>{t("follow.social")}</Text>
+            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+            <Text style={styles.mainTitle}>{t("contact")}</Text>
+            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.text}>{navigateUser[0].about_decription}</Text>
+            <Text style={styles.mainTitle}>{t("personal.web")}</Text>
+            <Text style={styles.text}>{navigateUser[0].web_url}.</Text>
+            <Text style={styles.mainTitle}>{t("follow.social")}</Text>
+            <Text style={styles.text}>{navigateUser[0].contact_email}</Text>
+            <Text style={styles.mainTitle}>{t("contact")}</Text>
+            <Text style={styles.text}>{navigateUser[0].contact_email}</Text>
+          </>
+        )}
       </View>
     </View>
   );

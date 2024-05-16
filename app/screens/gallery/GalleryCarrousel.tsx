@@ -21,8 +21,6 @@ import { useNavigation } from "@react-navigation/native";
 export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, navigation}) => {
   const [data, setData] = useState([]);
 
-  // const filteredData = data.filter((item) => item.type === viewMode);
-
   /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
   let filter = viewMode.toLowerCase();
 
@@ -38,6 +36,7 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
+          user_id:doc.data().user_id,
           url: doc.data().url,
           title: doc.data().title,
           description: doc.data().description,
@@ -46,6 +45,10 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
     });
     return unsubscribe;
   }, [filter]);
+
+  
+
+  
 
   return (
     <>
@@ -60,7 +63,7 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={{ flex: 1, margin: 2 }}>
-              <Pressable onPress={()=> {navigation.navigate("Jobs")}}>
+            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ item:item} )}>
                 <Image
                   source={{ uri: item.url[0] }}
                   style={{

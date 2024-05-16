@@ -7,20 +7,18 @@ import {
 import { auth } from "./firebaseConfig";
 // import i18next, {languageResources} from './i18next';
 import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google"
+import * as Google from "expo-auth-session/providers/google";
 import React, { useEffect, useState } from "react";
 import SignInScreen from "./app/screens/SignInScreen";
 import { CustomNavigator } from "./app/navigation/CustomNavigator";
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
-import { makeRedirectUri } from 'expo-auth-session'
-import Constants from 'expo-constants';
-import "./i18next"
-
+import { makeRedirectUri } from "expo-auth-session";
+import Constants from "expo-constants";
+import "./i18next";
 
 WebBrowser.maybeCompleteAuthSession();
-
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -29,36 +27,38 @@ export default function App() {
   // Configuración de los parámetros de redireccionamiento según el entorno
   const EXPO_REDIRECT_PARAMS = {
     useProxy: true, // Utilizar proxy en entorno Expo para evitar problemas con URI
-    projectNameForProxy: '@creshsofresh/Artbits-final-project',
+    projectNameForProxy: "@creshsofresh/Artbits-final-project",
   };
 
   const NATIVE_REDIRECT_PARAMS = {
-    native: 'Artbits-final-project://', // Especifica el esquema URL personalizado para apps nativas
+    native: "Artbits-final-project://", // Especifica el esquema URL personalizado para apps nativas
   };
 
   // Elegir entre configuraciones Expo o nativa según el entorno de la aplicación
-  const REDIRECT_PARAMS = Constants.appOwnership === 'expo'
-    ? EXPO_REDIRECT_PARAMS
-    : NATIVE_REDIRECT_PARAMS;
-  const preferLocalhost = Constants.appOwnership === 'expo' // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
-  const scheme = 'miappesquema';
+  const REDIRECT_PARAMS =
+    Constants.appOwnership === "expo"
+      ? EXPO_REDIRECT_PARAMS
+      : NATIVE_REDIRECT_PARAMS;
+  const preferLocalhost = Constants.appOwnership === "expo"; // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
+  const scheme = "miappesquema";
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     redirectUri: makeRedirectUri({
-      native: 'Artbits-final-project://redirect',
-      scheme: 'https',
+      native: "Artbits-final-project://redirect",
+      scheme: "https",
       queryParams: {
-        "url" : "https://auth.expo.io/@creshsofresh/Artbits-final-project"
+        url: "https://auth.expo.io/@creshsofresh/Artbits-final-project",
       },
       preferLocalhost: false,
-      path: "expo-development-client/"
-
+      path: "expo-development-client/",
     }),
-    clientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-    webClientId: "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-    androidClientId: "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
-  },);
-
+    clientId:
+      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    webClientId:
+      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    androidClientId:
+      "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
+  });
 
   const getLocalUser = async () => {
     try {
@@ -88,8 +88,7 @@ export default function App() {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
         console.log(JSON.stringify(user, null, 2));
         setUser(user);
-      } else 
-      console.log("user not authenticated");
+      } else console.log("user not authenticated");
     });
 
     return () => unsub();
@@ -100,7 +99,7 @@ export default function App() {
   //   <ActivityIndicator size={"small"} />
   // </View>;
 
-  return <CustomNavigator/>
+  return <CustomNavigator />;
   // return user ? (
   //   <CustomNavigator />
   // ) : (

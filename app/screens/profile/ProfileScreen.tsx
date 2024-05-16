@@ -6,8 +6,8 @@ import {
   View,
   Pressable,
 } from "react-native";
-import { useState } from "react";
-import { signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { User, signOut } from "firebase/auth";
 import { AboutScreen } from "./AboutScreen";
 import { colors } from "../../theme/colors";
 import { Feather } from "@expo/vector-icons";
@@ -19,13 +19,24 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { SavedScreen } from "./SavedScreen";
 
-
 const windowWidth = Dimensions.get("window").width;
 
-export const ProfileScreen = ({ navigation }) => {
+export const ProfileScreen = ({ route, navigation }) => {
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
+  //Recoger el usuario actualmente logueado
+  const [navigateUser, setNavigateUser] = useState<User>();
   const user = usePersonStore((state) => state.user);
+
+  useEffect(() => {
+    const { item } = route.params || {};
+    console.log("vista perfil", item);
+    if (item !== undefined) {
+      setNavigateUser(item);
+    }
+  }, [route.params, user]);
+
   type ViewMode = "Portfolio" | "About" | "Saved";
+
   const { t } = useTranslation();
   const { signOutZustand } = usePersonStore();
   const handleSignout = () => {
@@ -42,42 +53,44 @@ export const ProfileScreen = ({ navigation }) => {
           backgroundColor: colors.main,
         }}
       >
-        <View
-          style={{
-            position: "absolute",
-            flexDirection: "row",
-            marginStart: windowWidth * 0.78,
-            alignItems: "center",
-            display: "flex",
-            gap: 15,
-          }}
-        >
-          <Ionicons
-            name="log-out-outline"
-            size={28}
-            onPress={async () => {
-              await signOut(auth);
-              await AsyncStorage.removeItem("@user");
-              handleSignout();
+
+        {!navigateUser ? (
+          <View
+            style={{
+              position: "absolute",
+              flexDirection: "row",
+              marginStart: windowWidth * 0.78,
+              alignItems: "center",
+              display: "flex",
+              gap: 15,
             }}
-            color={colors.palette.white}
-            style={{ marginTop: 20 }}
-          ></Ionicons>
-          <Feather
-            name="edit-2"
-            onPress={() => {}}
-            size={22}
-            color={colors.palette.white}
-            style={{ marginTop: 20 }}
-          ></Feather>
-        </View>
-    
+          >
+            <Ionicons
+              name="log-out-outline"
+              size={28}
+              onPress={async () => {
+                await signOut(auth);
+                await AsyncStorage.removeItem("@user");
+                handleSignout();
+              }}
+              color={colors.palette.white}
+              style={{ marginTop: 20 }}
+            ></Ionicons>
+            <Feather
+              name="edit-2"
+              onPress={() => {}}
+              size={22}
+              color={colors.palette.white}
+              style={{ marginTop: 20 }}
+            ></Feather>
+          </View>
+        ) : null}
       </View>
 
-      {/* {user?.photoURL && (
-        <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
-      )} */}
-      <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
+      {navigateUser  && 
+        <Image source={{ uri: navigateUser[0].avatar }} style={[styles.image]} /> 
+      }
+      {/* <Image source={{ uri: navigateUser?.photoURL }} style={[styles.image]} /> */}
       <View style={styles.card}>
         {/* <Text style={styles.textTittle}>{user.displayName}</Text> */}
         {/* <Text style={styles.text}>{user.email}</Text> */}
@@ -90,9 +103,19 @@ export const ProfileScreen = ({ navigation }) => {
           }}
         >
           <Ionicons size={20} name="location-sharp" color={colors.main} />
-          <Text style={styles.textLocation}>Zaragoza, Spain</Text>
+          <Text style={styles.textLocation}>
+            {navigateUser ? 
+              navigateUser[0].city
+              
+              + ", " +
+              navigateUser[0].country  
+              : ""}
+          </Text>
         </View>
-        <Text style={styles.textUrl}> creshSoFresh.com</Text>
+        <Text style={styles.textUrl}>
+   
+          {navigateUser ? navigateUser[0].web_url : "creshsofresh.com"}
+        </Text>
       </View>
       <View
         style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 2 }}
@@ -125,26 +148,29 @@ export const ProfileScreen = ({ navigation }) => {
             {t("portfolio")}
           </Text>
         </Pressable>
-        <Pressable
-          style={[
-            styles.switchButton,
-            viewMode === "Saved" ? styles.active : styles.inactive,
-          ]}
-          onPress={() => {
-            setViewMode("Saved");
-          }}
-        >
-          <Text
-            style={
-              viewMode === "Saved"
-                ? styles.switchTextActive
-                : styles.switchTextinactive
-            }
+
+
+          <Pressable
+            style={[
+              styles.switchButton,
+              viewMode === "Saved" ? styles.active : styles.inactive,
+            ]}
+            onPress={() => {
+              setViewMode("Saved");
+            }}
           >
-            {t("saved")}
-          </Text>
-        </Pressable>
-        <Pressable
+            <Text
+              style={
+                viewMode === "Saved"
+                  ? styles.switchTextActive
+                  : styles.switchTextinactive
+              }
+            >
+              {t("saved")}
+            </Text>
+          </Pressable>
+     
+          <Pressable
           style={[
             styles.switchButton,
             viewMode === "About" ? styles.active : styles.inactive,
@@ -166,17 +192,16 @@ export const ProfileScreen = ({ navigation }) => {
       </View>
 
       {viewMode === "Portfolio" ? (
-        <ProfolioCarrousel navigation={navigation} />
+        <ProfolioCarrousel navigation={navigation} navigateUser={navigateUser}/>
       ) : viewMode === "About" ? (
-        <AboutScreen />
+        <AboutScreen navigateUser={navigateUser}/>
       ) : (
-        <SavedScreen />
+        <SavedScreen navigateUser={navigateUser} />
       )}
     </>
   );
 };
 const styles = StyleSheet.create({
-
   switchButton: {
     flex: 1,
     marginHorizontal: 10,

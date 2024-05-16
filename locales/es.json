@@ -40,6 +40,7 @@
     "select.option":"Seleciona una opción",
 
     "art.grants":"Becas artísticas",
+    "art.grant.detail":"Detalles de la beca",
 
     "name":"Nombre",
     "organization.centre":"Centro organizativo",
@@ -105,7 +106,8 @@
 
 
    "save.first.work": "Guarda tu primer proyecto",
-   "save.first.work.body": "Tus proyectos guardados se mostrarán aquí",
-   "find.work":"Encuentra obras"
+   "save.first.work.body": "Tus proyectos guardados se mostrarán en este",
+   "find.work":"Encuentra obras",
+   "not.saved.artwork": "Aún no tiene ningún proyecto en favoritos"
 
   }
