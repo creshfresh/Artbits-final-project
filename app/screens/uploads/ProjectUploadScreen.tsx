@@ -8,6 +8,8 @@ import {
   ImageSourcePropType,
   useWindowDimensions,
   Dimensions,
+  Pressable,
+  ScrollView,
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { ProjectUploadControler } from "./controler/ProjectUploadControler";
 import { useTranslation } from "../../hooks/useTranslations";
+
 const win = Dimensions.get("window");
 
 export const ProjectUploadScreen = ({ navigation }) => {
@@ -22,9 +25,10 @@ export const ProjectUploadScreen = ({ navigation }) => {
   const { t } = useTranslation();
 
   const pickImage = async () => {
+    setImages([])
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection:true,
+      allowsMultipleSelection: true,
       selectionLimit: 5,
       quality: 0.2,
       aspect: [3, 4],
@@ -37,6 +41,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
       ]);
     }
   };
+
   const goToDetail = () => {
     navigation.navigate("PublishProjectScreen", { image: image });
   };
@@ -66,60 +71,89 @@ export const ProjectUploadScreen = ({ navigation }) => {
         </Text>
         <Text style={{ fontSize: 15, fontWeight: "200" }}>{t("max.size")}</Text>
         <View style={{ marginTop: 50 }}>
-          <Button title={t("select.image")} onPress={pickImage} />
-        </View>
-        <View style={{ marginTop: 50, display: "flex" }}>
-          {image &&
-            image.map((uri, index) => (
-              <Image key={index} source={{ uri: uri }} style={styles.image} />
-            ))}
-        </View>
-        {/* 
-        {image && ( */}
-        <View
-          style={{
-            flex: 1,
-            position: "absolute",
-            height: 120,
-            bottom: -20,
-            borderTopEndRadius: 20,
-            borderTopStartRadius: 20,
-            alignItems: "center",
-            width: win.width,
-            backgroundColor: "white",
-          }}
-        >
-          <TouchableOpacity
+          <Pressable
+            onPress={pickImage}
             style={{
-              marginTop: 30,
-              justifyContent: "center",
-              paddingVertical: 10,
-              paddingHorizontal: 10,
+              borderWidth: 2,
+              borderColor: colors.secondary,
+              paddingHorizontal: 25,
+              paddingVertical: 8,
               borderRadius: 30,
-              width: 150,
-              backgroundColor: colors.secondary,
-              borderColor: "transparent",
-              height: "auto",
             }}
-            onPress={() => goToDetail()}
           >
             <Text
               style={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "600",
-                alignContent: "center",
-                textAlign: "center",
+                color: colors.secondary,
+                fontSize: 15,
+                fontWeight: "700",
               }}
             >
-              {t("continue")}
+{image.length ===0 ? t("select.image") : t("change.image") }
+              
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
+        
+        {image.length > 0 && (
+          <View style={{ marginTop: 50, display: "flex", flex: 1 }}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {image.map((uri, index) => (
+                <Image key={index} source={{ uri: uri }} style={styles.image} />
+              ))}
+            </ScrollView>
+          </View>
+        )}
+        
+        {image.length > 0 && (
+          <View
+            style={{
+              flex: 1,
+              position: "absolute",
+              height: 120,
+              bottom: -20,
+              borderTopEndRadius: 20,
+              borderTopStartRadius: 20,
+              alignItems: "center",
+              width: win.width,
+              backgroundColor: "white",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                marginTop: 30,
+                justifyContent: "center",
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                borderRadius: 30,
+                width: 150,
+                backgroundColor: colors.secondary,
+                borderColor: "transparent",
+                height: "auto",
+              }}
+              onPress={() => goToDetail()}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                {t("continue")}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",

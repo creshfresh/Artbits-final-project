@@ -158,7 +158,7 @@ const GalleryStackNavigator = () => {
       <Stack.Screen
         name="HomeGalleryScreen"
         component={HomeGalleryScreen}
-        options={{ headerShown: true, headerTitle: "", headerTitleAlign:"center"}}
+        options={{ headerShown: false, headerTitle: "", headerTitleAlign:"center"}}
       />
       <Stack.Screen
         name="PorfolioDetail"

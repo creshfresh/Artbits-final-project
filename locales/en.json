@@ -26,6 +26,7 @@
     "upload.multimedia.archives":"Upload mulimedia archives",
     "continue":"Continue",
     "select.image":"Select image",
+    "change.image": "Change images",
     "max.size":"Maximum number of files: 5",
 
     "mandatory.field":"Everything marked with an (*) is a required field",

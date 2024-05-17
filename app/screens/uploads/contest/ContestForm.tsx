@@ -2,7 +2,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Checkbox from "expo-checkbox";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { participantsOptions } from "../../../../Constants";
 import { futureDate } from "../../../../helpers";
@@ -41,6 +41,11 @@ export const ContestForm = ({ navigation }) => {
     pickedPdf,
     pickDocument,
   } = ConestControler(startDate, endDate, participants);
+
+const handleEmptyValues = () => {
+  // setShowErrors(true)
+  Alert.alert("error", "error")
+}
 
   useEffect(() => {
     if (
@@ -391,7 +396,7 @@ export const ContestForm = ({ navigation }) => {
           justifyContent: "flex-end",
         }}
       >
-        {showErrors && pickedPdf.assets[0].uri == "" ? (
+        {showErrors && pickedPdf != undefined && pickedPdf.assets[0].uri == "" ? (
           <Text style={grantContesttSyles.errors}>{t("error.pdf")}</Text>
         ) : (
           pickedPdf &&
@@ -418,7 +423,8 @@ export const ContestForm = ({ navigation }) => {
           marginVertical: 10,
         }}
       >
-        <Pressable style={grantContesttSyles.publish_button} onPress={handleSave}>
+        <Pressable style={grantContesttSyles.publish_button} onPress={(pickedPdf !== null && pickedPdf !== undefined) ? handleSave : handleEmptyValues}
+>
           <Text style={grantContesttSyles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>

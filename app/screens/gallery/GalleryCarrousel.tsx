@@ -40,6 +40,8 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
           url: doc.data().url,
           title: doc.data().title,
           description: doc.data().description,
+          publish_date: doc.data().publish_date,
+          medium_type: doc.data().medium_type,
         }))
       );
     });

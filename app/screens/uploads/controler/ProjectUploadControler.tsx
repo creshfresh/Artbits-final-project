@@ -16,7 +16,7 @@ export const ProjectUploadControler = () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
-        //   selectionLimit: 5,
+          selectionLimit: 5,
           quality: 0.2,
           aspect: [3, 4],
         });

@@ -10,7 +10,7 @@
     "sign.in":"Iniciar sesión",
     "log.out":"Cerrar sesión",
     
-    "portfolio":"portfolio",
+    "portfolio":"Portfolio",
     "summary":"Resumen",
     "follow.social":"Sígueme en redes sociales",
     "contact":"Contacto",
@@ -26,6 +26,7 @@
 
     "upload.multimedia.archives":"Subir archivos multimedia",
     "select.image":"Selecciona una imagen",
+    "change.image": "Cambiar imágenes",
     "max.size":"Máximo número de imágenes: 5",
 
     "mandatory.field":"Todo marcado con un (*) es un campo obligatorio",
