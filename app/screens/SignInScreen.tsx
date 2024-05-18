@@ -1,39 +1,38 @@
-import React, { Fragment, useEffect, useState } from "react";
 import {
-  useFonts,
   Montserrat_600SemiBold,
+  useFonts,
 } from "@expo-google-fonts/montserrat";
-import { AntDesign } from "@expo/vector-icons";
-import {
-  Button,
-  SafeAreaView,
-  Text,
-  Pressable,
-  StyleSheet,
-  Image,
-  View,
-  Dimensions,
-  TextInput,
-} from "react-native";
-import { colors } from "../theme/colors";
-import { auth } from "../../firebaseConfig";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from "react-native";
+import { auth } from "../../firebaseConfig";
+import { colors } from "../theme/colors";
 import { LoginControler } from "./login/LoginControler";
-import { Ionicons } from "@expo/vector-icons";
 const win = Dimensions.get("window");
 
 export default function SignInScreen({}) {
   const welcomeLogo = require("../../assets/logoPollo_complete.png");
+  const background = require("../../assets/background-blur-2.png");
+  let [fontsLoaded] = useFonts({
+    Montserrat_600SemiBold,
+  });
 
   const [disabled, setIsDisabled] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const { isValidEmail, isValidPassword } = LoginControler();
-  let [fontsLoaded] = useFonts({
-    Montserrat_600SemiBold,
-  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(true);
@@ -52,7 +51,7 @@ export default function SignInScreen({}) {
         });
     } else {
       setShowEmailError(!isValidEmail(email));
-      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+      setShowPasswordError(!isValidPassword(password));
     }
   };
 
@@ -66,7 +65,7 @@ export default function SignInScreen({}) {
         .catch((error) => alert(error.message));
     } else {
       setShowEmailError(!isValidEmail(email));
-      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+      setShowPasswordError(!isValidPassword(password));
     }
   };
 
@@ -88,19 +87,23 @@ export default function SignInScreen({}) {
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
-            // backgroundColor: colors.background,
           }}
         >
+          <Image
+            source={background}
+            resizeMode="contain"
+            style={{ position: "absolute", top: 0, height:win.height }}
+          ></Image>
           <View>
             <Text
               style={{
                 fontSize: 32,
-                marginTop: 80,
+                marginTop: 50,
                 textAlign: "center",
                 fontFamily: "Montserrat_600SemiBold",
                 fontWeight: "bold",
                 color: colors.main,
-                letterSpacing: 1,
+                letterSpacing: 2,
               }}
             >
               Welcome back to
@@ -113,6 +116,7 @@ export default function SignInScreen({}) {
             style={{
               color: colors.text,
               fontSize: 24,
+              textAlign:"center",
               fontWeight: "bold",
               marginVertical: 20,
               letterSpacing: 1,
@@ -167,26 +171,26 @@ export default function SignInScreen({}) {
               numbers
             </Text>
           )}
-              <Pressable
-                disabled={disabled}
-                style={[
-                  styles.basebutton,
-                  disabled ? styles.buttonDisabled : styles.buttonEnabled,
-                ]}
-                onPress={isLogin ? handleLogin : handleSignUp}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 18,
-                    fontWeight: "600",
-                    alignContent: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  {isLogin ? "Log in" : "Sign up"}
-                </Text>
-              </Pressable>
+          <Pressable
+            disabled={disabled}
+            style={[
+              styles.basebutton,
+              disabled ? styles.buttonDisabled : styles.buttonEnabled,
+            ]}
+            onPress={isLogin ? handleLogin : handleSignUp}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontWeight: "600",
+                alignContent: "center",
+                textAlign: "center",
+              }}
+            >
+              {isLogin ? "Log in" : "Sign up"}
+            </Text>
+          </Pressable>
           <View
             style={{
               alignItems: "center",
@@ -206,8 +210,8 @@ export default function SignInScreen({}) {
                 gap: 10,
               }}
             >
-              <AntDesign
-                name="arrowright"
+              <Ionicons
+                name="arrow-forward"
                 size={25}
                 color={colors.secondary}
                 style={{ textAlign: "right" }}
@@ -215,7 +219,7 @@ export default function SignInScreen({}) {
               <Pressable onPress={() => setIsLogin(!isLogin)}>
                 <Text
                   style={{
-                    color: colors.main,
+                    color: colors.text,
                     textAlign: "right",
                     fontSize: 15,
                   }}
@@ -225,17 +229,26 @@ export default function SignInScreen({}) {
               </Pressable>
             </View>
           </View>
-          <Text
-            style={{
-              textAlign: "center",
-              marginTop: 50,
-              color: "grey",
-              fontSize: 12,
-            }}
-          >
-            By clicking sign up you state that you have read and understood the
-            terms and conditions.
-          </Text>
+          <View>
+            <Text
+              style={{
+                textAlign: "center",
+                marginTop: 30,
+                color: "grey",
+                fontSize: 11,
+              }}
+            >
+              {"Developed with "}
+              <Ionicons
+                name="heart"
+                style={{
+                  alignItems: "center",
+                  color: colors.dateText,
+                }}
+              />
+              {" by @creshSofresh"}
+            </Text>
+          </View>
         </View>
       </>
     );
@@ -249,7 +262,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    height: "45%",
+    height: "65%",
     width: 500,
     marginTop: 30,
     resizeMode: "contain",
@@ -268,8 +281,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textInput: {
-    backgroundColor: "white",
-    borderColor: "#5E5F61",
+    backgroundColor: "#e3e3e3",
+    borderColor: "transparent",
     padding: 10,
     borderRadius: 10,
     flexDirection: "row",
@@ -297,14 +310,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondarytext,
   },
   loginCard: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: "white",
     borderRadius: 30,
     left: 0,
     right: 0,
     bottom: -20,
     width: "100%",
-    minHeight: 480,
+    minHeight: 430,
   },
   shadowProp: {
     shadowColor: "#000000",

@@ -29,6 +29,7 @@ export const colors = {
 
   contest:palette.primary200,
   dateText: palette.neutral700,
+  neutral05: palette.neutral500,
 
   textDim: palette.primary100,
   secondary: palette.secondary100,

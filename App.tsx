@@ -43,45 +43,45 @@ export default function App() {
   // const preferLocalhost = Constants.appOwnership === "expo"; // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
   // const scheme = "miappesquema";
 
-  // const [request, response, promptAsync] = Google.useAuthRequest({
-  //   redirectUri: makeRedirectUri({
-  //     native: "Artbits-final-project://redirect",
-  //     scheme: "https",
-  //     queryParams: {
-  //       url: "https://auth.expo.io/@creshsofresh/Artbits-final-project",
-  //     },
-  //     preferLocalhost: false,
-  //     path: "expo-development-client/",
-  //   }),
-  //   clientId:
-  //     "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-  //   webClientId:
-  //     "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-  //   androidClientId:
-  //     "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
-  // });
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    redirectUri: makeRedirectUri({
+      native: "Artbits-final-project://redirect",
+      scheme: "https",
+      queryParams: {
+        url: "https://auth.expo.io/@creshsofresh/Artbits-final-project",
+      },
+      preferLocalhost: false,
+      path: "expo-development-client/",
+    }),
+    clientId:
+      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    webClientId:
+      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+    androidClientId:
+      "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
+  });
 
-  // const getLocalUser = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const userJson = await AsyncStorage.getItem("@user");
-  //     setLoading(false);
-  //     const userData = userJson ? JSON.parse(userJson) : null;
-  //     setUser(userData);
-  //   } catch (error) {
-  //     console.log("Error", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getLocalUser();
-  //   if (response?.type === "success") {
-  //     const { id_token } = response.params;
-  //     const credential = GoogleAuthProvider.credential(id_token);
-  //     signInWithCredential(auth, credential);
-  //   }
-  // }, [response]);
+  const getLocalUser = async () => {
+    try {
+      setLoading(true);
+      const userJson = await AsyncStorage.getItem("@user");
+      setLoading(false);
+      const userData = userJson ? JSON.parse(userJson) : null;
+      setUser(userData);
+    } catch (error) {
+      console.log("Error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getLocalUser();
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential);
+    }
+  }, [response]);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -94,17 +94,16 @@ export default function App() {
     return () => unsub();
   }),
     [];
+
   if (loading) return;
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <ActivityIndicator size={"small"} />
   </View>;
 
-  // return <CustomNavigator />;
   return user ? (
     <CustomNavigator />
   ) : (
     <View style={styles.container}>
-      {/* <LoginScreen/> */}
       <SignInScreen />
       <StatusBar barStyle="default" />
     </View>

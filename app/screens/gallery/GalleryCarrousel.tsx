@@ -78,8 +78,8 @@ export const GalleryCarousel = ({
         onPress={()=>setColums(column == 1 ? 2 : 1)}
       >
         {column === 1 ? 
-       <Feather name="columns" size={30} color={colors.text}/> : 
-       <Ionicons name="browsers-sharp" size={30} color={colors.text}/> 
+       <Feather name="columns" size={30} color={colors.main}/> : 
+       <Ionicons name="browsers-sharp" size={30} color={colors.main}/> 
         }
       </Pressable>
 

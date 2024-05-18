@@ -215,8 +215,9 @@ const InternShipsAndContestStackNavigator = () => {
       }}
     >
       <Stack.Screen
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
         name="FlatListContestInternships"
+        
         component={FlatListContestInternships}
       />
       <Stack.Screen name="Sign in" component={SignInScreen} />
@@ -225,6 +226,7 @@ const InternShipsAndContestStackNavigator = () => {
         component={ArtGrantScreen}
         options={({ navigation }) => ({
           headerShown: true,
+          animation: "ios",
           headerShadowVisible: false,
           headerTitle: t("art.grants"),
           headerLeft: () => (
@@ -241,7 +243,7 @@ const InternShipsAndContestStackNavigator = () => {
         name="ContestScreen"
         component={ContestScreen}
         options={({ navigation }) => ({
-          headerShown: true,
+          // headerShown: true,
           headerTitle: t("contests"),
           animation: "ios",
 
