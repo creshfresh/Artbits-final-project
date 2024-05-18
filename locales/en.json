@@ -4,6 +4,7 @@
     "contest": "Contest",
     "contests": "Contests",
     "artGrant": "Art grant",
+    "artGrants": "Art grants",
     "upload": "Upload",
     "sign.in":"Sign in",
     "log.out":"Log out",
@@ -59,6 +60,7 @@
     "vacancies":"Number of vacancies",
     "add.offical.bases":"Add offical bases in pdf format",
     "destinty.centre":"Destiny centre",
+    "contest.detail":"Contest detail",
 
     "name.placeholder.contest":"Name of the contest",
     "name.placeholder.grant":"Name of the art grant",
@@ -76,7 +78,7 @@
     "vacancies.placeholder": "Number of vacancies",
     "url.bases.placeholder":"Add the link to download the bases",
     "object.and.purpose.placeholder":"Write the brief justification",
-  "destinty.centre.placeholder":"Centre to attend course",
+    "destinty.centre.placeholder":"Centre to attend course",
 
     "upload.job":"Upload jobs",
     "upload.course":" Upload course",
@@ -100,8 +102,8 @@
     "october": "Octubre",
     "november": "Noviembre",
     "december": "Diciembre",
-    "open": "ABIERTO",
-    "close": "CERRADO",
+    "open": "OPEN",
+    "close": "CLOSED",
 
     
    "save.first.work": "Save your first project",

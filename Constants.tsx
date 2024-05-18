@@ -8,8 +8,6 @@ export type ProjectImages = {
   publish_date: Date;
 };
 
-
-
 export const cardData = [
   {
     id: "1",
@@ -86,6 +84,21 @@ export const cardData = [
 export const options = [
   { label: "Traditional", value: "traditional" },
   { label: "Digital", value: "digital" },
+];
+export const WorkModelOptions = [
+  { label: "Hybrid", value: "hybrid" },
+  { label: "Remote", value: "remote" },
+  { label: "In Office", value: "inOffice" },
+];
+export const ContracTypeOptions = [
+  { label: "Permanent.", value: "permanent" },
+  { label: "Fixed-term", value: "fixedterm" },
+  { label: "Temporary", value: "temporary" },
+  { label: "Internship", value: "internship" },
+];
+export const WorkingHoursOptions = [
+  { label: "Full-time", value: "fulltime" },
+  { label: "Part time", value: "partime" },
 ];
 export const participantsOptions = [
   { label: "Spain", value: "spain" },

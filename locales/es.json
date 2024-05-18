@@ -5,6 +5,7 @@
     "contests": "Concursos",
     
     "artGrant": "Beca",
+    "artGrantz": "Becas",
     "saved":"Guardado",
     "upload": "Subir",
     "sign.in":"Iniciar sesión",
@@ -42,6 +43,8 @@
 
     "art.grants":"Becas artísticas",
     "art.grant.detail":"Detalles de la beca",
+
+    "contest.detail":"Detalle del concurso",
 
     "name":"Nombre",
     "organization.centre":"Centro organizativo",
@@ -102,8 +105,8 @@
     "october": "Octubre",
     "november": "Noviembre",
     "december": "Diciembre",
-    "open": "OPEN",
-    "close": "CLOSE",
+    "open": "ABIERTO",
+    "close": "CERRADO",
 
 
    "save.first.work": "Guarda tu primer proyecto",

@@ -28,7 +28,7 @@ export const ContestArtGrantViewForms = ({navigation}) => {
       <View
         style={{
           display: "flex",
-          marginTop: 100,
+          marginTop: 10,
           flexDirection: "row",
           justifyContent: "center",
           paddingHorizontal: 10,

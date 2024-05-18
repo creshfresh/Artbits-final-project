@@ -21,6 +21,7 @@ import { colors } from "../theme/colors";
 import { FlatListContestInternships } from "../screens/gallery/FlatListContestInternships";
 import { ContestDetailScreen } from "../screens/contest/ContestDetailScreen";
 import { ArtGrantDetailScreen } from "../screens/artGrants/ArtGrantDetailScreen";
+import { FlatlistJobs } from "../screens/jobs/FlatListJobs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,7 +48,6 @@ const UploadStackNavigation = () => {
         name="ProjectUploadScreen"
         component={ProjectUploadScreen}
         options={({ navigation }) => ({
-   
           headerTitle: t("upload"),
           headerLeft: () => (
             <Ionicons
@@ -57,7 +57,6 @@ const UploadStackNavigation = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-   
         })}
       />
       <Stack.Screen
@@ -65,7 +64,7 @@ const UploadStackNavigation = () => {
         component={ContestArtGrantViewForms}
         options={({ navigation }) => ({
           headerShown: true,
-          // headerShadowVisible: false,
+          navigationBarColor: "transparent",
           headerTitle: t("upload.contest.artGrant"),
           headerLeft: () => (
             <Ionicons
@@ -85,7 +84,8 @@ const UploadStackNavigation = () => {
         component={JobFormView}
         options={({ navigation }) => ({
           headerShown: true,
-          // headerShadowVisible: false,
+          backgroundColor: "transparent",
+          navigationBarColor: "transparent",
           headerTitle: t("upload.job"),
           headerLeft: () => (
             <Ionicons
@@ -106,7 +106,7 @@ const UploadStackNavigation = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerShadowVisible: false,
-                    navigationBarColor:"transparent",
+          navigationBarColor: "transparent",
 
           headerTitle: "Info",
           headerLeft: () => (
@@ -127,7 +127,7 @@ const UploadStackNavigation = () => {
         component={SuccesUpload}
         options={({ navigation }) => ({
           headerShown: false,
-          navigationBarColor:"transparent",
+          navigationBarColor: "transparent",
           headerShadowVisible: false,
           headerTitle: "Info",
           headerStyle: {
@@ -158,15 +158,18 @@ const GalleryStackNavigator = () => {
       <Stack.Screen
         name="HomeGalleryScreen"
         component={HomeGalleryScreen}
-        options={{ headerShown: false, headerTitle: "", headerTitleAlign:"center"}}
+        options={{
+          headerShown: false,
+          headerTitle: "",
+          headerTitleAlign: "center",
+        }}
       />
       <Stack.Screen
         name="PorfolioDetail"
-      
         component={PorfolioDetail}
         options={({ navigation }) => ({
           headerShown: true,
-          navigationBarColor:"transparent",
+          navigationBarColor: "transparent",
           headerShadowVisible: false,
           headerTitle: t("detail"),
           headerLeft: () => (
@@ -181,15 +184,59 @@ const GalleryStackNavigator = () => {
       />
       <Stack.Screen
         name="ProfileScreen"
-      
         component={ProfileScreen}
         options={({ navigation }) => ({
           headerShown: true,
-          headerTransparent:true,
-          navigationBarColor:"transparent",
+          headerTransparent: true,
+          headerTintColor:colors.neutral05,
+          navigationBarColor: "transparent",
           // headerShadowVisible: false,
           headerTitle: t("detail"),
-          
+
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+const JobstStackNavigator = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerStyle: {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="FlatlistJobs"
+        component={FlatlistJobs}
+      />
+
+      <Stack.Screen
+        name="JobDetailScreen"
+        component={ContestDetailScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          animation: "ios",
+          headerBackTitle: "",
+          headerTitle: t("job.detail"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -223,7 +270,6 @@ const InternShipsAndContestStackNavigator = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="FlatListContestInternships"
-        
         component={FlatListContestInternships}
       />
       <Stack.Screen name="Sign in" component={SignInScreen} />
@@ -249,10 +295,8 @@ const InternShipsAndContestStackNavigator = () => {
         name="ContestScreen"
         component={ContestScreen}
         options={({ navigation }) => ({
-          // headerShown: true,
           headerTitle: t("contests"),
           animation: "ios",
-
           headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons
@@ -270,6 +314,9 @@ const InternShipsAndContestStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           animation: "ios",
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
           headerBackTitle: "",
           headerTitle: t("contest.detail"),
 
@@ -285,13 +332,16 @@ const InternShipsAndContestStackNavigator = () => {
       />
       <Stack.Screen
         name="ArtGrantDetailScreen"
+        
         component={ArtGrantDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
           animation: "ios",
-
+          headerShadowVisible: false,
           headerTitle: t("art.grant.detail"),
-          headerBackTitleVisible: true,
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -384,7 +434,7 @@ const TabNavigator = () => {
         component={InternShipsAndContestStackNavigator}
       />
       <Tab.Screen name="Upload" component={UploadStackNavigation} />
-      <Tab.Screen name="Jobs" component={SettingsScreenKK} />
+      <Tab.Screen name="Jobs" component={FlatlistJobs} />
       <Tab.Screen name="Profile" component={PortfolioStackNavigator} />
     </Tab.Navigator>
   );

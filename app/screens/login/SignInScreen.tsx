@@ -63,7 +63,7 @@ export default function SignInScreen({}) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCreds) => {
           const user = userCreds.user;
-          const appUser: AppUser = {
+          const appUser: AppUser | any= {
             displayName:"Loquete",
             email: user.email,
             country: "", 
@@ -123,7 +123,7 @@ export default function SignInScreen({}) {
           const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
               const userData = doc.data();
-              const appUser: AppUser = {
+              const appUser: AppUser | any = {
                 displayName: userData.displayName,
                 email: userData.email,
                 country: userData.country,

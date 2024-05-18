@@ -13,9 +13,9 @@ import { colors } from "../../theme/colors";
 export const FlatListContestInternships = ({ navigation }) => {
   const { t } = useTranslation();
 
-  const data: string[] = ["Concursos ", "Becas"];
+  const data: string[] = ["contests", "artGrants"];
   const handleNavigation = (item) => {
-    item === "Becas"
+    item === "artGrants"
       ? navigation.navigate("ArtGrantScreen")
       : navigation.navigate("ContestScreen");
   };
@@ -29,7 +29,7 @@ export const FlatListContestInternships = ({ navigation }) => {
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
           <View style={styles.container}>
-            <Text style={styles.text}>{item}</Text>
+            <Text style={styles.text}>{t(item.toString())}</Text>
             <Pressable
               onPress={() =>
                 handleNavigation(item)
