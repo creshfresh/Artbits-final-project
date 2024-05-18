@@ -26,40 +26,40 @@ export default function App() {
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
   // Configuración de los parámetros de redireccionamiento según el entorno
-  const EXPO_REDIRECT_PARAMS = {
-    useProxy: true, // Utilizar proxy en entorno Expo para evitar problemas con URI
-    projectNameForProxy: "@creshsofresh/Artbits-final-project",
-  };
+  // const EXPO_REDIRECT_PARAMS = {
+  //   useProxy: true, // Utilizar proxy en entorno Expo para evitar problemas con URI
+  //   projectNameForProxy: "@creshsofresh/Artbits-final-project",
+  // };
 
-  const NATIVE_REDIRECT_PARAMS = {
-    native: "Artbits-final-project://", // Especifica el esquema URL personalizado para apps nativas
-  };
+  // const NATIVE_REDIRECT_PARAMS = {
+  //   native: "Artbits-final-project://", // Especifica el esquema URL personalizado para apps nativas
+  // };
 
-  // Elegir entre configuraciones Expo o nativa según el entorno de la aplicación
-  const REDIRECT_PARAMS =
-    Constants.appOwnership === "expo"
-      ? EXPO_REDIRECT_PARAMS
-      : NATIVE_REDIRECT_PARAMS;
-  const preferLocalhost = Constants.appOwnership === "expo"; // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
-  const scheme = "miappesquema";
+  // // Elegir entre configuraciones Expo o nativa según el entorno de la aplicación
+  // const REDIRECT_PARAMS =
+  //   Constants.appOwnership === "expo"
+  //     ? EXPO_REDIRECT_PARAMS
+  //     : NATIVE_REDIRECT_PARAMS;
+  // const preferLocalhost = Constants.appOwnership === "expo"; // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
+  // const scheme = "miappesquema";
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    redirectUri: makeRedirectUri({
-      native: "Artbits-final-project://redirect",
-      scheme: "https",
-      queryParams: {
-        url: "https://auth.expo.io/@creshsofresh/Artbits-final-project",
-      },
-      preferLocalhost: false,
-      path: "expo-development-client/",
-    }),
-    clientId:
-      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-    webClientId:
-      "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
-    androidClientId:
-      "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
-  });
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   redirectUri: makeRedirectUri({
+  //     native: "Artbits-final-project://redirect",
+  //     scheme: "https",
+  //     queryParams: {
+  //       url: "https://auth.expo.io/@creshsofresh/Artbits-final-project",
+  //     },
+  //     preferLocalhost: false,
+  //     path: "expo-development-client/",
+  //   }),
+  //   clientId:
+  //     "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+  //   webClientId:
+  //     "1006799876952-tfrrji7mdatmj72e1o635kp20apf3don.apps.googleusercontent.com",
+  //   androidClientId:
+  //     "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
+  // });
 
   // const getLocalUser = async () => {
   //   try {
@@ -104,8 +104,8 @@ export default function App() {
     <CustomNavigator />
   ) : (
     <View style={styles.container}>
-      <LoginScreen/>
-      {/* <SignInScreen promptAsync={promptAsync} /> */}
+      {/* <LoginScreen/> */}
+      <SignInScreen />
       <StatusBar barStyle="default" />
     </View>
   );

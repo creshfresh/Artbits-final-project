@@ -20,39 +20,52 @@ import { auth } from "../../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
 } from "firebase/auth";
+import { LoginControler } from "./LoginControler";
 
 const win = Dimensions.get("window");
 
 export default function LoginScreen({}) {
   const [disabled, setIsDisabled] = useState(true);
-  const [isLogin, setIsLogin] = useState(true); // Estado para alternar entre login y signup
+  const [isLogin, setIsLogin] = useState(true);
+  const { isValidEmail, isValidPassword } = LoginControler();
   let [fontsLoaded] = useFonts({
     Montserrat_600SemiBold,
   });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(true);
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
 
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCreds) => {
-        const user = userCreds.user;
-        console.log("Registered with:", user.email);
-      })
-      .catch((error) => {
-        alert("Email already registered")
-      });
+const handleSignUp = () => {
+    if (isValidPassword(password) && isValidEmail(email)) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCreds) => {
+          const user = userCreds.user;
+          console.log("Registered with:", user.email);
+        })
+        .catch((error) => {
+          alert("Email already registered");
+        });
+    } else {
+      setShowEmailError(!isValidEmail(email));
+      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+    }
   };
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCreds) => {
-        const user = userCreds.user;
-        console.log("Logged in with:", user.email);
-      })
-      .catch((error) => alert(error.message));
+const handleLogin = () => {
+    if (isValidPassword(password) && isValidEmail(email)) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCreds) => {
+          const user = userCreds.user;
+          console.log("Logged in with:", user.email);
+        })
+        .catch((error) => alert(error.message));
+    } else {
+      setShowEmailError(!isValidEmail(email));
+      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+    }
   };
 
   useEffect(() => {
@@ -96,16 +109,21 @@ export default function LoginScreen({}) {
             value={email}
             onChangeText={(email) => {
               setEmail(email);
+              setShowEmailError(false);
             }}
             placeholder="Email"
             keyboardType="default"
           />
+          {showEmailError && (
+            <Text style={styles.errors}>Invalid email format</Text>
+          )}
           <View style={[styles.textInput, { justifyContent: "space-between" }]}>
             <TextInput
               value={password}
               secureTextEntry={viewPassword}
               onChangeText={(pwd) => {
                 setPassword(pwd);
+                setShowPasswordError(false);
               }}
               placeholder="Password"
               keyboardType="default"
@@ -126,6 +144,12 @@ export default function LoginScreen({}) {
               />
             )}
           </View>
+          {showPasswordError && (
+            <Text style={styles.errors}>
+              Invalid password. Must be at least 8 characters long and contain
+              numbers
+            </Text>
+          )}
 
           <View
             style={{
@@ -183,6 +207,10 @@ const styles = StyleSheet.create({
   },
   buttonEnabled: {
     backgroundColor: colors.main,
+  },
+  errors: {
+    fontSize: 12,
+    color: "red",
   },
   buttonDisabled: {
     backgroundColor: colors.secondarytext,
