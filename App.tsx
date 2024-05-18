@@ -11,12 +11,13 @@ import * as Google from "expo-auth-session/providers/google";
 import React, { useEffect, useState } from "react";
 import SignInScreen from "./app/screens/SignInScreen";
 import { CustomNavigator } from "./app/navigation/CustomNavigator";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StatusBar, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
 import { makeRedirectUri } from "expo-auth-session";
 import Constants from "expo-constants";
 import "./i18next";
+import LoginScreen from "./app/screens/login/LoginScreen";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -86,28 +87,28 @@ export default function App() {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        console.log(JSON.stringify(user, null, 2));
         setUser(user);
-      } else console.log("user not authenticated");
+      } else {}
     });
 
     return () => unsub();
   }),
     [];
-  // if (loading) return;
-  // <View style={{ alignItems: "center", justifyContent: "center" }}>
-  //   <ActivityIndicator size={"small"} />
-  // </View>;
+  if (loading) return;
+  <View style={{ alignItems: "center", justifyContent: "center" }}>
+    <ActivityIndicator size={"small"} />
+  </View>;
 
-  return <CustomNavigator />;
-  // return user ? (
-  //   <CustomNavigator />
-  // ) : (
-  //   <View style={styles.container}>
-  //     <SignInScreen promptAsync={promptAsync} />
-  //     <StatusBar style="auto" />
-  //   </View>
-  // );
+  // return <CustomNavigator />;
+  return user ? (
+    <CustomNavigator />
+  ) : (
+    <View style={styles.container}>
+      <LoginScreen/>
+      {/* <SignInScreen promptAsync={promptAsync} /> */}
+      <StatusBar barStyle="default" />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

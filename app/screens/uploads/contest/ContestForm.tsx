@@ -8,7 +8,7 @@ import { participantsOptions } from "../../../../Constants";
 import { futureDate } from "../../../../helpers";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { colors } from "../../../theme/colors";
-import { grantContesttSyles } from "../styles";
+import { grantContesttSyles } from "../../styles/styles";
 import { ConestControler } from "./ContestControler";
 
 export const ContestForm = ({ navigation }) => {

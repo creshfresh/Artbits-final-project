@@ -2,10 +2,15 @@ import { colors } from "../../theme/colors";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { database } from "../../../firebaseConfig";
 
 export const SavedScreen = ({ navigateUser }) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
+
+  const [images, setImages] = useState([])
 
   const handleNavigateToHome = () => {
     navigation.reset({
@@ -14,8 +19,30 @@ export const SavedScreen = ({ navigateUser }) => {
       routes: [{ name: "Home" }],
     });
   };
-  /* Esta pantalla se enseña los proyectos que el usuario ha guardado en favoritos*/
+  useEffect(() => {
+    const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "3828";
+    const collectionRef = collection(database, "SavedArtworks");
+    const q = query(collectionRef, where("user_id" ,"==" ,userId)); // El ide 3828 es harcodeado
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setImages(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          url: doc.data().url,
+          title: doc.data().title,
+          publish_date:doc.data().publish_date,
+          medium_type:doc.data().medium_type,
+          user_id:doc.data().user_id,
+          description: doc.data().description,
+        
+        }))
+      );
+      console.log("userodid:",userId)
+    });
 
+    return unsubscribe; 
+
+  }, [navigateUser]);
+  
   return (
     <View style={{ flex: 1, padding: 50 }}>
       {navigateUser === null || navigateUser === undefined ? (
@@ -38,6 +65,7 @@ export const SavedScreen = ({ navigateUser }) => {
           </View>
         </>
       ) : (
+        
         <>
           <View style={styles.justifyTitle}>
             <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>

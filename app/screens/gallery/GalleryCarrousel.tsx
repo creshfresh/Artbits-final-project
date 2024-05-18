@@ -1,11 +1,12 @@
+import { Feather, Ionicons } from "@expo/vector-icons";
 import {
-  View,
-  Image,
-  StyleSheet,
   Dimensions,
-  ScrollView,
+  Image,
   Pressable,
+  ScrollView,
+  View
 } from "react-native";
+
 import { FlashList } from "@shopify/flash-list";
 import {
   collection,
@@ -14,16 +15,24 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { database } from "../../../firebaseConfig";
 import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { database } from "../../../firebaseConfig";
+import { colors } from "../../theme/colors";
 
-export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, navigation}) => {
+export const GalleryCarousel = ({
+  viewMode,
+  navigation,
+}: {
+  viewMode: string;
+  navigation;
+}) => {
   const [data, setData] = useState([]);
+  const [column, setColums]= useState(2);
 
   /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
   let filter = viewMode.toLowerCase();
 
+  const imageHeight = column === 2 ? 200 : 100; 
   useEffect(() => {
     const collectionRef = collection(database, "Projects");
     const q = query(
@@ -36,7 +45,7 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          user_id:doc.data().user_id,
+          user_id: doc.data().user_id,
           url: doc.data().url,
           title: doc.data().title,
           description: doc.data().description,
@@ -48,16 +57,39 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
     return unsubscribe;
   }, [filter]);
 
-  
-
-  
-
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+      <Pressable
+        style={{
+          position: "absolute",
+          bottom: 50,
+          left: "85%",
+          right: 0,
+          height:50,
+          width:45,
+          zIndex: 1, 
+          borderRadius:5,
+          borderColor:colors.dateText,
+          borderWidth:1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor:"#rgba(222, 222, 222, 0.5)"
+        }}
+        onPress={()=>setColums(column == 1 ? 2 : 1)}
+      >
+        {column === 1 ? 
+       <Feather name="columns" size={30} color={colors.text}/> : 
+       <Ionicons name="browsers-sharp" size={30} color={colors.text}/> 
+        }
+      </Pressable>
+
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         <FlashList
           data={data}
-          numColumns={2}
+          numColumns={column}
           horizontal={false}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
@@ -65,12 +97,16 @@ export const GalleryCarousel = ({ viewMode , navigation}: { viewMode: string, na
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={{ flex: 1, margin: 2 }}>
-            <Pressable onPress={()=>navigation.navigate("PorfolioDetail",{ item:item} )}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("PorfolioDetail", { item: item })
+                }
+              >
                 <Image
                   source={{ uri: item.url[0] }}
                   style={{
                     width: "100%",
-                    minHeight: 200,
+                    minHeight: 250,
                     borderRadius: 10,
                     borderColor: "#d35647",
                     resizeMode: "cover",

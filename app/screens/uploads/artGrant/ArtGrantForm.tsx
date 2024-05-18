@@ -18,7 +18,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Dropdown } from "react-native-element-dropdown";
 import { options, participantsOptions } from "../../../../Constants";
 import { futureDate } from "../../../../helpers";
-import { grantContesttSyles } from "../styles";
+import { grantContesttSyles } from "../../styles/styles";
 
 export const ArtGrantForm = ({ navigation }) => {
   const renderItem = (item) => {
