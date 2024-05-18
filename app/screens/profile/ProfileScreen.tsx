@@ -89,12 +89,12 @@ export const ProfileScreen = ({ route, navigation }) => {
         ) : null}
       </View>
 
-      {navigateUser  && 
-        <Image source={{ uri: navigateUser[0].avatar }} style={[styles.image]} /> 
+      {navigateUser  ?
+        <Image source={{ uri: navigateUser[0].avatar }} style={[styles.image]} /> :
+       <Image source={{ uri: navigateUser?.avatar }} style={[styles.image]} /> 
       }
-      <Image source={{ uri: navigateUser?.avatar }} style={[styles.image]} />
       <View style={styles.card}>
-        <Text style={styles.textTittle}>{user.fullname}</Text>
+        <Text style={styles.textTittle}>{user.displayName}</Text>
         {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{
@@ -108,10 +108,10 @@ export const ProfileScreen = ({ route, navigation }) => {
           <Text style={styles.textLocation}>
             {navigateUser ? 
               navigateUser[0].city
-              
+        
               + ", " +
               navigateUser[0].country  
-              : ""}
+              : user.createdAt}
           </Text>
         </View>
         <Text style={styles.textUrl}>

@@ -69,7 +69,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
       setName(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          fullname: doc.data().full_name,
+          displayName: doc.data().displayName,
           contact_email: doc.data().contact_email,
           country: doc.data().country,
           city: doc.data().city,
@@ -158,7 +158,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
                 borderRadius: 30,
               }}
             />
-            <Text style={styles.subtitle}>{name[0]?.fullname}</Text>
+            <Text style={styles.subtitle}>{name[0]?.displayName}</Text>
           </View>
         </Pressable>
 

@@ -14,30 +14,13 @@ import { ActivityIndicator, StatusBar, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
 import { makeRedirectUri } from "expo-auth-session";
-
+import "./i18next"; // Ni se te ocurra borrar esto
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   const [loading, setLoading] = useState(false);
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
-  // Configuración de los parámetros de redireccionamiento según el entorno
-  // const EXPO_REDIRECT_PARAMS = {
-  //   useProxy: true, // Utilizar proxy en entorno Expo para evitar problemas con URI
-  //   projectNameForProxy: "@creshsofresh/Artbits-final-project",
-  // };
-
-  // const NATIVE_REDIRECT_PARAMS = {
-  //   native: "Artbits-final-project://", // Especifica el esquema URL personalizado para apps nativas
-  // };
-
-  // // Elegir entre configuraciones Expo o nativa según el entorno de la aplicación
-  // const REDIRECT_PARAMS =
-  //   Constants.appOwnership === "expo"
-  //     ? EXPO_REDIRECT_PARAMS
-  //     : NATIVE_REDIRECT_PARAMS;
-  // const preferLocalhost = Constants.appOwnership === "expo"; // && Constants.executionEnvironment === Constants.ExecutionEnvironment.Bare;
-  // const scheme = "miappesquema";
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     redirectUri: makeRedirectUri({
@@ -81,21 +64,15 @@ export default function App() {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
+      console.log("usuario", user);
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        console.log("que demonios hay aqui",user)
-        setUser({
-          about_decription:"",
-          city:"aaaa",
-          avatar:"",
-          email: user.email,
-          user_id: user.uid,
-          country:"",
-          fullname:"",
-          rol:"artist",
-          web_url:""
-        });
-      } else {}
+        setUser(user);
+        console.log("Aqui aqui aqui->", user);
+      } else {
+        // await AsyncStorage.removeItem("@user");
+        // setUser(null);
+      }
     });
 
     return () => unsub();

@@ -17,7 +17,7 @@ export const PortfolioDetailControler = () => {
       const unsubscribe = onSnapshot(q, (querySnapshot) => { 
         setUserName(
           querySnapshot.docs.map((doc) => ({
-            full_name: doc.data().full_name,
+            displayName: doc.data().displayName,
           }))
         );
       });

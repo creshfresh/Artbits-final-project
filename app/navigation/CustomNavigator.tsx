@@ -47,8 +47,7 @@ const UploadStackNavigation = () => {
         name="ProjectUploadScreen"
         component={ProjectUploadScreen}
         options={({ navigation }) => ({
-          // headerShown: true,
-          // headerShadowVisible: false,
+   
           headerTitle: t("upload"),
           headerLeft: () => (
             <Ionicons
@@ -58,9 +57,7 @@ const UploadStackNavigation = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-          // headerStyle: {
-          //   backgroundColor: "transparent",
-          // },
+   
         })}
       />
       <Stack.Screen
@@ -109,6 +106,8 @@ const UploadStackNavigation = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerShadowVisible: false,
+                    navigationBarColor:"transparent",
+
           headerTitle: "Info",
           headerLeft: () => (
             <Ionicons
@@ -128,6 +127,7 @@ const UploadStackNavigation = () => {
         component={SuccesUpload}
         options={({ navigation }) => ({
           headerShown: false,
+          navigationBarColor:"transparent",
           headerShadowVisible: false,
           headerTitle: "Info",
           headerStyle: {
@@ -162,9 +162,11 @@ const GalleryStackNavigator = () => {
       />
       <Stack.Screen
         name="PorfolioDetail"
+      
         component={PorfolioDetail}
         options={({ navigation }) => ({
           headerShown: true,
+          navigationBarColor:"transparent",
           headerShadowVisible: false,
           headerTitle: t("detail"),
           headerLeft: () => (
@@ -179,11 +181,15 @@ const GalleryStackNavigator = () => {
       />
       <Stack.Screen
         name="ProfileScreen"
+      
         component={ProfileScreen}
         options={({ navigation }) => ({
           headerShown: true,
-          headerShadowVisible: false,
+          headerTransparent:true,
+          navigationBarColor:"transparent",
+          // headerShadowVisible: false,
           headerTitle: t("detail"),
+          
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
