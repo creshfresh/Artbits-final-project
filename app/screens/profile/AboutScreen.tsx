@@ -1,9 +1,12 @@
 import { colors } from "../../theme/colors";
 import { View, Text, StyleSheet } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
+import { usePersonStore } from "../../../store/store";
 
 export const AboutScreen = ({ navigateUser }) => {
   const { t } = useTranslation();
+  const user = usePersonStore((state) => state.user);
+  console.log(user)
 
   /* Esta pantalla eseña los datos del usuario logeado*/
   return (
@@ -12,7 +15,7 @@ export const AboutScreen = ({ navigateUser }) => {
         <Text style={styles.mainTitle}>{t("summary")}</Text>
         {navigateUser === null || navigateUser === undefined ? (
           <>
-            <Text style={styles.text}>AAAAAAAAAAAAAAAAAAAA</Text>
+            <Text style={styles.text}>{user.about_description}</Text>
             <Text style={styles.mainTitle}>{t("personal.web")}</Text>
             <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
             <Text style={styles.mainTitle}>{t("follow.social")}</Text>
@@ -22,7 +25,7 @@ export const AboutScreen = ({ navigateUser }) => {
           </>
         ) : (
           <>
-            <Text style={styles.text}>{navigateUser[0].about_decription}</Text>
+            <Text style={styles.text}>{navigateUser[0].about_description}</Text>
             <Text style={styles.mainTitle}>{t("personal.web")}</Text>
             <Text style={styles.text}>{navigateUser[0].web_url}.</Text>
             <Text style={styles.mainTitle}>{t("follow.social")}</Text>

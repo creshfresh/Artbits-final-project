@@ -39,7 +39,7 @@ export interface AppUser {
   email: string | null,
   country: string | null,
   city: string | null,
-  about_decription: string | null,
+  about_description: string | null,
   avatar:string | null,
   web_url: string | null,
   rol: string | null,

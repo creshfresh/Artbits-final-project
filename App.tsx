@@ -4,7 +4,7 @@ import {
   onAuthStateChanged,
   signInWithCredential,
 } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { auth, database } from "./firebaseConfig";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import React, { useEffect, useState } from "react";
@@ -15,6 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
 import { makeRedirectUri } from "expo-auth-session";
 import "./i18next"; // Ni se te ocurra borrar esto
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { AppUser } from "./types";
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
@@ -66,7 +68,7 @@ export default function App() {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        // setUser(user);
+        setUser(user);
       } else {
       }
     });
@@ -74,6 +76,7 @@ export default function App() {
     return () => unsub();
   }),
     [];
+
 
   if (loading) return;
   <View style={{ alignItems: "center", justifyContent: "center" }}>

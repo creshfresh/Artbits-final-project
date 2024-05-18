@@ -73,7 +73,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
           contact_email: doc.data().contact_email,
           country: doc.data().country,
           city: doc.data().city,
-          about_decription: doc.data().about_decription,
+          about_description: doc.data().about_description,
           avatar: doc.data().avatar,
           web_url: doc.data().web_url,
           user_id: doc.data().user_id,

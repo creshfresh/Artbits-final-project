@@ -36,7 +36,7 @@ export const ProfileScreen = ({ route, navigation }) => {
     }
   }, [route.params, user]);
 
-  console.log("vista de perfil",user)
+  console.log("vista de perfil",user.city)
 
   type ViewMode = "Portfolio" | "About" | "Saved";
 
