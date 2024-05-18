@@ -64,14 +64,10 @@ export default function App() {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      console.log("usuario", user);
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        setUser(user);
-        console.log("Aqui aqui aqui->", user);
+        // setUser(user);
       } else {
-        // await AsyncStorage.removeItem("@user");
-        // setUser(null);
       }
     });
 

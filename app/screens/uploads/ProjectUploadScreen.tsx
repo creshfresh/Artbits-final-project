@@ -25,7 +25,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
   const { t } = useTranslation();
 
   const pickImage = async () => {
-    setImages([])
+    setImages([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: true,
@@ -88,12 +88,11 @@ export const ProjectUploadScreen = ({ navigation }) => {
                 fontWeight: "700",
               }}
             >
-{image.length ===0 ? t("select.image") : t("change.image") }
-              
+              {image.length === 0 ? t("select.image") : t("change.image")}
             </Text>
           </Pressable>
         </View>
-        
+
         {image.length > 0 && (
           <View style={{ marginTop: 50, display: "flex", flex: 1 }}>
             <ScrollView
@@ -106,7 +105,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
             </ScrollView>
           </View>
         )}
-        
+
         {image.length > 0 && (
           <View
             style={{

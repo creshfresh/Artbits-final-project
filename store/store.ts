@@ -1,9 +1,11 @@
+
 import { create } from "zustand";
-import { User } from "../types";
+import { CombinedUser } from "../types";
+
 
 interface UserState {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: CombinedUser | null;
+  setUser: (user: CombinedUser | null) => void;
   signOutZustand: () => void;
 }
 

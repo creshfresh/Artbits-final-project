@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import { useEffect, useState } from "react";
-import {  signOut } from "firebase/auth";
+import {  User, signOut } from "firebase/auth";
 import { AboutScreen } from "./AboutScreen";
 import { colors } from "../../theme/colors";
 import { Feather } from "@expo/vector-icons";
@@ -18,17 +18,16 @@ import { useTranslation } from "../../hooks/useTranslations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { SavedScreen } from "./SavedScreen";
-import { User } from "../../../types";
+import { CombinedUser } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 
 export const ProfileScreen = ({ route, navigation }) => {
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
   //Recoger el usuario actualmente logueado
-  const [navigateUser, setNavigateUser] = useState<User>();
+  const [navigateUser, setNavigateUser] = useState<CombinedUser>();
   const user = usePersonStore((state) => state.user);
 
-  console.log("que es esto aqui", user)
   useEffect(() => {
     const { item } = route.params || {};
     console.log("vista perfil", item);
@@ -36,6 +35,8 @@ export const ProfileScreen = ({ route, navigation }) => {
       setNavigateUser(item);
     }
   }, [route.params, user]);
+
+  console.log("vista de perfil",user)
 
   type ViewMode = "Portfolio" | "About" | "Saved";
 
@@ -91,10 +92,15 @@ export const ProfileScreen = ({ route, navigation }) => {
 
       {navigateUser  ?
         <Image source={{ uri: navigateUser[0].avatar }} style={[styles.image]} /> :
-       <Image source={{ uri: navigateUser?.avatar }} style={[styles.image]} /> 
+       <Image source={{ uri: user.avatar }} style={[styles.image]} /> 
       }
+      
       <View style={styles.card}>
+      {navigateUser  ?
+        <Text style={styles.textTittle}>{navigateUser[0].displayName}</Text>:
         <Text style={styles.textTittle}>{user.displayName}</Text>
+
+      }
         {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{
@@ -105,18 +111,18 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <Ionicons size={20} name="location-sharp" color={colors.main} />
+          
           <Text style={styles.textLocation}>
             {navigateUser ? 
               navigateUser[0].city
-        
               + ", " +
               navigateUser[0].country  
-              : user.createdAt}
+              : user.city + ", " + user.country}
           </Text>
         </View>
         <Text style={styles.textUrl}>
    
-          {navigateUser ? navigateUser[0].web_url : "creshsofresh.com"}
+          {navigateUser ? navigateUser[0].web_url : user.web_url}
         </Text>
       </View>
       <View

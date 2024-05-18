@@ -18,9 +18,12 @@ import {
   TextInput,
   View
 } from "react-native";
-import { auth } from "../../../firebaseConfig";
+import { auth, database } from "../../../firebaseConfig";
 import { colors } from "../../theme/colors";
 import { LoginControler } from "./LoginControler";
+import { usePersonStore } from "../../../store/store";
+import { addDoc, collection, onSnapshot, query, setDoc, where } from "firebase/firestore";
+import { AppUser } from "../../../types";
 const win = Dimensions.get("window");
 
 export default function SignInScreen({}) {
@@ -38,36 +41,152 @@ export default function SignInScreen({}) {
   const [viewPassword, setViewPassword] = useState(true);
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
+  const setUser = usePersonStore((state) => state.setUser);
+
+  // const handleSignUp = () => {
+  //   if (isValidPassword(password) && isValidEmail(email)) {
+  //     createUserWithEmailAndPassword(auth, email, password)
+  //       .then((userCreds) => {
+  //         const user = userCreds.user;
+  //       })
+  //       .catch((error) => {
+  //         alert("Email already registered");
+  //       });
+  //   } else {
+  //     setShowEmailError(!isValidEmail(email));
+  //     setShowPasswordError(!isValidPassword(password));
+  //   }
+  // };
 
   const handleSignUp = () => {
     if (isValidPassword(password) && isValidEmail(email)) {
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCreds) => {
+        .then(async (userCreds) => {
           const user = userCreds.user;
+          const appUser: AppUser = {
+            displayName:"Loquete",
+            email: user.email,
+            country: "", 
+            city: "", 
+            about_decription: "", 
+            avatar: user.photoURL,
+            web_url: "google.com",
+            rol: "artist", 
+            user_id: user.uid,
+          
+          }
+          setUser(appUser)
+          
+          ;
+            try {
+            const docRef = await addDoc(collection(database, "Users"), appUser);
+            console.log("User document added with ID: ", docRef.id);
+          } catch (error) {
+            console.error("Error adding document to Firestore: ", error);
+          }
         })
         .catch((error) => {
           alert("Email already registered");
+          console.error("Error creating user: ", error);
         });
     } else {
       setShowEmailError(!isValidEmail(email));
       setShowPasswordError(!isValidPassword(password));
     }
   };
+  // const handleLogin = () => {
+  //   if (isValidPassword(password) && isValidEmail(email)) {
+  //     signInWithEmailAndPassword(auth, email, password)
+  //       .then((userCreds) => {
+  //         const user = userCreds.user;
+  //         setUser(user)
+  //       })
+  //       .catch((error) => alert(error.message));
+  //   } else {
+  //     setShowEmailError(!isValidEmail(email));
+  //     setShowPasswordError(!isValidPassword(password));
+  //   }
+  // };
 
   const handleLogin = () => {
     if (isValidPassword(password) && isValidEmail(email)) {
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCreds) => {
+        .then(async (userCreds) => {
           const user = userCreds.user;
-          console.log("Logged in with:", user);
+  
+          // Consulta Firestore para obtener los datos del usuario
+          const userQuery = query(
+            collection(database, "Users"),
+            where("user_id", "==", user.uid)
+          );
+  
+          const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const userData = doc.data();
+              const appUser: AppUser = {
+                displayName: userData.displayName,
+                email: userData.email,
+                country: userData.country,
+                city: userData.city,
+                about_decription: userData.about_decription,
+                avatar: userData.avatar,
+                web_url: userData.web_url,
+                rol: userData.rol,
+                user_id: userData.user_id,
+              };
+  
+              setUser(appUser);
+            });
+          });
+  
+          // Desuscribirse de la consulta cuando ya no sea necesario
+          return unsubscribe;
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => {
+          alert(error.message);
+          console.error("Error signing in: ", error);
+        });
     } else {
       setShowEmailError(!isValidEmail(email));
       setShowPasswordError(!isValidPassword(password));
     }
   };
+  // const handleLogin = () => {
 
+  //   if (isValidPassword(password) && isValidEmail(email)) {
+  //     signInWithEmailAndPassword(auth, email, password)
+  //       .then(async (userCreds) => {
+  //         const user = userCreds.user;
+  //         const appUser: AppUser = {
+  //           displayName: user.displayName,
+  //           email: user.email,
+  //           country: "Narnia",
+  //           city: "Narnia", 
+  //           about_decription: "", 
+  //           avatar: user.photoURL,
+  //           web_url: "", 
+  //           rol: "artist", 
+  //           user_id: user.uid,
+  //         };
+  
+  //         try {
+  //           const docRef = await addDoc(collection(database, "Users"), appUser);
+  //           console.log("User document added with ID: ", docRef.id);
+  //         } catch (error) {
+  //           console.error("Error adding document to Firestore: ", error);
+  //         }
+  
+  //         setUser(appUser);
+  //       })
+  //       .catch((error) => {
+  //         alert(error.message);
+  //         console.error("Error signing in: ", error);
+  //       });
+  //   } else {
+  //     setShowEmailError(!isValidEmail(email));
+  //     setShowPasswordError(!isValidPassword(password));
+  //   }
+  // };
   useEffect(() => {
     if (email.trim() !== "" && password.trim() !== "") {
       setIsDisabled(false);
@@ -324,3 +443,7 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
 });
+function setData(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

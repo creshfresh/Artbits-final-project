@@ -1,5 +1,7 @@
 import * as DocumentPicker from "expo-document-picker";
+import { User as FirebaseUser } from "firebase/auth";
 
+import { DocumentData } from "firebase/firestore";
 
 export interface ContestData {
     user_id:string,
@@ -18,9 +20,22 @@ export interface ContestData {
     publishDate: string | null;
     weburl:string
   }
-export interface User {
 
-  fullname: string | null,
+  export interface CombinedUser extends FirebaseUser {
+    displayName: string | null;
+    email: string | null;
+    country: string | null;
+    city: string | null;
+    about_description: string | null;
+    avatar: string | null;
+    web_url: string | null;
+    rol: string | null;
+    user_id: string | null;
+    firestoreData?: DocumentData;
+  }
+export interface AppUser {
+
+  displayName: string | null,
   email: string | null,
   country: string | null,
   city: string | null,
@@ -29,6 +44,7 @@ export interface User {
   web_url: string | null,
   rol: string | null,
   user_id: string | null,
+
   }
 
   export interface ArtGrantData {
