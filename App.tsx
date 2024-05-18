@@ -61,27 +61,27 @@ export default function App() {
       "1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com",
   });
 
-  const getLocalUser = async () => {
-    try {
-      setLoading(true);
-      const userJson = await AsyncStorage.getItem("@user");
-      setLoading(false);
-      const userData = userJson ? JSON.parse(userJson) : null;
-      setUser(userData);
-    } catch (error) {
-      console.log("Error", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    getLocalUser();
-    if (response?.type === "success") {
-      const { id_token } = response.params;
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential);
-    }
-  }, [response]);
+  // const getLocalUser = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const userJson = await AsyncStorage.getItem("@user");
+  //     setLoading(false);
+  //     const userData = userJson ? JSON.parse(userJson) : null;
+  //     setUser(userData);
+  //   } catch (error) {
+  //     console.log("Error", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getLocalUser();
+  //   if (response?.type === "success") {
+  //     const { id_token } = response.params;
+  //     const credential = GoogleAuthProvider.credential(id_token);
+  //     signInWithCredential(auth, credential);
+  //   }
+  // }, [response]);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {

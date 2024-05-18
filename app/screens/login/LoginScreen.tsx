@@ -9,44 +9,76 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   View,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Snackbar from "react-native-snackbar";
+
 import { colors } from "../../theme/colors";
-import { useTranslation } from "../../hooks/useTranslations";
 import { auth } from "../../../firebaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 const win = Dimensions.get("window");
 
-
-
-
-
 export default function LoginScreen({}) {
-  useEffect(() => {}, []);
   const [disabled, setIsDisabled] = useState(true);
-  const { t } = useTranslation();
+  const [isLogin, setIsLogin] = useState(true); // Estado para alternar entre login y signup
   let [fontsLoaded] = useFonts({
     Montserrat_600SemiBold,
   });
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-//   const handleSignUp = () => {
-//     auth
-//         .createUserWithEmailAndPassword(email, password)
-//         .then(userCreds => {
-//             const user = userCreds.user;
-//             console.log('Registered with: ', user?.email);
-//         })
-//         .catch(error => alert(error.message))
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(true);
 
-// }
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCreds) => {
+        const user = userCreds.user;
+        console.log("Registered with:", user.email);
+      })
+      .catch((error) => {
+        alert("Email already registered")
+      });
+  };
+
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCreds) => {
+        const user = userCreds.user;
+        console.log("Logged in with:", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  useEffect(() => {
+    if (email.trim() !== "" && password.trim() !== "") {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [email, password]);
+
   if (!fontsLoaded) {
     return null;
   } else
     return (
       <>
         <View style={styles.loginCard}>
+          <Pressable
+            onPress={() => setIsLogin(!isLogin)}
+            style={{ marginTop: 20 }}
+          >
+            <Text
+              style={{ color: colors.main, textAlign: "right", fontSize: 20 }}
+            >
+              {isLogin ? "Sign Up" : "Log in"}
+            </Text>
+          </Pressable>
           <Text
             style={{
               color: colors.text,
@@ -56,26 +88,45 @@ export default function LoginScreen({}) {
               letterSpacing: 1,
             }}
           >
-            Login
+            {isLogin ? "Login" : "Sign Up"}
           </Text>
 
-          <Pressable
+          <TextInput
             style={styles.textInput}
-            disabled={true}
-            onPress={() => {}}
-          >
-            <TextInput placeholder="Email" keyboardType="default" />
-          </Pressable>
-          <Pressable
-            style={styles.textInput}
-            disabled={true}
-            onPress={() => {}}
-          >
+            value={email}
+            onChangeText={(email) => {
+              setEmail(email);
+            }}
+            placeholder="Email"
+            keyboardType="default"
+          />
+          <View style={[styles.textInput, { justifyContent: "space-between" }]}>
             <TextInput
+              value={password}
+              secureTextEntry={viewPassword}
+              onChangeText={(pwd) => {
+                setPassword(pwd);
+              }}
               placeholder="Password"
               keyboardType="default"
             />
-          </Pressable>
+            {viewPassword ? (
+              <Ionicons
+                onPress={() => setViewPassword(!viewPassword)}
+                name="eye-outline"
+                size={25}
+                color={colors.dateText}
+              />
+            ) : (
+              <Ionicons
+                onPress={() => setViewPassword(!viewPassword)}
+                name="eye-off-outline"
+                size={25}
+                color={colors.dateText}
+              />
+            )}
+          </View>
+
           <View
             style={{
               alignItems: "center",
@@ -90,7 +141,7 @@ export default function LoginScreen({}) {
                 styles.basebutton,
                 disabled ? styles.buttonDisabled : styles.buttonEnabled,
               ]}
-              onPress={() => {}}
+              onPress={isLogin ? handleLogin : handleSignUp}
             >
               <Text
                 style={{
@@ -101,7 +152,7 @@ export default function LoginScreen({}) {
                   textAlign: "center",
                 }}
               >
-                Log in
+                {isLogin ? "Log in" : "Sign up"}
               </Text>
             </Pressable>
           </View>
@@ -117,7 +168,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     flexDirection: "row",
-    gap: 15,
     borderWidth: 2,
     marginTop: 10,
     marginBottom: 10,
