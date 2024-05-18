@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { useTranslation } from "../hooks/useTranslations";
 import { SettingsScreenKK } from "../screens/SettingsScreenKK";
-import SignInScreen from "../screens/SignInScreen";
+import SignInScreen from "../screens/login/SignInScreen";
 import { ArtGrantScreen } from "../screens/artGrants/ArtGrantsScreen";
 import { ContestScreen } from "../screens/contest/ContestScreen";
 import { HomeGalleryScreen } from "../screens/gallery/HomeGalleryScreen";

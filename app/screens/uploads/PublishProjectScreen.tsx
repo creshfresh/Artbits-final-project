@@ -93,7 +93,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                 // Si todas las URL de descarga se han obtenido, llamar a saveRecord()
                 if (downloadURLs.length === uris.length) {
                   await saveRecord(
-                    "3828",
+                    "hvi0sEPCIvSL86pDLWMLhLkgxxj1",
                     title,
                     downloadURLs,
                     new Date().toISOString(),

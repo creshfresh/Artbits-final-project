@@ -19,6 +19,8 @@ export const SavedScreen = ({ navigateUser }) => {
       routes: [{ name: "Home" }],
     });
   };
+
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
   useEffect(() => {
     const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "3828";
     const collectionRef = collection(database, "SavedArtworks");

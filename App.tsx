@@ -5,19 +5,15 @@ import {
   signInWithCredential,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
-// import i18next, {languageResources} from './i18next';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import React, { useEffect, useState } from "react";
-import SignInScreen from "./app/screens/SignInScreen";
+import SignInScreen from "./app/screens/login/SignInScreen";
 import { CustomNavigator } from "./app/navigation/CustomNavigator";
 import { ActivityIndicator, StatusBar, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePersonStore } from "./store/store";
 import { makeRedirectUri } from "expo-auth-session";
-import Constants from "expo-constants";
-import "./i18next";
-import LoginScreen from "./app/screens/login/LoginScreen";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -87,7 +83,18 @@ export default function App() {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        setUser(user);
+        console.log("que demonios hay aqui",user)
+        setUser({
+          about_decription:"",
+          city:"aaaa",
+          avatar:"",
+          email: user.email,
+          user_id: user.uid,
+          country:"",
+          fullname:"",
+          rol:"artist",
+          web_url:""
+        });
       } else {}
     });
 

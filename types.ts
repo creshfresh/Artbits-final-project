@@ -18,6 +18,18 @@ export interface ContestData {
     publishDate: string | null;
     weburl:string
   }
+export interface User {
+
+  fullname: string | null,
+  email: string | null,
+  country: string | null,
+  city: string | null,
+  about_decription: string | null,
+  avatar:string | null,
+  web_url: string | null,
+  rol: string | null,
+  user_id: string | null,
+  }
 
   export interface ArtGrantData {
     user_id:string,

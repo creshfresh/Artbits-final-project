@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import { useEffect, useState } from "react";
-import { User, signOut } from "firebase/auth";
+import {  signOut } from "firebase/auth";
 import { AboutScreen } from "./AboutScreen";
 import { colors } from "../../theme/colors";
 import { Feather } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ import { useTranslation } from "../../hooks/useTranslations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { SavedScreen } from "./SavedScreen";
+import { User } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -27,6 +28,7 @@ export const ProfileScreen = ({ route, navigation }) => {
   const [navigateUser, setNavigateUser] = useState<User>();
   const user = usePersonStore((state) => state.user);
 
+  console.log("que es esto aqui", user)
   useEffect(() => {
     const { item } = route.params || {};
     console.log("vista perfil", item);
@@ -90,9 +92,9 @@ export const ProfileScreen = ({ route, navigation }) => {
       {navigateUser  && 
         <Image source={{ uri: navigateUser[0].avatar }} style={[styles.image]} /> 
       }
-      {/* <Image source={{ uri: navigateUser?.photoURL }} style={[styles.image]} /> */}
+      <Image source={{ uri: navigateUser?.avatar }} style={[styles.image]} />
       <View style={styles.card}>
-        {/* <Text style={styles.textTittle}>{user.displayName}</Text> */}
+        <Text style={styles.textTittle}>{user.fullname}</Text>
         {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{

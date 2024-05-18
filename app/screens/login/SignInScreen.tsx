@@ -2,7 +2,7 @@ import {
   Montserrat_600SemiBold,
   useFonts,
 } from "@expo-google-fonts/montserrat";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import {  Ionicons } from "@expo/vector-icons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -18,14 +18,14 @@ import {
   TextInput,
   View
 } from "react-native";
-import { auth } from "../../firebaseConfig";
-import { colors } from "../theme/colors";
-import { LoginControler } from "./login/LoginControler";
+import { auth } from "../../../firebaseConfig";
+import { colors } from "../../theme/colors";
+import { LoginControler } from "./LoginControler";
 const win = Dimensions.get("window");
 
 export default function SignInScreen({}) {
-  const welcomeLogo = require("../../assets/logoPollo_complete.png");
-  const background = require("../../assets/background-blur-2.png");
+  const welcomeLogo = require("../../../assets/logoPollo_complete.png");
+  const background = require("../../../assets/background-blur-2.png");
   let [fontsLoaded] = useFonts({
     Montserrat_600SemiBold,
   });
@@ -44,7 +44,6 @@ export default function SignInScreen({}) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
           const user = userCreds.user;
-          console.log("Registered with:", user.email);
         })
         .catch((error) => {
           alert("Email already registered");
@@ -60,7 +59,7 @@ export default function SignInScreen({}) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
           const user = userCreds.user;
-          console.log("Logged in with:", user.email);
+          console.log("Logged in with:", user);
         })
         .catch((error) => alert(error.message));
     } else {
