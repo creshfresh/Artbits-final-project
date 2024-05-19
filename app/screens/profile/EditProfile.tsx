@@ -22,7 +22,7 @@ import { CombinedUser } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 
-export const ProfileScreen = ({ route, navigation }) => {
+export const EditProfile = ({ route, navigation }) => {
   const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
   //Recoger el usuario actualmente logueado
   const [navigateUser, setNavigateUser] = useState<CombinedUser>();
@@ -44,6 +44,7 @@ export const ProfileScreen = ({ route, navigation }) => {
 
   type ViewMode = "Portfolio" | "About" | "Saved";
 
+  // const { t } = useTranslation();
   const { signOutZustand } = usePersonStore();
   const handleSignout = () => {
     signOutZustand();
@@ -58,74 +59,13 @@ export const ProfileScreen = ({ route, navigation }) => {
           borderBottomStartRadius: 20,
           backgroundColor: colors.main,
         }}
-      >
-        {!navigateUser ? (
-          <>
-            <View
-              style={{
-                position: "absolute",
-                flexDirection: "row",
-                marginTop:20,
-                marginStart:10,
-                justifyContent: "flex-start",
-              }}
-            >
-              <Ionicons
-                name="globe-outline"
-                size={25}
-                color={colors.palette.white}
-                onPress={handleTranslation}
-              />
-            </View>
-            <View
-              style={{
-                position: "absolute",
-                flexDirection: "row",
-                marginStart: windowWidth * 0.78,
-                alignItems: "center",
-                display: "flex",
-                gap: 15,
-              }}
-            >
-              <Ionicons
-                name="log-out-outline"
-                size={28}
-                onPress={async () => {
-                  await signOut(auth);
-                  await AsyncStorage.removeItem("@user");
-                  handleSignout();
-                }}
-                color={colors.palette.white}
-                style={{ marginTop: 20 }}
-              ></Ionicons>
-              <Feather
-                name="edit-2"
-                onPress={() => {      navigation.navigate("EditProfile");
-              }}
-                size={22}
-                color={colors.palette.white}
-                style={{ marginTop: 20 }}
-              ></Feather>
-            </View>
-          </>
-        ) : null}
-      </View>
+      ></View>
 
-      {navigateUser ? (
-        <Image
-          source={{ uri: navigateUser[0].avatar }}
-          style={[styles.image]}
-        />
-      ) : (
-        <Image source={{ uri: user.avatar }} style={[styles.image]} />
-      )}
+      <Image source={{ uri: user.avatar }} style={[styles.image]} />
 
       <View style={styles.card}>
-        {navigateUser ? (
-          <Text style={styles.textTittle}>{navigateUser[0].displayName}</Text>
-        ) : (
-          <Text style={styles.textTittle}>{user.displayName}</Text>
-        )}
+        <Text style={styles.textTittle}>{user.displayName}</Text>
+
         {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{
@@ -138,9 +78,7 @@ export const ProfileScreen = ({ route, navigation }) => {
           <Ionicons size={20} name="location-sharp" color={colors.main} />
 
           <Text style={styles.textLocation}>
-            {navigateUser
-              ? navigateUser[0].city + ", " + navigateUser[0].country
-              : user.city + ", " + user.country}
+            {user.city} + ", " +{user.country}
           </Text>
         </View>
         <Text style={styles.textUrl}>
@@ -158,78 +96,7 @@ export const ProfileScreen = ({ route, navigation }) => {
           marginBottom: 5,
           justifyContent: "center",
         }}
-      >
-        <Pressable
-          style={[
-            styles.switchButton,
-            viewMode === "Portfolio" ? styles.active : styles.inactive,
-          ]}
-          onPress={() => {
-            setViewMode("Portfolio");
-          }}
-        >
-          <Text
-            style={
-              viewMode === "Portfolio"
-                ? styles.switchTextActive
-                : styles.switchTextinactive
-            }
-          >
-            {t("portfolio")}
-          </Text>
-        </Pressable>
-
-        <Pressable
-          style={[
-            styles.switchButton,
-            viewMode === "Saved" ? styles.active : styles.inactive,
-          ]}
-          onPress={() => {
-            setViewMode("Saved");
-          }}
-        >
-          <Text
-            style={
-              viewMode === "Saved"
-                ? styles.switchTextActive
-                : styles.switchTextinactive
-            }
-          >
-            {t("saved")}
-          </Text>
-        </Pressable>
-
-        <Pressable
-          style={[
-            styles.switchButton,
-            viewMode === "About" ? styles.active : styles.inactive,
-          ]}
-          onPress={() => {
-            setViewMode("About");
-          }}
-        >
-          <Text
-            style={
-              viewMode === "About"
-                ? styles.switchTextActive
-                : styles.switchTextinactive
-            }
-          >
-            {t("about")}
-          </Text>
-        </Pressable>
-      </View>
-
-      {viewMode === "Portfolio" ? (
-        <ProfolioCarrousel
-          navigation={navigation}
-          navigateUser={navigateUser}
-        />
-      ) : viewMode === "About" ? (
-        <AboutScreen navigateUser={navigateUser} />
-      ) : (
-        <SavedScreen navigateUser={navigateUser} />
-      )}
+      ></View>
     </>
   );
 };

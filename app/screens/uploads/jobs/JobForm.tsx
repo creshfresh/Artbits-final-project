@@ -71,7 +71,6 @@ export const JobFormView = ({ navigation }) => {
             value={state.position}
             placeholder={t("basic.information")}
             keyboardType="default"
-       
           />
           {showErrors && !state.position ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -105,7 +104,7 @@ export const JobFormView = ({ navigation }) => {
                 style={styles.text_intup}
                 onChangeText={(value) => handleChangeTex(value, "city")}
                 value={state.city}
-                    placeholder={t("city")}
+                placeholder={t("city")}
                 keyboardType="default"
               />
               {showErrors && !state.city ? (
@@ -117,7 +116,7 @@ export const JobFormView = ({ navigation }) => {
                 style={styles.text_intup}
                 onChangeText={(value) => handleChangeTex(value, "country")}
                 value={state.country}
-                    placeholder={t("country")}
+                placeholder={t("country")}
                 keyboardType="default"
               />
               {showErrors && !state.country ? (
@@ -201,9 +200,10 @@ export const JobFormView = ({ navigation }) => {
           <Text style={styles.mainTitle}>{t("working.description.title")}</Text>
           <Text style={styles.title}>{t("working.description")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "description")}
             value={state.description}
+            multiline={true}
             placeholder={t("working.description")}
             keyboardType="default"
           />
@@ -211,12 +211,13 @@ export const JobFormView = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
+        <View style={[styles.divided, { marginTop: 15 }]}>
           <Text style={styles.title}>{t("skills.requirements")}</Text>
           <TextInput
-            style={styles.text_intup}
+            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "requirements")}
             value={state.requirements}
+            multiline={true}
             placeholder={t("basic.information")}
             keyboardType="default"
           />
@@ -224,7 +225,7 @@ export const JobFormView = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={styles.divided}>
+        <View style={[styles.divided, { marginTop: 15 }]}>
           <Text style={styles.title}>{t("job.url")}</Text>
           <TextInput
             style={styles.text_intup}

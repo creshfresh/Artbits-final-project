@@ -5,7 +5,7 @@
     "contests": "Concursos",
     
     "artGrant": "Beca",
-    "artGrantz": "Becas",
+    "artGrants": "Becas",
     "saved":"Guardado",
     "upload": "Subir",
     "sign.in":"Iniciar sesión",
@@ -17,7 +17,9 @@
     "contact":"Contacto",
     "personal.web":"Web personal",
     "about":"Acerca de",
-
+    "course": "Curso",
+    "courses": "Cursos",
+  
     "upload.project":"Subir proyecto",
     "upload.contest.artGrant":"Subir concurso o Beca",
     "traditional":"Traditional",
@@ -128,7 +130,9 @@
    "working.description.title": "Descripción del trabajo",
    "working.description": "Descripción del trabajo",
    "skills.requirements": "Habilidades y requisitos",
-   "job.url": "Link a la página"
+   "job.url": "Link a la página",
+
+   "edit.profile":"Editar perfil"
 
 
   }

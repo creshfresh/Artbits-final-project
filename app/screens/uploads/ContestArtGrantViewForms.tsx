@@ -2,24 +2,19 @@ import { useState } from "react";
 import {
   Pressable,
   StyleSheet,
-  View,
   Text,
-  KeyboardAvoidingView,
-  Platform,
+  View
 } from "react-native";
-import { colors } from "../../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../../hooks/useTranslations";
-import { ContestForm } from "./contest/ContestForm";
+import { colors } from "../../theme/colors";
 import { ArtGrantForm } from "./artGrant/ArtGrantForm";
+import { ContestForm } from "./contest/ContestForm";
 
 export const ContestArtGrantViewForms = ({navigation}) => {
 
  
-  const { t, changeLanguage, getCurrentLocale } = useTranslation();
-  const handleTranslation = () => {
-    changeLanguage(getCurrentLocale() === "en" ? "es" : "en");
-  };
+  const { t} = useTranslation();
+
 
   type ViewMode = "Beca" | "Concurso";
   const [viewMode, setViewMode] = useState<ViewMode>("Concurso");
@@ -80,14 +75,7 @@ export const ContestArtGrantViewForms = ({navigation}) => {
           </Text>
         </Pressable>
       </View>
-        <View style={{flexDirection:"row", justifyContent:"center"}}>
-          <Ionicons
-            name="globe-outline"
-            size={25}
-            color={colors.secondary}
-            onPress={handleTranslation}
-          />
-        </View>
+     
       <View
         style={{
           flexDirection: "column",

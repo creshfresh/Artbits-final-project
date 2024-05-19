@@ -125,5 +125,7 @@
   "working.description.title": "Work description",
   "working.description": "Description of the job",
   "skills.requirements": "Skills and requirements",
-  "job.url": "Link to web page"
+  "job.url": "Link to web page",
+  
+  "edit.profile":"Edit profile"
 }

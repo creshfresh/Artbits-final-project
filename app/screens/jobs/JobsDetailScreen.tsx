@@ -1,6 +1,7 @@
 import {
   Dimensions,
   Image,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
@@ -27,7 +28,10 @@ export const JobsDetailScreen = ({}) => {
         <View
           style={{ flexDirection: "column", top: 60, marginHorizontal: 20 }}
         >
-          <Image source={{ uri: route.params.item.name }} style={[styles.image]} />
+          <Image
+            source={{ uri: route.params.item.name }}
+            style={[styles.image]}
+          />
           <View
             style={{
               marginTop: 100,
@@ -38,7 +42,7 @@ export const JobsDetailScreen = ({}) => {
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <View style={{ padding: 10, flexDirection: "row" }}>
-                <Text style={styles.title}>{route.params.item.name}</Text>
+                <Text style={styles.title}>{route.params.item.position}</Text>
               </View>
               <View
                 style={{
@@ -72,17 +76,13 @@ export const JobsDetailScreen = ({}) => {
               >
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>{t("participants")}</Text>
-                  <Text style={styles.body}>
-                    {route.params.item.city}
-                  </Text>
+                  <Text style={styles.body}>{route.params.item.city}</Text>
                 </View>
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>
                     {t("organization.centre")}
                   </Text>
-                  <Text style={styles.body}>
-                    {route.params.item.city}
-                  </Text>
+                  <Text style={styles.body}>{route.params.item.city}</Text>
                 </View>
               </View>
             </View>
@@ -110,11 +110,14 @@ export const JobsDetailScreen = ({}) => {
           </View>
           <View style={{ gap: 10, paddingBottom: 20 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
-            <Text style={styles.bodybody}>
-              {route.params.item.city}
-            </Text>
+            <Text style={styles.bodybody}>{route.params.item.city}</Text>
           </View>
-
+          <View style={{ gap: 10, paddingBottom: 100 }}>
+            <Text style={styles.titleBody}>{t("work.specifications")}</Text>
+            <Text style={styles.link} onPress={()=> {
+              Linking.openURL('http://' + route.params.item.weburl)
+            }}>{route.params.item.weburl}</Text>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -164,6 +167,12 @@ var styles = StyleSheet.create({
     letterSpacing: 1.5,
     // textAlign:"center",
     color: colors.text,
+  },
+  link: {
+    fontSize: 14,
+    letterSpacing: 1.5,
+    // textAlign:"center",
+    color: colors.secondary,
   },
 
   image: {

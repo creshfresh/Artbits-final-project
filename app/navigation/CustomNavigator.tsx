@@ -25,6 +25,7 @@ import { FlatlistJobs } from "../screens/jobs/FlatListJobs";
 import { JobsDetailScreen } from "../screens/jobs/JobsDetailScreen";
 import { CourseForm } from "../screens/uploads/course/CourseForm";
 import { CoursesScreen } from "../screens/courses/CoursesScreen";
+import { EditProfile } from "../screens/profile/EditProfile";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -212,7 +213,7 @@ const GalleryStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTransparent: true,
-          headerTintColor: colors.neutral05,
+          headerTintColor: colors.palette.white,
           navigationBarColor: "transparent",
           // headerShadowVisible: false,
           headerTitle: t("detail"),
@@ -227,6 +228,7 @@ const GalleryStackNavigator = () => {
           ),
         })}
       />
+    
     </Stack.Navigator>
   );
 };
@@ -442,6 +444,27 @@ const PortfolioStackNavigator = () => {
           headerShown: true,
           headerShadowVisible: false,
           headerTitle: t("detail"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+        <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: colors.palette.white,
+          navigationBarColor: "transparent",
+          // headerShadowVisible: false,
+          headerTitle: t("edit.profile"),
+
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
