@@ -11,7 +11,7 @@
   "publish": "Publish",
   "saved": "Saved",
   "detail": "Detail",
-  
+
   "save": "Save",
 
   "find": "Find",
@@ -134,17 +134,36 @@
   "skills.requirements": "Skills and requirements",
   "job.url": "Link to web page",
 
+  "Remote":"Remoto",
+  "Hybrid":"Hybrid",
+  "In office":"In office",
+
+  "Fixed term":"Fixed term",
+  "Permanent":"Permanet",
+  "Temporary":"Temporary",
+  "Internship":"Internship",
+
+  "Full time":"Full time",
+  "Part time":"Part time",
+
   "web.url": "Offical web page",
 
-  "edit.profile":"Edit profile",
-  "visit.web":"For more information, you can visit the official page through the link",
+  "edit.profile": "Edit profile",
+  "visit.web": "For more information, you can visit the official page through the link",
   "instructor.name": "Instructor name",
   "course.name": "Course name",
   "price": "Price",
   "schedule": "Schedule",
   "spots": "Spots",
-  "course.detail":"Course detail"
+  "course.detail": "Course detail",
+  "prices": "Prices",
+  "end.date": "End date",
+  "prices.spots": "Prices and spots",
+  "dates.and.place": "Dates and schedule",
+  "start.date.course": "Start date",
+  "contest.url": "Official web page",
+  "web.url.placeholder": "Add the web to visit",
+  "select.promotional.image": "Select promotional image",
 
-
-
+  "succesfull.upload":"Succesfull upload!"
 }

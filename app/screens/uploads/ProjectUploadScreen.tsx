@@ -24,7 +24,8 @@ export const ProjectUploadScreen = ({ navigation }) => {
     setImages([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsMultipleSelection:false,
+    allowsMultipleSelection:true,
+      selectionLimit:5,
       quality: 0.2,
       aspect: [3, 4],
     });

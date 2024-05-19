@@ -155,6 +155,7 @@ const UploadStackNavigation = () => {
           headerShown: false,
           navigationBarColor: "transparent",
           headerShadowVisible: false,
+          animation: "ios",
           headerTitle: "Info",
           headerStyle: {
             backgroundColor: "transparent",
@@ -185,6 +186,7 @@ const GalleryStackNavigator = () => {
         name="HomeGalleryScreen"
         component={HomeGalleryScreen}
         options={{
+          animation: "ios",
           headerShown: false,
           headerTitle: "",
           headerTitleAlign: "center",
@@ -195,6 +197,7 @@ const GalleryStackNavigator = () => {
         component={PorfolioDetail}
         options={({ navigation }) => ({
           headerShown: true,
+          animation: "ios",
           navigationBarColor: "transparent",
           headerShadowVisible: false,
           headerTitle: t("detail"),
@@ -216,8 +219,7 @@ const GalleryStackNavigator = () => {
           headerTransparent: true,
           headerTintColor: colors.text,
           navigationBarColor: "transparent",
-          // headerShadowVisible: false,
-          headerTitle: t("detail"),
+          animation: "ios",          headerTitle: t("detail"),
 
           headerLeft: () => (
             <Ionicons
@@ -255,6 +257,7 @@ const JobstStackNavigator = () => {
         component={FlatlistJobs}
         options={({ navigation }) => ({
           headerShown: true,
+          animation: "ios",
           navigationBarColor: "transparent",
           headerShadowVisible: false,
           headerTitle: t("jobs"),
@@ -276,9 +279,7 @@ const JobstStackNavigator = () => {
           headerShown: true,
           animation: "ios",
           headerBackTitle: "",
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
+          headerTransparent: true,
           headerTitle: t("job.detail"),
           headerLeft: () => (
             <Ionicons
@@ -525,7 +526,6 @@ const TabNavigator = () => {
         tabBarShowLabel: false,
         tabBarIcon: ({ focused, color }) => {
           let iconName;
-
           let iconSize = 25;
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";

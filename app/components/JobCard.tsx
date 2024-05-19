@@ -1,11 +1,13 @@
 import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
 import { colors } from "../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "../hooks/useTranslations";
 const win = Dimensions.get("window");
 
 export const JobCard = ({ data }) => {
 
   const jobLogo = require("../../assets/pollo-job.png");
+  const { t } = useTranslation();
 
 
 
@@ -64,9 +66,9 @@ export const JobCard = ({ data }) => {
           gap: 10,
         }}
       >
-        <Text style={styles.chip}>{data.workModel}</Text>
-        <Text style={styles.chip}>{data.contractType}</Text>
-        <Text style={styles.chip}>{data.workingHours}</Text>
+        <Text style={styles.chip}>{t(data.workModel)}</Text>
+        <Text style={styles.chip}>{t(data.contractType)}</Text>
+        <Text style={styles.chip}>{t(data.workingHours)}</Text>
       </View>
     </View>
   );

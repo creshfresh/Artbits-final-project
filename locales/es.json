@@ -140,6 +140,19 @@
    "skills.requirements": "Habilidades y requisitos",
    "job.url": "Link a la página",
 
+   "Remote":"Remoto",
+   "Hybrid":"Híbrido",
+   "In office":"Remoto",
+
+   "Fixed term":"Indefinido",
+   "Permanent":"Pemanente",
+   "Temporary":"Temporal",
+   "Internship":"Prácticas",
+
+   "Full time":"Tiempo completo",
+   "Part time":"Tiempo parcial",
+ 
+
    "edit.profile":"Editar perfil",
    "visit.web":"Para más iformación, puede visitar la página oficial através del enlace",
    "instructor.name": "Nombre del curso",
@@ -147,9 +160,20 @@
    "price": "Precio",
    "schedule": "Duración",
    "spots": "Plazas",
-   "course.detail":"Detalle del curso"
+   "course.detail":"Detalle del curso",
+   "web.url": "Página web oficial",
 
+   "prices": "Precios",
+   "end.date": "Fecha fin",
+   "prices.spots": "Precio y plazas",
+   "dates.and.place": "Fecha y horario",
+   "start.date.course": "Inicio",
+   "contest.url": "Página web oficial",
+   "web.url.placeholder": "Añade la página web oficial",
+   "select.promotional.image": "Seleciona una imagen promocional",
 
+   "succesfull.upload":"¡Subido con éxito!"
+ 
 
 
   }

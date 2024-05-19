@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import {
   Dimensions,
   Image,
@@ -10,8 +11,6 @@ import {
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
-import { ContestDetailScreenControler } from "./ContestDetailScreenControler";
-import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
 const win = Dimensions.get("window");
 
@@ -28,7 +27,7 @@ export const ContestDetailScreen = ({}) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
-        <View style={{ flexDirection: "column", top: 40 }}>
+        <View style={{ flexDirection: "column", top: 25 }}>
           <Image
             source={{ uri: route.params.item.image[0] }}
             style={[styles.image]}
@@ -225,13 +224,13 @@ var styles = StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     zIndex: 1,
     borderColor: "white",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
-    borderRadius: 50,
+    borderRadius: 80,
     position: "absolute",
     alignSelf: "center",
     justifyContent: "center",

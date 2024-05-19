@@ -96,19 +96,29 @@ export const CoursesDetailScreen = ({}) => {
                 }}
               >
                 <View style={{ justifyContent: "center" }}>
-                  <Text style={styles.subtitle}>{t("start.date")}</Text>
+                  <Text style={styles.subtitle}>{t("start.date.course")}</Text>
                   {/* Aqui tengo que coger la fecha formateada */}
                   <Text style={styles.body}>
-                    {" "}
+                    
                     {route.params.item.startDate}
                   </Text>
                 </View>
+                
+                
                 <View style={{ justifyContent: "center" }}>
                   {/* Aqui tengo que coger la fecha formateada */}
-                  <Text style={styles.subtitle}>{t("dead.line")}</Text>
+                  <Text style={styles.subtitle}>{t("end.date")}</Text>
                   <Text style={styles.body}>
-                    {" "}
+             
                     {route.params.item.finishDate}
+                  </Text>
+                </View>
+                <View style={{ justifyContent: "center" }}>
+                  <Text style={styles.subtitle}>{t("schedule")}</Text>
+                  {/* Aqui tengo que coger la fecha formateada */}
+                  <Text style={styles.body}>
+                    
+                    {route.params.item.schedule}
                   </Text>
                 </View>
               </View>
@@ -152,27 +162,14 @@ export const CoursesDetailScreen = ({}) => {
               <Text style={styles.titleBody}>{t("spots")}</Text>
               <Text style={styles.bodybody}>{route.params.item.spots}</Text>
             </View>
-            <View style={{ gap: 5, paddingBottom: 20 }}>
-              <Text style={styles.titleBody}>{t("schedule")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.schedule}</Text>
-            </View>
+         
+              <View style={{ gap: 5, paddingBottom: 20 }}>
+                <Text style={styles.titleBody}>{t("location")}</Text>
+                <Text style={styles.bodybody}>{route.params.item.city},{route.params.item.country} </Text>
+              </View>
+        
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              gap: 30,
-            }}
-          >
-            <View style={{ gap: 5, paddingBottom: 20 }}>
-              <Text style={styles.titleBody}>{t("city")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.city}</Text>
-            </View>
-            <View style={{ gap: 5, paddingBottom: 20 }}>
-              <Text style={styles.titleBody}>{t("country")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.country}</Text>
-            </View>
-          </View>
+   
           <View style={{ gap: 5, paddingBottom: 20 }}>
             <Text style={styles.titleBody}>{t("course.name")}</Text>
             <Text style={styles.bodybody}>{route.params.item.courseName}</Text>

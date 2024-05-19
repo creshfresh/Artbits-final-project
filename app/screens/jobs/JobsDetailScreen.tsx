@@ -7,17 +7,19 @@ import {
   Text,
   View,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
 import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
-export const JobsDetailScreen = ({}) => {
-  // no borrar
+const win = Dimensions.get("window");
 
+export const JobsDetailScreen = ({}) => {
   const route: any = useRoute();
-  //   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
+  const jobLogo = require("../../../assets/pollo-job.png");
 
   return (
     <ScrollView
@@ -25,65 +27,134 @@ export const JobsDetailScreen = ({}) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
+        <View style={{ flexDirection: "column", top: 25 }}>
+          <Image source={jobLogo} style={[styles.image]} />
+        </View>
+
         <View
-          style={{ flexDirection: "column", top: 60, marginHorizontal: 20 }}
+          style={[styles.loginCard, { shadowColor: "#000000", elevation: 20 }]}
         >
-          <Image
-            source={{ uri: route.params.item.name }}
-            style={[styles.image]}
-          />
           <View
             style={{
-              marginTop: 100,
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
             }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <View style={{ padding: 10, flexDirection: "row" }}>
+              <View style={{ paddingTop: 50, flexDirection: "row" }}>
                 <Text style={styles.title}>{route.params.item.position}</Text>
+              </View>
+
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text style={styles.body}>{route.params.item.city}</Text>
               </View>
               <View
                 style={{
-                  height: 2,
-                  backgroundColor: "#EBE9E9",
-                  marginVertical: 5,
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  paddingTop: 5,
                 }}
-              ></View>
-      
+              >
+                <Ionicons name="location-sharp" size={20} color={colors.main} />
+                <Text style={styles.location}>
+                  {route.params.item.city}, {route.params.item.country}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop:20,
+                  paddingBottom:10,
+                  gap: 30,
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row", gap: 5 }}>
+                  <View style={styles.chip}>
+                    <Text
+                      style={[
+                        styles.body,
+                        {
+                          color: colors.secondary,
+                          fontWeight: "700",
+                          fontSize: 12,
+                        },
+                      ]}
+                    >
+                      {route.params.item.contractType}
+                    </Text>
+                  </View>
+                  <View style={styles.chip}>
+                    <Text
+                      style={[
+                        styles.body,
+                        {
+                          color: colors.secondary,
+                          fontWeight: "700",
+                          fontSize: 12,
+                        },
+                      ]}
+                    >
+                      {route.params.item.workModel}
+                    </Text>
+                  </View>
+                  <View style={styles.chip}>
+                    <Text
+                      style={[
+                        styles.body,
+                        {
+                          color: colors.secondary,
+                          fontWeight: "700",
+                          fontSize: 12,
+                        },
+                      ]}
+                    >
+                      {route.params.item.workingHours}
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
-          </View>
+            <View
+              style={{
+                height: 2,
+                backgroundColor: "#EBE9E9",
+                alignContent: "center",
+                left: 0,
+                marginVertical: 10,
+                marginHorizontal: -20,
+                width: win.width,
+              }}
+            ></View>
 
-          <View
-            style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 5 }}
-          ></View>
-
-          <View style={{ gap: 10, paddingBottom: 20, paddingTop: 10 }}>
-            <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.city}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
-            <Text style={styles.titleBody}>{t("terms")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.city}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
-            <Text style={styles.titleBody}>{t("min.age")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.city}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
-            <Text style={styles.titleBody}>{t("max.age")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.city}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
-            <Text style={styles.titleBody}>{t("work.specifications")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.city}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 100 }}>
-            <Text style={styles.titleBody}>{t("work.specifications")}</Text>
-            <Text style={styles.link} onPress={()=> {
-              Linking.openURL('http://' + route.params.item.weburl)
-            }}>{route.params.item.weburl}</Text>
+            <View style={{ gap: 10, paddingBottom: 15, paddingTop: 10 }}>
+              <Text style={styles.titleBody}>{t("work.specifications")}</Text>
+              <Text style={styles.bodybody}>
+                {route.params.item.specifications}
+              </Text>
+            </View>
+            <View style={{ gap: 10, paddingBottom: 15 }}>
+              <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
+            </View>
+            <View style={{ gap: 10, paddingBottom: 15 }}>
+              <Text style={styles.titleBody}>{t("terms")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.terms}</Text>
+            </View>
+            <View style={{ gap: 10, paddingBottom: 200 }}>
+              <Text style={styles.titleBody}>{t("web.url")}</Text>
+              <Text
+                style={styles.link}
+                onPress={() => {
+                  Linking.openURL("http://" + route.params.item.weburl);
+                }}
+              >
+                {route.params.item.weburl}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -93,7 +164,8 @@ export const JobsDetailScreen = ({}) => {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    paddingTop: 50,
+    backgroundColor: "#D7E2F4",
   },
   division: {
     marginVertical: 5,
@@ -101,9 +173,22 @@ var styles = StyleSheet.create({
     width: screenWidth,
     alignItems: "center",
   },
+  link: {
+    fontSize: 14,
+    letterSpacing: 1.5,
+    color: colors.secondary,
+  },
 
-  contentContainer: {
-    // flex: 1,
+  loginCard: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: "white",
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
+    left: 0,
+    right: 0,
+    bottom: -100,
+    width: "100%",
   },
   title: {
     fontSize: 24,
@@ -112,10 +197,18 @@ var styles = StyleSheet.create({
     color: colors.text,
   },
   titleBody: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     letterSpacing: 1.5,
     color: colors.text,
+  },
+  chip: {
+    borderColor: colors.secondary,
+    borderWidth: 2,
+    alignItems: "center",
+    padding: 3,
+    paddingHorizontal: 12,
+    borderRadius: 30,
   },
   subtitle: {
     fontSize: 12,
@@ -126,29 +219,22 @@ var styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     letterSpacing: 1.5,
-    // textAlign:"center",
     color: colors.text,
   },
   bodybody: {
     fontSize: 14,
     letterSpacing: 1.5,
-    // textAlign:"center",
     color: colors.text,
-  },
-  link: {
-    fontSize: 14,
-    letterSpacing: 1.5,
-    // textAlign:"center",
-    color: colors.secondary,
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
+    zIndex: 1,
     borderColor: "white",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
-    borderRadius: 50,
+    borderRadius: 80,
     position: "absolute",
     alignSelf: "center",
     justifyContent: "center",
@@ -158,5 +244,10 @@ var styles = StyleSheet.create({
     justifyContent: "center",
     padding: 15,
     letterSpacing: 2,
+  },
+  location: {
+    paddingTop: 3,
+    fontSize: 14,
+    color: colors.dateText,
   },
 });
