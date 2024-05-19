@@ -14,7 +14,6 @@ import { futureDate } from "../../../../helpers";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { colors } from "../../../theme/colors";
 import { grantContesttSyles } from "../../styles/styles";
-import { JobControler } from "../jobs/JobControler";
 import { CourseControler } from "./CourseControler";
 export const CourseForm = ({ navigation }) => {
   const { t } = useTranslation();
@@ -234,10 +233,10 @@ export const CourseForm = ({ navigation }) => {
           <Text style={styles.title}>{t("prices")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "prices")}
+            onChangeText={(value) => handleChangeTex(value, "price")}
             value={state.price}
             placeholder={t("prices")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
           {showErrors && !state.price ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>

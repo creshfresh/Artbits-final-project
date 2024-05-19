@@ -2,34 +2,34 @@ import { collection, onSnapshot, orderBy, query, where } from "firebase/firestor
 import { useEffect, useState } from "react";
 import { database } from "../../../firebaseConfig";
 
-export const JobScreenControler = () => {
+export const CourseScreenControler = () => {
     
   const [data, setData] = useState([]);
 
 
   // Esta función recibe todos los datos de los concursos
-  //TODO: implementar filtros
   useEffect(() => {
 
-    const collectionRef = collection(database, "Jobs");
+    const collectionRef = collection(database, "Courses");
     //Aquí hay que poner los filtros
-    const q = query(collectionRef, orderBy("publishDate"));
+    const q = query(collectionRef);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
+          courseName:doc.data().courseName,
           city:doc.data().city,
-          contractType:doc.data().contractType,
-          companyName:doc.data().companyName,
+          instructorName:doc.data().instructorName,
           country:doc.data().country,
-          description:doc.data().description,
-          position:doc.data().position,
-          requirements:doc.data().requirements,
-          user_id:doc.data().user_id,
+          startDate:doc.data().startDate,
+          finishDate:doc.data().finishDate,
+          spots:doc.data().spots,
+          specifications:doc.data().specifications,
+          schedule: doc.data().schedule,
+          name: doc.data().name,
+          price: doc.data().price,
           weburl: doc.data().weburl,
-          workModel: doc.data().workModel,
-          workingHours: doc.data().workingHours,
-
+    
         }))
       );
     });

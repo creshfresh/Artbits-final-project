@@ -5,8 +5,10 @@ import { Alert } from "react-native";
 import { JobData } from "../../../../types";
 
 export const JobControler = () => {
+  const currentDate = new Date().toISOString()
   const JobState: JobData = {
     user_id: "",
+    publishDate: currentDate,
     position: "",
     city: "",
     companyName:"",
@@ -54,6 +56,7 @@ export const JobControler = () => {
   };
 
   const saveJob = async () => {
+    if(checkAllTextFields()){
       try {
         await addDoc(collection(database, "Jobs"), { ...state });
         return true;
@@ -61,6 +64,9 @@ export const JobControler = () => {
         console.error("Error saving job: ", error);
         Alert.alert("Error", "Error saving job data.");
         return false;
+      }}
+      else{
+        setShowErrors(true)
       }
     
   };

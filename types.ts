@@ -6,6 +6,7 @@ import { DocumentData } from "firebase/firestore";
 export interface ContestData {
     user_id:string,
     name: string;
+    image: string;
     organization: string;
     totalCash: string;
     startDate: string | null;
@@ -50,6 +51,7 @@ export interface JobData {
   user_id:string,
   position:string,
   companyName:string,
+  publishDate: string | null;
   city:string,
   country:string,
   workModel:string,
@@ -62,6 +64,7 @@ export interface JobData {
 export interface CourseData {
   user_id:string,
   courseName:string,
+  publishDate: string | null;
   instructorName:string,
   city:string,
   country:string,

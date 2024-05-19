@@ -2,7 +2,14 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Checkbox from "expo-checkbox";
 import { useEffect, useState } from "react";
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { participantsOptions } from "../../../../Constants";
 import { futureDate } from "../../../../helpers";
@@ -39,13 +46,15 @@ export const ContestForm = ({ navigation }) => {
     setShowErrors,
     showErrors,
     pickedPdf,
+    pickImage,
+    image,
     pickDocument,
   } = ConestControler(startDate, endDate, participants);
 
-const handleEmptyValues = () => {
-  setShowErrors(true)
-  Alert.alert("error", "error")
-}
+  const handleEmptyValues = () => {
+    setShowErrors(true);
+    Alert.alert("error", "error");
+  };
 
   useEffect(() => {
     if (
@@ -109,7 +118,7 @@ const handleEmptyValues = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentOffset={{x:-2000 ,y: 0}}
+      contentOffset={{ x: -2000, y: 0 }}
       style={{ backgroundColor: "transparent" }}
     >
       <View style={{ flexDirection: "column" }}>
@@ -139,7 +148,9 @@ const handleEmptyValues = () => {
         </View>
 
         <View style={grantContesttSyles.divided}>
-          <Text style={grantContesttSyles.title}>{t("organization.centre")}</Text>
+          <Text style={grantContesttSyles.title}>
+            {t("organization.centre")}
+          </Text>
           <TextInput
             style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "organization")}
@@ -181,7 +192,9 @@ const handleEmptyValues = () => {
                 onValueChange={setIsChecked}
                 color={isChecked ? colors.secondary : undefined}
               />
-              <Text style={grantContesttSyles.cash_title}>{t("cash.price")}</Text>
+              <Text style={grantContesttSyles.cash_title}>
+                {t("cash.price")}
+              </Text>
             </Pressable>
           </View>
           <TextInput
@@ -306,7 +319,7 @@ const handleEmptyValues = () => {
           searchPlaceholder="Search..."
           value={state.participants}
           onChange={(item) => {
-            setParticipants(item.value)
+            setParticipants(item.value);
           }}
           renderItem={renderItem}
         />
@@ -323,7 +336,9 @@ const handleEmptyValues = () => {
           placeholder={t("work.specifications.placeholder")}
           keyboardType="default"
         />
-        {showErrors ? <Text style={grantContesttSyles.errors}>{t("error")}</Text> : null}
+        {showErrors ? (
+          <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+        ) : null}
       </View>
       <View>
         <View style={grantContesttSyles.divided}>
@@ -341,7 +356,9 @@ const handleEmptyValues = () => {
           ) : null}
         </View>
         <View style={grantContesttSyles.divided}>
-          <Text style={grantContesttSyles.title}>{t("object.and.purpose")}</Text>
+          <Text style={grantContesttSyles.title}>
+            {t("object.and.purpose")}
+          </Text>
           <TextInput
             multiline={true}
             style={grantContesttSyles.text_intup}
@@ -356,18 +373,18 @@ const handleEmptyValues = () => {
         </View>
       </View>
       <View style={grantContesttSyles.divided}>
-          <Text style={grantContesttSyles.title}>{t("web.url")}</Text>
-          <TextInput
-            style={grantContesttSyles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "weburl")}
-            value={state.weburl}
-            placeholder={t("web.url.placeholder")}
-            keyboardType="default"
-          />
-          {showErrors && !state.terms ? (
-            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
-          ) : null}
-        </View>
+        <Text style={grantContesttSyles.title}>{t("web.url")}</Text>
+        <TextInput
+          style={grantContesttSyles.text_intup}
+          onChangeText={(value) => handleChangeTex(value, "weburl")}
+          value={state.weburl}
+          placeholder={t("web.url.placeholder")}
+          keyboardType="default"
+        />
+        {showErrors && !state.terms ? (
+          <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+        ) : null}
+      </View>
       <View
         style={{
           flexDirection: "row",
@@ -392,11 +409,32 @@ const handleEmptyValues = () => {
           flexDirection: "row",
           alignItems: "center",
           marginVertical: 10,
+          justifyContent: "flex-end",
+        }}
+      >
+        <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
+          {t("select.promotional.image")}
+        </Text>
+
+        <Ionicons
+          name="add-circle"
+          size={30}
+          color={colors.secondary}
+          onPress={pickImage}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
           marginEnd: 5,
           justifyContent: "flex-end",
         }}
       >
-        {showErrors && pickedPdf != undefined && pickedPdf.assets[0].uri == "" ? (
+        {showErrors &&
+        pickedPdf != undefined &&
+        pickedPdf.assets[0].uri == "" ? (
           <Text style={grantContesttSyles.errors}>{t("error.pdf")}</Text>
         ) : (
           pickedPdf &&
@@ -415,7 +453,6 @@ const handleEmptyValues = () => {
             </>
           )
         )}
-     
       </View>
       <View
         style={{
@@ -423,12 +460,19 @@ const handleEmptyValues = () => {
           marginVertical: 10,
         }}
       >
-        <Pressable style={grantContesttSyles.publish_button} onPress={(pickedPdf !== null && pickedPdf !== undefined) ? handleSave : handleEmptyValues}
->
-          <Text style={grantContesttSyles.publis_button_text}>{t("publish")}</Text>
+        <Pressable
+          style={grantContesttSyles.publish_button}
+          onPress={
+            pickedPdf !== null && pickedPdf !== undefined
+              ? handleSave
+              : handleEmptyValues
+          }
+        >
+          <Text style={grantContesttSyles.publis_button_text}>
+            {t("publish")}
+          </Text>
         </Pressable>
       </View>
     </ScrollView>
   );
 };
-

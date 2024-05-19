@@ -254,7 +254,7 @@ const JobstStackNavigator = () => {
           headerShown: true,
           navigationBarColor: "transparent",
           headerShadowVisible: false,
-          headerTitle: t("job.detail"),
+          headerTitle: t("jobs"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"

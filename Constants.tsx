@@ -86,19 +86,19 @@ export const options = [
   { label: "Digital", value: "digital" },
 ];
 export const WorkModelOptions = [
-  { label: "Hybrid", value: "hybrid" },
-  { label: "Remote", value: "remote" },
-  { label: "In Office", value: "inOffice" },
+  { label: "Hybrid", value: "Hybrid" },
+  { label: "Remote", value: "Remote" },
+  { label: "In Office", value: "In Office" },
 ];
 export const ContracTypeOptions = [
-  { label: "Permanent.", value: "permanent" },
-  { label: "Fixed term", value: "fixedterm" },
-  { label: "Temporary", value: "temporary" },
-  { label: "Internship", value: "internship" },
+  { label: "Permanent", value: "Permanent" },
+  { label: "Fixed term", value: "Fixed term" },
+  { label: "Temporary", value: "Temporary" },
+  { label: "Internship", value: "Internship" },
 ];
 export const WorkingHoursOptions = [
-  { label: "Full time", value: "fulltime" },
-  { label: "Part time", value: "partime" },
+  { label: "Full time", value: "Full time" },
+  { label: "Part time", value: "Part ime" },
 ];
 export const participantsOptions = [
   { label: "Spain", value: "spain" },

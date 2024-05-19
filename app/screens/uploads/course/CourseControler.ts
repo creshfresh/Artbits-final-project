@@ -5,8 +5,11 @@ import { Alert } from "react-native";
 import { CourseData } from "../../../../types";
 
 export const CourseControler = () => {
+  const currentDate = new Date().toISOString()
+
   const CourseState: CourseData = {
     user_id: "",
+    publishDate: currentDate,
     courseName: "",
     city: "",
     instructorName:"",

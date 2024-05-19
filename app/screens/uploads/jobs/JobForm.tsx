@@ -29,12 +29,22 @@ export const JobFormView = ({ navigation }) => {
 
   const { t } = useTranslation();
 
-  const { handleChangeTex, saveJob, state, setShowErrors, showErrors } =
-    JobControler();
+  const {
+    handleChangeTex,
+    saveJob,
+    state,
+    setShowErrors,
+    checkAllTextFields,
+    showErrors,
+  } = JobControler();
 
   const handleSave = async () => {
-    const success = await saveJob();
-    if (success) await navigation.navigate("SuccesUpload");
+    if (checkAllTextFields()) {
+      const success = await saveJob();
+      if (success) await navigation.navigate("SuccesUpload");
+    } else {
+      setShowErrors(true);
+    }
   };
   return (
     <ScrollView
@@ -61,6 +71,7 @@ export const JobFormView = ({ navigation }) => {
             value={state.position}
             placeholder={t("basic.information")}
             keyboardType="default"
+       
           />
           {showErrors && !state.position ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -94,7 +105,7 @@ export const JobFormView = ({ navigation }) => {
                 style={styles.text_intup}
                 onChangeText={(value) => handleChangeTex(value, "city")}
                 value={state.city}
-                placeholder={t("city")}
+                    placeholder={t("city")}
                 keyboardType="default"
               />
               {showErrors && !state.city ? (
@@ -106,7 +117,7 @@ export const JobFormView = ({ navigation }) => {
                 style={styles.text_intup}
                 onChangeText={(value) => handleChangeTex(value, "country")}
                 value={state.country}
-                placeholder={t("country")}
+                    placeholder={t("country")}
                 keyboardType="default"
               />
               {showErrors && !state.country ? (
@@ -132,7 +143,7 @@ export const JobFormView = ({ navigation }) => {
             searchPlaceholder="Search..."
             value={state.workModel}
             onChange={(item) => {
-              handleChangeTex(item.label, "workModel");
+              handleChangeTex(item.value, "workModel");
             }}
             renderItem={renderItem}
           />
@@ -155,7 +166,7 @@ export const JobFormView = ({ navigation }) => {
             searchPlaceholder="Search..."
             value={state.contractType}
             onChange={(item) => {
-              handleChangeTex(item.label, "contractType");
+              handleChangeTex(item.value, "contractType");
             }}
             renderItem={renderItem}
           />

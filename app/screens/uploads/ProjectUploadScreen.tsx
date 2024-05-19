@@ -1,22 +1,18 @@
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  ImageSourcePropType,
-  useWindowDimensions,
-  Dimensions,
-  Pressable,
-  ScrollView,
-} from "react-native";
-import { colors } from "../../theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { ProjectUploadControler } from "./controler/ProjectUploadControler";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 const win = Dimensions.get("window");
 
@@ -28,8 +24,7 @@ export const ProjectUploadScreen = ({ navigation }) => {
     setImages([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      selectionLimit: 5,
+    allowsMultipleSelection:false,
       quality: 0.2,
       aspect: [3, 4],
     });
