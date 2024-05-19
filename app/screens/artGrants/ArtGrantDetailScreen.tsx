@@ -26,7 +26,7 @@ export const ArtGrantDetailScreen = ({}) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
-        <View style={{ flexDirection: "column", top: 40 }}>
+        <View style={{ flexDirection: "column", top: 15 }}>
           <Image
             source={{ uri: route.params.item.image[0] }}
             style={[styles.image]}
@@ -229,13 +229,13 @@ var styles = StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     zIndex: 1,
-    borderColor: "white",
+    borderColor: "#DEDEDE",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
-    borderRadius: 50,
+    borderRadius: 80,
     position: "absolute",
     alignSelf: "center",
     justifyContent: "center",

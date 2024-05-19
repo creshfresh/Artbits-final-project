@@ -30,6 +30,7 @@ export const JobCard = ({ data }) => {
           <Text style={styles.companyName}>{data.companyName}</Text>
           <View
             style={{
+              
               flexDirection: "row",
               alignItems: "flex-start",
               paddingTop: 5,
@@ -99,9 +100,10 @@ const styles = StyleSheet.create({
     maxHeight: 90,
   },
   companyName: {
+    
     paddingTop: 3,
     paddingBottom: 5,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "200",
 
     color: colors.text,

@@ -1,11 +1,15 @@
 import { FlashList } from "@shopify/flash-list";
 import React, { useEffect } from "react";
-import { Dimensions, Pressable, StyleSheet, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, View, Text } from "react-native";
 import { CourseCard } from "../../components/CourseCard";
 import { CourseScreenControler } from "./CourseScreenControler";
+import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 export const CoursesScreen = ({ navigation }) => {
   const data = CourseScreenControler();
+  const { t } = useTranslation();
+
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -16,6 +20,8 @@ export const CoursesScreen = ({ navigation }) => {
   }, []);
   return (
     <View style={{ flex: 1, padding: 10 }}>
+            <Text style={styles.text}> {t("find")} {data.length} {t("courses.min")}</Text>
+
       <FlashList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -48,10 +54,12 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   text: {
-    fontSize: 16,
+    fontSize: 12,
     lineHeight: 21,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    color: colors.secondary,
   },
 });

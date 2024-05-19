@@ -136,5 +136,15 @@
 
   "web.url": "Offical web page",
 
-  "edit.profile":"Edit profile"
+  "edit.profile":"Edit profile",
+  "visit.web":"For more information, you can visit the official page through the link",
+  "instructor.name": "Instructor name",
+  "course.name": "Course name",
+  "price": "Price",
+  "schedule": "Schedule",
+  "spots": "Spots",
+  "course.detail":"Course detail"
+
+
+
 }

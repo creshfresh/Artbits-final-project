@@ -8,7 +8,7 @@ import { CourseData } from "../../../../types";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const CourseControler = () => {
-  const currentDate = new Date().toISOString()
+  const currentDate = new Date().toISOString();
   const [image, setImage] = useState([]);
   const pickImage = async () => {
     setImage([]);
@@ -28,11 +28,12 @@ export const CourseControler = () => {
   };
   const CourseState: CourseData = {
     user_id: "123456789",
-    organizationCentre:"",
+    organizationCentre: "",
+    description: "",
     publishDate: currentDate,
     courseName: "",
     city: "",
-    instructorName:"",
+    instructorName: "",
     country: "",
     startDate: "",
     finishDate: "",
@@ -47,9 +48,10 @@ export const CourseControler = () => {
 
   const checkAllTextFields = () => {
     const {
-    instructorName,
+      instructorName,
       city,
       country,
+      description,
       courseName,
       organizationCentre,
       startDate,
@@ -64,6 +66,7 @@ export const CourseControler = () => {
       city &&
       country &&
       startDate &&
+      description &&
       organizationCentre &&
       finishDate &&
       spots &&
@@ -79,29 +82,26 @@ export const CourseControler = () => {
   };
 
   const saveCourse = async () => {
-
-
     if (checkAllTextFields()) {
       try {
-      const uploadImagePromises = image.map(async (imageUri) => {
-        try {
-          const response = await fetch(imageUri);
-          const blob = await response.blob();
-          const storageRef = ref(storage, "Images/" + new Date().getTime());
-          await uploadBytesResumable(storageRef, blob);
-          const downloadURL = await getDownloadURL(storageRef);
-          return downloadURL;
-        } catch (error) {
-          console.error("Error uploading image:", error);
-          return null;
-        }
-      });
-      const imageDownloadURLs = await Promise.all(uploadImagePromises);
+        const uploadImagePromises = image.map(async (imageUri) => {
+          try {
+            const response = await fetch(imageUri);
+            const blob = await response.blob();
+            const storageRef = ref(storage, "Images/" + new Date().getTime());
+            await uploadBytesResumable(storageRef, blob);
+            const downloadURL = await getDownloadURL(storageRef);
+            return downloadURL;
+          } catch (error) {
+            console.error("Error uploading image:", error);
+            return null;
+          }
+        });
+        const imageDownloadURLs = await Promise.all(uploadImagePromises);
 
-    
         const data = {
           ...state,
-       
+
           image: imageDownloadURLs.filter((url) => url !== null),
         };
         await addDoc(collection(database, "Courses"), { ...data });
@@ -122,7 +122,7 @@ export const CourseControler = () => {
     setShowErrors,
     pickImage,
     showErrors,
-  
-    checkAllTextFields
+
+    checkAllTextFields,
   };
 };

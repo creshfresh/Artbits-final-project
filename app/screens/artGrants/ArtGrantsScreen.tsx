@@ -1,13 +1,16 @@
 import { FlashList } from "@shopify/flash-list";
 import { useEffect } from "react";
-import { Dimensions, Pressable, StyleSheet, View } from "react-native";
+import { Dimensions, Pressable,Text, StyleSheet, View } from "react-native";
 import { ArtGrantCard } from "../../components/ArtGrantCard";
 import { ArtGrantScreenControler } from "./ArtGrantScreenControler";
+import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 // Para el state, tendré que comprar el finish date con el día de hoy
 export const ArtGrantScreen = ({ navigation }) => {
 
   const data = ArtGrantScreenControler();
+  const { t } = useTranslation();
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -23,6 +26,8 @@ export const ArtGrantScreen = ({ navigation }) => {
         <Card key={item.id} data={item} />
       ))}
     </ScrollView> */}
+          <Text style={styles.text}> {t("find")} {data.length} {t("artGrants.min")}</Text>
+
     <FlashList
       data={data}
       horizontal={false}
@@ -56,10 +61,12 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   text: {
-    fontSize: 16,
+    fontSize: 12,
     lineHeight: 21,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    color: colors.secondary,
   },
 });

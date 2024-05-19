@@ -144,8 +144,22 @@ export const CourseForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-
         <View style={styles.divided}>
+          <Text style={styles.title}>{t("description")}</Text>
+          <TextInput
+            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
+            onChangeText={(value) => handleChangeTex(value, "description")}
+            value={state.description}
+            multiline={true}
+            placeholder={t("basic.information")}
+            keyboardType="default"
+          />
+          {showErrors && !state.description ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
+
+        <View style={[styles.divided, { marginTop: 15 }]}>
           <Text style={styles.title}>{t("location")}</Text>
           <View
             style={{

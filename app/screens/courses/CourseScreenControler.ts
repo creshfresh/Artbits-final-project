@@ -24,7 +24,7 @@ export const CourseScreenControler = () => {
           startDate:doc.data().startDate,
           finishDate:doc.data().finishDate,
           spots:doc.data().spots,
-          specifications:doc.data().specifications,
+          description:doc.data().description,
           schedule: doc.data().schedule,
           name: doc.data().name,
           price: doc.data().price,

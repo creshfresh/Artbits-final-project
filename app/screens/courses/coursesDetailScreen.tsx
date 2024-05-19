@@ -17,8 +17,6 @@ const win = Dimensions.get("window");
 export const CoursesDetailScreen = ({}) => {
   const route: any = useRoute();
   //   const { name } = route.params;
-  const user = usePersonStore((state) => state.user);
-  //   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
 
   return (
@@ -27,7 +25,7 @@ export const CoursesDetailScreen = ({}) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
-        <View style={{ flexDirection: "column", top: 40 }}>
+        <View style={{ flexDirection: "column", top: 15 }}>
           <Image
             source={{ uri: route.params.item.image[0] }}
             style={[styles.image]}
@@ -67,12 +65,23 @@ export const CoursesDetailScreen = ({}) => {
             }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <View style={{ paddingTop: 50, flexDirection: "row" }}>
+              <View style={{ paddingTop: 45, flexDirection: "row" }}>
                 <Text style={styles.title}>{route.params.item.courseName}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text style={styles.body}>
+              <View
+                style={{
+                  paddingTop: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={[
+                    styles.body,
+                    { color: colors.main, fontWeight: "800", letterSpacing: 2 },
+                  ]}
+                >
                   {route.params.item.instructorName}
                 </Text>
               </View>
@@ -116,38 +125,68 @@ export const CoursesDetailScreen = ({}) => {
               width: win.width,
             }}
           ></View>
+          <View style={{ gap: 5, paddingBottom: 20 }}>
+            <Text style={styles.titleBody}>{t("organization.centre")}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.organizationCentre}
+            </Text>
+          </View>
+          <View style={{ gap: 5, paddingBottom: 20 }}>
+            <Text style={styles.titleBody}>{t("description")}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.description}
+            </Text>
+          </View>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "flex-start",
-              gap: 40,
+              gap: 30,
             }}
           >
-            <View style={{ gap: 10, paddingBottom: 15 }}>
-              <Text style={styles.titleBody}>{t("min.age")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.price}</Text>
+            <View style={{ gap: 5, paddingBottom: 20 }}>
+              <Text style={styles.titleBody}>{t("price")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.price} €</Text>
             </View>
-            <View style={{ gap: 10, paddingBottom: 15 }}>
-              <Text style={styles.titleBody}>{t("max.age")}</Text>
+            <View style={{ gap: 5, paddingBottom: 20 }}>
+              <Text style={styles.titleBody}>{t("spots")}</Text>
               <Text style={styles.bodybody}>{route.params.item.spots}</Text>
             </View>
+            <View style={{ gap: 5, paddingBottom: 20 }}>
+              <Text style={styles.titleBody}>{t("schedule")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.schedule}</Text>
+            </View>
           </View>
-          <View style={{ gap: 10, paddingBottom: 15 }}>
-            <Text style={styles.titleBody}>{t("work.specifications")}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              gap: 30,
+            }}
+          >
+            <View style={{ gap: 5, paddingBottom: 20 }}>
+              <Text style={styles.titleBody}>{t("city")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.city}</Text>
+            </View>
+            <View style={{ gap: 5, paddingBottom: 20 }}>
+              <Text style={styles.titleBody}>{t("country")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.country}</Text>
+            </View>
+          </View>
+          <View style={{ gap: 5, paddingBottom: 20 }}>
+            <Text style={styles.titleBody}>{t("course.name")}</Text>
+            <Text style={styles.bodybody}>{route.params.item.courseName}</Text>
+          </View>
+          <View style={{ gap: 5, paddingBottom: 20 }}>
+            <Text style={styles.titleBody}>{t("instructor.name")}</Text>
             <Text style={styles.bodybody}>
-              {route.params.item.specifications}
+              {route.params.item.instructorName}
             </Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 15 }}>
-            <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 15 }}>
-            <Text style={styles.titleBody}>{t("terms")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.terms}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 200 }}>
+
+          <View style={{ gap: 5, paddingBottom: 150 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
+
             <Text
               style={styles.link}
               onPress={() => {
@@ -157,7 +196,7 @@ export const CoursesDetailScreen = ({}) => {
               {route.params.item.weburl}
             </Text>
           </View>
-          {/* <View style={{ gap: 10, paddingBottom: 100 }}>
+          {/* <View style={{ gap: 5, paddingBottom: 100 }}>
               <Text style={styles.titleBody}>{t("download.bases")}</Text>
               <Text style={styles.bodybody}>
                 {route.params.item.urlbases.assets[0].uri}
@@ -227,13 +266,13 @@ var styles = StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     zIndex: 1,
     borderColor: "#DEDEDE",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
-    borderRadius: 50,
+    borderRadius: 80,
     position: "absolute",
     alignSelf: "center",
     justifyContent: "center",

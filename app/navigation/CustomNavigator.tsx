@@ -360,7 +360,6 @@ const InternShipsAndContestStackNavigator = () => {
           headerTransparent: true,
           headerTintColor: colors.text,
           navigationBarColor: "transparent",
-          // headerShadowVisible: false,
           headerTitle: t("edit.profile"),
           headerLeft: () => (
             <Ionicons
@@ -379,7 +378,6 @@ const InternShipsAndContestStackNavigator = () => {
           headerShown: true,
           animation: "ios",
           headerTransparent: true,
-
           navigationBarColor: "transparent",
           headerTitle: t("contest.detail"),
           headerLeft: () => (
@@ -399,9 +397,8 @@ const InternShipsAndContestStackNavigator = () => {
           headerShown: true,
           animation: "ios",
           headerTransparent: true,
-
           navigationBarColor: "transparent",
-          headerTitle: t("contest.detail"),
+          headerTitle: t("course.detail"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -418,9 +415,8 @@ const InternShipsAndContestStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           animation: "ios",
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
+          navigationBarColor: "transparent",
+
           headerBackTitle: "",
           headerTitle: t("courses"),
 
@@ -439,11 +435,10 @@ const InternShipsAndContestStackNavigator = () => {
         component={ArtGrantDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
+          navigationBarColor: "transparent",
           animation: "ios",
           headerShadowVisible: false,
+          headerTransparent: true,
           headerTitle: t("art.grant.detail"),
           headerLeft: () => (
             <Ionicons

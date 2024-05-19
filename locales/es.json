@@ -140,7 +140,16 @@
    "skills.requirements": "Habilidades y requisitos",
    "job.url": "Link a la página",
 
-   "edit.profile":"Editar perfil"
+   "edit.profile":"Editar perfil",
+   "visit.web":"Para más iformación, puede visitar la página oficial através del enlace",
+   "instructor.name": "Nombre del curso",
+   "course.name": "Nombre del instructor",
+   "price": "Precio",
+   "schedule": "Duración",
+   "spots": "Plazas",
+   "course.detail":"Detalle del curso"
+
+
 
 
   }

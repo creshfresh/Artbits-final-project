@@ -63,6 +63,7 @@ export interface JobData {
 }
 export interface CourseData {
   user_id:string,
+  description:string,
   courseName:string,
   organizationCentre: string,
   publishDate: string | null;

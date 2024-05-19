@@ -29,9 +29,9 @@ export const AboutScreen = ({ navigateUser }) => {
             <Text style={styles.mainTitle}>{t("personal.web")}</Text>
             <Text style={styles.text}>{navigateUser[0].web_url}.</Text>
             <Text style={styles.mainTitle}>{t("follow.social")}</Text>
-            <Text style={styles.text}>{navigateUser[0].contact_email}</Text>
+            <Text style={styles.text}>{navigateUser[0].email}</Text>
             <Text style={styles.mainTitle}>{t("contact")}</Text>
-            <Text style={styles.text}>{navigateUser[0].contact_email}</Text>
+            <Text style={styles.text}>{navigateUser[0].email}</Text>
           </>
         )}
       </View>

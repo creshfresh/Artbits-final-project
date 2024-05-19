@@ -74,6 +74,7 @@ export const ContestCard = (item: ContestData | ArtGrantData | any) => {
         <Text
           style={{
             fontSize: 18,
+            letterSpacing:1,
             fontWeight: "700",
             color: colors.main,
           }}
@@ -83,7 +84,7 @@ export const ContestCard = (item: ContestData | ArtGrantData | any) => {
         <Text
           style={{
             paddingTop: 3,
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: "200",
             color: colors.text,
           }}
