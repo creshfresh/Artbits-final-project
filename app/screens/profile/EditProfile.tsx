@@ -1,43 +1,35 @@
+import { useState } from "react";
 import {
   Dimensions,
   Image,
-  StyleSheet,
-  Text,
-  View,
   Pressable,
   ScrollView,
-  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
 } from "react-native";
-import { useEffect, useState } from "react";
-import { User, signOut } from "firebase/auth";
-import { AboutScreen } from "./AboutScreen";
-import { colors } from "../../theme/colors";
-import { Feather } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { auth } from "../../../firebaseConfig";
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
-import { SavedScreen } from "./SavedScreen";
-import { CombinedUser } from "../../../types";
+import { colors } from "../../theme/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { SocialMediaList } from "./component/SocialMediaList";
 
-const windowWidth = Dimensions.get("window").width;
+const win = Dimensions.get("window");
 
 export const EditProfile = ({ route, navigation }) => {
   //Recoger el usuario actualmente logueado
   const user = usePersonStore((state) => state.user);
-  const { t} = useTranslation();
-
+  const { t } = useTranslation();
 
   const header = require("../../../assets/headerprofile.png");
-const [isEdited, setIsedited] = useState(false)
+  const [isEdited, setIsedited] = useState(true);
 
   return (
     <ScrollView
-    showsVerticalScrollIndicator={false}
-    style={{ backgroundColor: "transparent" }}
-  >
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: "transparent" }}
+    >
       <Image
         source={header}
         style={{
@@ -49,6 +41,43 @@ const [isEdited, setIsedited] = useState(false)
       />
       <Image source={{ uri: user.avatar }} style={[styles.image]} />
 
+      <View style={[styles.card, {marginTop:40}]}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: 5,
+            gap: 8,
+            justifyContent: "flex-start",
+          }}
+        >
+          <View style={styles.divided}>
+            <Text style={styles.textTittle}>name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
+          <View style={styles.divided}>
+            <Text style={styles.textTittle}>city</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
+          <View style={styles.divided}>
+
+          <Text style={styles.textTittle}>country</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={t("description.placeholder")}
+            keyboardType="default"
+          /></View>
+        </View>
+      </View>
+
       <View style={styles.card}>
         <View
           style={{
@@ -59,39 +88,28 @@ const [isEdited, setIsedited] = useState(false)
             justifyContent: "flex-start",
           }}
         >
-          <Text style={styles.textTittle}>name</Text>
-          <Text style={styles.text}>name</Text>
-          <Text style={styles.textTittle}>city</Text>
-          <Text style={styles.text}>name</Text>
-          <Text style={styles.textTittle}>countrye</Text>
-          <Text style={styles.text}>name</Text>
-        </View>
-      </View>
-      <View
-        style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 2 }}
-      ></View>
-       <View style={[styles.card, {marginTop:0}]}>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            margin: 5,
-            gap: 5,
-            justifyContent: "flex-start",
-          }}
-        >
           <Text style={styles.textTittle}>Headline - One line about you</Text>
-          <Text style={styles.text}>name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={t("description.placeholder")}
+            keyboardType="default"
+          />
           <Text style={styles.textTittle}>Summary</Text>
-          <Text style={styles.text}>name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={t("description.placeholder")}
+            keyboardType="default"
+          />
           <Text style={styles.textTittle}>Personal webpage</Text>
-          <Text style={styles.text}>name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={t("description.placeholder")}
+            keyboardType="default"
+          />
         </View>
       </View>
-      <View
-        style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 2 }}
-      ></View>
-         <View style={[styles.card, {marginTop:0}]}>
+
+      <View style={styles.card}>
         <View
           style={{
             display: "flex",
@@ -101,79 +119,59 @@ const [isEdited, setIsedited] = useState(false)
             justifyContent: "flex-start",
           }}
         >
-          <Text style={styles.textTittle}>Contact</Text>
-          <Text style={styles.text}>name</Text>
-          <Text style={styles.textTittle}>Social</Text>
-        
+     
+          <View style={styles.divided}>
+            <Text style={styles.textTittle}>Contact</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
+          <View style={styles.divided}>
+
+          <Text style={[styles.textTittle, {paddingBottom:10}]}>Social</Text>
+          {/* Array de cuentas de redes sociales */}
+            <SocialMediaList />
+          </View>
         </View>
       </View>
-      {isEdited ?? <Pressable
-              style={{
-                marginVertical: 20,
-                alignSelf:"center",
-                justifyContent: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                borderRadius: 30,
-                width: 150,
-                backgroundColor: colors.main,
-                borderColor: "transparent",
-                height: "auto",
-              }}
-             
-            >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 16,
-                  fontWeight: "600",
-                  alignContent: "center",
-                  textAlign: "center",
-                }}
-              >
-                {t("save")}
-              </Text>
-            </Pressable>}
+  
+        <Pressable style={styles.button}>
+          <Text style={styles.buttontext}>{t("save")}</Text>
+        </Pressable>
+  
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
-  switchButton: {
-    flex: 1,
-    marginHorizontal: 10,
-    alignItems: "center",
-    padding: 10,
-    maxWidth: 100,
-    borderRadius: 30,
-    borderColor: "transparent",
-    justifyContent: "center",
-    height: 40,
+  divided: {
+    marginBottom: 5,
   },
   text: {
     fontSize: 16,
     fontWeight: "300",
   },
-  textLocation: {
-    fontSize: 15,
-    fontWeight: "300",
-    textAlign: "center",
+  input: {
+    height: 30,
+    width: win.width * 0.88,
+    marginStart: 5,
+    marginBottom: 0,
+    borderColor: colors.palette.neutral500,
+    borderBottomWidth: 1,
   },
+
   textTittle: {
     fontSize: 18,
     fontWeight: "600",
     letterSpacing: 1.5,
     color: colors.text,
   },
-  textUrl: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: colors.textDim,
-    textAlign: "center",
-  },
+
   card: {
     marginTop: 20,
+    paddingHorizontal:15,
     justifyContent: "center",
-    padding: 15,
     letterSpacing: 2,
   },
   image: {
@@ -188,24 +186,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     top: 85,
   },
-  active: {
-    backgroundColor: "#D9D9D9",
+  button: {
+    marginVertical: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    width: 150,
+    backgroundColor: colors.main,
+    borderColor: "transparent",
+    height: "auto",
   },
-  inactive: {
-    backgroundColor: "transparent",
-  },
-  switchTextActive: {
-    fontSize: 14,
-    color: colors.text,
+  buttontext: {
+    color: "white",
+    fontSize: 16,
     fontWeight: "600",
-  },
-  switchTextinactive: {
-    fontSize: 14,
-    color: "#323232",
-    fontWeight: "600",
+    alignContent: "center",
+    textAlign: "center",
   },
   ellipsis_vertical: {
     position: "absolute",
-    marginStart: windowWidth * 0.9,
+    marginStart: win.width * 0.9,
   },
 });
