@@ -28,6 +28,7 @@ export const CourseControler = () => {
   };
   const CourseState: CourseData = {
     user_id: "123456789",
+    organizationCentre:"",
     publishDate: currentDate,
     courseName: "",
     city: "",
@@ -50,6 +51,7 @@ export const CourseControler = () => {
       city,
       country,
       courseName,
+      organizationCentre,
       startDate,
       finishDate,
       spots,
@@ -62,6 +64,7 @@ export const CourseControler = () => {
       city &&
       country &&
       startDate &&
+      organizationCentre &&
       finishDate &&
       spots &&
       schedule &&

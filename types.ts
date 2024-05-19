@@ -64,6 +64,7 @@ export interface JobData {
 export interface CourseData {
   user_id:string,
   courseName:string,
+  organizationCentre: string,
   publishDate: string | null;
   instructorName:string,
   city:string,

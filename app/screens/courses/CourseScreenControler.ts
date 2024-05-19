@@ -29,6 +29,8 @@ export const CourseScreenControler = () => {
           name: doc.data().name,
           price: doc.data().price,
           weburl: doc.data().weburl,
+          organizationCentre: doc.data().organizationCentre,
+          image: doc.data().image,
     
         }))
       );

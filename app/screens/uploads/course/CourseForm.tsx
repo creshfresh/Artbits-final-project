@@ -131,6 +131,19 @@ export const CourseForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("organization.centre")}</Text>
+          <TextInput
+            style={styles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "organizationCentre")}
+            value={state.organizationCentre}
+            placeholder={t("basic.information")}
+            keyboardType="default"
+          />
+          {showErrors && !state.organizationCentre ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
 
         <View style={styles.divided}>
           <Text style={styles.title}>{t("location")}</Text>

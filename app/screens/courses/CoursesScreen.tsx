@@ -1,11 +1,11 @@
 import { FlashList } from "@shopify/flash-list";
 import React, { useEffect } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
-import { ContestCard } from "../../components/ContestCard";
-import { JobScreenControler } from "../jobs/JobScreenControler";
+import { CourseCard } from "../../components/CourseCard";
+import { CourseScreenControler } from "./CourseScreenControler";
 
 export const CoursesScreen = ({ navigation }) => {
-  const data = JobScreenControler();
+  const data = CourseScreenControler();
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -28,7 +28,7 @@ export const CoursesScreen = ({ navigation }) => {
                 navigation.navigate("CoursesDetailScreen", { item: item })
               }
             >
-              <ContestCard key={item.id} data={item} />
+              <CourseCard key={item.id} data={item} />
             </Pressable>
           </View>
         )}
