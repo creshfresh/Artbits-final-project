@@ -30,6 +30,8 @@ export const ContesteViewControler = () => {
           name: doc.data().name,
           objetive: doc.data().objetive,
           urlbases: doc.data().urlbases,
+          weburl: doc.data().weburl,
+          image: doc.data().image,
     
         }))
       );
@@ -38,6 +40,7 @@ export const ContesteViewControler = () => {
 
   }, []);
 
+  console.log(data)
   return data
   
 }

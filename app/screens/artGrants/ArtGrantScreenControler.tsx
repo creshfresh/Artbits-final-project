@@ -33,6 +33,7 @@ export const ArtGrantScreenControler = () => {
           name: doc.data().name,
           urlbases: doc.data().urlbases,
           weburl: doc.data().weburl,
+          image: doc.data().image,
     
         }))
       );

@@ -148,7 +148,7 @@ export const ConestControler = (minDate, endDate, participants) => {
           participants: participants,
           urlbases: url,
           publishDate: currentDate,
-          image: imageDownloadURLs.filter((url) => url !== null), // Filter out null values
+          image: imageDownloadURLs.filter((url) => url !== null),
         };
   
         await addDoc(collection(database, "Contest"), data);

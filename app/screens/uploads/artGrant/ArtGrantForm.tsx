@@ -48,6 +48,8 @@ export const ArtGrantForm = ({ navigation }) => {
     setShowErrors,
     showErrors,
     pickedPdf,
+    image,
+    pickImage,
     pickDocument,
   } = ArtGrantControler(startDate, endDate, participants);
 
@@ -138,7 +140,9 @@ export const ArtGrantForm = ({ navigation }) => {
           ) : null}
         </View>
         <View style={grantContesttSyles.divided}>
-          <Text style={grantContesttSyles.title}>{t("organization.centre")}</Text>
+          <Text style={grantContesttSyles.title}>
+            {t("organization.centre")}
+          </Text>
           <TextInput
             style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "organization")}
@@ -219,7 +223,7 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-            <View style={grantContesttSyles.divided}>
+        <View style={grantContesttSyles.divided}>
           <Text style={grantContesttSyles.title}>{t("min.age")}</Text>
           <TextInput
             style={grantContesttSyles.text_intup}
@@ -252,30 +256,32 @@ export const ArtGrantForm = ({ navigation }) => {
           ) : null}
         </View>
         <View style={grantContesttSyles.divided}>
-        <Text style={grantContesttSyles.title}>{t("participants")}</Text>
-        <Dropdown
-          style={grantContesttSyles.dropdown}
-          placeholderStyle={grantContesttSyles.placeholderStyle}
-          selectedTextStyle={grantContesttSyles.selectedTextStyle}
-          inputSearchStyle={grantContesttSyles.inputSearchStyle}
-          data={participantsOptions}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={t("select.option")}
-          searchPlaceholder="Search..."
-          value={state.participants}
-          onChange={(item) => {
-            setParticipants(item.value)
-          }}
-          renderItem={renderItem}
-        />
-        {showErrors && !state.participants ? (
-          <Text style={grantContesttSyles.errors}>{t("error")}</Text>
-        ) : null}
-      </View>
+          <Text style={grantContesttSyles.title}>{t("participants")}</Text>
+          <Dropdown
+            style={grantContesttSyles.dropdown}
+            placeholderStyle={grantContesttSyles.placeholderStyle}
+            selectedTextStyle={grantContesttSyles.selectedTextStyle}
+            inputSearchStyle={grantContesttSyles.inputSearchStyle}
+            data={participantsOptions}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={t("select.option")}
+            searchPlaceholder="Search..."
+            value={state.participants}
+            onChange={(item) => {
+              setParticipants(item.value);
+            }}
+            renderItem={renderItem}
+          />
+          {showErrors && !state.participants ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
         <View style={grantContesttSyles.divided}>
-          <Text style={grantContesttSyles.title}>{t("work.specifications")}</Text>
+          <Text style={grantContesttSyles.title}>
+            {t("work.specifications")}
+          </Text>
           <TextInput
             style={grantContesttSyles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "specifications")}
@@ -338,6 +344,49 @@ export const ArtGrantForm = ({ navigation }) => {
             flexDirection: "row",
             alignItems: "center",
             marginVertical: 10,
+            justifyContent: "flex-end",
+          }}
+        >
+          <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
+            {t("select.promotional.image")}
+          </Text>
+
+          <Ionicons
+            name="add-circle"
+            size={30}
+            color={colors.secondary}
+            onPress={pickImage}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
+            marginEnd: 5,
+            justifyContent: "flex-end",
+          }}
+        >
+          {/* {image.length > 0 && (
+            <>
+              <Ionicons
+                name="image-outline"
+                size={20}
+                color={colors.main}
+              ></Ionicons>
+              <Text
+                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+              >
+                {t("image.selected")}
+              </Text>
+            </>
+          )} */}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
             marginEnd: 5,
             justifyContent: "flex-end",
           }}
@@ -349,14 +398,13 @@ export const ArtGrantForm = ({ navigation }) => {
                 size={20}
                 color={colors.main}
               ></FontAwesome>
-               <Text
+              <Text
                 style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
               >
                 {t("pdf.selected")}
               </Text>
             </>
           )}
-       
         </View>
       </View>
       <View
@@ -365,12 +413,15 @@ export const ArtGrantForm = ({ navigation }) => {
           marginVertical: 10,
         }}
       >
-        <Pressable style={grantContesttSyles.publish_button} onPress={handleSave}>
-          <Text style={grantContesttSyles.publis_button_text}>{t("publish")}</Text>
+        <Pressable
+          style={grantContesttSyles.publish_button}
+          onPress={handleSave}
+        >
+          <Text style={grantContesttSyles.publis_button_text}>
+            {t("publish")}
+          </Text>
         </Pressable>
       </View>
     </ScrollView>
   );
 };
-
-

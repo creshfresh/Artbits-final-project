@@ -1,11 +1,7 @@
-import { signOut } from "firebase/auth";
-import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
-import { useEffect, useState } from "react";
-import { ArtGrantCard } from "../../components/ArtGrantCard";
 import { FlashList } from "@shopify/flash-list";
-import { colors } from "../../theme/colors";
-import { database } from "../../../firebaseConfig";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { useEffect } from "react";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
+import { ArtGrantCard } from "../../components/ArtGrantCard";
 import { ArtGrantScreenControler } from "./ArtGrantScreenControler";
 
 // Para el state, tendré que comprar el finish date con el día de hoy

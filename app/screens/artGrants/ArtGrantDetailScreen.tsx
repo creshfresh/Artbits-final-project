@@ -1,17 +1,24 @@
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
 import { ArtGrantScreenControler } from "./ArtGrantScreenControler";
 import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
-export const ArtGrantDetailScreen = ({  }) => {
+export const ArtGrantDetailScreen = ({}) => {
   // no borrar
 
-  const route:any = useRoute()
-//   const { name } = route.params;
+  const route: any = useRoute();
+  //   const { name } = route.params;
   const user = usePersonStore((state) => state.user);
-//   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
 
   return (
@@ -21,9 +28,9 @@ export const ArtGrantDetailScreen = ({  }) => {
     >
       <View style={styles.container}>
         <View
-          style={{ flexDirection: "column", top: 60, marginHorizontal: 20 }}
+          style={{ flexDirection: "column", top: 20, marginHorizontal: 20 }}
         >
-          <Image source={{ uri: user?.photoURL }} style={[styles.image]} />
+          <Image source={{ uri: route.params.item.image[0] }} style={[styles.image]} />
           <View
             style={{
               marginTop: 100,
@@ -34,7 +41,7 @@ export const ArtGrantDetailScreen = ({  }) => {
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <View style={{ padding: 10, flexDirection: "row" }}>
-              <Text style={styles.title}>{route.params.item.name}</Text>
+                <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
               <View
                 style={{
@@ -68,13 +75,15 @@ export const ArtGrantDetailScreen = ({  }) => {
               >
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>{t("participants")}</Text>
-                  <Text style={styles.body}>{route.params.item.participants}</Text>
+                  <Text style={styles.body}>
+                    {route.params.item.participants}
+                  </Text>
                 </View>
                 <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>
-                    {t("destinty.centre")}
+                  <Text style={styles.subtitle}>{t("destinty.centre")}</Text>
+                  <Text style={styles.body}>
+                    {route.params.item.organization}
                   </Text>
-                  <Text style={styles.body}>{route.params.item.organization}</Text>
                 </View>
               </View>
             </View>
@@ -101,12 +110,28 @@ export const ArtGrantDetailScreen = ({  }) => {
           </View>
           <View style={{ gap: 10, paddingBottom: 20 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.specifications}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.specifications}
+            </Text>
           </View>
-    
+
+          <View style={{ gap: 10, paddingBottom: 20 }}>
+            <Text style={styles.titleBody}>{t("web.url")}</Text>
+            <Text
+              style={styles.link}
+              onPress={() => {
+                Linking.openURL("http://" + route.params.item.weburl);
+              }}
+            >
+              {route.params.item.weburl}
+            </Text>
+          </View>
+
           <View style={{ gap: 10, paddingBottom: 100 }}>
             <Text style={styles.titleBody}>{t("download.bases")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.urlbases.assets[0].uri}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.urlbases.assets[0].uri}
+            </Text>
           </View>
         </View>
       </View>
@@ -116,7 +141,7 @@ export const ArtGrantDetailScreen = ({  }) => {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:  colors.background,
+    backgroundColor: colors.background,
   },
   division: {
     marginVertical: 5,
@@ -125,8 +150,11 @@ var styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  contentContainer: {
-    // flex: 1,
+  link: {
+    fontSize: 14,
+    letterSpacing: 1.5,
+    // textAlign:"center",
+    color: colors.secondary,
   },
   title: {
     fontSize: 24,

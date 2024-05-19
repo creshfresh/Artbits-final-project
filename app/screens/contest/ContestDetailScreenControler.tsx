@@ -30,6 +30,8 @@ export const ContestDetailScreenControler = (name:string) => {
           name: doc.data().name,
           objetive: doc.data().objetive,
           urlbases: doc.data().urlbases,
+          weburl: doc.data().weburl,
+          image: doc.data().image,
     
         }))
       );

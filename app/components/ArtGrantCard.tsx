@@ -29,7 +29,7 @@ export const ArtGrantCard = (item: ArtGrantData | any) => {
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 
-
+  console.log(item)
   return (
     <View
       style={{
@@ -48,7 +48,7 @@ export const ArtGrantCard = (item: ArtGrantData | any) => {
     >
       <Image
         source={{
-          uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
+          uri: item.data.image[0]
         }}
         style={{
           minWidth: 75,
