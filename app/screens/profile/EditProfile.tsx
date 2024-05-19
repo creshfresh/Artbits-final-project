@@ -41,7 +41,7 @@ export const EditProfile = ({ route, navigation }) => {
       />
       <Image source={{ uri: user.avatar }} style={[styles.image]} />
 
-      <View style={[styles.card, {marginTop:40}]}>
+      <View style={[styles.card, { marginTop: 40 }]}>
         <View
           style={{
             display: "flex",
@@ -68,13 +68,13 @@ export const EditProfile = ({ route, navigation }) => {
             />
           </View>
           <View style={styles.divided}>
-
-          <Text style={styles.textTittle}>country</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t("description.placeholder")}
-            keyboardType="default"
-          /></View>
+            <Text style={styles.textTittle}>country</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
         </View>
       </View>
 
@@ -88,24 +88,31 @@ export const EditProfile = ({ route, navigation }) => {
             justifyContent: "flex-start",
           }}
         >
-          <Text style={styles.textTittle}>Headline - One line about you</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t("description.placeholder")}
-            keyboardType="default"
-          />
-          <Text style={styles.textTittle}>Summary</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t("description.placeholder")}
-            keyboardType="default"
-          />
-          <Text style={styles.textTittle}>Personal webpage</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t("description.placeholder")}
-            keyboardType="default"
-          />
+          <View style={styles.divided}>
+            <Text style={styles.textTittle}>Headline - One line about you</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
+          <View style={styles.divided}>
+            <Text style={styles.textTittle}>Summary</Text>
+            <TextInput
+              style={[styles.input, {minHeight:70, textAlignVertical:"top", paddingTop:5}]}
+              multiline={true}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
+          <View style={[styles.divided, {marginTop:30}]}>
+            <Text style={styles.textTittle}>Personal webpage</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={t("description.placeholder")}
+              keyboardType="default"
+            />
+          </View>
         </View>
       </View>
 
@@ -119,7 +126,6 @@ export const EditProfile = ({ route, navigation }) => {
             justifyContent: "flex-start",
           }}
         >
-     
           <View style={styles.divided}>
             <Text style={styles.textTittle}>Contact</Text>
             <TextInput
@@ -129,36 +135,39 @@ export const EditProfile = ({ route, navigation }) => {
             />
           </View>
           <View style={styles.divided}>
-
-          <Text style={[styles.textTittle, {paddingBottom:10}]}>Social</Text>
-          {/* Array de cuentas de redes sociales */}
+            <Text style={[styles.textTittle, { paddingBottom: 10 }]}>
+              Social
+            </Text>
+            {/* Array de cuentas de redes sociales */}
             <SocialMediaList />
           </View>
         </View>
       </View>
-  
-        <Pressable style={styles.button}>
-          <Text style={styles.buttontext}>{t("save")}</Text>
-        </Pressable>
-  
+
+      <Pressable style={styles.button}>
+        <Text style={styles.buttontext}>{t("save")}</Text>
+      </Pressable>
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
   divided: {
-    marginBottom: 5,
+    marginBottom: 3,
+    gap: 5,
   },
   text: {
     fontSize: 16,
     fontWeight: "300",
   },
   input: {
-    height: 30,
+    height: 35,
     width: win.width * 0.88,
-    marginStart: 5,
-    marginBottom: 0,
+    paddingStart: 5,
     borderColor: colors.palette.neutral500,
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor:colors.neutral05
+
   },
 
   textTittle: {
@@ -170,7 +179,7 @@ const styles = StyleSheet.create({
 
   card: {
     marginTop: 20,
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
     justifyContent: "center",
     letterSpacing: 2,
   },

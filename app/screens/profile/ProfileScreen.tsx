@@ -240,14 +240,12 @@ export const ProfileScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   switchButton: {
     flex: 1,
+    textAlignVertical: "center",
     marginHorizontal: 10,
     alignItems: "center",
-    padding: 10,
+    padding: 8,
     maxWidth: 100,
     borderRadius: 30,
-    borderColor: "transparent",
-    justifyContent: "center",
-    height: 40,
   },
   text: {
     fontSize: 16,

@@ -12,6 +12,12 @@
   "saved": "Saved",
   "detail": "Detail",
 
+
+  "find": "Find",
+  "contests.min": "contests",
+  "artGrants.min": "art grants",
+  "jobs.min": "jobs",
+  "courses.min": "courses",
   "portfolio": "Portfolio",
   "summary": "Summary",
   "personal.web": "Personal web",

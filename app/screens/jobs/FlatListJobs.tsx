@@ -1,11 +1,14 @@
 import { FlashList } from "@shopify/flash-list";
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions, Pressable } from "react-native";
+import { View, StyleSheet,Text, Dimensions, Pressable } from "react-native";
 import { JobCard } from "../../components/JobCard";
 import { JobScreenControler } from "./JobScreenControler";
+import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 export const FlatlistJobs = ({ navigation }) => {
   const data = JobScreenControler();
+  const { t } = useTranslation();
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -16,6 +19,11 @@ export const FlatlistJobs = ({ navigation }) => {
   }, []);
   return (
     <View style={{ flex: 1, padding: 10 }}>
+      <Text style={styles.text}>
+  
+        {t("find")} {data.length} {t("jobs.min")}
+      </Text>
+
       <FlashList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -32,7 +40,6 @@ export const FlatlistJobs = ({ navigation }) => {
             </Pressable>
           </View>
         )}
-       
       />
     </View>
   );
@@ -48,10 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   text: {
-    fontSize: 16,
+    fontSize: 12,
     lineHeight: 21,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    color: colors.secondary,
   },
 });

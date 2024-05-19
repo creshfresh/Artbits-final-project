@@ -51,40 +51,7 @@ export const JobsDetailScreen = ({}) => {
                   marginVertical: 5,
                 }}
               ></View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>{t("start.date")}</Text>
-                  <Text style={styles.body}>{route.params.item.city}</Text>
-                </View>
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>{t("dead.line")}</Text>
-                  <Text style={styles.body}>{route.params.item.city}</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>{t("participants")}</Text>
-                  <Text style={styles.body}>{route.params.item.city}</Text>
-                </View>
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>
-                    {t("organization.centre")}
-                  </Text>
-                  <Text style={styles.body}>{route.params.item.city}</Text>
-                </View>
-              </View>
+      
             </View>
           </View>
 

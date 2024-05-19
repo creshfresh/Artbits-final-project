@@ -213,7 +213,7 @@ const GalleryStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTransparent: true,
-          headerTintColor: colors.palette.white,
+          headerTintColor: colors.text,
           navigationBarColor: "transparent",
           // headerShadowVisible: false,
           headerTitle: t("detail"),
@@ -275,6 +275,9 @@ const JobstStackNavigator = () => {
           headerShown: true,
           animation: "ios",
           headerBackTitle: "",
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
           headerTitle: t("job.detail"),
           headerLeft: () => (
             <Ionicons
@@ -347,18 +350,37 @@ const InternShipsAndContestStackNavigator = () => {
           ),
         })}
       />
+      
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: colors.text,
+          navigationBarColor: "transparent",
+          // headerShadowVisible: false,
+          headerTitle: t("edit.profile"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
       <Stack.Screen
         name="ContestDetailScreen"
         component={ContestDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
           animation: "ios",
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
-          headerBackTitle: "",
-          headerTitle: t("contest.detail"),
+          headerTransparent: true,
 
+          navigationBarColor: "transparent",
+          headerTitle: t("contest.detail"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -460,7 +482,7 @@ const PortfolioStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTransparent: true,
-          headerTintColor: colors.palette.white,
+          headerTintColor: colors.text,
           navigationBarColor: "transparent",
           // headerShadowVisible: false,
           headerTitle: t("edit.profile"),

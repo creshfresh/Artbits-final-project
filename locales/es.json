@@ -10,8 +10,13 @@
     "upload": "Subir",
     "sign.in":"Iniciar sesión",
     "log.out":"Cerrar sesión",
-    
-    "portfolio":"Portfolio",
+    "find": "Find",
+
+    "contests.min": "concursos",
+    "artGrants.min": "becas",
+    "jobs.min": "trabajos",
+    "courses.min": "cursos",
+    "portfolio": "Portfolio",
     "summary":"Resumen",
     "follow.social":"Sígueme en redes sociales",
     "contact":"Contacto",

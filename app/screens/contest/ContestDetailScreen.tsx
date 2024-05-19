@@ -1,4 +1,12 @@
-import { Dimensions, Image, Linking, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
@@ -6,13 +14,12 @@ import { ContestDetailScreenControler } from "./ContestDetailScreenControler";
 import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
 
-export const ContestDetailScreen = ({  }) => {
-  const route:any = useRoute()
-//   const { name } = route.params;
+export const ContestDetailScreen = ({}) => {
+  const route: any = useRoute();
+  //   const { name } = route.params;
   const user = usePersonStore((state) => state.user);
-//   const data = ContestDetailScreenControler(name);
+  //   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
-
 
   return (
     <ScrollView
@@ -20,22 +27,28 @@ export const ContestDetailScreen = ({  }) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
-      
         <View
           style={{ flexDirection: "column", top: 20, marginHorizontal: 20 }}
         >
-          <Image source={{ uri: route.params.item.image[0] }} style={[styles.image]} />
+          <Image
+            source={{ uri: route.params.item.image[0] }}
+            style={[styles.image]}
+          />
+        </View>
+
+        <View
+          style={[styles.loginCard, { shadowColor: "#000000", elevation: 20 }]}
+        >
           <View
             style={{
-              marginTop: 100,
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
             }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <View style={{ padding: 10, flexDirection: "row" }}>
-              <Text style={styles.title}>{route.params.item.name}</Text>
+              <View style={{ paddingTop: 40, flexDirection: "row" }}>
+                <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
               <View
                 style={{
@@ -44,6 +57,7 @@ export const ContestDetailScreen = ({  }) => {
                   marginVertical: 5,
                 }}
               ></View>
+
               <View
                 style={{
                   flexDirection: "row",
@@ -54,7 +68,9 @@ export const ContestDetailScreen = ({  }) => {
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>{t("start.date")}</Text>
                   {/* Aqui tengo que coger la fecha formateada */}
-                  <Text style={styles.body}>{route.params.item.startDate.toString()}</Text>
+                  <Text style={styles.body}>
+                    {route.params.item.startDate.toString()}
+                  </Text>
                 </View>
                 <View style={{ flex: 1, margin: 5 }}>
                   {/* Aqui tengo que coger la fecha formateada */}
@@ -71,22 +87,21 @@ export const ContestDetailScreen = ({  }) => {
               >
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>{t("participants")}</Text>
-                  <Text style={styles.body}>{route.params.item.participants}</Text>
+                  <Text style={styles.body}>
+                    {route.params.item.participants}
+                  </Text>
                 </View>
                 <View style={{ flex: 1, margin: 5 }}>
                   <Text style={styles.subtitle}>
                     {t("organization.centre")}
                   </Text>
-                  <Text style={styles.body}>{route.params.item.organization}</Text>
+                  <Text style={styles.body}>
+                    {route.params.item.organization}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
-
-          <View
-            style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 5, width:"100%" }}
-          ></View>
-
           <View style={{ gap: 10, paddingBottom: 20, paddingTop: 10 }}>
             <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
             <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
@@ -105,7 +120,9 @@ export const ContestDetailScreen = ({  }) => {
           </View>
           <View style={{ gap: 10, paddingBottom: 20 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.specifications}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.specifications}
+            </Text>
           </View>
           <View style={{ gap: 10, paddingBottom: 20 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
@@ -117,10 +134,12 @@ export const ContestDetailScreen = ({  }) => {
             >
               {route.params.item.weburl}
             </Text>
-            </View>
+          </View>
           <View style={{ gap: 10, paddingBottom: 100 }}>
             <Text style={styles.titleBody}>{t("download.bases")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.urlbases.assets[0].uri}</Text>
+            <Text style={styles.bodybody}>
+              {route.params.item.urlbases.assets[0].uri}
+            </Text>
           </View>
         </View>
       </View>
@@ -130,7 +149,8 @@ export const ContestDetailScreen = ({  }) => {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:  colors.background,
+    paddingTop:50,
+    backgroundColor:"#D7E2F4",
   },
   division: {
     marginVertical: 5,
@@ -144,7 +164,17 @@ var styles = StyleSheet.create({
     color: colors.secondary,
   },
 
-
+  loginCard: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: "white",
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
+    left: 0,
+    right: 0,
+    bottom: -80,
+    width: "100%",
+  },
   title: {
     fontSize: 24,
     fontWeight: "600",
@@ -177,6 +207,7 @@ var styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+    zIndex:1,
     borderColor: "white",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
