@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from "react";
 import {
-  useFonts,
   Montserrat_600SemiBold,
+  useFonts,
 } from "@expo-google-fonts/montserrat";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  ToastAndroid,
-  View,
+  View
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Snackbar from "react-native-snackbar";
 
-import { colors } from "../../theme/colors";
-import { auth } from "../../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import { colors } from "../../theme/colors";
 import { LoginControler } from "./LoginControler";
 
 const win = Dimensions.get("window");
@@ -38,7 +36,7 @@ export default function LoginScreen({}) {
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
 
-const handleSignUp = () => {
+  const handleSignUp = () => {
     if (isValidPassword(password) && isValidEmail(email)) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
@@ -50,11 +48,11 @@ const handleSignUp = () => {
         });
     } else {
       setShowEmailError(!isValidEmail(email));
-      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+      setShowPasswordError(!isValidPassword(password));
     }
   };
 
-const handleLogin = () => {
+  const handleLogin = () => {
     if (isValidPassword(password) && isValidEmail(email)) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
@@ -64,7 +62,7 @@ const handleLogin = () => {
         .catch((error) => alert(error.message));
     } else {
       setShowEmailError(!isValidEmail(email));
-      setShowPasswordError(!isValidPassword(password)); // Aquí establecemos el estado de error de la contraseña
+      setShowPasswordError(!isValidPassword(password)); 
     }
   };
 

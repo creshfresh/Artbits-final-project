@@ -48,32 +48,35 @@ export const ProfileScreen = ({ route, navigation }) => {
   const handleSignout = () => {
     signOutZustand();
   };
+  const header = require("../../../assets/headerprofile.png");
 
   return (
     <>
-      <View
-        style={{
-          height: 150,
-          borderBottomEndRadius: 20,
-          borderBottomStartRadius: 20,
-          backgroundColor: colors.main,
-        }}
-      >
+      <View>
+        <Image
+          source={header}
+          style={{
+            height: 150,
+            width: "auto",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          }}
+        ></Image>
         {!navigateUser ? (
           <>
             <View
               style={{
                 position: "absolute",
                 flexDirection: "row",
-                marginTop:20,
-                marginStart:10,
+                marginTop: 20,
+                marginStart: 10,
                 justifyContent: "flex-start",
               }}
             >
               <Ionicons
                 name="globe-outline"
                 size={25}
-                color={colors.palette.white}
+                color={colors.secondary}
                 onPress={handleTranslation}
               />
             </View>
@@ -100,8 +103,9 @@ export const ProfileScreen = ({ route, navigation }) => {
               ></Ionicons>
               <Feather
                 name="edit-2"
-                onPress={() => {      navigation.navigate("EditProfile");
-              }}
+                onPress={() => {
+                  navigation.navigate("EditProfile");
+                }}
                 size={22}
                 color={colors.palette.white}
                 style={{ marginTop: 20 }}

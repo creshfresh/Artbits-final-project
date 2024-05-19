@@ -121,7 +121,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
         <View style={{ flex: 1, padding: 10 }}>
           <View
             style={{
-              marginTop: 80,
+              marginTop: 10,
               justifyContent: "center",
               flexDirection: "row",
             }}

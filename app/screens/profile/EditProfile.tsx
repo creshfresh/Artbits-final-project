@@ -5,6 +5,8 @@ import {
   Text,
   View,
   Pressable,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { User, signOut } from "firebase/auth";
@@ -23,81 +25,116 @@ import { CombinedUser } from "../../../types";
 const windowWidth = Dimensions.get("window").width;
 
 export const EditProfile = ({ route, navigation }) => {
-  const [viewMode, setViewMode] = useState<ViewMode>("Portfolio");
   //Recoger el usuario actualmente logueado
-  const [navigateUser, setNavigateUser] = useState<CombinedUser>();
   const user = usePersonStore((state) => state.user);
-  const { t, changeLanguage, getCurrentLocale } = useTranslation();
-  const handleTranslation = () => {
-    changeLanguage(getCurrentLocale() === "en" ? "es" : "en");
-  };
+  const { t} = useTranslation();
 
-  useEffect(() => {
-    const { item } = route.params || {};
-    console.log("vista perfil", item);
-    if (item !== undefined) {
-      setNavigateUser(item);
-    }
-  }, [route.params, user]);
 
-  console.log("vista de perfil", user.city);
-
-  type ViewMode = "Portfolio" | "About" | "Saved";
-
-  // const { t } = useTranslation();
-  const { signOutZustand } = usePersonStore();
-  const handleSignout = () => {
-    signOutZustand();
-  };
+  const header = require("../../../assets/headerprofile.png");
+const [isEdited, setIsedited] = useState(false)
 
   return (
-    <>
-      <View
+    <ScrollView
+    showsVerticalScrollIndicator={false}
+    style={{ backgroundColor: "transparent" }}
+  >
+      <Image
+        source={header}
         style={{
           height: 150,
-          borderBottomEndRadius: 20,
-          borderBottomStartRadius: 20,
-          backgroundColor: colors.main,
+          width: "auto",
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
         }}
-      ></View>
-
+      />
       <Image source={{ uri: user.avatar }} style={[styles.image]} />
 
       <View style={styles.card}>
-        <Text style={styles.textTittle}>{user.displayName}</Text>
-
-        {/* <Text style={styles.text}>{user.email}</Text> */}
         <View
           style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
             margin: 5,
-            justifyContent: "center",
+            gap: 5,
+            justifyContent: "flex-start",
           }}
         >
-          <Ionicons size={20} name="location-sharp" color={colors.main} />
-
-          <Text style={styles.textLocation}>
-            {user.city} + ", " +{user.country}
-          </Text>
+          <Text style={styles.textTittle}>name</Text>
+          <Text style={styles.text}>name</Text>
+          <Text style={styles.textTittle}>city</Text>
+          <Text style={styles.text}>name</Text>
+          <Text style={styles.textTittle}>countrye</Text>
+          <Text style={styles.text}>name</Text>
         </View>
-        <Text style={styles.textUrl}>
-          {navigateUser ? navigateUser[0].web_url : user.web_url}
-        </Text>
       </View>
       <View
         style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 2 }}
       ></View>
+       <View style={[styles.card, {marginTop:0}]}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: 5,
+            gap: 5,
+            justifyContent: "flex-start",
+          }}
+        >
+          <Text style={styles.textTittle}>Headline - One line about you</Text>
+          <Text style={styles.text}>name</Text>
+          <Text style={styles.textTittle}>Summary</Text>
+          <Text style={styles.text}>name</Text>
+          <Text style={styles.textTittle}>Personal webpage</Text>
+          <Text style={styles.text}>name</Text>
+        </View>
+      </View>
       <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginTop: 10,
-          marginBottom: 5,
-          justifyContent: "center",
-        }}
+        style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 2 }}
       ></View>
-    </>
+         <View style={[styles.card, {marginTop:0}]}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: 5,
+            gap: 5,
+            justifyContent: "flex-start",
+          }}
+        >
+          <Text style={styles.textTittle}>Contact</Text>
+          <Text style={styles.text}>name</Text>
+          <Text style={styles.textTittle}>Social</Text>
+        
+        </View>
+      </View>
+      {isEdited ?? <Pressable
+              style={{
+                marginVertical: 20,
+                alignSelf:"center",
+                justifyContent: "center",
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                borderRadius: 30,
+                width: 150,
+                backgroundColor: colors.main,
+                borderColor: "transparent",
+                height: "auto",
+              }}
+             
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                {t("save")}
+              </Text>
+            </Pressable>}
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -115,7 +152,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "300",
-    textAlign: "center",
   },
   textLocation: {
     fontSize: 15,
@@ -123,11 +159,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   textTittle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "600",
     letterSpacing: 1.5,
     color: colors.text,
-    textAlign: "center",
   },
   textUrl: {
     fontSize: 16,

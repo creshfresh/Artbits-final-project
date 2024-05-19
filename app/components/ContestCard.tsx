@@ -47,9 +47,9 @@ export const ContestCard = (item: ContestData | ArtGrantData | any) => {
         justifyContent: "space-between",
       }}
     >
-      <Image
+     <Image
         source={{
-          uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
+          uri: item.data.image[0]
         }}
         style={{
           minWidth: 75,

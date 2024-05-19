@@ -7,7 +7,6 @@ import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
 
 export const ContestDetailScreen = ({  }) => {
-
   const route:any = useRoute()
 //   const { name } = route.params;
   const user = usePersonStore((state) => state.user);
@@ -21,8 +20,9 @@ export const ContestDetailScreen = ({  }) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
+      
         <View
-          style={{ flexDirection: "column", top: 60, marginHorizontal: 20 }}
+          style={{ flexDirection: "column", top: 20, marginHorizontal: 20 }}
         >
           <Image source={{ uri: route.params.item.image[0] }} style={[styles.image]} />
           <View
@@ -84,7 +84,7 @@ export const ContestDetailScreen = ({  }) => {
           </View>
 
           <View
-            style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 5 }}
+            style={{ height: 2, backgroundColor: "#EBE9E9", marginVertical: 5, width:"100%" }}
           ></View>
 
           <View style={{ gap: 10, paddingBottom: 20, paddingTop: 10 }}>
@@ -152,7 +152,7 @@ var styles = StyleSheet.create({
     color: colors.text,
   },
   titleBody: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     letterSpacing: 1.5,
     color: colors.text,
@@ -166,13 +166,11 @@ var styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     letterSpacing: 1.5,
-    // textAlign:"center",
     color: colors.text,
   },
   bodybody: {
     fontSize: 14,
     letterSpacing: 1.5,
-    // textAlign:"center",
     color: colors.text,
   },
 
