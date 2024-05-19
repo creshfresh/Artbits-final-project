@@ -2,6 +2,7 @@ import { View, Image, Text } from "react-native";
 import { colors } from "../theme/colors";
 import { ArtGrantData, ContestData } from "../../types";
 import { useTranslation } from "../hooks/useTranslations";
+import { formatDateTranslated } from "../hooks/useTranslateDate";
 
 //aqui recibo la data de los concursos
 
@@ -10,23 +11,22 @@ import { useTranslation } from "../hooks/useTranslations";
 export const ContestCard = (item: ContestData | ArtGrantData | any) => {
   const { t } = useTranslation();
   const finishDateFormated = new Date(item.data.finishDate.seconds * 1000);
-  const formateToDate = (date) => {
-    return date.toLocaleDateString("es-ES", {
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
-    });
-  };
+  // const formateToDate = (date) => {
+  //   return date.toLocaleDateString("es-ES", {
+  //     day: "numeric",
+  //     month: "short",
+  //     year: "2-digit",
+  //   });
+  // };
 
-  const formatDateTranslated = (date: Date) => {
-    const dd: string = formateToDate(date);
-    const [day, month, year] = dd.split(" ");
-    const translatedMont = t(month).toUpperCase();
-    const newDateTranslated = `${day} ${translatedMont} ${year}`;
-    console.log(translatedMont);
+  // const formatDateTranslated = (date: Date) => {
+  //   const dd: string = formateToDate(date);
+  //   const [day, month, year] = dd.split(" ");
+  //   const translatedMont = t(month).toUpperCase();
+  //   const newDateTranslated = `${day} ${translatedMont} ${year}`;
 
-    return newDateTranslated;
-  };
+  //   return newDateTranslated;
+  // };
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 

@@ -46,7 +46,19 @@ export interface AppUser {
   user_id: string | null,
 
   }
-
+export interface JobData {
+  user_id:string,
+  position:string,
+  companyName:string,
+  city:string,
+  country:string,
+  workModel:string,
+  contractType:string,
+  workingHours:string,
+  description:string,
+  requirements:string,
+  weburl: string
+}
   export interface ArtGrantData {
     user_id:string,
     name: string;

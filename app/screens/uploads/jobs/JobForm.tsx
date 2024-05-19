@@ -1,24 +1,24 @@
 import {
-  View,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
-  StyleSheet,
-  Pressable,
-  ToastAndroid,
+  View,
 } from "react-native";
-import { useTranslation } from "../../../hooks/useTranslations";
-import { useState } from "react";
-import Checkbox from "expo-checkbox";
-import { colors } from "../../../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { ScrollView } from "react-native";
-import { JobControler } from "./JobControler";
 import { Dropdown } from "react-native-element-dropdown";
-import { ContracTypeOptions, WorkModelOptions, WorkingHoursOptions } from "../../../../Constants";
+import {
+  ContracTypeOptions,
+  WorkModelOptions,
+  WorkingHoursOptions,
+} from "../../../../Constants";
+import { useTranslation } from "../../../hooks/useTranslations";
+import { colors } from "../../../theme/colors";
 import { grantContesttSyles } from "../../styles/styles";
+import { JobControler } from "./JobControler";
 
 export const JobFormView = ({ navigation }) => {
-
   const renderItem = (item) => {
     return (
       <View style={grantContesttSyles.item}>
@@ -26,20 +26,15 @@ export const JobFormView = ({ navigation }) => {
       </View>
     );
   };
+
   const { t } = useTranslation();
-  
-  const [isChecked, setChecked] = useState(false);
-  const { handleChangeTex, saveJob, state } = JobControler();
-  const handlePressSaveGrant = async () => {
+
+  const { handleChangeTex, saveJob, state, setShowErrors, showErrors } =
+    JobControler();
+
+  const handleSave = async () => {
     const success = await saveJob();
-    if (success) {
-      ToastAndroid.show(" successfully!", ToastAndroid.SHORT);
-    } else {
-      ToastAndroid.show(
-        "Error occurred while saving grant!",
-        ToastAndroid.SHORT
-      );
-    }
+    if (success) await navigation.navigate("SuccesUpload");
   };
   return (
     <ScrollView
@@ -62,117 +57,174 @@ export const JobFormView = ({ navigation }) => {
           <Text style={styles.title}>{t("position.name")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "name")}
-            value={state.name}
+            onChangeText={(value) => handleChangeTex(value, "position")}
+            value={state.position}
             placeholder={t("basic.information")}
             keyboardType="default"
           />
+          {showErrors && !state.position ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("company.name")}</Text>
+          <TextInput
+            style={styles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "companyName")}
+            value={state.companyName}
+            placeholder={t("basic.information")}
+            keyboardType="default"
+          />
+          {showErrors && !state.companyName ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
 
         <View style={styles.divided}>
           <Text style={styles.title}>{t("location")}</Text>
-          <View style={{flexDirection:"row", justifyContent:"space-between"}}> 
-          <TextInput
-            style={[styles.text_intup, {width:"49%"}]}
-            onChangeText={(value) => handleChangeTex(value, "city")}
-            value={state.organization}
-            placeholder={t("city")}
-            keyboardType="default"
-            />
-          <TextInput
-            style={[styles.text_intup,, {width:"49%"} ]}
-            onChangeText={(value) => handleChangeTex(value, "country")}
-            value={state.organization}
-            placeholder={t("country")}
-            keyboardType="default"
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <View style={{ flexDirection: "column", width: "48%" }}>
+              <TextInput
+                style={styles.text_intup}
+                onChangeText={(value) => handleChangeTex(value, "city")}
+                value={state.city}
+                placeholder={t("city")}
+                keyboardType="default"
+              />
+              {showErrors && !state.city ? (
+                <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+              ) : null}
             </View>
+            <View style={{ flexDirection: "column", width: "48%" }}>
+              <TextInput
+                style={styles.text_intup}
+                onChangeText={(value) => handleChangeTex(value, "country")}
+                value={state.country}
+                placeholder={t("country")}
+                keyboardType="default"
+              />
+              {showErrors && !state.country ? (
+                <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+              ) : null}
+            </View>
+          </View>
         </View>
 
-
         <View style={styles.divided}>
-
           <Text style={styles.mainTitle}>{t("position.detail")}</Text>
           <Text style={styles.title}>{t("work.model")}</Text>
           <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          data={WorkModelOptions}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={t("select.option")}
-          searchPlaceholder="Search..."
-          value={state.participants}
-          onChange={(item) => {
-            // setParticipants(item.value)
-          }}
-          renderItem={renderItem}
-        />
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={WorkModelOptions}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={t("select.option")}
+            searchPlaceholder="Search..."
+            value={state.workModel}
+            onChange={(item) => {
+              handleChangeTex(item.label, "workModel");
+            }}
+            renderItem={renderItem}
+          />
+          {showErrors && !state.workModel ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("contract.type")}</Text>
           <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          data={ContracTypeOptions}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={t("select.option")}
-          searchPlaceholder="Search..."
-          value={state.participants}
-          onChange={(item) => {
-            // setParticipants(item.value)
-          }}
-          renderItem={renderItem}
-        />
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={ContracTypeOptions}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={t("select.option")}
+            searchPlaceholder="Search..."
+            value={state.contractType}
+            onChange={(item) => {
+              handleChangeTex(item.label, "contractType");
+            }}
+            renderItem={renderItem}
+          />
+          {showErrors && !state.contractType ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("working.hours")}</Text>
           <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          data={WorkingHoursOptions}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={t("select.option")}
-          searchPlaceholder="Search..."
-          value={state.participants}
-          onChange={(item) => {
-            // setParticipants(item.value)
-          }}
-          renderItem={renderItem}
-        />
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={WorkingHoursOptions}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={t("select.option")}
+            searchPlaceholder="Search..."
+            value={state.workingHours}
+            onChange={(item) => {
+              handleChangeTex(item.value, "workingHours");
+            }}
+            renderItem={renderItem}
+          />
+          {showErrors && !state.workingHours ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
-
-          <Text style={styles.mainTitle}>{t("position.detail")}</Text>
-          <Text style={styles.title}>{t("work.model")}</Text>
+          <Text style={styles.mainTitle}>{t("working.description.title")}</Text>
+          <Text style={styles.title}>{t("working.description")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "name")}
-            value={state.name}
-            placeholder={t("basic.information")}
+            onChangeText={(value) => handleChangeTex(value, "description")}
+            value={state.description}
+            placeholder={t("working.description")}
             keyboardType="default"
           />
+          {showErrors && !state.workingHours ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
         <View style={styles.divided}>
           <Text style={styles.title}>{t("skills.requirements")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "name")}
-            value={state.name}
+            onChangeText={(value) => handleChangeTex(value, "requirements")}
+            value={state.requirements}
             placeholder={t("basic.information")}
             keyboardType="default"
           />
+          {showErrors && !state.requirements ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
+        </View>
+        <View style={styles.divided}>
+          <Text style={styles.title}>{t("job.url")}</Text>
+          <TextInput
+            style={styles.text_intup}
+            onChangeText={(value) => handleChangeTex(value, "weburl")}
+            value={state.weburl}
+            placeholder={t("basic.information")}
+            keyboardType="default"
+          />
+          {showErrors && !state.weburl ? (
+            <Text style={grantContesttSyles.errors}>{t("error")}</Text>
+          ) : null}
         </View>
       </View>
 
@@ -183,7 +235,7 @@ export const JobFormView = ({ navigation }) => {
         }}
       >
         {/* Si los campos obligatorios no están cumplidos, que el botón esté desactivado */}
-        <Pressable style={styles.publish_button}>
+        <Pressable style={styles.publish_button} onPress={handleSave}>
           <Text style={styles.publis_button_text}>{t("publish")}</Text>
         </Pressable>
       </View>
@@ -200,7 +252,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 19,
     letterSpacing: 1,
-    marginBottom:10,
+    marginBottom: 10,
     fontWeight: "700",
     color: colors.main,
   },
@@ -263,6 +315,6 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 14,
-    color:colors.dateText
+    color: colors.dateText,
   },
 });

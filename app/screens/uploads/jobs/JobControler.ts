@@ -1,52 +1,76 @@
 import { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { database, storage } from "../../../../firebaseConfig";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { database } from "../../../../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
-import { ToastAndroid } from "react-native";
-
+import { Alert } from "react-native";
+import { JobData } from "../../../../types";
 
 export const JobControler = () => {
+  const JobState: JobData = {
+    user_id: "",
+    position: "",
+    city: "",
+    companyName:"",
+    country: "",
+    workModel: "",
+    contractType: "",
+    workingHours: "",
+    description: "",
+    requirements: "",
+    weburl: "",
+  };
 
-    const grantState = {
-        title:"",
-        name:"",
-        organization:"",
-        totalCash:0,
-        startDate:"",
-        finishDate:"",
-        minAge:"",
-        maxAge:"",
-        participants:"",
-        specifications:"",
-        bases:"",
-        officalBases:"",
-    }
+  const [showErrors, setShowErrors] = useState(false);
+  const [state, setState] = useState(JobState);
 
-const handleChangeTex = (value, name) => {
-    setState({...state, [name]:value})
-}
+  const checkAllTextFields = () => {
+    const {
+      position,
+      city,
+      country,
+      workModel,
+      contractType,
+      companyName,
+      workingHours,
+      description,
+      requirements,
+      weburl,
+    } = state;
+    return (
+      position &&
+      city &&
+      country &&
+      companyName &&
+      workModel &&
+      contractType &&
+      workingHours &&
+      description &&
+      weburl &&
+      requirements
+    );
+  };
 
-  const [state, setState] = useState(grantState);
+  const handleChangeTex = (value, name) => {
+    setState({ ...state, [name]: value });
+  };
 
-    const saveJob = async () => {
-        try {
-            await addDoc(collection(database, 'Jobs'), { ...state });
-            return true; 
-        } catch (error) {
-            console.error("error:", error);
-            return false; 
-        }
-    };
+  const saveJob = async () => {
+      try {
+        await addDoc(collection(database, "Jobs"), { ...state });
+        return true;
+      } catch (error) {
+        console.error("Error saving job: ", error);
+        Alert.alert("Error", "Error saving job data.");
+        return false;
+      }
+    
+  };
 
-  
- 
-  return{
+  return {
     handleChangeTex,
     saveJob,
-    state
-
-}
+    state,
+    setShowErrors,
+    showErrors,
+    checkAllTextFields
+  };
 };
-
-

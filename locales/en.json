@@ -90,18 +90,18 @@
     "error.age":"There is a discrepancy between the specified ages.",
 
 
-    "january": "Enero",
-    "february": "Febrero",
-    "march": "Marzo",
-    "april": "Abril",
-    "may": "Mayo",
-    "june": "Junio",
-    "july": "Julio",
-    "august": "Agosto",
-    "september": "Septiembre",
-    "october": "Octubre",
-    "november": "Noviembre",
-    "december": "Diciembre",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December",
     "open": "OPEN",
     "close": "CLOSED",
 
@@ -109,7 +109,23 @@
    "save.first.work": "Save your first project",
    "save.first.work.body": "Projects that you like will be listed here",
    "find.work":"Find projects",
-   "not.saved.artwork": "Any favorite artwork yet!"
+   "not.saved.artwork": "Any favorite artwork yet!",
 
+
+   "job.detail": "Job detail",
+   "city": "City",
+   "country": "Country",
+   "position.name":"Position name",
+   "company.name": "Company name",
+   "basic.information":"Basic information",
+   "position.detail": "Position details",
+   "work.model": "Work model",
+   "location": "Localization",
+   "contract.type": "Contract type",
+   "working.hours": "Working hours",
+   "working.description.title": "Work description",
+   "working.description": "Description of the job",
+   "skills.requirements": "Skills and requirements",
+   "job.url": "Link to web page"
 
   }

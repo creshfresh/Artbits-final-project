@@ -23,11 +23,7 @@ export const ContestScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      {/* <ScrollView>
-        {data.map((item) => (
-          <Card key={item.id} data={item} />
-        ))}
-      </ScrollView> */}
+
       <FlashList
         data={data}
         horizontal={false}

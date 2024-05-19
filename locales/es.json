@@ -112,6 +112,23 @@
    "save.first.work": "Guarda tu primer proyecto",
    "save.first.work.body": "Tus proyectos guardados se mostrarán en este",
    "find.work":"Encuentra obras",
-   "not.saved.artwork": "Aún no tiene ningún proyecto en favoritos"
+   "not.saved.artwork": "Aún no tiene ningún proyecto en favoritos",
+
+   "job.detail": "Detalles del trabajo",
+   "position.name":"Nombre del puesto",
+   "companyName": "Nombre de la empresa",
+   "basic.information":"Información básica",
+   "city": "Ciudad",
+   "country": "País",
+   "position.detail": "Detalles del puesto",
+   "work.model": "Modelo de trabajo",
+   "location": "Localización",
+   "contract.type": "Tipo de contrato",
+   "working.hours": "Horas de jornada",
+   "working.description.title": "Descripción del trabajo",
+   "working.description": "Descripción del trabajo",
+   "skills.requirements": "Habilidades y requisitos",
+   "job.url": "Link a la página"
+
 
   }

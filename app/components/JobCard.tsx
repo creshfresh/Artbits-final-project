@@ -1,49 +1,19 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
 import { colors } from "../theme/colors";
-
+import { Ionicons } from "@expo/vector-icons";
+const win = Dimensions.get("window");
 
 export const JobCard = ({ data }) => {
   return (
-
-      <View
-        style={{
-          display: "flex",
-          borderWidth: 3,
-          borderRadius: 10,
-          minWidth: 338,
-          flexDirection: "row",
-          backgroundColor: "#FFFF",
-          borderColor: "#E3E3E3",
-          padding: 12,
-          minHeight: 93,
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-        }}
-      >
+    <View style={styles.container}>
+      <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
         <Image
           source={{
             uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
           }}
-          style={{
-            minWidth: 75,
-            borderColor: "#DEDEDE",
-            borderWidth: 3,
-            borderRadius: 5,
-            backgroundColor: "#DEDEDE",
-            minHeight: 75,
-          }}
+          style={styles.position}
         />
-        <View style={{ width: "70%" }}>
-          <Text
-            style={{
-              paddingTop: 3,
-              fontSize: 10,
-              fontWeight: "700",
-              color: colors.dateText,
-            }}
-          >
-          {data.date}
-          </Text>
+        <View style={{ width: "75%", paddingStart: 10 }}>
           <Text
             style={{
               fontSize: 18,
@@ -51,20 +21,97 @@ export const JobCard = ({ data }) => {
               color: colors.main,
             }}
           >
-            {data.title}
+            {data.position} - {data.contractType}
           </Text>
-          <Text
+          <Text style={styles.companyName}>{data.companyName}</Text>
+          <View
             style={{
-              paddingTop: 3,
-              fontSize: 12,
-              fontWeight: "200",
-              color: colors.text,
+              flexDirection: "row",
+              alignItems: "flex-start",
+              paddingTop: 5,
             }}
           >
-            {data.centre}
-          </Text>
+            <Ionicons name="location-sharp" size={20} color={colors.main} />
+            <Text style={styles.location}>
+              {data.city}, {data.country}
+            </Text>
+          </View>
         </View>
       </View>
-
+      {/* <View
+        style={{
+          flexDirection: "row",
+          alignItems: "flex-start",
+          paddingTop: 10,
+        }}
+      >
+        <Ionicons name="location-sharp" size={20} color={colors.main} />
+        <Text style={styles.location}>
+          {data.city}, {data.country}
+        </Text>
+      </View> */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "flex-start",
+          paddingBottom: 10,
+          paddingTop: 20,
+          gap: 10,
+        }}
+      >
+        <Text style={styles.chip}>{data.workModel}</Text>
+        <Text style={styles.chip}>{data.contractType}</Text>
+        <Text style={styles.chip}>{data.workingHours}</Text>
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    borderWidth: 3,
+    borderRadius: 10,
+    flexDirection: "column",
+    backgroundColor: "#FFFF",
+    borderColor: "#E3E3E3",
+    padding: 12,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    width: win.width * 0.94,
+  },
+  imagen: {
+    fontSize: 17,
+    letterSpacing: 1,
+    fontWeight: "700",
+    color: colors.text,
+  },
+  position: {
+    minWidth: 85,
+    borderColor: "#DEDEDE",
+    borderWidth: 3,
+    borderRadius: 5,
+    backgroundColor: "#DEDEDE",
+    minHeight: 85,
+  },
+  companyName: {
+    paddingTop: 3,
+    paddingBottom: 5,
+    fontSize: 13,
+    fontWeight: "200",
+
+    color: colors.text,
+  },
+  location: {
+    paddingTop: 3,
+    fontSize: 14,
+    color: colors.dateText,
+  },
+  chip: {
+    backgroundColor: colors.neutral05,
+    paddingHorizontal: 10,
+    padding: 5,
+    width: "auto",
+    borderRadius: 5,
+  },
+});

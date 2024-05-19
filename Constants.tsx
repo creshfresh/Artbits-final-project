@@ -92,12 +92,12 @@ export const WorkModelOptions = [
 ];
 export const ContracTypeOptions = [
   { label: "Permanent.", value: "permanent" },
-  { label: "Fixed-term", value: "fixedterm" },
+  { label: "Fixed term", value: "fixedterm" },
   { label: "Temporary", value: "temporary" },
   { label: "Internship", value: "internship" },
 ];
 export const WorkingHoursOptions = [
-  { label: "Full-time", value: "fulltime" },
+  { label: "Full time", value: "fulltime" },
   { label: "Part time", value: "partime" },
 ];
 export const participantsOptions = [

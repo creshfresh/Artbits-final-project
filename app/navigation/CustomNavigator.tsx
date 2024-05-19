@@ -22,6 +22,7 @@ import { FlatListContestInternships } from "../screens/gallery/FlatListContestIn
 import { ContestDetailScreen } from "../screens/contest/ContestDetailScreen";
 import { ArtGrantDetailScreen } from "../screens/artGrants/ArtGrantDetailScreen";
 import { FlatlistJobs } from "../screens/jobs/FlatListJobs";
+import { JobsDetailScreen } from "../screens/jobs/JobsDetailScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -188,7 +189,7 @@ const GalleryStackNavigator = () => {
         options={({ navigation }) => ({
           headerShown: true,
           headerTransparent: true,
-          headerTintColor:colors.neutral05,
+          headerTintColor: colors.neutral05,
           navigationBarColor: "transparent",
           // headerShadowVisible: false,
           headerTitle: t("detail"),
@@ -224,14 +225,27 @@ const JobstStackNavigator = () => {
       }}
     >
       <Stack.Screen
-        options={{ headerShown: false }}
         name="FlatlistJobs"
         component={FlatlistJobs}
+        options={({ navigation }) => ({
+          headerShown: true,
+          navigationBarColor: "transparent",
+          headerShadowVisible: false,
+          headerTitle: t("job.detail"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
       />
 
       <Stack.Screen
-        name="JobDetailScreen"
-        component={ContestDetailScreen}
+        name="JobsDetailScreen"
+        component={JobsDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
           animation: "ios",
@@ -332,7 +346,6 @@ const InternShipsAndContestStackNavigator = () => {
       />
       <Stack.Screen
         name="ArtGrantDetailScreen"
-        
         component={ArtGrantDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
@@ -434,7 +447,7 @@ const TabNavigator = () => {
         component={InternShipsAndContestStackNavigator}
       />
       <Tab.Screen name="Upload" component={UploadStackNavigation} />
-      <Tab.Screen name="Jobs" component={FlatlistJobs} />
+      <Tab.Screen name="Jobs" component={JobstStackNavigator} />
       <Tab.Screen name="Profile" component={PortfolioStackNavigator} />
     </Tab.Navigator>
   );

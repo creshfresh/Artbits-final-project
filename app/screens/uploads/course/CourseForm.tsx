@@ -9,9 +9,9 @@ import { futureDate } from "../../../../helpers";
 import { useTranslation } from "../../../hooks/useTranslations";
 import { colors } from "../../../theme/colors";
 import { grantContesttSyles } from "../../styles/styles";
-import { ConestControler } from "./ContestControler";
+import { ConestControler } from "../contest/ContestControler";
 
-export const ContestForm = ({ navigation }) => {
+export const CourseForm = ({ navigation }) => {
   const { t } = useTranslation();
   const renderItem = (item) => {
     return (
@@ -44,7 +44,6 @@ export const ContestForm = ({ navigation }) => {
 
 const handleEmptyValues = () => {
   setShowErrors(true)
-  Alert.alert("error", "error")
 }
 
   useEffect(() => {
