@@ -1,7 +1,7 @@
 import { FlashList } from "@shopify/flash-list";
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions, Pressable } from "react-native";
-import { JobCard } from "../../components/JobCard";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
+import { ContestCard } from "../../components/ContestCard";
 import { JobScreenControler } from "../jobs/JobScreenControler";
 
 export const CoursesScreen = ({ navigation }) => {
@@ -25,10 +25,10 @@ export const CoursesScreen = ({ navigation }) => {
           <View style={{ flex: 1, margin: 2 }}>
             <Pressable
               onPress={() =>
-                navigation.navigate("JobsDetailScreen", { item: item })
+                navigation.navigate("CoursesDetailScreen", { item: item })
               }
             >
-              <JobCard key={item.id} data={item} />
+              <ContestCard key={item.id} data={item} />
             </Pressable>
           </View>
         )}

@@ -26,6 +26,7 @@ import { JobsDetailScreen } from "../screens/jobs/JobsDetailScreen";
 import { CourseForm } from "../screens/uploads/course/CourseForm";
 import { CoursesScreen } from "../screens/courses/CoursesScreen";
 import { EditProfile } from "../screens/profile/EditProfile";
+import { CoursesDetailScreen } from "../screens/courses/coursesDetailScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -374,6 +375,26 @@ const InternShipsAndContestStackNavigator = () => {
       <Stack.Screen
         name="ContestDetailScreen"
         component={ContestDetailScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          animation: "ios",
+          headerTransparent: true,
+
+          navigationBarColor: "transparent",
+          headerTitle: t("contest.detail"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CoursesDetailScreen"
+        component={CoursesDetailScreen}
         options={({ navigation }) => ({
           headerShown: true,
           animation: "ios",

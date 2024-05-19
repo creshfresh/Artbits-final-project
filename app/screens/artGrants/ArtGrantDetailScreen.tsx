@@ -39,7 +39,7 @@ export const ArtGrantDetailScreen = ({}) => {
             borderWidth: 2,
             alignItems: "center",
             padding: 3,
-            top: 180,
+            top: 170,
             zIndex: 1,
             left: 20,
             paddingHorizontal: 12,
@@ -66,7 +66,7 @@ export const ArtGrantDetailScreen = ({}) => {
             }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <View style={{ paddingTop: 40, flexDirection: "row" }}>
+              <View style={{ paddingTop: 50, flexDirection: "row" }}>
                 <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
 

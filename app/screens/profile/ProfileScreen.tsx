@@ -69,7 +69,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                 position: "absolute",
                 flexDirection: "row",
                 marginTop: 20,
-                marginStart: 10,
+                marginStart: 20,
                 justifyContent: "flex-start",
               }}
             >
@@ -98,7 +98,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                   await AsyncStorage.removeItem("@user");
                   handleSignout();
                 }}
-                color={colors.palette.white}
+                color={colors.secondary}
                 style={{ marginTop: 20 }}
               ></Ionicons>
               <Feather
@@ -107,7 +107,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                   navigation.navigate("EditProfile");
                 }}
                 size={22}
-                color={colors.palette.white}
+                color={colors.secondary}
                 style={{ marginTop: 20 }}
               ></Feather>
             </View>

@@ -34,8 +34,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     setImage([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      selectionLimit: 5,
+      allowsMultipleSelection: false,
       quality: 0.2,
       aspect: [3, 4],
     });

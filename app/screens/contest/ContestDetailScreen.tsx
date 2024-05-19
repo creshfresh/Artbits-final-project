@@ -41,7 +41,7 @@ export const ContestDetailScreen = ({}) => {
                   borderWidth: 2,
                   alignItems: "center",
                   padding: 3,
-                  top:180,
+                  top:170,
                   zIndex:1,
                   left:20,
                   paddingHorizontal: 12,
@@ -68,7 +68,7 @@ export const ContestDetailScreen = ({}) => {
             }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <View style={{ paddingTop: 40, flexDirection: "row" }}>
+              <View style={{ paddingTop: 50, flexDirection: "row" }}>
                 <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
 
@@ -114,6 +114,13 @@ export const ContestDetailScreen = ({}) => {
               width: win.width,
             }}
           ></View>
+             <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              gap: 40,
+            }}
+          >
           <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("min.age")}</Text>
             <Text style={styles.bodybody}>{route.params.item.minAge}</Text>
@@ -121,6 +128,7 @@ export const ContestDetailScreen = ({}) => {
           <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("max.age")}</Text>
             <Text style={styles.bodybody}>{route.params.item.maxAge}</Text>
+          </View>
           </View>
           <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
@@ -136,7 +144,7 @@ export const ContestDetailScreen = ({}) => {
             <Text style={styles.titleBody}>{t("terms")}</Text>
             <Text style={styles.bodybody}>{route.params.item.terms}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 140 }}>
+          <View style={{ gap: 10, paddingBottom: 200 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
             <Text
               style={styles.link}

@@ -1,5 +1,7 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+
 import {
   Pressable,
   ScrollView,
@@ -67,12 +69,24 @@ export const CourseForm = ({ navigation }) => {
     handleChangeTex(formattedDate, "finishDate");
   };
 
-  const { handleChangeTex, saveCourse, state, setShowErrors, showErrors } =
-  CourseControler();
+  const {
+    handleChangeTex,
+    saveCourse,
+    state,
+    setShowErrors,
+    pickImage,
+    checkAllTextFields,
+    image,
+    showErrors,
+  } = CourseControler();
 
   const handleSave = async () => {
-    const success = await saveCourse();
-    if (success) await navigation.navigate("SuccesUpload");
+    if (checkAllTextFields()) {
+      const success = await saveCourse();
+      if (success) await navigation.navigate("SuccesUpload");
+    } else {
+      setShowErrors(true);
+    }
   };
   return (
     <ScrollView
@@ -219,7 +233,7 @@ export const CourseForm = ({ navigation }) => {
             searchPlaceholder="Search..."
             value={state.schedule}
             onChange={(item) => {
-              handleChangeTex(item.value, "workingHours");
+              handleChangeTex(item.value, "schedule");
             }}
             renderItem={renderItem}
           />
@@ -265,6 +279,25 @@ export const CourseForm = ({ navigation }) => {
           {showErrors && !state.weburl ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
+            justifyContent: "flex-end",
+          }}
+        >
+          <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
+            {t("select.promotional.image")}
+          </Text>
+
+          <Ionicons
+            name="add-circle"
+            size={30}
+            color={colors.secondary}
+            onPress={pickImage}
+          />
         </View>
       </View>
 
