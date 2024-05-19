@@ -20,9 +20,8 @@ export const SavedScreen = ({ navigateUser }) => {
     });
   };
 
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
   useEffect(() => {
-    const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "3828";
+    const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "BniaeIeL3RfCKMPba2JhVY8E8g62";
     const collectionRef = collection(database, "SavedArtworks");
     const q = query(collectionRef, where("user_id" ,"==" ,userId)); // El ide 3828 es harcodeado
     const unsubscribe = onSnapshot(q, (querySnapshot) => {

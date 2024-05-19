@@ -37,7 +37,7 @@ export const ProfolioCarrousel = ({
     const userId =
       navigateUser !== null && navigateUser !== undefined
         ? navigateUser[0].user_id
-        :"3828" ;
+        :"BniaeIeL3RfCKMPba2JhVY8E8g62" ;
 
     const collectionRef = collection(database, "Projects");
     const q = query(collectionRef, where("user_id", "==", userId)); // El ide 3828 es harcodeado
