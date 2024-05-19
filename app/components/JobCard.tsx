@@ -4,13 +4,17 @@ import { Ionicons } from "@expo/vector-icons";
 const win = Dimensions.get("window");
 
 export const JobCard = ({ data }) => {
+
+  const jobLogo = require("../../assets/pollo-job.png");
+
+
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
         <Image
-          source={{
-            uri: "https://archive.org/download/no-photo-available/no-photo-available.png",
-          }}
+          source={jobLogo
+          }
           style={styles.position}
         />
         <View style={{ width: "75%", paddingStart: 10 }}>
@@ -87,12 +91,12 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   position: {
-    minWidth: 85,
+    maxWidth: 90,
     borderColor: "#DEDEDE",
     borderWidth: 3,
     borderRadius: 5,
     backgroundColor: "#DEDEDE",
-    minHeight: 85,
+    maxHeight: 90,
   },
   companyName: {
     paddingTop: 3,
