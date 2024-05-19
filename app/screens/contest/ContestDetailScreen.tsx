@@ -13,6 +13,7 @@ import { colors } from "../../theme/colors";
 import { ContestDetailScreenControler } from "./ContestDetailScreenControler";
 import { useRoute } from "@react-navigation/native";
 const screenWidth = Dimensions.get("window").width;
+const win = Dimensions.get("window");
 
 export const ContestDetailScreen = ({}) => {
   const route: any = useRoute();
@@ -27,15 +28,35 @@ export const ContestDetailScreen = ({}) => {
       style={{ backgroundColor: "transparent" }}
     >
       <View style={styles.container}>
-        <View
-          style={{ flexDirection: "column", top: 20, marginHorizontal: 20 }}
-        >
+        <View style={{ flexDirection: "column", top: 40 }}>
           <Image
             source={{ uri: route.params.item.image[0] }}
             style={[styles.image]}
           />
         </View>
-
+        <View
+                style={{
+                  position:"absolute",
+                  borderColor: colors.secondary,
+                  borderWidth: 2,
+                  alignItems: "center",
+                  padding: 3,
+                  top:180,
+                  zIndex:1,
+                  left:20,
+                  paddingHorizontal: 12,
+                  borderRadius: 30,
+                }}
+              >
+                <Text
+                  style={[
+                    styles.body,
+                    { color: colors.secondary, fontWeight: "700" , fontSize:10},
+                  ]}
+                >
+                  {route.params.item.participants}
+                </Text>
+              </View>
         <View
           style={[styles.loginCard, { shadowColor: "#000000", elevation: 20 }]}
         >
@@ -50,81 +71,72 @@ export const ContestDetailScreen = ({}) => {
               <View style={{ paddingTop: 40, flexDirection: "row" }}>
                 <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
-              <View
-                style={{
-                  height: 2,
-                  backgroundColor: "#EBE9E9",
-                  marginVertical: 5,
-                }}
-              ></View>
+
+              <View style={{ flexDirection: "row", alignItems:"center"}}>
+                <Text style={styles.body}>
+                  {route.params.item.organization}
+                </Text>
+        
+              </View>
 
               <View
                 style={{
                   flexDirection: "row",
-                  width: "100%",
+                  marginVertical: 10,
+                  gap: 30,
+                  justifyContent: "space-around",
                   alignItems: "center",
                 }}
               >
-                <View style={{ flex: 1, margin: 5 }}>
+                <View style={{ justifyContent: "center" }}>
                   <Text style={styles.subtitle}>{t("start.date")}</Text>
                   {/* Aqui tengo que coger la fecha formateada */}
-                  <Text style={styles.body}>
-                    {route.params.item.startDate.toString()}
-                  </Text>
+                  <Text style={styles.body}>19/05/2024</Text>
                 </View>
-                <View style={{ flex: 1, margin: 5 }}>
+                <View style={{ justifyContent: "center" }}>
                   {/* Aqui tengo que coger la fecha formateada */}
                   <Text style={styles.subtitle}>{t("dead.line")}</Text>
-                  <Text style={styles.body}>{route.params.item.name}</Text>
+                  <Text style={styles.body}>19/05/2024</Text>
                 </View>
+         
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>{t("participants")}</Text>
-                  <Text style={styles.body}>
-                    {route.params.item.participants}
-                  </Text>
-                </View>
-                <View style={{ flex: 1, margin: 5 }}>
-                  <Text style={styles.subtitle}>
-                    {t("organization.centre")}
-                  </Text>
-                  <Text style={styles.body}>
-                    {route.params.item.organization}
-                  </Text>
-                </View>
-              </View>
+              
             </View>
           </View>
-          <View style={{ gap: 10, paddingBottom: 20, paddingTop: 10 }}>
-            <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
-            <Text style={styles.titleBody}>{t("terms")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.terms}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
+          <View
+            style={{
+              height: 2,
+              backgroundColor: "#EBE9E9",
+              alignContent: "center",
+              left: 0,
+              marginVertical: 10,
+              marginHorizontal: -20,
+              width: win.width,
+            }}
+          ></View>
+          <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("min.age")}</Text>
             <Text style={styles.bodybody}>{route.params.item.minAge}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
+          <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("max.age")}</Text>
             <Text style={styles.bodybody}>{route.params.item.maxAge}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
+          <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
             <Text style={styles.bodybody}>
               {route.params.item.specifications}
             </Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 20 }}>
+          <View style={{ gap: 10, paddingBottom: 15}}>
+            <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
+            <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
+          </View>
+          <View style={{ gap: 10, paddingBottom: 15 }}>
+            <Text style={styles.titleBody}>{t("terms")}</Text>
+            <Text style={styles.bodybody}>{route.params.item.terms}</Text>
+          </View>
+          <View style={{ gap: 10, paddingBottom: 140 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
             <Text
               style={styles.link}
@@ -135,12 +147,12 @@ export const ContestDetailScreen = ({}) => {
               {route.params.item.weburl}
             </Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 100 }}>
+          {/* <View style={{ gap: 10, paddingBottom: 100 }}>
             <Text style={styles.titleBody}>{t("download.bases")}</Text>
             <Text style={styles.bodybody}>
               {route.params.item.urlbases.assets[0].uri}
             </Text>
-          </View>
+          </View> */}
         </View>
       </View>
     </ScrollView>
@@ -149,8 +161,8 @@ export const ContestDetailScreen = ({}) => {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:50,
-    backgroundColor:"#D7E2F4",
+    paddingTop: 50,
+    backgroundColor: "#D7E2F4",
   },
   division: {
     marginVertical: 5,
@@ -172,7 +184,7 @@ var styles = StyleSheet.create({
     borderTopStartRadius: 30,
     left: 0,
     right: 0,
-    bottom: -80,
+    bottom: -100,
     width: "100%",
   },
   title: {
@@ -207,7 +219,7 @@ var styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
-    zIndex:1,
+    zIndex: 1,
     borderColor: "white",
     backgroundColor: "#DEDEDE",
     borderWidth: 3,
