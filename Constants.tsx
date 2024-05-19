@@ -104,6 +104,10 @@ export const participantsOptions = [
   { label: "Spain", value: "spain" },
   { label: "International", value: "international" },
 ];
+export const scheduleOptions = [
+  { label: "Full year", value: "Full year" },
+  { label: "Short duration", value: "Short duration" },
+];
 
 export const DummyData: ProjectImages[] = [
   {

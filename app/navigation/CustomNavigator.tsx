@@ -23,9 +23,12 @@ import { ContestDetailScreen } from "../screens/contest/ContestDetailScreen";
 import { ArtGrantDetailScreen } from "../screens/artGrants/ArtGrantDetailScreen";
 import { FlatlistJobs } from "../screens/jobs/FlatListJobs";
 import { JobsDetailScreen } from "../screens/jobs/JobsDetailScreen";
+import { CourseForm } from "../screens/uploads/course/CourseForm";
+import { CoursesScreen } from "../screens/courses/CoursesScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 const UploadStackNavigation = () => {
   const { t } = useTranslation();
   return (
@@ -37,7 +40,6 @@ const UploadStackNavigation = () => {
         headerTitleStyle: {
           fontSize: 16,
         },
-        // headerTransparent: true,
       }}
     >
       <Stack.Screen
@@ -67,6 +69,27 @@ const UploadStackNavigation = () => {
           headerShown: true,
           navigationBarColor: "transparent",
           headerTitle: t("upload.contest.artGrant"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          // headerStyle: {
+          //   backgroundColor: "transparent",
+          // },
+        })}
+      />
+      <Stack.Screen
+        name="CourseForm"
+        component={CourseForm}
+        options={({ navigation }) => ({
+          headerShown: true,
+          backgroundColor: "transparent",
+          navigationBarColor: "transparent",
+          headerTitle: t("upload.course"),
           headerLeft: () => (
             <Ionicons
               name="chevron-back-outline"
@@ -333,6 +356,28 @@ const InternShipsAndContestStackNavigator = () => {
           },
           headerBackTitle: "",
           headerTitle: t("contest.detail"),
+
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CoursesScreen"
+        component={CoursesScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          animation: "ios",
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerBackTitle: "",
+          headerTitle: t("courses"),
 
           headerLeft: () => (
             <Ionicons

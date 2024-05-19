@@ -9,15 +9,20 @@ import { FlashList } from "@shopify/flash-list";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../theme/colors";
 
-
 export const FlatListContestInternships = ({ navigation }) => {
   const { t } = useTranslation();
 
-  const data: string[] = ["contests", "artGrants"];
+  const data: string[] = ["contests", "artGrants", "courses"];
   const handleNavigation = (item) => {
-    item === "artGrants"
-      ? navigation.navigate("ArtGrantScreen")
-      : navigation.navigate("ContestScreen");
+    if(
+      item === "artGrants"
+    )
+      navigation.navigate("ArtGrantScreen")
+      else if (      item === "contests"
+    )navigation.navigate("ContestScreen");
+    else{
+      navigation.navigate("CoursesScreen");
+    }
   };
   return (
     <View style={{ flex: 1, padding: 10 }}>

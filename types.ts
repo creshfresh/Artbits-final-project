@@ -59,6 +59,19 @@ export interface JobData {
   requirements:string,
   weburl: string
 }
+export interface CourseData {
+  user_id:string,
+  courseName:string,
+  instructorName:string,
+  city:string,
+  country:string,
+  startDate:string,
+  finishDate:string,
+  schedule:string,
+  price:string,
+  spots:string,
+  weburl: string
+}
   export interface ArtGrantData {
     user_id:string,
     name: string;

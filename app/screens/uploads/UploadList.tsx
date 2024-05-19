@@ -16,7 +16,8 @@ export const UploadList = ({ navigation }) => {
   const data: string[] = [
     t("upload.contest.artGrant"),
     t("upload.project"),
-    t("upload.course"), t("upload.job"),
+    t("upload.course"),
+    t("upload.job"),
   ];
 
   const handleNavigation = (item) => {
@@ -24,11 +25,9 @@ export const UploadList = ({ navigation }) => {
       navigation.navigate("ProjectUploadScreen");
     else if (item === t("upload.contest.artGrant"))
       navigation.navigate("ContestArtGrantViewForms");
-    else if(item ===("upload.course")
-     ) navigation.navigate("ContestArtGrantViewForms");
+    else if (item === t("upload.course")) navigation.navigate("CourseForm");
     else {
-   navigation.navigate("JobFormView");
-
+      navigation.navigate("JobFormView");
     }
   };
 
