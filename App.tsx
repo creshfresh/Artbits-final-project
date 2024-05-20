@@ -92,12 +92,12 @@ export default function App() {
           } else {
             console.log("No user data found");
           }
-          setLoading(false);  // Finaliza el loading aquí después de obtener los datos del usuario
+          setLoading(false); // Finaliza el loading aquí después de obtener los datos del usuario
         });
 
         return () => unsubscribe();
       } else {
-        setLoading(false);  // Finaliza el loading aquí si no hay un usuario autenticado
+        setLoading(false); // Finaliza el loading aquí si no hay un usuario autenticado
       }
     });
 
@@ -113,7 +113,11 @@ export default function App() {
   }
 
   return user ? (
-    <CustomNavigator />
+    <>
+      <StatusBar barStyle="default" animated/>
+
+      <CustomNavigator />
+    </>
   ) : (
     <View style={styles.container}>
       <SignInScreen />
