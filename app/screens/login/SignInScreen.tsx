@@ -81,14 +81,11 @@ export default function SignInScreen({}) {
           ;
             try {
             const docRef = await addDoc(collection(database, "Users"), appUser);
-            console.log("User document added with ID: ", docRef.id);
           } catch (error) {
-            console.error("Error adding document to Firestore: ", error);
           }
         })
         .catch((error) => {
           alert("Email already registered");
-          console.error("Error creating user: ", error);
         });
     } else {
       setShowEmailError(!isValidEmail(email));

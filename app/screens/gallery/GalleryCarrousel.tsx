@@ -40,7 +40,6 @@ export const GalleryCarousel = ({
       orderBy("publish_date", "desc")
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log("querySnapshot unsusbscribe");
       setData(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,

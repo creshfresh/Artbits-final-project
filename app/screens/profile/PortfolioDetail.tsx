@@ -37,7 +37,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
 
   const { t } = useTranslation();
 
-  console.log(name)
   useEffect(() => {
     const calculateImageSizes = async () => {
       const sizes = await Promise.all(item.url.map((uri) => getImageSize(uri)));
@@ -101,7 +100,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
     addDoc(savedProjectsRef, projectWithSaveUserId)
       .then(() => {
         ToastAndroid.showWithGravity(
-          "Project saved!",
+          t("project.saved"),
           ToastAndroid.SHORT,
           ToastAndroid.CENTER
         );
@@ -136,7 +135,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
   }, [item]);
 
 
-  console.log(item.email)
   const onDelete = async () => {
     try {
       const deleteRef = doc(database, "Projects", item.id);
@@ -185,7 +183,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
     }
   };
 
-  console.log(item.avatar)
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}

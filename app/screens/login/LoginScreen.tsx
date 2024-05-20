@@ -56,7 +56,6 @@ export default function LoginScreen({}) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
           const user = userCreds.user;
-          console.log("Logged in with:", user.email);
         })
         .catch((error) => alert("Invalid credentials"));
     } else {

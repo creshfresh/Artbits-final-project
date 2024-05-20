@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  Alert,
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -16,6 +17,7 @@ import { database, storage } from "../../../firebaseConfig";
 import { Dropdown } from "react-native-element-dropdown";
 import { useTranslation } from "../../hooks/useTranslations";
 import { options } from "../../../Constants";
+import { usePersonStore } from "../../../store/store";
 
 const win = Dimensions.get("window");
 
@@ -24,6 +26,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const user = usePersonStore((state) => state.user);
 
   const { t } = useTranslation();
   const renderItem = (item) => {
@@ -53,31 +56,25 @@ export const PublishProjectScreen = ({ route, navigation }) => {
         fileType,
         medium_type,
       });
-      console.log("document saved correctly", docRef.id);
     } catch (e) {
-      console.log(e);
+      Alert.alert("error", e.message);
     }
   }
   async function uploadImages(uris: string[], fileType) {
     try {
       const downloadURLs: string[] = [];
-  
+
       await Promise.all(
         uris.map(async (uri) => {
           const response = await fetch(uri);
           const blob = await response.blob();
           const storageRef = ref(storage, "Images/" + new Date().getTime());
           const uploadTask = uploadBytesResumable(storageRef, blob);
-  
+
           uploadTask.on(
             "state_changed",
             (snapshot) => {
-              console.log(
-                "Uploading:",
-                snapshot.totalBytes,
-                "bytes transferred out of",
-                snapshot.totalBytes
-              );
+      
             },
             (error) => {
               console.error("Upload failed:", error);
@@ -88,12 +85,11 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                   uploadTask.snapshot.ref
                 );
                 downloadURLs.push(downloadURL);
-                console.log("Download URL:", downloadURL);
-  
+
                 // Si todas las URL de descarga se han obtenido, llamar a saveRecord()
                 if (downloadURLs.length === uris.length) {
                   await saveRecord(
-                    "hvi0sEPCIvSL86pDLWMLhLkgxxj1",
+                    user.user_id,
                     title,
                     downloadURLs,
                     new Date().toISOString(),
@@ -114,7 +110,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       console.error("Error uploading images and saving records:", error);
     }
   }
-  
+
   return (
     <>
       <ScrollView>
@@ -127,7 +123,10 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
           >
             {image ? (
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
                 {image.map((uri, index) => (
                   <Image
                     key={index}

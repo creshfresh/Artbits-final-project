@@ -38,7 +38,6 @@ export const SavedScreen = ({ navigateUser, navigation }) => {
         ? navigateUser[0].user_id
         : user.user_id;
 
-    console.log(userId);
     const collectionRef = collection(database, "SavedArtworks");
     const q = query(collectionRef, where("save_user_id", "==", userId));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -58,7 +57,6 @@ export const SavedScreen = ({ navigateUser, navigation }) => {
     return unsubscribe;
   }, [navigateUser, user]);
 
-  console.log(images.length);
   return (
     <View style={{ flex: 1 }}>
       {navigateUser === null || navigateUser === undefined ? (

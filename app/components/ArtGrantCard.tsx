@@ -29,7 +29,6 @@ export const ArtGrantCard = (item: ArtGrantData | any) => {
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 
-  console.log(item)
   return (
     <View
       style={{

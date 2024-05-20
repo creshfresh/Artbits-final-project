@@ -33,7 +33,6 @@ export const ProfileScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     const { item } = route.params || {};
-    console.log("vista perfil", item);
     if (item !== undefined) {
       setNavigateUser(item);
     }

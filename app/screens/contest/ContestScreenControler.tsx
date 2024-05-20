@@ -40,7 +40,6 @@ export const ContesteViewControler = () => {
 
   }, []);
 
-  console.log(data)
   return data
   
 }

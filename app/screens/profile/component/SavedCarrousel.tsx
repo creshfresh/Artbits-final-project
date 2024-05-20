@@ -19,7 +19,6 @@ import { database } from "../../../../firebaseConfig";
   
   export const SavedCarrousel = ({ navigation, navigateUser, data}:ProfolioCarrouselProps) => {
   
-    console.log("aaaaaaaaaaa·",navigateUser)
   
   /*Esta pantalla recibe todos los proyectos pertenecientes al usuario logueado*/
     return (
