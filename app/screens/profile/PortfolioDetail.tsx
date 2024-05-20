@@ -37,6 +37,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
 
   const { t } = useTranslation();
 
+  console.log(name)
   useEffect(() => {
     const calculateImageSizes = async () => {
       const sizes = await Promise.all(item.url.map((uri) => getImageSize(uri)));
@@ -73,7 +74,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           displayName: doc.data().displayName,
-          contact_email: doc.data().contact_email,
           country: doc.data().country,
           city: doc.data().city,
           about_description: doc.data().about_description,
@@ -136,7 +136,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
   }, [item]);
 
 
-  console.log(item.publish_date)
+  console.log(item.email)
   const onDelete = async () => {
     try {
       const deleteRef = doc(database, "Projects", item.id);
@@ -184,6 +184,8 @@ export const PorfolioDetail = ({ route, navigation }) => {
       Alert.alert("Error:", error.message);
     }
   };
+
+  console.log(item.avatar)
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -210,8 +212,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
               source={
                 item.user_id == user.user_id
                   ? { uri: user.avatar }
-                  : defaultAvatar
-              }
+                  : defaultAvatar}
               style={{
                 width: 30,
                 height: 30,

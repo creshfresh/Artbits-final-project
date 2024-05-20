@@ -83,7 +83,6 @@ export const SavedScreen = ({ navigateUser, navigation }) => {
                     right: 10,
                   }}
                 />
-          
                 <Pressable
                   onPress={() =>
                     navigation.navigate("PorfolioDetail", { item: item })
@@ -119,9 +118,108 @@ export const SavedScreen = ({ navigateUser, navigation }) => {
           </View>
         )
       ) : (
-        <View style={styles.justifyTitle}>
-          <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
-        </View>
+        <>
+          {navigateUser.user_id === user.user_id ? (
+            images.length > 0 ? (
+              <FlashList
+                data={images}
+                numColumns={2}
+                horizontal={false}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                estimatedItemSize={Dimensions.get("window").width / 2 - 20}
+                renderItem={({ item }) => (
+                  <View style={{ flex: 1, margin: 2 }}>
+                    <Ionicons
+                      name={"bookmark"}
+                      size={25}
+                      style={{
+                        color: colors.main,
+                        position: "absolute",
+                        zIndex: 1,
+                        top: 10,
+                        right: 10,
+                      }}
+                    />
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate("PorfolioDetail", { item: item })
+                      }
+                    >
+                      <Image
+                        source={{ uri: item.url[0] }}
+                        style={{
+                          width: "100%",
+                          minHeight: 250,
+                          borderRadius: 10,
+                          resizeMode: "cover",
+                        }}
+                      />
+                    </Pressable>
+                  </View>
+                )}
+              />
+            ) : (
+              <View style={{ flex: 1, padding: 50 }}>
+                <View style={styles.justifyTitle}>
+                  <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
+                  <Text style={styles.text}>{t("save.first.work.body")}</Text>
+                  <View style={{ marginTop: 10 }}>
+                    <Pressable
+                      style={styles.findButton}
+                      onPress={handleNavigateToHome}
+                    >
+                      <Text style={styles.buttontext}>{t("find.work")}</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            )
+          ) : images.length > 0 ? (
+            <FlashList
+              data={images}
+              numColumns={2}
+              horizontal={false}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              estimatedItemSize={Dimensions.get("window").width / 2 - 20}
+              renderItem={({ item }) => (
+                <View style={{ flex: 1, margin: 2 }}>
+                  <Ionicons
+                    name={"bookmark"}
+                    size={25}
+                    style={{
+                      color: colors.main,
+                      position: "absolute",
+                      zIndex: 1,
+                      top: 10,
+                      right: 10,
+                    }}
+                  />
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate("PorfolioDetail", { item: item })
+                    }
+                  >
+                    <Image
+                      source={{ uri: item.url[0] }}
+                      style={{
+                        width: "100%",
+                        minHeight: 250,
+                        borderRadius: 10,
+                        resizeMode: "cover",
+                      }}
+                    />
+                  </Pressable>
+                </View>
+              )}
+            />
+          ) : (
+            <View style={[styles.justifyTitle, { paddingVertical: 60 }]}>
+              <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
+            </View>
+          )}
+        </>
       )}
     </View>
   );
@@ -150,8 +248,8 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    lineHeight: 21,
     fontWeight: "600",
+    letterSpacing: 1.25,
     paddingVertical: 10,
   },
   findButton: {
