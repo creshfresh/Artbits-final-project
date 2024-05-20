@@ -40,7 +40,7 @@ export const ProfolioCarrousel = ({
         :user.user_id ;
 
     const collectionRef = collection(database, "Projects");
-    const q = query(collectionRef, where("user_id", "==", userId)); // El ide 3828 es harcodeado
+    const q = query(collectionRef, where("user_id", "==", userId)); 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setData(
         querySnapshot.docs.map((doc) => ({

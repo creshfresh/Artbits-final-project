@@ -16,11 +16,13 @@ import { colors } from "../../theme/colors";
 import { database } from "../../../firebaseConfig";
 import {
   addDoc,
+  and,
   collection,
   deleteDoc,
   doc,
   getDocs,
   onSnapshot,
+  
   query,
   where,
 } from "firebase/firestore";
@@ -135,6 +137,27 @@ export const PorfolioDetail = ({ route, navigation }) => {
     }
   };
 
+  const isSaved = () => {
+    const savedProjectsRef = collection(database, "SavedArtworks");
+    const q = query(
+      savedProjectsRef,
+      where("user_id", "==", item.user_id),
+      where("id", "==", item.id)
+    );
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      if (!querySnapshot.empty) {
+        setSaved(true);
+      }
+    });
+
+    return () => unsubscribe();
+  };
+
+  useEffect(() => {
+    isSaved();
+  }, [item]);
+
 
   const onDelete = async () => {
     try {
@@ -151,9 +174,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
           });
         
       })
-
-        
-        
 
     } catch (error) {
       Alert.alert('Error:', error.message)
@@ -227,14 +247,17 @@ export const PorfolioDetail = ({ route, navigation }) => {
               marginBottom: 5,
             }}
           >
+            {item.user_id != user.user_id && 
+            
             <Ionicons
-              name={saved ? "bookmark" : "bookmark-outline"}
-              size={30}
-              style={saved ? styles.saved : styles.notsaved}
-              onPress={() => {
-                setSaved(!saved), handleSave();
-              }}
+            name={saved ? "bookmark" : "bookmark-outline"}
+            size={30}
+            style={saved ? styles.saved : styles.notsaved}
+            onPress={() => {
+              setSaved(!saved), handleSave();
+            }}
             ></Ionicons>
+          }
           </View>
           <Text style={styles.body}>{item.description}</Text>
           <Text style={styles.body}>
