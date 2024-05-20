@@ -17,6 +17,7 @@ import { makeRedirectUri } from "expo-auth-session";
 import "./i18next"; // Ni se te ocurra borrar esto
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { AppUser } from "./types";
+import { colors } from "./app/theme/colors";
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
@@ -106,8 +107,8 @@ export default function App() {
 
   if (loading) {
     return (
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <ActivityIndicator size={"large"} />
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 , backgroundColor:colors.main}}>
+        <ActivityIndicator size={100} color={"white"} />
       </View>
     );
   }

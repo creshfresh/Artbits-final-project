@@ -1,5 +1,5 @@
 import { colors } from "../../theme/colors";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Image, ScrollView, Dimensions } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -11,75 +11,79 @@ export const SavedScreen = ({ navigateUser }) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
   const user = usePersonStore((state) => state.user);
 
   const handleNavigateToHome = () => {
     navigation.reset({
       index: 0,
-      // @ts-ignore: this works fine even if it shows an error
+      // @ts-ignore: esto funciona bien pero da un error si no porngo el ts-ignore
       routes: [{ name: "Home" }],
     });
   };
 
   useEffect(() => {
-    const userId = navigateUser !== null && navigateUser !== undefined ? navigateUser[0].user_id : "BniaeIeL3RfCKMPba2JhVY8E8g62";
+    const userId =
+      navigateUser !== null && navigateUser !== undefined
+        ? navigateUser[0].user_id
+        : user.user_id;
+
+    console.log(userId);
     const collectionRef = collection(database, "SavedArtworks");
-    const q = query(collectionRef, where("user_id" ,"==" ,userId)); // El ide 3828 es harcodeado
+    const q = query(collectionRef, where("save_user_id", "==", userId));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setImages(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           url: doc.data().url,
           title: doc.data().title,
-          publish_date:doc.data().publish_date,
-          medium_type:doc.data().medium_type,
-          user_id:doc.data().user_id,
+          publish_date: doc.data().publish_date,
+          medium_type: doc.data().medium_type,
+          user_id: doc.data().user_id,
           description: doc.data().description,
-        
         }))
       );
     });
 
-    return unsubscribe; 
+    return unsubscribe;
+  }, [navigateUser, user]);
 
-  }, [navigateUser]);
-  
+  console.log(images.length);
   return (
-    <View style={{ flex: 1, padding: 50 }}>
+    <View style={{ flex: 1 }}>
       {navigateUser === null || navigateUser === undefined ? (
-
-        <>
-      {/* Comprobar si el usuario logueado tiene trabajos guardaos */}
-        {/* {user} */}
-          <View style={styles.justifyTitle}>
-            <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
-            <Text style={styles.text}>{t("save.first.work.body")}</Text>
-            <View
-              style={{
-                marginTop: 10,
-              }}
-            >
-              <Pressable
-                style={styles.findButton}
-                onPress={handleNavigateToHome}
-              >
-                <Text style={styles.buttontext}>{t("find.work")}</Text>
-              </Pressable>
+        images.length > 0 ? (
+          <ScrollView>
+            {images.map((item) => (
+              <Image
+                key={item.id}
+                source={{ uri: item.url[0] }} // Mostrar el primer elemento del array url
+                style={{ width: Dimensions.get("window").width, height: 200, padding: 20 }}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1, padding: 50 }}>
+            <View style={styles.justifyTitle}>
+              <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
+              <Text style={styles.text}>{t("save.first.work.body")}</Text>
+              <View style={{ marginTop: 10 }}>
+                <Pressable style={styles.findButton} onPress={handleNavigateToHome}>
+                  <Text style={styles.buttontext}>{t("find.work")}</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
-        </>
+        )
       ) : (
-        
-        <>
-          <View style={styles.justifyTitle}>
-            <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
-          </View>
-        </>
+        <View style={styles.justifyTitle}>
+          <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
+        </View>
       )}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.secondarytext,
     paddingBottom: 10,
-    textAlign:"center"
+    textAlign: "center",
   },
   mainTitle: {
     fontSize: 22,

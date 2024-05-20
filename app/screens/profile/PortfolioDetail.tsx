@@ -93,7 +93,10 @@ export const PorfolioDetail = ({ route, navigation }) => {
 
   const saveProject = (project) => {
     const savedProjectsRef = collection(database, "SavedArtworks");
-    addDoc(savedProjectsRef, project)
+    const saveUserId = user.user_id;
+    const projectWithSaveUserId = { ...project, save_user_id: saveUserId };
+  
+    addDoc(savedProjectsRef, projectWithSaveUserId)
       .then(() => {
         ToastAndroid.showWithGravity(
           "Project saved!",
@@ -105,6 +108,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
         Alert.alert("Error", "no se ha podido guardar el proyecto");
       });
   };
+  
 
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
@@ -200,7 +204,9 @@ export const PorfolioDetail = ({ route, navigation }) => {
           >
             <Image
               source={
-                item.user_id == user.user_id ? { uri: user.avatar } : defaultAvatar
+                item.user_id == user.user_id
+                  ? { uri: user.avatar }
+                  : defaultAvatar
               }
               style={{
                 width: 30,

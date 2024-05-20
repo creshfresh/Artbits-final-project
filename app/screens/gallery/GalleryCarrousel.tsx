@@ -32,7 +32,6 @@ export const GalleryCarousel = ({
   /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
   let filter = viewMode.toLowerCase();
 
-  const imageHeight = column === 2 ? 200 : 100; 
   useEffect(() => {
     const collectionRef = collection(database, "Projects");
     const q = query(
