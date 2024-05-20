@@ -10,7 +10,6 @@ export const ProjectUploadControler = () => {
     const {result} = ProjectUploadControler()
     const [title, setTittle] = useState("");
     const [description, setDescription] = useState("");
-  const user = usePersonStore((state) => state.user);
 
 
     const pickImage = async () => {
@@ -49,7 +48,7 @@ export const ProjectUploadControler = () => {
       const uploadTask = uploadBytesResumable(storageRef, blob);
   
       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-        await saveRecord(user.user_id,title, downloadURL, new Date().toISOString(),description, fileType,);
+        await saveRecord("hvi0sEPCIvSL86pDLWMLhLkgxxj1",title, downloadURL, new Date().toISOString(),description, fileType,);
   
       }
       );
