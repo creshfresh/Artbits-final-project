@@ -28,7 +28,7 @@ export const JobsDetailScreen = ({}) => {
     >
       <View style={styles.container}>
         <View style={{ flexDirection: "column", top: 25 }}>
-          <Image source={jobLogo} style={[styles.image]} />
+          <Image source={jobLogo} style={[styles.image]}  />
         </View>
 
         <View
@@ -65,8 +65,8 @@ export const JobsDetailScreen = ({}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop:20,
-                  paddingBottom:10,
+                  paddingTop: 20,
+                  paddingBottom: 10,
                   gap: 30,
                   justifyContent: "space-around",
                   alignItems: "center",
@@ -131,20 +131,19 @@ export const JobsDetailScreen = ({}) => {
             ></View>
 
             <View style={{ gap: 10, paddingBottom: 15, paddingTop: 10 }}>
-              <Text style={styles.titleBody}>{t("work.specifications")}</Text>
+              <Text style={styles.titleBody}>{t("about.job")}</Text>
               <Text style={styles.bodybody}>
-                {route.params.item.specifications}
+                {route.params.item.description}
               </Text>
             </View>
             <View style={{ gap: 10, paddingBottom: 15 }}>
-              <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
+              <Text style={styles.titleBody}>{t("skills.requirements")}</Text>
+              <Text style={styles.bodybody}>
+                {route.params.item.requirements}
+              </Text>
             </View>
-            <View style={{ gap: 10, paddingBottom: 15 }}>
-              <Text style={styles.titleBody}>{t("terms")}</Text>
-              <Text style={styles.bodybody}>{route.params.item.terms}</Text>
-            </View>
-            <View style={{ gap: 10, paddingBottom: 200 }}>
+
+            <View style={{ gap: 10, paddingBottom: 250 }}>
               <Text style={styles.titleBody}>{t("web.url")}</Text>
               <Text
                 style={styles.link}
@@ -194,6 +193,7 @@ var styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     letterSpacing: 1.5,
+    textAlign: "center",
     color: colors.text,
   },
   titleBody: {
@@ -230,6 +230,7 @@ var styles = StyleSheet.create({
   image: {
     width: 130,
     height: 130,
+    resizeMode:"center",
     zIndex: 1,
     borderColor: "white",
     backgroundColor: "#DEDEDE",

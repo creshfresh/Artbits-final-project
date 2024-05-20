@@ -19,7 +19,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfolioCarrousel } from "./component/PortfolioCarrousel";
 import { SavedScreen } from "./SavedScreen";
 import { CombinedUser } from "../../../types";
-
 const windowWidth = Dimensions.get("window").width;
 
 export const ProfileScreen = ({ route, navigation }) => {
@@ -60,7 +59,64 @@ export const ProfileScreen = ({ route, navigation }) => {
             borderBottomRightRadius: 20,
           }}
         ></Image>
-        {!navigateUser ? (
+        {navigateUser ? (
+          navigateUser[0].user_id === user.user_id ? (
+            <>
+              <View
+                style={{
+                  position: "absolute",
+                  flexDirection: "row",
+                  marginTop: 20,
+                  marginStart: 20,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Pressable
+                  style={{ alignItems: "center", flexDirection: "row" }}
+                  onPress={handleTranslation}
+                >
+                  <Feather name="globe" size={20} color={colors.secondary} />
+                  {getCurrentLocale() === "en" ? (
+                    <Text style={styles.translation}> EN</Text>
+                  ) : (
+                    <Text style={styles.translation}> ES</Text>
+                  )}
+                </Pressable>
+              </View>
+              <View
+                style={{
+                  position: "absolute",
+                  flexDirection: "row",
+                  marginStart: windowWidth * 0.78,
+                  alignItems: "center",
+                  display: "flex",
+                  gap: 15,
+                }}
+              >
+                <Ionicons
+                  name="log-out-outline"
+                  size={28}
+                  onPress={async () => {
+                    await signOut(auth);
+                    await AsyncStorage.removeItem("@user");
+                    handleSignout();
+                  }}
+                  color={colors.secondary}
+                  style={{ marginTop: 20 }}
+                />
+                <Feather
+                  name="edit-2"
+                  onPress={() => {
+                    navigation.navigate("EditProfile");
+                  }}
+                  size={22}
+                  color={colors.secondary}
+                  style={{ marginTop: 20 }}
+                />
+              </View>
+            </>
+          ) : null
+        ) : (
           <>
             <View
               style={{
@@ -71,12 +127,11 @@ export const ProfileScreen = ({ route, navigation }) => {
                 justifyContent: "flex-start",
               }}
             >
-              <Pressable style={{alignItems:"center", flexDirection:"row"}} onPress={handleTranslation} >
-                <Feather
-                  name="globe"
-                  size={20}
-                  color={colors.secondary}
-                />
+              <Pressable
+                style={{ alignItems: "center", flexDirection: "row" }}
+                onPress={handleTranslation}
+              >
+                <Feather name="globe" size={20} color={colors.secondary} />
                 {getCurrentLocale() === "en" ? (
                   <Text style={styles.translation}> EN</Text>
                 ) : (
@@ -104,7 +159,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                 }}
                 color={colors.secondary}
                 style={{ marginTop: 20 }}
-              ></Ionicons>
+              />
               <Feather
                 name="edit-2"
                 onPress={() => {
@@ -113,10 +168,10 @@ export const ProfileScreen = ({ route, navigation }) => {
                 size={22}
                 color={colors.secondary}
                 style={{ marginTop: 20 }}
-              ></Feather>
+              />
             </View>
           </>
-        ) : null}
+        )}
       </View>
 
       {navigateUser ? (
@@ -236,7 +291,7 @@ export const ProfileScreen = ({ route, navigation }) => {
       ) : viewMode === "About" ? (
         <AboutScreen navigateUser={navigateUser} />
       ) : (
-        <SavedScreen navigateUser={navigateUser} />
+        <SavedScreen navigateUser={navigateUser} navigation={navigation} />
       )}
     </>
   );
@@ -250,10 +305,11 @@ const styles = StyleSheet.create({
     padding: 8,
     maxWidth: 100,
     borderRadius: 30,
-  },translation:{
-    fontSize:14,
+  },
+  translation: {
+    fontSize: 14,
     fontWeight: "600",
-    color:colors.secondary
+    color: colors.secondary,
   },
   text: {
     fontSize: 16,

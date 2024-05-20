@@ -17,5 +17,9 @@ export const formatDateTranslated = (date: Date) => {
 
     return newDateTranslated;
   };
+export const transformIsoDate = (date:string) => {
 
+    const formattedDate = date.split('T')[0];
+    return formattedDate
+}
   

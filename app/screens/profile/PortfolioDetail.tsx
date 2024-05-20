@@ -1,32 +1,32 @@
 import {
-  View,
-  Image,
+  Alert,
   Dimensions,
+  Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  Pressable,
-  Alert,
   ToastAndroid,
+  View,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
-import { colors } from "../../theme/colors";
-import { database } from "../../../firebaseConfig";
 import {
   addDoc,
-  and,
   collection,
   deleteDoc,
   doc,
   getDocs,
   onSnapshot,
   query,
-  where,
+  where
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { database } from "../../../firebaseConfig";
 import { usePersonStore } from "../../../store/store";
+import { transformIsoDate } from "../../hooks/useTranslateDate";
+import { colors } from "../../theme/colors";
 
 export const PorfolioDetail = ({ route, navigation }) => {
   const { item } = route.params;
@@ -80,6 +80,8 @@ export const PorfolioDetail = ({ route, navigation }) => {
           avatar: doc.data().avatar,
           web_url: doc.data().web_url,
           user_id: doc.data().user_id,
+          email: doc.data().email,
+
         }))
       );
     });
@@ -133,6 +135,8 @@ export const PorfolioDetail = ({ route, navigation }) => {
     isSaved();
   }, [item]);
 
+
+  console.log(item.publish_date)
   const onDelete = async () => {
     try {
       const deleteRef = doc(database, "Projects", item.id);
@@ -253,10 +257,19 @@ export const PorfolioDetail = ({ route, navigation }) => {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
               marginBottom: 5,
             }}
           >
+            <View style={{flexDirection:"row"}}>
+
+          <Text style={{fontWeight:"600"}}>
+             {t("published")}: {" "}
+          </Text>
+          <Text style={styles.body}>
+             {transformIsoDate(item.publish_date)}
+          </Text>
+            </View>
             {item.user_id != user.user_id && (
               <Ionicons
                 name={saved ? "bookmark" : "bookmark-outline"}
@@ -269,9 +282,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
             )}
           </View>
           <Text style={styles.body}>{item.description}</Text>
-          <Text style={styles.body}>
-            {t("aaaa")} {item.publish_date}
-          </Text>
         </View>
       </View>
     </ScrollView>

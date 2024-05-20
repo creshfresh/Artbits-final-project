@@ -1,14 +1,24 @@
 import { colors } from "../../theme/colors";
-import { View, Text, StyleSheet, Pressable, Image, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import { useTranslation } from "../../hooks/useTranslations";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
 import { usePersonStore } from "../../../store/store";
+import { FlashList } from "@shopify/flash-list";
 
-export const SavedScreen = ({ navigateUser }) => {
-  const navigation = useNavigation();
+export const SavedScreen = ({ navigateUser, navigation }) => {
   const { t } = useTranslation();
 
   const [images, setImages] = useState([]);
@@ -53,22 +63,55 @@ export const SavedScreen = ({ navigateUser }) => {
     <View style={{ flex: 1 }}>
       {navigateUser === null || navigateUser === undefined ? (
         images.length > 0 ? (
-          <ScrollView>
-            {images.map((item) => (
-              <Image
-                key={item.id}
-                source={{ uri: item.url[0] }} // Mostrar el primer elemento del array url
-                style={{ width: Dimensions.get("window").width, height: 200, padding: 20 }}
-              />
-            ))}
-          </ScrollView>
+          <FlashList
+            data={images}
+            numColumns={2}
+            horizontal={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            estimatedItemSize={Dimensions.get("window").width / 2 - 20}
+            renderItem={({ item }) => (
+              <View style={{ flex: 1, margin: 2 }}>
+                <Ionicons
+                  name={"bookmark"}
+                  size={25}
+                  style={{
+                    color: colors.main,
+                    position: "absolute",
+                    zIndex: 1,
+                    top: 10,
+                    right: 10,
+                  }}
+                />
+          
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("PorfolioDetail", { item: item })
+                  }
+                >
+                  <Image
+                    source={{ uri: item.url[0] }}
+                    style={{
+                      width: "100%",
+                      minHeight: 250,
+                      borderRadius: 10,
+                      resizeMode: "cover",
+                    }}
+                  />
+                </Pressable>
+              </View>
+            )}
+          />
         ) : (
           <View style={{ flex: 1, padding: 50 }}>
             <View style={styles.justifyTitle}>
               <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
               <Text style={styles.text}>{t("save.first.work.body")}</Text>
               <View style={{ marginTop: 10 }}>
-                <Pressable style={styles.findButton} onPress={handleNavigateToHome}>
+                <Pressable
+                  style={styles.findButton}
+                  onPress={handleNavigateToHome}
+                >
                   <Text style={styles.buttontext}>{t("find.work")}</Text>
                 </Pressable>
               </View>

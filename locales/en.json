@@ -127,6 +127,7 @@
   "position.detail": "Position details",
   "work.model": "Work model",
   "location": "Localization",
+  "about.job":"About this job",
   "contract.type": "Contract type",
   "working.hours": "Working hours",
   "working.description.title": "Work description",
@@ -137,6 +138,8 @@
   "Remote":"Remoto",
   "Hybrid":"Hybrid",
   "In office":"In office",
+
+  "published":"Published",
 
   "Fixed term":"Fixed term",
   "Permanent":"Permanet",

@@ -13,7 +13,7 @@
     "find": "Find",
 
     "save": "Guardar",
-
+    "published":"Publicado",
 
     "contests.min": "concursos",
     "artGrants.min": "becas",
@@ -139,6 +139,7 @@
    "working.description": "Descripción del trabajo",
    "skills.requirements": "Habilidades y requisitos",
    "job.url": "Link a la página",
+   "about.job":"Sobre este puesto",
 
    "Remote":"Remoto",
    "Hybrid":"Híbrido",
