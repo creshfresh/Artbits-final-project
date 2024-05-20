@@ -25,12 +25,14 @@ import {
   where,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import { usePersonStore } from "../../../store/store";
 
 export const PorfolioDetail = ({ route, navigation }) => {
   const { item } = route.params;
   const defaultAvatar = require("../../../assets/stars.png");
   const [imageSizes, setImageSizes] = useState({});
   const [name, setName] = useState([]);
+  const user = usePersonStore((state) => state.user);
 
   const { t } = useTranslation();
 
@@ -103,19 +105,17 @@ export const PorfolioDetail = ({ route, navigation }) => {
       });
   };
 
- 
   const removeProject = async (project) => {
     try {
-      // Esperar hasta que project.id esté definido
       while (!project.id) {
-        await new Promise(resolve => setTimeout(resolve, 100)); // Esperar 100 ms
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
-  
+
       const savedProjectsRef = collection(database, "SavedArtworks");
       const querySnapshot = await getDocs(
         query(savedProjectsRef, where("id", "==", project.id))
       );
-  
+
       querySnapshot.forEach((doc) => {
         deleteDoc(doc.ref)
           .then(() => {
@@ -134,6 +134,32 @@ export const PorfolioDetail = ({ route, navigation }) => {
       Alert.alert("Error", "Could not remove the project");
     }
   };
+
+
+  const onDelete = async () => {
+    try {
+      const deleteRef = doc(database, "Projects",item.id );
+      await deleteDoc(deleteRef).then (()=> {
+        ToastAndroid.showWithGravity(
+          "Project removed!",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER),
+          navigation.reset({
+            index: 0,
+            // @ts-ignore: this works fine even if it shows an error
+            routes: [{ name: "Profile" }],
+          });
+        
+      })
+
+        
+        
+
+    } catch (error) {
+      Alert.alert('Error:', error.message)
+
+    }
+  }
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -141,7 +167,9 @@ export const PorfolioDetail = ({ route, navigation }) => {
     >
       <View>
         <Text style={styles.title}>{item.title}</Text>
-
+        {item.user_id === user.user_id && (
+          <Ionicons onPress={onDelete}name="trash-outline" size={25} color={colors.secondary} style={{position:"absolute", right:15, top:5}}/>
+        )}
         <Pressable
           onPress={() => navigation.navigate("ProfileScreen", { item: name })}
         >
@@ -199,11 +227,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
               marginBottom: 5,
             }}
           >
-            {/* <Ionicons
-              name="heart-outline"
-              size={30}
-              onPress={() => {}}
-            ></Ionicons> */}
             <Ionicons
               name={saved ? "bookmark" : "bookmark-outline"}
               size={30}

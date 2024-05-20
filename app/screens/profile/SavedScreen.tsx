@@ -37,7 +37,6 @@ export const SavedScreen = ({ navigateUser }) => {
         
         }))
       );
-      console.log("userodid:",userId)
     });
 
     return unsubscribe; 

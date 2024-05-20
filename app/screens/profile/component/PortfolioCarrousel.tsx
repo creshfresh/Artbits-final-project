@@ -37,7 +37,7 @@ export const ProfolioCarrousel = ({
     const userId =
       navigateUser !== null && navigateUser !== undefined
         ? navigateUser[0].user_id
-        :"BniaeIeL3RfCKMPba2JhVY8E8g62" ;
+        :user.user_id ;
 
     const collectionRef = collection(database, "Projects");
     const q = query(collectionRef, where("user_id", "==", userId)); // El ide 3828 es harcodeado
@@ -53,7 +53,6 @@ export const ProfolioCarrousel = ({
           description: doc.data().description,
         }))
       );
-      console.log("userodid:", userId);
     });
 
     return unsubscribe;

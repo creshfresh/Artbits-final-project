@@ -40,8 +40,6 @@ export const ProfileScreen = ({ route, navigation }) => {
     }
   }, [route.params, user]);
 
-
-
   type ViewMode = "Portfolio" | "About" | "Saved";
 
   const { signOutZustand } = usePersonStore();
@@ -73,12 +71,18 @@ export const ProfileScreen = ({ route, navigation }) => {
                 justifyContent: "flex-start",
               }}
             >
-              <Ionicons
-                name="globe-outline"
-                size={25}
-                color={colors.secondary}
-                onPress={handleTranslation}
-              />
+              <Pressable style={{alignItems:"center", flexDirection:"row"}} onPress={handleTranslation} >
+                <Feather
+                  name="globe"
+                  size={20}
+                  color={colors.secondary}
+                />
+                {getCurrentLocale() === "en" ? (
+                  <Text style={styles.translation}> EN</Text>
+                ) : (
+                  <Text style={styles.translation}> ES</Text>
+                )}
+              </Pressable>
             </View>
             <View
               style={{
@@ -246,6 +250,10 @@ const styles = StyleSheet.create({
     padding: 8,
     maxWidth: 100,
     borderRadius: 30,
+  },translation:{
+    fontSize:14,
+    fontWeight: "600",
+    color:colors.secondary
   },
   text: {
     fontSize: 16,

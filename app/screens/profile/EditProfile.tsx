@@ -52,7 +52,7 @@ export const EditProfile = ({ route, navigation }) => {
           }}
         >
           <View style={styles.divided}>
-            <Text style={styles.textTittle}>name</Text>
+            <Text style={styles.textTittle}>{t("name")}</Text>
             <TextInput
               style={styles.input}
               placeholder={t("description.placeholder")}
@@ -60,7 +60,7 @@ export const EditProfile = ({ route, navigation }) => {
             />
           </View>
           <View style={styles.divided}>
-            <Text style={styles.textTittle}>city</Text>
+            <Text style={styles.textTittle}>{t("city")}</Text>
             <TextInput
               style={styles.input}
               placeholder={t("description.placeholder")}
@@ -68,7 +68,7 @@ export const EditProfile = ({ route, navigation }) => {
             />
           </View>
           <View style={styles.divided}>
-            <Text style={styles.textTittle}>country</Text>
+            <Text style={styles.textTittle}>{t("country")}</Text>
             <TextInput
               style={styles.input}
               placeholder={t("description.placeholder")}
@@ -88,14 +88,7 @@ export const EditProfile = ({ route, navigation }) => {
             justifyContent: "flex-start",
           }}
         >
-          <View style={styles.divided}>
-            <Text style={styles.textTittle}>Headline - One line about you</Text>
-            <TextInput
-              style={styles.input}
-              placeholder={t("description.placeholder")}
-              keyboardType="default"
-            />
-          </View>
+      
           <View style={styles.divided}>
             <Text style={styles.textTittle}>Summary</Text>
             <TextInput
