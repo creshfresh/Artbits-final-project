@@ -165,5 +165,9 @@
   "web.url.placeholder": "Add the web to visit",
   "select.promotional.image": "Select promotional image",
 
-  "succesfull.upload":"Succesfull upload!"
+  "succesfull.upload":"Succesfull upload!",
+  "proyect.removed": "Project removed",
+  "proyect.removed.saved": "Project removed from your favorites"
+
+
 }

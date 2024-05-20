@@ -64,7 +64,7 @@ export default function SignInScreen({}) {
         .then(async (userCreds) => {
           const user = userCreds.user;
           const appUser: AppUser | any= {
-            displayName:"Loquete",
+            displayName:"Giotto Gúrpide",
             email: user.email,
             country: "", 
             city: "", 
@@ -73,6 +73,7 @@ export default function SignInScreen({}) {
             web_url: "google.com",
             rol: "artist", 
             user_id: user.uid,
+            skills: [""]
           
           }
           setUser(appUser)

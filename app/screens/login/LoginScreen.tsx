@@ -41,7 +41,6 @@ export default function LoginScreen({}) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCreds) => {
           const user = userCreds.user;
-          console.log("Registered with:", user.email);
         })
         .catch((error) => {
           alert("Email already registered");
@@ -59,7 +58,7 @@ export default function LoginScreen({}) {
           const user = userCreds.user;
           console.log("Logged in with:", user.email);
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => alert("Invalid credentials"));
     } else {
       setShowEmailError(!isValidEmail(email));
       setShowPasswordError(!isValidPassword(password)); 

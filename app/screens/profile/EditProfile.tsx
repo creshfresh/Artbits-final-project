@@ -55,6 +55,7 @@ export const EditProfile = ({ route, navigation }) => {
             <Text style={styles.textTittle}>{t("name")}</Text>
             <TextInput
               style={styles.input}
+              value={user.displayName}
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />
@@ -63,6 +64,7 @@ export const EditProfile = ({ route, navigation }) => {
             <Text style={styles.textTittle}>{t("city")}</Text>
             <TextInput
               style={styles.input}
+              value={user.city}
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />
@@ -71,6 +73,7 @@ export const EditProfile = ({ route, navigation }) => {
             <Text style={styles.textTittle}>{t("country")}</Text>
             <TextInput
               style={styles.input}
+              value={user.country}
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />
@@ -92,8 +95,10 @@ export const EditProfile = ({ route, navigation }) => {
           <View style={styles.divided}>
             <Text style={styles.textTittle}>Summary</Text>
             <TextInput
-              style={[styles.input, {minHeight:70, textAlignVertical:"top", paddingTop:5}]}
+              style={[styles.input, {minHeight:70, textAlignVertical:"top", paddingTop:5,paddingEnd:0.8}]}
               multiline={true}
+              value={user.about_description}
+
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />
@@ -102,6 +107,8 @@ export const EditProfile = ({ route, navigation }) => {
             <Text style={styles.textTittle}>Personal webpage</Text>
             <TextInput
               style={styles.input}
+              value={user.web_url}
+
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />
@@ -123,6 +130,8 @@ export const EditProfile = ({ route, navigation }) => {
             <Text style={styles.textTittle}>Contact</Text>
             <TextInput
               style={styles.input}
+              value={user.email}
+
               placeholder={t("description.placeholder")}
               keyboardType="default"
             />

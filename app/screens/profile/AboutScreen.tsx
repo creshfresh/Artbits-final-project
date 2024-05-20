@@ -10,26 +10,23 @@ export const AboutScreen = ({ navigateUser }) => {
 
   /* Esta pantalla eseña los datos del usuario logeado*/
   return (
-    <View style={{ flex: 1, padding: 10 }}>
+    <View style={{ flex: 1, padding: 15 }}>
       <View style={{ display: "flex", justifyContent: "flex-start" }}>
         <Text style={styles.mainTitle}>{t("summary")}</Text>
         {navigateUser === null || navigateUser === undefined ? (
           <>
             <Text style={styles.text}>{user.about_description}</Text>
             <Text style={styles.mainTitle}>{t("personal.web")}</Text>
-            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
-            <Text style={styles.mainTitle}>{t("follow.social")}</Text>
-            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+            <Text style={styles.text}>{user.web_url}</Text>
             <Text style={styles.mainTitle}>{t("contact")}</Text>
-            <Text style={styles.text}>alexanderchiveli.artstation.com.</Text>
+            <Text style={styles.text}>{user.email}</Text>
           </>
         ) : (
           <>
             <Text style={styles.text}>{navigateUser[0].about_description}</Text>
             <Text style={styles.mainTitle}>{t("personal.web")}</Text>
             <Text style={styles.text}>{navigateUser[0].web_url}.</Text>
-            <Text style={styles.mainTitle}>{t("follow.social")}</Text>
-            <Text style={styles.text}>{navigateUser[0].email}</Text>
+
             <Text style={styles.mainTitle}>{t("contact")}</Text>
             <Text style={styles.text}>{navigateUser[0].email}</Text>
           </>

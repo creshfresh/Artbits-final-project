@@ -22,7 +22,6 @@ import {
   doc,
   getDocs,
   onSnapshot,
-  
   query,
   where,
 } from "firebase/firestore";
@@ -89,7 +88,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
   }, [item, setName]);
 
   const handleSave = async () => {
-    !saved ? saveProject(item) : await removeProject(item.id);
+    !saved ? saveProject(item) : onDeleteSavedProject();
   };
 
   const saveProject = (project) => {
@@ -107,36 +106,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
       });
   };
 
-  const removeProject = async (project) => {
-    try {
-      while (!project.id) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-
-      const savedProjectsRef = collection(database, "SavedArtworks");
-      const querySnapshot = await getDocs(
-        query(savedProjectsRef, where("id", "==", project.id))
-      );
-
-      querySnapshot.forEach((doc) => {
-        deleteDoc(doc.ref)
-          .then(() => {
-            ToastAndroid.showWithGravity(
-              "Project removed!",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER
-            );
-          })
-          .catch((error) => {
-            console.error("Error removing project:", error);
-          });
-      });
-    } catch (error) {
-      console.error("Error querying projects:", error);
-      Alert.alert("Error", "Could not remove the project");
-    }
-  };
-
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
     const q = query(
@@ -148,6 +117,8 @@ export const PorfolioDetail = ({ route, navigation }) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
         setSaved(true);
+      } else {
+        setSaved(false);
       }
     });
 
@@ -158,28 +129,53 @@ export const PorfolioDetail = ({ route, navigation }) => {
     isSaved();
   }, [item]);
 
-
   const onDelete = async () => {
     try {
-      const deleteRef = doc(database, "Projects",item.id );
-      await deleteDoc(deleteRef).then (()=> {
+      const deleteRef = doc(database, "Projects", item.id);
+      await deleteDoc(deleteRef).then(() => {
         ToastAndroid.showWithGravity(
-          "Project removed!",
+          t("proyect.removed"),
           ToastAndroid.SHORT,
-          ToastAndroid.CENTER),
+          ToastAndroid.CENTER
+        ),
           navigation.reset({
             index: 0,
             // @ts-ignore: this works fine even if it shows an error
-            routes: [{ name: "Profile" }],
+            routes: [{ name: "Home" }],
           });
-        
-      })
-
+      });
     } catch (error) {
-      Alert.alert('Error:', error.message)
-
+      Alert.alert("Error:", error.message);
     }
-  }
+  };
+  const onDeleteSavedProject = async () => {
+    try {
+      const savedProjectsRef = collection(database, "SavedArtworks");
+      const q = query(
+        savedProjectsRef,
+        where("user_id", "==", item.user_id),
+        where("id", "==", item.id)
+      );
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const deleteRef = doc(
+          database,
+          "SavedArtworks",
+          querySnapshot.docs[0].id
+        );
+        await deleteDoc(deleteRef).then(() => {
+          ToastAndroid.showWithGravity(
+            t("proyect.removed.saved"),
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+          setSaved(false);
+        });
+      }
+    } catch (error) {
+      Alert.alert("Error:", error.message);
+    }
+  };
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -188,7 +184,13 @@ export const PorfolioDetail = ({ route, navigation }) => {
       <View>
         <Text style={styles.title}>{item.title}</Text>
         {item.user_id === user.user_id && (
-          <Ionicons onPress={onDelete}name="trash-outline" size={25} color={colors.secondary} style={{position:"absolute", right:15, top:5}}/>
+          <Ionicons
+            onPress={onDelete}
+            name="trash-outline"
+            size={25}
+            color={colors.secondary}
+            style={{ position: "absolute", right: 15, top: 5 }}
+          />
         )}
         <Pressable
           onPress={() => navigation.navigate("ProfileScreen", { item: name })}
@@ -197,7 +199,9 @@ export const PorfolioDetail = ({ route, navigation }) => {
             style={{ flexDirection: "row", marginLeft: 10, marginVertical: 7 }}
           >
             <Image
-              source={defaultAvatar}
+              source={
+                item.user_id == user.user_id ? { uri: user.avatar } : defaultAvatar
+              }
               style={{
                 width: 30,
                 height: 30,
@@ -247,17 +251,16 @@ export const PorfolioDetail = ({ route, navigation }) => {
               marginBottom: 5,
             }}
           >
-            {item.user_id != user.user_id && 
-            
-            <Ionicons
-            name={saved ? "bookmark" : "bookmark-outline"}
-            size={30}
-            style={saved ? styles.saved : styles.notsaved}
-            onPress={() => {
-              setSaved(!saved), handleSave();
-            }}
-            ></Ionicons>
-          }
+            {item.user_id != user.user_id && (
+              <Ionicons
+                name={saved ? "bookmark" : "bookmark-outline"}
+                size={30}
+                style={saved ? styles.saved : styles.notsaved}
+                onPress={() => {
+                  setSaved(!saved), handleSave();
+                }}
+              ></Ionicons>
+            )}
           </View>
           <Text style={styles.body}>{item.description}</Text>
           <Text style={styles.body}>

@@ -172,7 +172,11 @@
    "web.url.placeholder": "Añade la página web oficial",
    "select.promotional.image": "Seleciona una imagen promocional",
 
-   "succesfull.upload":"¡Subido con éxito!"
+   "succesfull.upload":"¡Subido con éxito!",
+
+   "proyect.removed": "Proyeto eliminado",
+   "proyect.removed.saved": "Proyeto eliminado de tus favoritos"
+
  
 
 

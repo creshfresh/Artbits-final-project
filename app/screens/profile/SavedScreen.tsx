@@ -5,12 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
+import { usePersonStore } from "../../../store/store";
 
 export const SavedScreen = ({ navigateUser }) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
   const [images, setImages] = useState([])
+  const user = usePersonStore((state) => state.user);
 
   const handleNavigateToHome = () => {
     navigation.reset({
@@ -46,7 +48,10 @@ export const SavedScreen = ({ navigateUser }) => {
   return (
     <View style={{ flex: 1, padding: 50 }}>
       {navigateUser === null || navigateUser === undefined ? (
+
         <>
+      {/* Comprobar si el usuario logueado tiene trabajos guardaos */}
+        {/* {user} */}
           <View style={styles.justifyTitle}>
             <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
             <Text style={styles.text}>{t("save.first.work.body")}</Text>
