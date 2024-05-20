@@ -20,7 +20,7 @@ import { AppUser } from "./types";
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const user = usePersonStore((state) => state.user);
   const setUser = usePersonStore((state) => state.setUser);
 
@@ -44,17 +44,16 @@ export default function App() {
 
   const getLocalUser = async () => {
     try {
-      setLoading(true);
       const userJson = await AsyncStorage.getItem("@user");
-      setLoading(false);
       const userData = userJson ? JSON.parse(userJson) : null;
-      setUser(userData);
+      if (userData) {
+        setUser(userData);
+      }
     } catch (error) {
       console.log("Error", error);
-    } finally {
-      setLoading(false);
     }
   };
+
   useEffect(() => {
     getLocalUser();
     if (response?.type === "success") {
@@ -65,23 +64,53 @@ export default function App() {
   }, [response]);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await AsyncStorage.setItem("@user", JSON.stringify(user));
-        setUser(user);
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userQuery = query(
+          collection(database, "Users"),
+          where("user_id", "==", firebaseUser.uid)
+        );
+
+        const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const userData = doc.data();
+              const appUser: AppUser = {
+                displayName: userData.displayName,
+                email: userData.email,
+                country: userData.country,
+                city: userData.city,
+                about_description: userData.about_description,
+                avatar: userData.avatar,
+                web_url: userData.web_url,
+                rol: userData.rol,
+                user_id: userData.user_id,
+              };
+              setUser(appUser);
+              AsyncStorage.setItem("@user", JSON.stringify(appUser));
+            });
+          } else {
+            console.log("No user data found");
+          }
+          setLoading(false);  // Finaliza el loading aquí después de obtener los datos del usuario
+        });
+
+        return () => unsubscribe();
       } else {
+        setLoading(false);  // Finaliza el loading aquí si no hay un usuario autenticado
       }
     });
 
     return () => unsub();
-  }),
-    [];
+  }, []);
 
-
-  if (loading) return;
-  <View style={{ alignItems: "center", justifyContent: "center" }}>
-    <ActivityIndicator size={"small"} />
-  </View>;
+  if (loading) {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <ActivityIndicator size={"large"} />
+      </View>
+    );
+  }
 
   return user ? (
     <CustomNavigator />

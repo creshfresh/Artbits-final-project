@@ -1,12 +1,8 @@
-//Android ClientId: 1006799876952-5jft6q2blgrgh64ptcd5a638mar38ihn.apps.googleusercontent.com
-//                  1006799876952-5lsho05s7c1kj1edc01kp8ljvp85marj.apps.googleusercontent.com
-// Import the functions you need from the SDKs you need
-
-import { getAuth } from "firebase/auth";
-import {getStorage} from 'firebase/storage'
-import {getFirestore} from 'firebase/firestore'
 import { initializeApp } from "firebase/app";
-import firebase from "firebase/compat";
+import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { getStorage } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAVJq1CATvVC-Y7MuRYdJwG6q2-zOpaR6A",
@@ -18,6 +14,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const storage= getStorage(app);
-export const database= getFirestore(app);
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage)
+});
+const storage = getStorage(app);
+const database = getFirestore(app);
+
+export { auth, storage, database };
