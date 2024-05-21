@@ -23,6 +23,8 @@ export const SuccesUpload = ({ navigation }) => {
     });
   };
 
+  
+
   return (
     <View
       style={{

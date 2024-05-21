@@ -68,7 +68,6 @@ export const JobControler = () => {
       else{
         setShowErrors(true)
       }
-    
   };
 
   return {

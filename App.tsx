@@ -76,7 +76,7 @@ export default function App() {
           if (!querySnapshot.empty) {
             querySnapshot.forEach((doc) => {
               const userData = doc.data();
-              const appUser: AppUser = {
+              const appUser: AppUser | any = {
                 displayName: userData.displayName,
                 email: userData.email,
                 country: userData.country,
