@@ -93,12 +93,12 @@ export default function App() {
           } else {
             console.log("No user data found");
           }
-          setLoading(false); // Finaliza el loading aquí después de obtener los datos del usuario
+          setLoading(false); 
         });
 
         return () => unsubscribe();
       } else {
-        setLoading(false); // Finaliza el loading aquí si no hay un usuario autenticado
+        setLoading(false);
       }
     });
 
@@ -115,7 +115,7 @@ export default function App() {
 
   return user ? (
     <>
-      <StatusBar barStyle="default" animated/>
+      {/* <StatusBar barStyle="default" animated/> */}
 
       <CustomNavigator />
     </>

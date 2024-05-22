@@ -172,7 +172,8 @@
   "proyect.removed": "Project removed",
   "project.saved":"Proyect saved!",
 
-  "proyect.removed.saved": "Project removed from your favorites"
+  "proyect.removed.saved": "Project removed from your favorites",
+  "succesful.edit": "Data updated succesfully!"
 
 
 }

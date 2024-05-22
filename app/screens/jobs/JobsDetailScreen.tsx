@@ -47,7 +47,7 @@ export const JobsDetailScreen = ({}) => {
               </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text style={styles.body}>{route.params.item.city}</Text>
+                <Text style={styles.body}>{route.params.item.companyName}</Text>
               </View>
               <View
                 style={{

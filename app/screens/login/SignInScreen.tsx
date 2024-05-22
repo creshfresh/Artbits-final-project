@@ -149,42 +149,7 @@ export default function SignInScreen({}) {
       setShowPasswordError(!isValidPassword(password));
     }
   };
-  // const handleLogin = () => {
 
-  //   if (isValidPassword(password) && isValidEmail(email)) {
-  //     signInWithEmailAndPassword(auth, email, password)
-  //       .then(async (userCreds) => {
-  //         const user = userCreds.user;
-  //         const appUser: AppUser = {
-  //           displayName: user.displayName,
-  //           email: user.email,
-  //           country: "Narnia",
-  //           city: "Narnia", 
-  //           about_decription: "", 
-  //           avatar: user.photoURL,
-  //           web_url: "", 
-  //           rol: "artist", 
-  //           user_id: user.uid,
-  //         };
-  
-  //         try {
-  //           const docRef = await addDoc(collection(database, "Users"), appUser);
-  //           console.log("User document added with ID: ", docRef.id);
-  //         } catch (error) {
-  //           console.error("Error adding document to Firestore: ", error);
-  //         }
-  
-  //         setUser(appUser);
-  //       })
-  //       .catch((error) => {
-  //         alert(error.message);
-  //         console.error("Error signing in: ", error);
-  //       });
-  //   } else {
-  //     setShowEmailError(!isValidEmail(email));
-  //     setShowPasswordError(!isValidPassword(password));
-  //   }
-  // };
   useEffect(() => {
     if (email.trim() !== "" && password.trim() !== "") {
       setIsDisabled(false);

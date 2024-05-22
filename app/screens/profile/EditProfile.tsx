@@ -266,7 +266,7 @@ export const EditProfile = ({ route, navigation }) => {
       </View>
 
       <Pressable style={styles.button}>
-        <Text style={styles.buttontext} onPress={handleUpdate}>
+        <Text style={styles.buttontext} onPress={update}>
           {t("save")}
         </Text>
       </Pressable>
