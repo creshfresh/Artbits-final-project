@@ -89,7 +89,33 @@ export const PorfolioDetail = ({ route, navigation }) => {
 
     return () => unsubscribe();
   }, [item, setName]);
+  useEffect(() => {
+    // Verificar si el proyecto está guardado cuando se monta el componente
+    isSaved();
 
+    if (!item || !item.user_id) return;
+
+    const collectionRef = collection(database, "Users");
+    const q = query(collectionRef, where("user_id", "==", item.user_id));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setName(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          displayName: doc.data().displayName,
+          country: doc.data().country,
+          city: doc.data().city,
+          about_description: doc.data().about_description,
+          avatar: doc.data().avatar,
+          web_url: doc.data().web_url,
+          user_id: doc.data().user_id,
+          email: doc.data().email,
+        }))
+      );
+    });
+
+    return () => unsubscribe();
+  }, [item, setName]);
   const handleSave = async () => {
     if (!saved) {
       saveProject(item);
@@ -118,13 +144,15 @@ export const PorfolioDetail = ({ route, navigation }) => {
         setSaved(false);
       });
   };
+  console.log(item)
 
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
     const q = query(
       savedProjectsRef,
       where("user_id", "==", item.user_id),
-      where("save_user_id", "==", user.user_id)
+      where("save_user_id", "==", user.user_id),
+      where("title", "==", item.title)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
