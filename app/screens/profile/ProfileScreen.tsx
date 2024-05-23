@@ -121,7 +121,7 @@ export const ProfileScreen = ({ route, navigation }) => {
               style={{
                 position: "absolute",
                 flexDirection: "row",
-                marginTop: 20,
+                marginTop: 40,
                 marginStart: 20,
                 justifyContent: "flex-start",
               }}
@@ -140,6 +140,7 @@ export const ProfileScreen = ({ route, navigation }) => {
             </View>
             <View
               style={{
+                marginTop: 15,
                 position: "absolute",
                 flexDirection: "row",
                 marginStart: windowWidth * 0.78,

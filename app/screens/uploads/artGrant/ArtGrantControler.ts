@@ -1,11 +1,10 @@
 import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import { addDoc, collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
 import { database, storage } from "../../../../firebaseConfig";
 import { ArtGrantData } from "../../../../types";
-import * as ImagePicker from "expo-image-picker";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Alert } from "react-native";
 
 export const ArtGrantControler = (minDate, endDate, participants) => {
   const currentDate = new Date().toISOString();
@@ -25,9 +24,10 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     publishDate: currentDate,
     weburl: "",
     destinyCentre: "",
+    image:"",
   };
 
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState("");
   const [showErrors, setShowErrors] = useState(false);
   const [pickedPdf, setPickedPDF] = useState<DocumentPicker.DocumentPickerResult>();
   const [state, setState] = useState(grantState);
@@ -50,6 +50,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       terms,
       urlbases,
       weburl,
+      image
+
     } = state;
     return (
       name &&
@@ -65,7 +67,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       specifications &&
       terms &&
       urlbases &&
-      weburl
+      weburl &&
+      image
     );
   };
 
@@ -84,65 +87,55 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     }
   }
   const pickImage = async () => {
-    setImage([]);
+    setImage('');
+  
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false,
+      allowsMultipleSelection: false, // Ensure only one image can be selected
       quality: 0.2,
       aspect: [3, 4],
     });
-
+  
     if (!result.canceled && result.assets.length > 0) {
-      setImage((prevImages) => [
-        ...prevImages,
-        ...result.assets.map((asset) => asset.uri),
-      ]);
+      setImage(result.assets[0].uri);
     }
   };
 
   const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
     if (checkAllTextFields()) {
       try {
-        const uploadImagePromises = image.map(async (imageUri) => {
-          try {
-            const response = await fetch(imageUri);
-            const blob = await response.blob();
-            const storageRef = ref(storage, "Images/" + new Date().getTime());
-            await uploadBytesResumable(storageRef, blob);
-            const downloadURL = await getDownloadURL(storageRef);
-            return downloadURL;
-          } catch (error) {
-            console.error("Error uploading image:", error);
-            return null;
-          }
-        });
-
-        const imageDownloadURLs = await Promise.all(uploadImagePromises);
-
-        const data = {
-          ...state,
-          startDate: minDate,
-          finishDate: endDate,
-          participants: participants,
-          urlbases: url,
-          publishDate: currentDate,
-          image: imageDownloadURLs.filter((url) => url !== null),
-        };
-
-        await addDoc(collection(database, "Art_Grants"), data);
-        return true;
+        if (image) {
+          const response = await fetch(image);
+          const blob = await response.blob();
+          const storageRef = ref(storage, "Images/" + new Date().getTime());
+          await uploadBytesResumable(storageRef, blob);
+          const downloadURL = await getDownloadURL(storageRef);
+  
+          const data = {
+            ...state,
+            startDate: minDate,
+            finishDate: endDate,
+            participants: participants,
+            urlbases: url,
+            publishDate: currentDate,
+            image: downloadURL, 
+          };
+  
+          await addDoc(collection(database, "Art_Grants"), data);
+          return true;
+        } else {
+          setShowErrors(true);
+          return false;
+        }
       } catch (error) {
         console.error("Error saving Art_Grants:", error);
         return false;
       }
     } else {
       setShowErrors(true);
-      Alert.alert("Error en validaciones ");
-      console.error("Error en las validaciones");
       return false;
     }
   };
-
   return {
     handleChangeTex,
     saveGrant,

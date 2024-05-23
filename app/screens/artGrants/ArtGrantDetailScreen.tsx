@@ -28,7 +28,7 @@ export const ArtGrantDetailScreen = ({}) => {
       <View style={styles.container}>
         <View style={{ flexDirection: "column", top: 15 }}>
           <Image
-            source={{ uri: route.params.item.image[0] }}
+            source={{ uri: route.params.item.image }}
             style={[styles.image]}
           />
         </View>
@@ -148,7 +148,7 @@ export const ArtGrantDetailScreen = ({}) => {
             <Text style={styles.titleBody}>{t("terms")}</Text>
             <Text style={styles.bodybody}>{route.params.item.terms}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 140 }}>
+          <View style={{ gap: 10, paddingBottom: 160 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
             <Text
               style={styles.link}

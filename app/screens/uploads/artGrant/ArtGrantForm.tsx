@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../theme/colors";
 import { ArtGrantControler } from "./ArtGrantControler";
 import { useTranslation } from "../../../hooks/useTranslations";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Dropdown } from "react-native-element-dropdown";
@@ -95,6 +95,45 @@ export const ArtGrantForm = ({ navigation }) => {
     onChangeStartDate(null, startDate);
     onChangeEndDate(null, endDate);
   }, [endDate, startDate]);
+
+  const debounceRef = useRef(null);
+
+  useEffect(() => {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      if (
+        state.minAge &&
+        state.maxAge &&
+        parseInt(state.minAge) >= parseInt(state.maxAge)
+      ) {
+        setAgeError(true);
+        return;
+      } else {
+        setAgeError(false);
+      }
+    }, 500); // Adjust the delay as needed
+
+    return () => {
+      clearTimeout(debounceRef.current);
+    };
+  }, [state.minAge, state.maxAge]);
+
+  useEffect(() => {
+    if (
+      state.minAge &&
+      state.maxAge &&
+      parseInt(state.minAge) >= parseInt(state.maxAge)
+    ) {
+      setAgeError(true);
+      return;
+    } else {
+      setAgeError(false);
+    }
+  }, [state.minAge, state.maxAge]);
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -367,7 +406,7 @@ export const ArtGrantForm = ({ navigation }) => {
             justifyContent: "flex-end",
           }}
         >
-          {/* {image.length > 0 && (
+          {image != "" && (
             <>
               <Ionicons
                 name="image-outline"
@@ -380,7 +419,7 @@ export const ArtGrantForm = ({ navigation }) => {
                 {t("image.selected")}
               </Text>
             </>
-          )} */}
+          )}
         </View>
         <View
           style={{

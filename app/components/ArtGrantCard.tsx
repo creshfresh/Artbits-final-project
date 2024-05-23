@@ -47,7 +47,7 @@ export const ArtGrantCard = (item: ArtGrantData | any) => {
     >
       <Image
         source={{
-          uri: item.data.image[0]
+          uri: item.data.image
         }}
         style={{
           minWidth: 75,

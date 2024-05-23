@@ -92,5 +92,6 @@ export interface CourseData {
     terms: string;
     urlbases: DocumentPicker.DocumentPickerResult | null;
     publishDate: string | null;
-    weburl:string
+    weburl:string,
+    image:string
   }

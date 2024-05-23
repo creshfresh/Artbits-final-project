@@ -1,11 +1,10 @@
 import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import { addDoc, collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
 import { database, storage } from "../../../../firebaseConfig";
-import { Alert } from "react-native";
 import { ContestData } from "../../../../types";
-import * as ImagePicker from "expo-image-picker";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const ConestControler = (minDate, endDate, participants) => {
   const [image, setImage] = useState([]);
@@ -158,8 +157,6 @@ export const ConestControler = (minDate, endDate, participants) => {
       }
     } else {
       setShowErrors(true);
-      Alert.alert("Error en validaciones ");
-      console.error("Error en las validaciones");
       return false;
     }
   };

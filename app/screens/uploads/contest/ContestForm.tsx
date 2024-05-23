@@ -53,7 +53,6 @@ export const ContestForm = ({ navigation }) => {
 
   const handleEmptyValues = () => {
     setShowErrors(true);
-    Alert.alert("error", "error");
   };
 
   useEffect(() => {
