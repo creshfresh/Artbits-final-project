@@ -1,7 +1,7 @@
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Checkbox from "expo-checkbox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Pressable,
@@ -54,19 +54,31 @@ export const ContestForm = ({ navigation }) => {
   const handleEmptyValues = () => {
     setShowErrors(true);
   };
+  const debounceRef = useRef(null);
 
   useEffect(() => {
-    if (
-      state.minAge &&
-      state.maxAge &&
-      parseInt(state.minAge) >= parseInt(state.maxAge)
-    ) {
-      setAgeError(true);
-      return;
-    } else {
-      setAgeError(false);
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
+
+    debounceRef.current = setTimeout(() => {
+      if (
+        state.minAge &&
+        state.maxAge &&
+        parseInt(state.minAge) >= parseInt(state.maxAge)
+      ) {
+        setAgeError(true);
+        return;
+      } else {
+        setAgeError(false);
+      }
+    }, 400); 
+
+    return () => {
+      clearTimeout(debounceRef.current);
+    };
   }, [state.minAge, state.maxAge]);
+
 
   const handleSave = async () => {
     const success = await saveContest(pickedPdf);
@@ -414,7 +426,27 @@ export const ContestForm = ({ navigation }) => {
         <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
           {t("select.promotional.image")}
         </Text>
-
+        {showErrors &&
+        image != undefined &&
+        image != "" ? (
+          <Text style={grantContesttSyles.errors}>{t("error.pdf")}</Text>
+        ) : (
+          pickedPdf &&
+          pickedPdf.assets[0].uri.endsWith(".pdf") && (
+            <>
+              <FontAwesome
+                name="file-pdf-o"
+                size={20}
+                color={colors.main}
+              ></FontAwesome>
+              <Text
+                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+              >
+                {t("pdf.selected")}
+              </Text>
+            </>
+          )
+        )}
         <Ionicons
           name="add-circle"
           size={30}

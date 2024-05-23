@@ -31,7 +31,6 @@ export const ArtGrantForm = ({ navigation }) => {
   const { t } = useTranslation();
   const [participants, setParticipants] = useState("Spain");
   const [ageError, setAgeError] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
   const [startDate, seStartDate] = useState(new Date());
   const [endDateError, setEndDateError] = useState(false);
   const [startDateError, setStartDateError] = useState(false);
@@ -114,25 +113,13 @@ export const ArtGrantForm = ({ navigation }) => {
       } else {
         setAgeError(false);
       }
-    }, 500); // Adjust the delay as needed
+    }, 500); 
 
     return () => {
       clearTimeout(debounceRef.current);
     };
   }, [state.minAge, state.maxAge]);
 
-  useEffect(() => {
-    if (
-      state.minAge &&
-      state.maxAge &&
-      parseInt(state.minAge) >= parseInt(state.maxAge)
-    ) {
-      setAgeError(true);
-      return;
-    } else {
-      setAgeError(false);
-    }
-  }, [state.minAge, state.maxAge]);
 
   return (
     <ScrollView

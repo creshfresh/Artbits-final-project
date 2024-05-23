@@ -91,7 +91,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
   
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false, // Ensure only one image can be selected
+      allowsMultipleSelection: false, 
       quality: 0.2,
       aspect: [3, 4],
     });

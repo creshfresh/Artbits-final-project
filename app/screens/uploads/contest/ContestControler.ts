@@ -7,7 +7,7 @@ import { database, storage } from "../../../../firebaseConfig";
 import { ContestData } from "../../../../types";
 
 export const ConestControler = (minDate, endDate, participants) => {
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState("");
 
   const currentDate = new Date().toISOString()
   const contestData: ContestData = {
@@ -30,21 +30,20 @@ export const ConestControler = (minDate, endDate, participants) => {
   };
 
   const pickImage = async () => {
-    setImage([]);
+    setImage('');
+  
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false,
+      allowsMultipleSelection: false, 
       quality: 0.2,
       aspect: [3, 4],
     });
-
+  
     if (!result.canceled && result.assets.length > 0) {
-      setImage((prevImages) => [
-        ...prevImages,
-        ...result.assets.map((asset) => asset.uri),
-      ]);
+      setImage(result.assets[0].uri);
     }
   };
+
   const [showErrors, setShowErrors] = useState(false);
   const [pickedPdf, setPickedPDF] =
     useState<DocumentPicker.DocumentPickerResult>();
@@ -123,22 +122,14 @@ export const ConestControler = (minDate, endDate, participants) => {
   const saveContest = async (url: DocumentPicker.DocumentPickerResult) => {
     if (checkAllTextFields()) {
       try {
-        const uploadImagePromises = image.map(async (imageUri) => {
-          try {
-            const response = await fetch(imageUri);
-            const blob = await response.blob();
-            const storageRef = ref(storage, "Images/" + new Date().getTime());
-            await uploadBytesResumable(storageRef, blob);
-            const downloadURL = await getDownloadURL(storageRef);
-            return downloadURL;
-          } catch (error) {
-            console.error("Error uploading image:", error);
-            return null;
-          }
-        });
+        if (image) {
+          const response = await fetch(image);
+          const blob = await response.blob();
+          const storageRef = ref(storage, "Images/" + new Date().getTime());
+          await uploadBytesResumable(storageRef, blob);
+          const downloadURL = await getDownloadURL(storageRef);
   
-        const imageDownloadURLs = await Promise.all(uploadImagePromises);
-  
+    
         const data = {
           ...state,
           startDate: minDate,
@@ -146,20 +137,24 @@ export const ConestControler = (minDate, endDate, participants) => {
           participants: participants,
           urlbases: url,
           publishDate: currentDate,
-          image: imageDownloadURLs.filter((url) => url !== null),
+          image: downloadURL,
         };
   
         await addDoc(collection(database, "Contest"), data);
         return true;
-      } catch (error) {
-        console.error("Error saving contest:", error);
+      } else {
+        setShowErrors(true);
         return false;
       }
-    } else {
-      setShowErrors(true);
+    } catch (error) {
+      console.error("Error saving Contest:", error);
       return false;
     }
-  };
+  } else {
+    setShowErrors(true);
+    return false;
+  }
+};
 
   return {
     handleChangeTex,
