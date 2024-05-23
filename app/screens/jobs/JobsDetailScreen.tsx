@@ -143,7 +143,7 @@ export const JobsDetailScreen = ({}) => {
               </Text>
             </View>
 
-            <View style={{ gap: 10, paddingBottom: 250 }}>
+            <View style={{ gap: 10, paddingBottom: 320 }}>
               <Text style={styles.titleBody}>{t("web.url")}</Text>
               <Text
                 style={styles.link}

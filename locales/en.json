@@ -134,6 +134,11 @@
   "working.description": "Description of the job",
   "skills.requirements": "Skills and requirements",
   "job.url": "Link to web page",
+  "successful.edit": "Data edited successfully!",
+"skills.requirements.placeholder": "Enter the skills required",
+"position.name.placeholder": "Name of the position offered",
+"company.name.placeholder": "Enter the company name",
+"working.description.placeholder": "Brief description of the position",
 
   "Remote":"Remoto",
   "Hybrid":"Hybrid",
@@ -149,9 +154,14 @@
   "Full time":"Full time",
   "Part time":"Part time",
 
-  "web.url": "Offical web page",
-
   "edit.profile": "Edit profile",
+  
+  
+  "web.url": "Offical web page",
+  "course.name.placeholder":"Write the name of the course",
+  "spots.placeholder":"Number of spots available",
+  "price.placeholder":"How much it cost",
+  "instructor.name.placeholder":"Who is te one teaching",
   "visit.web": "For more information, you can visit the official page through the link",
   "instructor.name": "Instructor name",
   "course.name": "Course name",

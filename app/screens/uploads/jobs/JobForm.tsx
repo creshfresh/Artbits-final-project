@@ -69,7 +69,7 @@ export const JobFormView = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "position")}
             value={state.position}
-            placeholder={t("basic.information")}
+            placeholder={t("position.name.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.position ? (
@@ -82,7 +82,7 @@ export const JobFormView = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "companyName")}
             value={state.companyName}
-            placeholder={t("basic.information")}
+            placeholder={t("company.name.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.companyName ? (
@@ -200,38 +200,38 @@ export const JobFormView = ({ navigation }) => {
           <Text style={styles.mainTitle}>{t("working.description.title")}</Text>
           <Text style={styles.title}>{t("working.description")}</Text>
           <TextInput
-            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
+            style={[styles.text_intup, { minHeight: 80 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "description")}
             value={state.description}
             multiline={true}
-            placeholder={t("working.description")}
+            placeholder={t("working.description.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.workingHours ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={[styles.divided, { marginTop: 15 }]}>
+        <View style={[styles.divided, { marginTop: 30 }]}>
           <Text style={styles.title}>{t("skills.requirements")}</Text>
           <TextInput
-            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
+            style={[styles.text_intup, { minHeight: 80 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "requirements")}
             value={state.requirements}
             multiline={true}
-            placeholder={t("basic.information")}
+            placeholder={t("skills.requirements.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.requirements ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={[styles.divided, { marginTop: 15 }]}>
+        <View style={[styles.divided, { marginTop: 30 }]}>
           <Text style={styles.title}>{t("job.url")}</Text>
           <TextInput
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "weburl")}
             value={state.weburl}
-            placeholder={t("basic.information")}
+            placeholder={t("web.url.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.weburl ? (

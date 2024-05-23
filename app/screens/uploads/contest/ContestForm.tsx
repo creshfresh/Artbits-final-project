@@ -384,7 +384,7 @@ export const ContestForm = ({ navigation }) => {
           <Text style={grantContesttSyles.errors}>{t("error")}</Text>
         ) : null}
       </View>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -402,7 +402,7 @@ export const ContestForm = ({ navigation }) => {
           color={colors.secondary}
           onPress={pickDocument}
         />
-      </View>
+      </View> */}
       <View
         style={{
           flexDirection: "row",

@@ -111,7 +111,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "courseName")}
             value={state.courseName}
-            placeholder={t("basic.information")}
+            placeholder={t("course.name.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.courseName ? (
@@ -124,7 +124,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "instructorName")}
             value={state.instructorName}
-            placeholder={t("basic.information")}
+            placeholder={t("instructor.name.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.instructorName ? (
@@ -137,7 +137,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "organizationCentre")}
             value={state.organizationCentre}
-            placeholder={t("basic.information")}
+            placeholder={t("organization.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.organizationCentre ? (
@@ -246,7 +246,7 @@ export const CourseForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
 
-          <Text style={styles.title}>{t("shedule")}</Text>
+          <Text style={styles.title}>{t("schedule")}</Text>
           <Dropdown
             style={styles.dropdown}
             placeholderStyle={styles.placeholderStyle}
@@ -276,7 +276,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "price")}
             value={state.price}
-            placeholder={t("prices")}
+            placeholder={t("price.placeholder")}
             keyboardType="numeric"
           />
           {showErrors && !state.price ? (
@@ -288,7 +288,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "spots")}
             value={state.spots}
-            placeholder={t("basic.information")}
+            placeholder={t("spots.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.spots ? (
@@ -300,7 +300,7 @@ export const CourseForm = ({ navigation }) => {
             style={styles.text_intup}
             onChangeText={(value) => handleChangeTex(value, "weburl")}
             value={state.weburl}
-            placeholder={t("basic.information")}
+            placeholder={t("web.url.placeholder")}
             keyboardType="default"
           />
           {showErrors && !state.weburl ? (

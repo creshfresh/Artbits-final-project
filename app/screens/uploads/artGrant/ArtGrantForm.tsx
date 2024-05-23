@@ -358,7 +358,7 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-
+{/* 
         <View
           style={{
             flexDirection: "row",
@@ -377,12 +377,12 @@ export const ArtGrantForm = ({ navigation }) => {
             color={colors.secondary}
             onPress={pickDocument}
           />
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginVertical: 10,
+            // marginVertical: 10,
             justifyContent: "flex-end",
           }}
         >

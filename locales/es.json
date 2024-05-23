@@ -163,7 +163,10 @@
    "spots": "Plazas",
    "course.detail":"Detalle del curso",
    "web.url": "Página web oficial",
-
+   "course.name.placeholder":"Escribe el nombre del curso",
+   "spots.placeholder":"Número de plazas disponibles",
+   "price.placeholder":"Cúanto cuesta",
+   "instructor.name.placeholder":"Quien enseña el curso",
    "prices": "Precios",
    "end.date": "Fecha fin",
    "prices.spots": "Precio y plazas",
@@ -178,8 +181,11 @@
 
    "proyect.removed": "Proyeto eliminado",
    "proyect.removed.saved": "Proyeto eliminado de tus favoritos",
-   "succesful.edit": "¡Datos editados correctamente!"
-
+   "succesful.edit": "¡Datos editados correctamente!",
+   "skills.requirements.placeholder":"Qué se necesita para el puesto",
+   "position.name.placeholder":"Nombre del puesto ofertada",
+   "company.name.placeholder":"Escribe el nombre de la empresa",
+   "working.description.placeholder": "Descripción breve del puesto"
  
 
 
