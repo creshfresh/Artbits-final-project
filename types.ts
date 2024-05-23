@@ -21,6 +21,16 @@ export interface ContestData {
     publishDate: string | null;
     weburl:string
   }
+export interface ProjectData {
+    user_id:string,
+    title: string;
+    url: string [];
+    publish_date: string;
+    description: string | null;
+    fileType: string | null;
+    medium_type: string;
+
+  }
 
   export interface CombinedUser extends FirebaseUser {
     displayName: string | null;

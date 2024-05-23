@@ -63,7 +63,6 @@ export const EditProfile = ({ route, navigation }) => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      // upload the image
       await uploadImage(result.assets[0].uri, "image");
     }
   };

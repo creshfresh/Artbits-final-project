@@ -187,7 +187,8 @@
    "company.name.placeholder":"Escribe el nombre de la empresa",
    "working.description.placeholder": "Descripción breve del puesto",
  
-   "error.image":"Imagen promocional no seleccionada"
-
+   "error.image":"Imagen promocional no seleccionada",
+   "go.home.gallery": "Ir a la galería principal",
+   "go.detail.screen":"Ir al detalle del proyecto"
 
   }

@@ -18,6 +18,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useTranslation } from "../../hooks/useTranslations";
 import { options } from "../../../Constants";
 import { usePersonStore } from "../../../store/store";
+import { ProjectData } from "../../../types";
 
 const win = Dimensions.get("window");
 
@@ -36,6 +37,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       </View>
     );
   };
+
 
   async function saveRecord(
     user_id,
@@ -86,7 +88,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                 );
                 downloadURLs.push(downloadURL);
 
-                // Si todas las URL de descarga se han obtenido, llamar a saveRecord()
                 if (downloadURLs.length === uris.length) {
                   await saveRecord(
                     user.user_id,
@@ -97,7 +98,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                     fileType,
                     value
                   );
-                  navigation.navigate("SuccesUpload");
+                  navigation.navigate("SuccesUpload", );
                 }
               } catch (error) {
                 console.error("Error getting download URL:", error);

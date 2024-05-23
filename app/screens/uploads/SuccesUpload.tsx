@@ -10,7 +10,9 @@ import {
 import { colors } from "../../theme/colors";
 import { useTranslation } from "../../hooks/useTranslations";
 
-export const SuccesUpload = ({ navigation }) => {
+export const SuccesUpload = ({ navigation,route }) => {
+
+  const { proyect } = route.params;
   const background = require("../../../assets/background-blur-2.png");
   const win = Dimensions.get("window");
   const welcomeLogo = require("../../../assets/logo_single.png");
@@ -23,7 +25,7 @@ export const SuccesUpload = ({ navigation }) => {
     });
   };
 
-  
+
 
   return (
     <View
@@ -111,7 +113,7 @@ export const SuccesUpload = ({ navigation }) => {
                 textAlign: "center",
               }}
             >
-              {t("Go to home gallery")}
+              {t("go.home.gallery")}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -126,6 +128,9 @@ export const SuccesUpload = ({ navigation }) => {
               borderColor: colors.main,
               height: "auto",
             }}
+            onPress={()=> {
+              navigation.navigate("PorfolioDetail", { item: proyect })
+            }}
           >
             <Text
               style={{
@@ -136,7 +141,7 @@ export const SuccesUpload = ({ navigation }) => {
                 textAlign: "center",
               }}
             >
-              {t("Go to home gallery")}
+              {t("go.detail.screen")}
             </Text>
           </TouchableOpacity>
         </View>

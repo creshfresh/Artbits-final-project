@@ -29,7 +29,6 @@ export const GalleryCarousel = ({
   const [data, setData] = useState([]);
   const [column, setColums]= useState(2);
 
-  /*Se debe mostrar el orderby publish date y luego por el filtro cuando se presione */
   let filter = viewMode.toLowerCase();
 
   useEffect(() => {

@@ -162,6 +162,18 @@ const UploadStackNavigation = () => {
           },
         })}
       />
+      <Stack.Screen
+        name="PorfolioDetail"
+        component={PorfolioDetail}
+        options={({ navigation }) => ({
+          headerShown: true,
+          animation: "ios",
+          navigationBarColor: "transparent",
+          headerShadowVisible: false,
+          headerTitle: t("detail"),
+        
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -219,7 +231,8 @@ const GalleryStackNavigator = () => {
           headerTransparent: true,
           headerTintColor: colors.text,
           navigationBarColor: "transparent",
-          animation: "ios",          headerTitle: t("detail"),
+          animation: "ios",          
+          headerTitle: t("detail"),
 
           headerLeft: () => (
             <Ionicons

@@ -184,7 +184,8 @@
   "error.image":"Promotional imaged not selected",
 
   "proyect.removed.saved": "Project removed from your favorites",
-  "succesful.edit": "Data updated succesfully!"
-
+  "succesful.edit": "Data updated succesfully!",
+  "go.home.gallery": "Go to home gallery",
+  "go.detail.screen":"Go to project detail"
 
 }
