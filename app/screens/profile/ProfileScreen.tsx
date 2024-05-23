@@ -41,7 +41,9 @@ export const ProfileScreen = ({ route, navigation }) => {
   type ViewMode = "Portfolio" | "About" | "Saved";
 
   const { signOutZustand } = usePersonStore();
-  const handleSignout = () => {
+  const handleSignout = async () => {
+    await signOut(auth);
+    await AsyncStorage.removeItem("@user");
     signOutZustand();
   };
   const header = require("../../../assets/headerprofile.png");

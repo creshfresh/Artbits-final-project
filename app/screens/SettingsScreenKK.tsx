@@ -8,6 +8,7 @@ export const SettingsScreenKK = ({ navigation }) => {
   const { signOutZustand } = usePersonStore();
   const user = usePersonStore((state) => state.user);
   const handleSignout = () => {
+    
     signOutZustand();
     navigation.navigate("Sign in");
   };
