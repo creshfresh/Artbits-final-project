@@ -185,8 +185,9 @@
    "skills.requirements.placeholder":"Qué se necesita para el puesto",
    "position.name.placeholder":"Nombre del puesto ofertada",
    "company.name.placeholder":"Escribe el nombre de la empresa",
-   "working.description.placeholder": "Descripción breve del puesto"
+   "working.description.placeholder": "Descripción breve del puesto",
  
+   "error.image":"Imagen promocional no seleccionada"
 
 
   }

@@ -11,6 +11,7 @@ import {
 import { usePersonStore } from "../../../store/store";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
+import { formatDateTranslated } from "../../hooks/useTranslateDate";
 const screenWidth = Dimensions.get("window").width;
 const win = Dimensions.get("window");
 
@@ -20,6 +21,13 @@ export const ContestDetailScreen = ({}) => {
   const user = usePersonStore((state) => state.user);
   //   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
+
+  const finishDateFormated = new Date(route.params.item.finishDate.seconds * 1000);;
+  const startDateFormated = new Date(route.params.item.startDate.seconds * 1000);;
+
+  const newFinishDate = formatDateTranslated(finishDateFormated);
+  const newStarthDate = formatDateTranslated(startDateFormated);
+
 
   return (
     <ScrollView
@@ -89,13 +97,11 @@ export const ContestDetailScreen = ({}) => {
               >
                 <View style={{ justifyContent: "center" }}>
                   <Text style={styles.subtitle}>{t("start.date")}</Text>
-                  {/* Aqui tengo que coger la fecha formateada */}
-                  <Text style={styles.body}>19/05/2024</Text>
+                  <Text style={styles.body}>{newStarthDate}</Text>
                 </View>
                 <View style={{ justifyContent: "center" }}>
-                  {/* Aqui tengo que coger la fecha formateada */}
                   <Text style={styles.subtitle}>{t("dead.line")}</Text>
-                  <Text style={styles.body}>19/05/2024</Text>
+                  <Text style={styles.body}>{newFinishDate}</Text>
                 </View>
          
               </View>
@@ -143,7 +149,8 @@ export const ContestDetailScreen = ({}) => {
             <Text style={styles.titleBody}>{t("terms")}</Text>
             <Text style={styles.bodybody}>{route.params.item.terms}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 200 }}>
+          <View style={{ gap: 10, paddingBottom: 220
+           }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
             <Text
               style={styles.link}
@@ -169,6 +176,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
+    minHeight:80,
     backgroundColor: "#D7E2F4",
   },
   division: {

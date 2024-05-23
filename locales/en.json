@@ -181,6 +181,7 @@
   "succesfull.upload":"Succesfull upload!",
   "proyect.removed": "Project removed",
   "project.saved":"Proyect saved!",
+  "error.image":"Promotional imaged not selected",
 
   "proyect.removed.saved": "Project removed from your favorites",
   "succesful.edit": "Data updated succesfully!"

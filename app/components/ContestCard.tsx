@@ -11,22 +11,7 @@ import { formatDateTranslated } from "../hooks/useTranslateDate";
 export const ContestCard = (item: ContestData | ArtGrantData | any) => {
   const { t } = useTranslation();
   const finishDateFormated = new Date(item.data.finishDate.seconds * 1000);
-  // const formateToDate = (date) => {
-  //   return date.toLocaleDateString("es-ES", {
-  //     day: "numeric",
-  //     month: "short",
-  //     year: "2-digit",
-  //   });
-  // };
-
-  // const formatDateTranslated = (date: Date) => {
-  //   const dd: string = formateToDate(date);
-  //   const [day, month, year] = dd.split(" ");
-  //   const translatedMont = t(month).toUpperCase();
-  //   const newDateTranslated = `${day} ${translatedMont} ${year}`;
-
-  //   return newDateTranslated;
-  // };
+;
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
 

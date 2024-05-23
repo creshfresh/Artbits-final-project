@@ -72,13 +72,12 @@ export const ContestForm = ({ navigation }) => {
       } else {
         setAgeError(false);
       }
-    }, 400); 
+    }, 400);
 
     return () => {
       clearTimeout(debounceRef.current);
     };
   }, [state.minAge, state.maxAge]);
-
 
   const handleSave = async () => {
     const success = await saveContest(pickedPdf);
@@ -426,33 +425,25 @@ export const ContestForm = ({ navigation }) => {
         <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
           {t("select.promotional.image")}
         </Text>
-        {showErrors &&
-        image != undefined &&
-        image != "" ? (
-          <Text style={grantContesttSyles.errors}>{t("error.pdf")}</Text>
-        ) : (
-          pickedPdf &&
-          pickedPdf.assets[0].uri.endsWith(".pdf") && (
-            <>
-              <FontAwesome
-                name="file-pdf-o"
-                size={20}
-                color={colors.main}
-              ></FontAwesome>
-              <Text
-                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
-              >
-                {t("pdf.selected")}
-              </Text>
-            </>
-          )
-        )}
         <Ionicons
           name="add-circle"
           size={30}
           color={colors.secondary}
           onPress={pickImage}
         />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
+          marginEnd: 5,
+          justifyContent: "flex-end",
+        }}
+      >
+        {showErrors && image === "" ? (
+          <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
+        ) : null}
       </View>
       <View
         style={{
