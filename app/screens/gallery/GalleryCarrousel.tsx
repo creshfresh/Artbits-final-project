@@ -95,8 +95,11 @@ export const GalleryCarousel = ({
           renderItem={({ item }) => (
             <View style={{ flex: 1, margin: 2 }}>
               <Pressable
-                onPress={() =>
+                onPress={() =>{
+                  console.log(item)
                   navigation.navigate("PorfolioDetail", { item: item })
+
+                }
                 }
               >
                 <Image

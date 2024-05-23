@@ -62,8 +62,10 @@ export const PorfolioDetail = ({ route, navigation }) => {
     });
   };
 
+
+
   useEffect(() => {
-    if (!item || !item.user_id) return;
+    if (!item && !item.user_id) return;
 
     const collectionRef = collection(database, "Users");
     const q = query(collectionRef, where("user_id", "==", item.user_id));
@@ -89,14 +91,18 @@ export const PorfolioDetail = ({ route, navigation }) => {
   }, [item, setName]);
 
   const handleSave = async () => {
-    !saved ? saveProject(item) : onDeleteSavedProject();
+    if (!saved) {
+      saveProject(item);
+    } else {
+      onDelete();
+    }
   };
 
   const saveProject = (project) => {
     const savedProjectsRef = collection(database, "SavedArtworks");
     const saveUserId = user.user_id;
     const projectWithSaveUserId = { ...project, save_user_id: saveUserId };
-  
+
     addDoc(savedProjectsRef, projectWithSaveUserId)
       .then(() => {
         ToastAndroid.showWithGravity(
@@ -104,19 +110,21 @@ export const PorfolioDetail = ({ route, navigation }) => {
           ToastAndroid.SHORT,
           ToastAndroid.CENTER
         );
+        setSaved(true);
       })
       .catch((error) => {
+        console.log(error);
         Alert.alert("Error", "no se ha podido guardar el proyecto");
+        setSaved(false);
       });
   };
-  
 
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
     const q = query(
       savedProjectsRef,
       where("user_id", "==", item.user_id),
-      where("id", "==", item.id)
+      where("save_user_id", "==", user.user_id)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -134,33 +142,89 @@ export const PorfolioDetail = ({ route, navigation }) => {
     isSaved();
   }, [item]);
 
-
   const onDelete = async () => {
-    try {
-      const deleteRef = doc(database, "Projects", item.id);
-      await deleteDoc(deleteRef).then(() => {
-        ToastAndroid.showWithGravity(
-          t("proyect.removed"),
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER
-        ),
-          navigation.reset({
-            index: 0,
-            // @ts-ignore: this works fine even if it shows an error
-            routes: [{ name: "Home" }],
-          });
-      });
-    } catch (error) {
-      Alert.alert("Error:", error.message);
-    }
-  };
-  const onDeleteSavedProject = async () => {
     try {
       const savedProjectsRef = collection(database, "SavedArtworks");
       const q = query(
         savedProjectsRef,
         where("user_id", "==", item.user_id),
-        where("id", "==", item.id)
+        where("save_user_id", "==", user.user_id)
+      );
+
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const deleteRef = doc(
+          database,
+          "SavedArtworks",
+          querySnapshot.docs[0].id
+        );
+        await deleteDoc(deleteRef).then(() => {
+          ToastAndroid.showWithGravity(
+            t("proyect.removed.saved"),
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+          setSaved(false);
+        });
+      }
+    } catch (error) {
+      Alert.alert("Error:", error.message);
+    }
+  };
+  // const onDelete = async () => {
+  //   console.log("Puta mierda")
+
+  //   try {
+  //     // const deleteRef = doc(database, "Projects", item.id);
+  //     // await deleteDoc(deleteRef).then(() => {
+  //     //   ToastAndroid.showWithGravity(
+  //     //     t("proyect.removed"),
+  //     //     ToastAndroid.SHORT,
+  //     //     ToastAndroid.CENTER
+  //     //   ),
+  //     //     navigation.reset({
+  //     //       index: 0,
+  //     //       // @ts-ignore: this works fine even if it shows an error
+  //     //       routes: [{ name: "Home" }],
+  //     //     });
+  //     // });
+    
+  //     const savedProjectsRef = collection(database, "SavedArtworks");
+  //     const q = query(
+  //       savedProjectsRef,
+  //       where("user_id", "==", item.user_id),
+  //       where("save_user_id", "==", user.user_id)
+  //     );
+    
+  //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //       if (!querySnapshot.empty) {
+  //         const deleteRef = doc(database, "SavedArtworks", querySnapshot.docs[0].id);
+  //         deleteDoc(deleteRef).then(() => {
+  //           ToastAndroid.showWithGravity(
+  //             t("proyect.removed.saved"),
+  //             ToastAndroid.SHORT,
+  //             ToastAndroid.CENTER
+  //           );
+  //           setSaved(false);
+  //         });
+  //       }
+  //     });
+
+  //     return () => unsubscribe();
+  //   } catch (error) {
+  //     Alert.alert("Error:", error.message);
+  //   }
+    
+  // };
+  const onDeleteSavedProject = async () => {
+    console.log("Puta mierda jeje")
+
+    try {
+      const savedProjectsRef = collection(database, "SavedArtworks");
+      const q = query(
+        savedProjectsRef,
+        where("user_id", "==", item.user_id),
+        where("save_user_id", "==", user.user_id)
       );
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
@@ -274,7 +338,8 @@ export const PorfolioDetail = ({ route, navigation }) => {
                 size={30}
                 style={saved ? styles.saved : styles.notsaved}
                 onPress={() => {
-                  setSaved(!saved), handleSave();
+                  // setSaved(!saved)
+                  handleSave();
                 }}
               ></Ionicons>
             )}
