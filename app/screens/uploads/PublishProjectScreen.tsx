@@ -24,7 +24,7 @@ const win = Dimensions.get("window");
 
 export const PublishProjectScreen = ({ route, navigation }) => {
   const { image } = route.params;
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("Traditional");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const user = usePersonStore((state) => state.user);
@@ -164,6 +164,23 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View
+              style={{
+                marginVertical: 15,
+              }}
+            >
+              <Text
+                style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}
+              >
+                *{t("title")}
+              </Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={setTitle}
+                placeholder={t("title.placeholder")}
+                keyboardType="default"
+              />
+            </View>
+          <View
             style={{
               marginTop: 15,
             }}
@@ -184,7 +201,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-              {t("medium.type")}
+            *{t("medium.type")}
             </Text>
             <Dropdown
               style={styles.dropdown}
@@ -203,25 +220,9 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               }}
               renderItem={renderItem}
             />
-            <View
-              style={{
-                marginVertical: 15,
-              }}
-            >
-              <Text
-                style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}
-              >
-                *{t("title")}
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={setTitle}
-                placeholder={t("title.placeholder")}
-                keyboardType="default"
-              />
-            </View>
+           
           </View>
-          {title !== "" ? (
+          {title !== "" && value !== "" ? (
             <TouchableOpacity
               style={{
                 marginTop: 30,

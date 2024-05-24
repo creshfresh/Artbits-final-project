@@ -196,6 +196,28 @@ export const PorfolioDetail = ({ route, navigation }) => {
   };
 
 const onDeleteProject = async ()=> {
+
+  //Comprobar si el proyecto está en los guardados
+  const savedProjectsRef = collection(database, "SavedArtworks");
+  const q = query(
+    savedProjectsRef,
+    where("id", "==", item.id),
+
+  );
+  const querySnapshot = await getDocs(q);
+  if (!querySnapshot.empty) {
+    const deleteRef = doc(
+      database,
+      "SavedArtworks",
+      querySnapshot.docs[0].id
+    );
+    await deleteDoc(deleteRef)
+
+  
+  } else 
+  {
+    console.log("resultado vacio", item.id)
+  }
   try {
     const deleteRef = doc(database, "Projects", item.id);
     await deleteDoc(deleteRef).then(() => {
@@ -211,7 +233,7 @@ const onDeleteProject = async ()=> {
         });
     });
   } catch (error) {
-    Alert.alert("Error:", error.message);
+    Alert.alert("Error: cant delete project", );
   }
   };
 
