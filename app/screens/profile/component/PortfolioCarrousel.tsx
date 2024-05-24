@@ -126,9 +126,11 @@ export const ProfolioCarrousel = ({
               <View style={{ marginTop: 10 }}>
                     <Pressable
                       style={styles.findButton}
-                      onPress={()=> {}}
+                      onPress={()=> {navigation.navigate('ProjectUploadScreen'
+                    );
+                    }}
                     >
-                      <Text style={styles.buttontext}>{t("find.work")}</Text>
+                      <Text style={styles.buttontext}>{t("upload.work")}</Text>
                     </Pressable>
                   </View>
               </View>

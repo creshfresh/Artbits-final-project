@@ -50,6 +50,7 @@
   "title.placeholder": "What is the title of your work",
   "description.placeholder": "Add a description to the project",
   "select.option": "Select an option",
+  "upload.work":"Upload work",
 
   "art.grants": "Art grants",
   "art.grant.detail": "Art grant detail",

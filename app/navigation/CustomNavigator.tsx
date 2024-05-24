@@ -121,9 +121,7 @@ const UploadStackNavigation = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-          // headerStyle: {
-          //   backgroundColor: "transparent",
-          // },
+      
         })}
       />
       <Stack.Screen
@@ -527,6 +525,57 @@ const PortfolioStackNavigator = () => {
           ),
         })}
       />
+       <Stack.Screen
+        name="ProjectUploadScreen"
+        component={ProjectUploadScreen}
+        options={({ navigation }) => ({
+          headerTitle: t("upload"),
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+  
+      <Stack.Screen
+        name="PublishProjectScreen"
+        component={PublishProjectScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          navigationBarColor: "transparent",
+
+          headerTitle: "Info",
+          headerLeft: () => (
+            <Ionicons
+              name="chevron-back-outline"
+              size={25}
+              color={colors.secondary}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+       
+        })}
+      />
+      <Stack.Screen
+        name="SuccesUpload"
+        component={SuccesUpload}
+        options={({ navigation }) => ({
+          headerShown: false,
+          navigationBarColor: "transparent",
+          headerShadowVisible: false,
+          animation: "ios",
+          headerTitle: "Info",
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+        })}
+      />
+
     </Stack.Navigator>
   );
 };

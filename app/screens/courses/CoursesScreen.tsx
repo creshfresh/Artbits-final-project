@@ -18,6 +18,8 @@ export const CoursesScreen = ({ navigation }) => {
       navigation.setOptions({ tabBarVisible: true });
     };
   }, []);
+
+  
   return (
     <View style={{ flex: 1, padding: 10 }}>
             <Text style={styles.text}> {t("find")} {data.length} {t("courses.min")}</Text>

@@ -44,6 +44,7 @@
    
     "mandatory.field":"Todo marcado con un (*) es un campo obligatorio",
     "all.mandatory.field":"Todos los campos son obligatorios",
+    "upload.work":"Subir proyecto",
 
     "detail":"Detalle",
     "title":"Título",

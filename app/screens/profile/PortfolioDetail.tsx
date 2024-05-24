@@ -238,36 +238,54 @@ export const PorfolioDetail = ({ route, navigation }) => {
   //   } catch (error) {
   //     Alert.alert("Error:", error.message);
   //   }
-
-  // };
-  const onDeleteSavedProject = async () => {
-    try {
-      const savedProjectsRef = collection(database, "SavedArtworks");
-      const q = query(
-        savedProjectsRef,
-        where("user_id", "==", item.user_id),
-        where("save_user_id", "==", user.user_id)
-      );
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        const deleteRef = doc(
-          database,
-          "SavedArtworks",
-          querySnapshot.docs[0].id
-        );
-        await deleteDoc(deleteRef).then(() => {
-          ToastAndroid.showWithGravity(
-            t("proyect.removed.saved"),
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-          );
-          setSaved(false);
+const onDeleteProject = async ()=> {
+  try {
+    const deleteRef = doc(database, "Projects", item.id);
+    await deleteDoc(deleteRef).then(() => {
+      ToastAndroid.showWithGravity(
+        t("proyect.removed"),
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      ),
+        navigation.reset({
+          index: 0,
+          // @ts-ignore: this works fine even if it shows an error
+          routes: [{ name: "Home" }],
         });
-      }
-    } catch (error) {
-      Alert.alert("Error:", error.message);
-    }
+    });
+  } catch (error) {
+    Alert.alert("Error:", error.message);
+  }
   };
+  // };
+  // const onDeleteSavedProject = async () => {
+  //   try {
+  //     const savedProjectsRef = collection(database, "SavedArtworks");
+  //     const q = query(
+  //       savedProjectsRef,
+  //       where("user_id", "==", item.user_id),
+  //       where("save_user_id", "==", user.user_id)
+  //     );
+  //     const querySnapshot = await getDocs(q);
+  //     if (!querySnapshot.empty) {
+  //       const deleteRef = doc(
+  //         database,
+  //         "SavedArtworks",
+  //         querySnapshot.docs[0].id
+  //       );
+  //       await deleteDoc(deleteRef).then(() => {
+  //         ToastAndroid.showWithGravity(
+  //           t("proyect.removed.saved"),
+  //           ToastAndroid.SHORT,
+  //           ToastAndroid.CENTER
+  //         );
+  //         setSaved(false);
+  //       });
+  //     }
+  //   } catch (error) {
+  //     Alert.alert("Error:", error.message);
+  //   }
+  // };
 
   return (
     <ScrollView
@@ -278,7 +296,7 @@ export const PorfolioDetail = ({ route, navigation }) => {
         <Text style={styles.title}>{item.title}</Text>
         {item.user_id === user.user_id && (
           <Ionicons
-            onPress={onDelete}
+            onPress={onDeleteProject}
             name="trash-outline"
             size={25}
             color={colors.secondary}

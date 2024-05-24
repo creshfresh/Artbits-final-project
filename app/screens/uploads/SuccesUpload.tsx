@@ -128,9 +128,9 @@ export const SuccesUpload = ({ navigation,route }) => {
               borderColor: colors.main,
               height: "auto",
             }}
-            onPress={()=> {
-              navigation.navigate("PorfolioDetail", { item: proyect })
-            }}
+            // onPress={()=> {
+            //   navigation.navigate("PorfolioDetail", { item: proyect })
+            // }}
           >
             <Text
               style={{
