@@ -34,7 +34,7 @@ export const ContestCard = (item: ContestData | ArtGrantData | any) => {
     >
      <Image
         source={{
-          uri: item.data.image
+          uri: item.data.image[0]
         }}
         style={{
           minWidth: 75,

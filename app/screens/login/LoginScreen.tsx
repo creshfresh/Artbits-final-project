@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 
 import {
@@ -60,7 +60,7 @@ export default function LoginScreen({}) {
         .catch((error) => alert("Invalid credentials"));
     } else {
       setShowEmailError(!isValidEmail(email));
-      setShowPasswordError(!isValidPassword(password)); 
+      setShowPasswordError(!isValidPassword(password));
     }
   };
 
@@ -115,6 +115,7 @@ export default function LoginScreen({}) {
           )}
           <View style={[styles.textInput, { justifyContent: "space-between" }]}>
             <TextInput
+              style={styles.textInput}
               value={password}
               secureTextEntry={viewPassword}
               onChangeText={(pwd) => {

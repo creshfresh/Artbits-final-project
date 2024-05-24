@@ -222,11 +222,6 @@ export const ContestForm = ({ navigation }) => {
             editable={isChecked}
           />
         </View>
-        {/* {showErrors && !state.totalCash && !isChecked ? (
-          <Text style={[grantContesttSyles.errors, { marginBottom: 10 }]}>
-            {t("error")}
-          </Text>
-        ) : null} */}
 
         <View style={grantContesttSyles.divided}>
           <Text style={grantContesttSyles.title}>{t("start.date")}</Text>
@@ -443,7 +438,23 @@ export const ContestForm = ({ navigation }) => {
       >
         {showErrors && image === "" ? (
           <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
-        ) : null}
+        ) : (
+          null
+        )}
+             {image != "" && (
+            <>
+              <Ionicons
+                name="image-outline"
+                size={20}
+                color={colors.main}
+              ></Ionicons>
+              <Text
+                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+              >
+                {t("image.selected")}
+              </Text>
+            </>
+          )}
       </View>
       <View
         style={{
@@ -484,10 +495,7 @@ export const ContestForm = ({ navigation }) => {
       >
         <Pressable
           style={grantContesttSyles.publish_button}
-          onPress={
-          
-               handleSave
-          }
+          onPress={handleSave}
         >
           <Text style={grantContesttSyles.publis_button_text}>
             {t("publish")}

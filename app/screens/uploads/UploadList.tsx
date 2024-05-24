@@ -33,7 +33,7 @@ export const UploadList = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={{ flex: 1, padding: 10 , marginTop:30}}>
+      <View style={{ flex: 1, padding: 10, marginTop: 30 }}>
         <FlashList
           horizontal={false}
           data={data}
@@ -41,16 +41,16 @@ export const UploadList = ({ navigation }) => {
           estimatedItemSize={300}
           keyExtractor={(item) => item.toString()}
           renderItem={({ item }) => (
-            <View style={styles.container}>
-              <Text style={styles.text}>{item}</Text>
-              <Pressable onPress={() => handleNavigation(item)}>
+            <Pressable onPress={() => handleNavigation(item)}>
+              <View style={styles.container}>
+                <Text style={styles.text}>{item}</Text>
                 <Ionicons
                   size={25}
                   name="chevron-forward-outline"
                   color={colors.secondary}
                 ></Ionicons>
-              </Pressable>
-            </View>
+              </View>
+            </Pressable>
           )}
         />
       </View>

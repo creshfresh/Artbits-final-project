@@ -36,7 +36,6 @@ const UploadStackNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        
         headerShown: true,
         headerBackTitleVisible: false,
         headerShadowVisible: false,

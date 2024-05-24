@@ -1,10 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../theme/colors";
@@ -14,18 +9,14 @@ export const FlatListContestInternships = ({ navigation }) => {
 
   const data: string[] = ["contests", "artGrants", "courses"];
   const handleNavigation = (item) => {
-    if(
-      item === "artGrants"
-    )
-      navigation.navigate("ArtGrantScreen")
-      else if (      item === "contests"
-    )navigation.navigate("ContestScreen");
-    else{
+    if (item === "artGrants") navigation.navigate("ArtGrantScreen");
+    else if (item === "contests") navigation.navigate("ContestScreen");
+    else {
       navigation.navigate("CoursesScreen");
     }
   };
   return (
-    <View style={{ flex: 1, padding: 10, marginTop:30 }}>
+    <View style={{ flex: 1, padding: 10, marginTop: 30 }}>
       <FlashList
         horizontal={false}
         data={data}
@@ -33,19 +24,16 @@ export const FlatListContestInternships = ({ navigation }) => {
         estimatedItemSize={300}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
-          <View style={styles.container}>
-            <Text style={styles.text}>{t(item.toString())}</Text>
-            <Pressable
-              onPress={() =>
-                handleNavigation(item)
-              }>
+          <Pressable onPress={() => handleNavigation(item)}>
+            <View style={styles.container}>
+              <Text style={styles.text}>{t(item.toString())}</Text>
               <Ionicons
                 size={25}
                 name="chevron-forward-outline"
                 color={colors.secondary}
               ></Ionicons>
-            </Pressable>
-          </View>
+            </View>
+          </Pressable>
         )}
       />
     </View>
