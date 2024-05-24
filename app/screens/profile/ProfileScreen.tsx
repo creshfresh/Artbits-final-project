@@ -61,64 +61,7 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         ></Image>
         {navigateUser ? (
-          navigateUser[0].user_id === user.user_id ? (
-            <>
-              <View
-                style={{
-                  position: "absolute",
-                  flexDirection: "row",
-                  marginTop: 100,
-                  right:20,
-                  marginStart: 0,
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Pressable
-                  style={{ alignItems: "center", flexDirection: "row" }}
-                  onPress={handleTranslation}
-                >
-                  <Feather name="globe" size={20} color={colors.secondary} />
-                  {getCurrentLocale() === "en" ? (
-                    <Text style={styles.translation}> EN</Text>
-                  ) : (
-                    <Text style={styles.translation}> ES</Text>
-                  )}
-                </Pressable>
-              </View>
-              <View
-                style={{
-                  position: "absolute",
-                  flexDirection: "row",
-                  marginStart: windowWidth * 0.78,
-                  alignItems: "center",
-                  display: "flex",
-                  marginTop: 35,
-                  gap: 15,
-                }}
-              >
-                <Ionicons
-                  name="log-out-outline"
-                  size={28}
-                  onPress={async () => {
-                    await signOut(auth);
-                    await AsyncStorage.removeItem("@user");
-                    handleSignout();
-                  }}
-                  color={colors.secondary}
-                  style={{ marginTop: 20 }}
-                />
-                <Feather
-                  name="edit-2"
-                  onPress={() => {
-                    navigation.navigate("EditProfile");
-                  }}
-                  size={22}
-                  color={colors.secondary}
-                  style={{ marginTop: 20 }}
-                />
-              </View>
-            </>
-          ) : null
+         null
         ) : (
           <>
             <View

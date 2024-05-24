@@ -66,14 +66,13 @@ export default function SignInScreen({}) {
           const appUser: AppUser | any= {
             displayName:"Giotto Gúrpide",
             email: user.email,
-            country: "", 
-            city: "", 
-            about_description: "", 
+            country: "España", 
+            city: "Zaramordor", 
+            about_description: "Tell something about you", 
             avatar: user.photoURL,
             web_url: "google.com",
             rol: "artist", 
             user_id: user.uid,
-            skills: [""]
           
           }
           setUser(appUser)
@@ -141,7 +140,7 @@ export default function SignInScreen({}) {
           return unsubscribe;
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Error Log in: invalid credentials");
           console.error("Error signing in: ", error);
         });
     } else {
