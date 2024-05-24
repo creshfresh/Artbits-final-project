@@ -67,8 +67,9 @@ export const ProfileScreen = ({ route, navigation }) => {
                 style={{
                   position: "absolute",
                   flexDirection: "row",
-                  marginTop: 50,
-                  marginStart: 20,
+                  marginTop: 100,
+                  right:20,
+                  marginStart: 0,
                   justifyContent: "flex-start",
                 }}
               >
@@ -91,6 +92,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                   marginStart: windowWidth * 0.78,
                   alignItems: "center",
                   display: "flex",
+                  marginTop: 35,
                   gap: 15,
                 }}
               >

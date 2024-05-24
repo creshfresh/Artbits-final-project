@@ -1,12 +1,5 @@
 import { FlashList } from "@shopify/flash-list";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where
-
-   
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
   Dimensions,
@@ -35,6 +28,13 @@ export const ProfolioCarrousel = ({
   const [data, setData] = useState([]);
   const { t } = useTranslation();
 
+  const handleNavigateToHome = () => {
+    navigation.reset({
+      index: 0,
+      // @ts-ignore: esto funciona bien pero da un error si no porngo el ts-ignore
+      routes: [{ name: "Home" }],
+    });
+  };
   useEffect(() => {
     const userId =
       navigateUser !== null && navigateUser !== undefined
@@ -60,14 +60,155 @@ export const ProfolioCarrousel = ({
     return unsubscribe;
   }, [navigateUser]);
 
+  console.log(data);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: "transparent" }}
     >
-      {navigateUser === null || navigateUser === undefined ? (
+    {navigateUser === null || navigateUser === undefined ? (
         data.length > 0 ? (
           <FlashList
+            data={data}
+            numColumns={1}
+            horizontal={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            estimatedItemSize={Dimensions.get("window").width / 2 - 20}
+            renderItem={({ item }) => (
+              <View style={{ flex: 1, margin: 2 }}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("PorfolioDetail", { item: item })
+                }
+              >
+                <View
+                  style={{
+                    backgroundColor: colors.palette.white,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderBottomEndRadius: 3,
+                    borderBottomStartRadius: 3,
+                  }}
+                >
+                  <Image
+                    source={{ uri: item.url[0] }}
+                    style={{
+                      width: "100%",
+                      minHeight: 250,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      borderColor: "#d35647",
+                      resizeMode: "cover",
+                    }}
+                  />
+                  <Text
+                    style={{
+                      marginVertical: 10,
+                      marginHorizontal: 10,
+                      fontWeight: 600,
+                      letterSpacing: 0.7,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
+            )}
+          />
+        ) : (
+          <View style={{ flex: 1, padding: 50 }}>
+          <View style={styles.justifyTitle}>
+            <Text style={styles.mainTitle}>{t("create.first.work")}</Text>
+            <Text style={styles.text}>{t("create.first.work.body")}</Text>
+            <View style={{ marginTop: 10 }}>
+              <View style={{ marginTop: 10 }}>
+                <Pressable
+                  style={styles.findButton}
+                  onPress={() => {
+                    navigation.navigate("ProjectUploadScreen");
+                  }}
+                >
+                  <Text style={styles.buttontext}>{t("upload.work")}</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </View>
+        )
+      ) : (
+        <>
+          {navigateUser.user_id === user.user_id ? (
+            data.length > 0 ? (
+              <FlashList
+              data={data}
+              numColumns={1}
+              horizontal={false}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              estimatedItemSize={Dimensions.get("window").width / 2 - 20}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <View style={{ flex: 1, margin: 2 }}>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate("PorfolioDetail", { item: item })
+                    }
+                  >
+                    <View
+                      style={{
+                        backgroundColor: colors.palette.white,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        borderBottomEndRadius: 3,
+                        borderBottomStartRadius: 3,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: item.url[0] }}
+                        style={{
+                          width: "100%",
+                          minHeight: 250,
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                          borderColor: "#d35647",
+                          resizeMode: "cover",
+                        }}
+                      />
+                      <Text
+                        style={{
+                          marginVertical: 10,
+                          marginHorizontal: 10,
+                          fontWeight: 600,
+                          letterSpacing: 0.7,
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                    </View>
+                  </Pressable>
+                </View>
+                )}
+              />
+            ) : (
+              <View style={{ flex: 1, padding: 50 }}>
+                <View style={styles.justifyTitle}>
+                  <Text style={styles.mainTitle}>{t("save.first.work")}</Text>
+                  <Text style={styles.text}>{t("save.first.work.body")}</Text>
+                  <View style={{ marginTop: 10 }}>
+                    <Pressable
+                      style={styles.findButton}
+                      onPress={handleNavigateToHome}
+                    >
+                      <Text style={styles.buttontext}>{t("find.work")}</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            )
+          ) : data.length > 0 ? (
+           <FlashList
             data={data}
             numColumns={1}
             horizontal={false}
@@ -117,81 +258,12 @@ export const ProfolioCarrousel = ({
               </View>
             )}
           />
-        ) : (
-          <View style={{ flex: 1, padding: 50 }}>
-            <View style={styles.justifyTitle}>
-              <Text style={styles.mainTitle}>{t("create.first.work")}</Text>
-              <Text style={styles.text}>{t("create.first.work.body")}</Text>
-              <View style={{ marginTop: 10 }}>
-              <View style={{ marginTop: 10 }}>
-                    <Pressable
-                      style={styles.findButton}
-                      onPress={()=> {navigation.navigate('ProjectUploadScreen'
-                    );
-                    }}
-                    >
-                      <Text style={styles.buttontext}>{t("upload.work")}</Text>
-                    </Pressable>
-                  </View>
-              </View>
-            </View>
-          </View>
-        )
-      ) : navigateUser.user_id === user.user_id ? (
-        <FlashList
-          data={data}
-          numColumns={1}
-          horizontal={false}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          estimatedItemSize={Dimensions.get("window").width / 2 - 20}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={{ flex: 1, margin: 2 }}>
-              <Pressable
-                onPress={() =>
-                  navigation.navigate("PorfolioDetail", { item: item })
-                }
-              >
-                <View
-                  style={{
-                    backgroundColor: colors.palette.white,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    borderBottomEndRadius: 3,
-                    borderBottomStartRadius: 3,
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.url[0] }}
-                    style={{
-                      width: "100%",
-                      minHeight: 250,
-                      borderTopLeftRadius: 10,
-                      borderTopRightRadius: 10,
-                      borderColor: "#d35647",
-                      resizeMode: "cover",
-                    }}
-                  />
-                  <Text
-                    style={{
-                      marginVertical: 10,
-                      marginHorizontal: 10,
-                      fontWeight: 600,
-                      letterSpacing: 0.7,
-                    }}
-                  >
-                    {item.title}
-                  </Text>
-                </View>
-              </Pressable>
+          ) : (
+            <View style={[styles.justifyTitle, { paddingVertical: 60 }]}>
+              <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
             </View>
           )}
-        />
-      ) : (
-        <View style={[styles.justifyTitle, { paddingVertical: 60 }]}>
-        <Text style={styles.mainTitle}>{t("not.saved.artwork")}</Text>
-      </View>
+        </>
       )}
     </ScrollView>
   );

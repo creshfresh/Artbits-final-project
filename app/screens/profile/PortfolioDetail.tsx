@@ -140,7 +140,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
         setSaved(false);
       });
   };
-  console.log(item);
 
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
