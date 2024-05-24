@@ -40,7 +40,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     const {
       name,
       organization,
-      totalGranted,
       destinyCentre,
       finishDate,
       minAge,
@@ -56,7 +55,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     return (
       name &&
       organization &&
-      totalGranted &&
       destinyCentre &&
       finishDate &&
       minAge &&

@@ -36,6 +36,7 @@ const UploadStackNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        
         headerShown: true,
         headerBackTitleVisible: false,
         headerShadowVisible: false,
@@ -151,6 +152,7 @@ const UploadStackNavigation = () => {
         component={SuccesUpload}
         options={({ navigation }) => ({
           headerShown: false,
+          gestureEnabled:false,
           navigationBarColor: "transparent",
           headerShadowVisible: false,
           animation: "ios",
@@ -564,8 +566,10 @@ const PortfolioStackNavigator = () => {
       <Stack.Screen
         name="SuccesUpload"
         component={SuccesUpload}
+        
         options={({ navigation }) => ({
           headerShown: false,
+          gestureEnabled:false,
           navigationBarColor: "transparent",
           headerShadowVisible: false,
           animation: "ios",

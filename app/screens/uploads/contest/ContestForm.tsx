@@ -48,7 +48,7 @@ export const ContestForm = ({ navigation }) => {
     pickedPdf,
     pickImage,
     image,
-    pickDocument,
+    // pickDocument,
   } = ConestControler(startDate, endDate, participants);
 
   const handleEmptyValues = () => {
@@ -222,11 +222,11 @@ export const ContestForm = ({ navigation }) => {
             editable={isChecked}
           />
         </View>
-        {showErrors && !state.totalCash && !isChecked ? (
+        {/* {showErrors && !state.totalCash && !isChecked ? (
           <Text style={[grantContesttSyles.errors, { marginBottom: 10 }]}>
             {t("error")}
           </Text>
-        ) : null}
+        ) : null} */}
 
         <View style={grantContesttSyles.divided}>
           <Text style={grantContesttSyles.title}>{t("start.date")}</Text>
@@ -251,9 +251,9 @@ export const ContestForm = ({ navigation }) => {
           {startDateError ? (
             <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
-          {showErrors && !state.startDate ? (
+          {/* {showErrors && !state.startDate ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
-          ) : null}
+          ) : null} */}
         </View>
 
         <View style={grantContesttSyles.divided}>
@@ -346,7 +346,7 @@ export const ContestForm = ({ navigation }) => {
           placeholder={t("work.specifications.placeholder")}
           keyboardType="default"
         />
-        {showErrors ? (
+        {showErrors && !state.specifications ? (
           <Text style={grantContesttSyles.errors}>{t("error")}</Text>
         ) : null}
       </View>
@@ -485,9 +485,8 @@ export const ContestForm = ({ navigation }) => {
         <Pressable
           style={grantContesttSyles.publish_button}
           onPress={
-            pickedPdf !== null && pickedPdf !== undefined
-              ? handleSave
-              : handleEmptyValues
+          
+               handleSave
           }
         >
           <Text style={grantContesttSyles.publis_button_text}>

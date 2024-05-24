@@ -9,10 +9,20 @@ import {
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { useTranslation } from "../../hooks/useTranslations";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 
 export const SuccesUpload = ({ navigation,route }) => {
-
-  const { proyect } = route.params;
+  useEffect(() => {
+      // android does not respect gestureEnabled flag
+      navigation.addListener('beforeRemove', nav => {
+        // Prevent going back on swipe
+        if (nav.data.action.type === 'GO_BACK' && !nav.data.action.source) {
+          nav.preventDefault();
+        }})
+   
+  }, [navigation]);
+  // const { proyect } = route.params;
   const background = require("../../../assets/background-blur-2.png");
   const win = Dimensions.get("window");
   const welcomeLogo = require("../../../assets/logo_single.png");
@@ -29,6 +39,7 @@ export const SuccesUpload = ({ navigation,route }) => {
 
   return (
     <View
+
       style={{
         flex: 1,
         justifyContent: "center",

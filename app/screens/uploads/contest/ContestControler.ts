@@ -24,7 +24,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     specifications: "",
     terms: "",
     objetive: "",
-    urlbases: null,
+
     publishDate: currentDate,
     weburl: "",
   };
@@ -81,19 +81,19 @@ export const ConestControler = (minDate, endDate, participants) => {
       weburl
     );
   };
-  const pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      if (result && result.assets) {
-        handleChangeTex(result, "urlbases");
-        setPickedPDF(result);
-      } else {
-        console.log("No se seleccionó ningún documento.");
-      }
-    } catch (error) {
-      console.error("Error al seleccionar el documento:", error);
-    }
-  };
+  // const pickDocument = async () => {
+  //   try {
+  //     let result = await DocumentPicker.getDocumentAsync({});
+  //     if (result && result.assets) {
+  //       handleChangeTex(result, "urlbases");
+  //       setPickedPDF(result);
+  //     } else {
+  //       console.log("No se seleccionó ningún documento.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al seleccionar el documento:", error);
+  //   }
+  // };
   // const saveContest = async (url: DocumentPicker.DocumentPickerResult) => {
   //   if (checkAllTextFields()) {
   //     try {
@@ -135,7 +135,7 @@ export const ConestControler = (minDate, endDate, participants) => {
           startDate: minDate,
           finishDate: endDate,
           participants: participants,
-          urlbases: url,
+          // urlbases: url,
           publishDate: currentDate,
           image: downloadURL,
         };
@@ -164,7 +164,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     setShowErrors,
     pickedPdf,
     image,
-    pickDocument,
+    // pickDocument,
     pickImage
   };
 };

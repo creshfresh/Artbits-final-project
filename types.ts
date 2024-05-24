@@ -17,7 +17,6 @@ export interface ContestData {
     specifications: string;
     terms: string;
     objetive: string;
-    urlbases: DocumentPicker.DocumentPickerResult | null;
     publishDate: string | null;
     weburl:string
   }
