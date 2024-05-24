@@ -6,7 +6,6 @@ import { usePersonStore } from "../../../store/store";
 export const AboutScreen = ({ navigateUser }) => {
   const { t } = useTranslation();
   const user = usePersonStore((state) => state.user);
-  console.log(user)
 
   /* Esta pantalla eseña los datos del usuario logeado*/
   return (

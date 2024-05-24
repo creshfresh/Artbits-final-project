@@ -33,6 +33,8 @@
   "course": "Course",
   "courses": "Courses",
 
+  "create.first.work":"Create your first project",
+  "create.first.work.body":"Create your first project to showcase your work and habilities",
   "upload.multimedia.archives": "Upload mulimedia archives",
   "continue": "Continue",
   "select.image": "Select image",

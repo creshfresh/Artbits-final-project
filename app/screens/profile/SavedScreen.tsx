@@ -82,12 +82,10 @@ export const SavedScreen = ({ navigateUser, navigation }) => {
                   }}
                 />
                 <Pressable
-                onPress={() =>{
-                  console.log(item)
-                  navigation.navigate("PorfolioDetail", { item: item })
-
-                }
-                }
+                  onPress={() => {
+                    console.log(item);
+                    navigation.navigate("PorfolioDetail", { item: item });
+                  }}
                 >
                   <Image
                     source={{ uri: item.url[0] }}

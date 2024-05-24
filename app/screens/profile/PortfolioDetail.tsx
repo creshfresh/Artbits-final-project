@@ -19,7 +19,7 @@ import {
   getDocs,
   onSnapshot,
   query,
-  where
+  where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -62,8 +62,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
     });
   };
 
-
-
   useEffect(() => {
     if (!item && !item.user_id) return;
 
@@ -82,7 +80,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
           web_url: doc.data().web_url,
           user_id: doc.data().user_id,
           email: doc.data().email,
-
         }))
       );
     });
@@ -139,12 +136,11 @@ export const PorfolioDetail = ({ route, navigation }) => {
         setSaved(true);
       })
       .catch((error) => {
-        console.log(error);
         Alert.alert("Error", "no se ha podido guardar el proyecto");
         setSaved(false);
       });
   };
-  console.log(item)
+  console.log(item);
 
   const isSaved = () => {
     const savedProjectsRef = collection(database, "SavedArtworks");
@@ -216,14 +212,14 @@ export const PorfolioDetail = ({ route, navigation }) => {
   //     //       routes: [{ name: "Home" }],
   //     //     });
   //     // });
-    
+
   //     const savedProjectsRef = collection(database, "SavedArtworks");
   //     const q = query(
   //       savedProjectsRef,
   //       where("user_id", "==", item.user_id),
   //       where("save_user_id", "==", user.user_id)
   //     );
-    
+
   //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
   //       if (!querySnapshot.empty) {
   //         const deleteRef = doc(database, "SavedArtworks", querySnapshot.docs[0].id);
@@ -242,11 +238,9 @@ export const PorfolioDetail = ({ route, navigation }) => {
   //   } catch (error) {
   //     Alert.alert("Error:", error.message);
   //   }
-    
+
   // };
   const onDeleteSavedProject = async () => {
-    console.log("Puta mierda jeje")
-
     try {
       const savedProjectsRef = collection(database, "SavedArtworks");
       const q = query(
@@ -291,29 +285,35 @@ export const PorfolioDetail = ({ route, navigation }) => {
             style={{ position: "absolute", right: 15, top: 5 }}
           />
         )}
-        <Pressable
-          onPress={() => navigation.navigate("ProfileScreen", { item: name })}
-        >
-          <View
-            style={{ flexDirection: "row", marginLeft: 10, marginVertical: 7 }}
+        {name.length > 0 && (
+          <Pressable
+            onPress={() => navigation.navigate("ProfileScreen", { item: name })}
           >
-            <Image
-              source={
-                item.user_id == user.user_id
-                  ? { uri: user.avatar }
-                  : defaultAvatar}
+            <View
               style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#FFA5A5",
-                resizeMode: "center",
-                borderRadius: 30,
+                flexDirection: "row",
+                marginLeft: 10,
+                marginVertical: 7,
               }}
-            />
-            <Text style={styles.subtitle}>{name[0]?.displayName}</Text>
-          </View>
-        </Pressable>
-
+            >
+              <Image
+                source={
+                  item.user_id == user.user_id
+                    ? { uri: user.avatar }
+                    : { uri: name[0]?.avatar }
+                }
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor: "#FFA5A5",
+                  resizeMode: "center",
+                  borderRadius: 30,
+                }}
+              />
+              <Text style={styles.subtitle}>{name[0]?.displayName}</Text>
+            </View>
+          </Pressable>
+        )}
         {item.url.map((url, index) => (
           <View
             key={index}
@@ -351,14 +351,11 @@ export const PorfolioDetail = ({ route, navigation }) => {
               marginBottom: 5,
             }}
           >
-            <View style={{flexDirection:"row"}}>
-
-          <Text style={{fontWeight:"600"}}>
-             {t("published")}: {" "}
-          </Text>
-          <Text style={styles.body}>
-             {transformIsoDate(item.publish_date)}
-          </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "600" }}>{t("published")}: </Text>
+              <Text style={styles.body}>
+                {transformIsoDate(item.publish_date)}
+              </Text>
             </View>
             {item.user_id != user.user_id && (
               <Ionicons
@@ -366,7 +363,6 @@ export const PorfolioDetail = ({ route, navigation }) => {
                 size={30}
                 style={saved ? styles.saved : styles.notsaved}
                 onPress={() => {
-                  // setSaved(!saved)
                   handleSave();
                 }}
               ></Ionicons>

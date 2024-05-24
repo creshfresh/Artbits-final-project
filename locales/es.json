@@ -10,7 +10,7 @@
     "upload": "Subir",
     "sign.in":"Iniciar sesión",
     "log.out":"Cerrar sesión",
-    "find": "Find",
+    "find": "Encuentra",
 
     "save": "Guardar",
     "published":"Publicado",
@@ -39,10 +39,13 @@
     "select.image":"Selecciona una imagen",
     "change.image": "Cambiar imágenes",
     "max.size":"Máximo número de imágenes: 5",
-
+    "create.first.work":"Crea tu primer proyecto",
+    "create.first.work.body":"Crea tu primer proyecto para enseñar tu trabajo y habilidades artísticas",
+   
     "mandatory.field":"Todo marcado con un (*) es un campo obligatorio",
     "all.mandatory.field":"Todos los campos son obligatorios",
 
+    "detail":"Detalle",
     "title":"Título",
     "medium.type":"Tipo de medium",
     "description":"Descripción",
