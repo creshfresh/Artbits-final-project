@@ -108,11 +108,11 @@ export const PublishProjectScreen = ({ route, navigation }) => {
 
                   const collectionRef = collection(database, "Projects");
                   const q = query(
+                    //Se busca por todos en ordendes descendente, y se queda con el primer resultado porque queremos el último proyecto publicado
                     collectionRef,
                     where("user_id", "==", user.user_id),
                     orderBy("publish_date", "desc"),
                     limit(1) 
-                    //Se busca por todos en ordendes descendente, y se queda con el primer resultado porque queremos el último proyecto publicado
                   
                   );
                   onSnapshot(q, (querySnapshot) => {
