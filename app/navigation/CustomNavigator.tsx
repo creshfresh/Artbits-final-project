@@ -27,6 +27,7 @@ import { CourseForm } from "../screens/uploads/course/CourseForm";
 import { CoursesScreen } from "../screens/courses/CoursesScreen";
 import { EditProfile } from "../screens/profile/EditProfile";
 import { CoursesDetailScreen } from "../screens/courses/CoursesDetailScreen";
+import { SuccesUploadNodetail } from "../screens/uploads/SuccesUploadNodetail";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -149,6 +150,21 @@ const UploadStackNavigation = () => {
       <Stack.Screen
         name="SuccesUpload"
         component={SuccesUpload}
+        options={({ navigation }) => ({
+          headerShown: false,
+          gestureEnabled:false,
+          navigationBarColor: "transparent",
+          headerShadowVisible: false,
+          animation: "ios",
+          headerTitle: "Info",
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+        })}
+      />
+      <Stack.Screen
+        name="SuccesUploadNodetail"
+        component={SuccesUploadNodetail}
         options={({ navigation }) => ({
           headerShown: false,
           gestureEnabled:false,

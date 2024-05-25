@@ -1,16 +1,22 @@
-import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { colors } from "../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
 const win = Dimensions.get("window");
 
 export const CourseCard = ({ data }) => {
+
+  const defaulImage = require("../../assets/pollo-default.png");
+  // const defaulImage = require("../../..//assets/pollo-default.png");
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
         <Image
-        resizeMode="cover"
+          resizeMode="cover"
           source={{
-            uri: data.image[0]
+            uri: data.image === null 
+            ? defaulImage 
+            : data.image
+            
           }}
           style={styles.position}
         />
@@ -34,7 +40,9 @@ export const CourseCard = ({ data }) => {
             {data.courseName}
           </Text>
 
-          <Text style={styles.companyName}>{data.startDate}-{data.finishDate}</Text>
+          <Text style={styles.companyName}>
+            {data.startDate}-{data.finishDate}
+          </Text>
           <View
             style={{
               flexDirection: "row",
@@ -42,13 +50,10 @@ export const CourseCard = ({ data }) => {
               paddingTop: 5,
             }}
           >
-            <Text style={styles.location}>
-     {data.organizationCentre}
-            </Text>
+            <Text style={styles.location}>{data.organizationCentre}</Text>
           </View>
         </View>
       </View>
-
     </View>
   );
 };
@@ -89,7 +94,6 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   location: {
-
     fontSize: 14,
     color: colors.dateText,
   },

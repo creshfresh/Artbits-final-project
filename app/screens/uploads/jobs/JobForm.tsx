@@ -41,7 +41,7 @@ export const JobFormView = ({ navigation }) => {
   const handleSave = async () => {
     if (checkAllTextFields()) {
       const success = await saveJob();
-      if (success) await navigation.navigate("SuccesUpload");
+      if (success) await navigation.navigate("SuccesUploadNodetail");
     } else {
       setShowErrors(true);
     }

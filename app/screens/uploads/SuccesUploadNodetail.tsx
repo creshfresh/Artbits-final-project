@@ -9,10 +9,10 @@ import {
   } from "react-native";
 
   import { useEffect } from "react";
-import { useTranslation } from "../../../hooks/useTranslations";
-import { colors } from "../../../theme/colors";
+import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
   
-  export const SuccesUpload = ({ navigation,route }) => {
+  export const SuccesUploadNodetail = ({ navigation,route }) => {
     useEffect(() => {
         // android does not respect gestureEnabled flag
         navigation.addListener('beforeRemove', nav => {
@@ -22,7 +22,6 @@ import { colors } from "../../../theme/colors";
           }})
      
     }, [navigation]);
-    // const { proyect } = route.params;
     const background = require("../../../assets/background-blur-2.png");
     const win = Dimensions.get("window");
     const welcomeLogo = require("../../../assets/logo_single.png");
@@ -94,7 +93,7 @@ import { colors } from "../../../theme/colors";
             position: "absolute",
             bottom: 0,
             width: "100%",
-            minHeight: 150,
+            minHeight: 100,
             shadowColor: "#000000",
             elevation: 20,
           }}
@@ -125,34 +124,7 @@ import { colors } from "../../../theme/colors";
                 {t("go.home.gallery")}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                justifyContent: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                borderRadius: 30,
-                borderWidth: 2,
-                width: win.width * 0.9,
-                backgroundColor: "transparent",
-                borderColor: colors.main,
-                height: "auto",
-              }}
-              // onPress={()=> {
-              //   navigation.navigate("PorfolioDetail", { item: proyect })
-              // }}
-            >
-              <Text
-                style={{
-                  color: colors.main,
-                  fontSize: 18,
-                  fontWeight: "600",
-                  alignContent: "center",
-                  textAlign: "center",
-                }}
-              >
-                {t("go.detail.screen")}
-              </Text>
-            </TouchableOpacity>
+           
           </View>
         </View>
       </View>

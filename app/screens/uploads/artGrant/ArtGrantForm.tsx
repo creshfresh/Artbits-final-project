@@ -56,7 +56,7 @@ export const ArtGrantForm = ({ navigation }) => {
     const success = await saveGrant(pickedPdf);
 
     if (success) {
-      await navigation.navigate("SuccesUpload");
+      await navigation.navigate("SuccesUploadNodetail");
     }
   };
   const onChangeStartDate = (event, selectedDate) => {
@@ -113,13 +113,12 @@ export const ArtGrantForm = ({ navigation }) => {
       } else {
         setAgeError(false);
       }
-    }, 500); 
+    }, 500);
 
     return () => {
       clearTimeout(debounceRef.current);
     };
   }, [state.minAge, state.maxAge]);
-
 
   return (
     <ScrollView
@@ -345,7 +344,7 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-{/* 
+        {/* 
         <View
           style={{
             flexDirection: "row",
@@ -369,14 +368,13 @@ export const ArtGrantForm = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            // marginVertical: 10,
+            marginVertical: 10,
             justifyContent: "flex-end",
           }}
         >
           <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
             {t("select.promotional.image")}
           </Text>
-
           <Ionicons
             name="add-circle"
             size={30}
@@ -393,6 +391,9 @@ export const ArtGrantForm = ({ navigation }) => {
             justifyContent: "flex-end",
           }}
         >
+          {showErrors && image === "" ? (
+            <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
+          ) : null}
           {image != "" && (
             <>
               <Ionicons

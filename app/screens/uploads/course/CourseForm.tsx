@@ -83,7 +83,7 @@ export const CourseForm = ({ navigation }) => {
   const handleSave = async () => {
     if (checkAllTextFields()) {
       const success = await saveCourse();
-      if (success) await navigation.navigate("SuccesUpload");
+      if (success) await navigation.navigate("SuccesUploadNodetail");
     } else {
       setShowErrors(true);
     }
@@ -135,7 +135,9 @@ export const CourseForm = ({ navigation }) => {
           <Text style={styles.title}>{t("organization.centre")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "organizationCentre")}
+            onChangeText={(value) =>
+              handleChangeTex(value, "organizationCentre")
+            }
             value={state.organizationCentre}
             placeholder={t("organization.placeholder")}
             keyboardType="default"
@@ -147,7 +149,10 @@ export const CourseForm = ({ navigation }) => {
         <View style={styles.divided}>
           <Text style={styles.title}>{t("description")}</Text>
           <TextInput
-            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
+            style={[
+              styles.text_intup,
+              { minHeight: 60, textAlignVertical: "top", paddingTop: 5 },
+            ]}
             onChangeText={(value) => handleChangeTex(value, "description")}
             value={state.description}
             multiline={true}
@@ -289,7 +294,7 @@ export const CourseForm = ({ navigation }) => {
             onChangeText={(value) => handleChangeTex(value, "spots")}
             value={state.spots}
             placeholder={t("spots.placeholder")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
           {showErrors && !state.spots ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -307,25 +312,54 @@ export const CourseForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: 10,
-            justifyContent: "flex-end",
-          }}
-        >
-          <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
-            {t("select.promotional.image")}
-          </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
+          marginHorizontal:20,
 
-          <Ionicons
-            name="add-circle"
-            size={30}
-            color={colors.secondary}
-            onPress={pickImage}
-          />
-        </View>
+          justifyContent: "flex-end",
+        }}
+      >
+        <Text style={{ color: colors.palette.neutral700, paddingEnd: 8 }}>
+          {t("select.promotional.image")}
+        </Text>
+        <Ionicons
+          name="add-circle"
+          size={30}
+          color={colors.secondary}
+          onPress={pickImage}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginVertical: 10,
+          marginRight:25,
+          marginEnd: 5,
+          justifyContent: "flex-end",
+        }}
+      >
+        {showErrors && image  === "" ? (
+          <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
+        ) : null}
+        {image  != "" && (
+          <>
+            <Ionicons
+              name="image-outline"
+              size={20}
+              color={colors.main}
+            ></Ionicons>
+            <Text
+              style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+            >
+              {t("image.selected")}
+            </Text>
+          </>
+        )}
       </View>
 
       <View
@@ -334,7 +368,6 @@ export const CourseForm = ({ navigation }) => {
           marginVertical: 10,
         }}
       >
-        {/* Si los campos obligatorios no están cumplidos, que el botón esté desactivado */}
         <Pressable style={styles.publish_button} onPress={handleSave}>
           <Text style={styles.publis_button_text}>{t("publish")}</Text>
         </Pressable>

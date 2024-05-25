@@ -27,7 +27,7 @@ export const CoursesDetailScreen = ({}) => {
       <View style={styles.container}>
         <View style={{ flexDirection: "column", top: 15 }}>
           <Image
-            source={{ uri: route.params.item.image[0] }}
+            source={{ uri: route.params.item.image }}
             style={[styles.image]}
           />
         </View>

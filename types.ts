@@ -84,7 +84,8 @@ export interface CourseData {
   schedule:string,
   price:string,
   spots:string,
-  weburl: string
+  weburl: string,
+  image:string
 }
   export interface ArtGrantData {
     user_id:string,

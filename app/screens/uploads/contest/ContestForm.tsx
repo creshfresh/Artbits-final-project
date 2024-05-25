@@ -82,7 +82,7 @@ export const ContestForm = ({ navigation }) => {
   const handleSave = async () => {
     const success = await saveContest(pickedPdf);
     if (success) {
-      await navigation.navigate("SuccesUpload");
+      await navigation.navigate("SuccesUploadNodetail");
     }
   };
 
