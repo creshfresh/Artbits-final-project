@@ -91,6 +91,7 @@ export default function App() {
               AsyncStorage.setItem("@user", JSON.stringify(appUser));
             });
           } else {
+            
             console.log("No user data found");
           }
           setLoading(false); 

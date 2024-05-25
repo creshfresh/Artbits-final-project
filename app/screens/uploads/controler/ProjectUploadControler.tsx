@@ -3,6 +3,7 @@ import { useState } from "react";
 import { database, storage } from "../../../../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import * as ImagePicker from "expo-image-picker";
+import { Alert } from "react-native";
 
 export const ProjectUploadControler = () => {
     
@@ -35,9 +36,8 @@ export const ProjectUploadControler = () => {
           description,
           fileType,
         });
-        console.log("document saved correctly", docRef.id);
       } catch (e) {
-        console.log(e);
+Alert.alert("error", e.message)
       }
     }
     async function uploadImage(uri:string, fileType) {

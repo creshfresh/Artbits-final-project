@@ -53,7 +53,6 @@ export const ProfolioCarrousel = ({
     return unsubscribe;
   }, [navigateUser]);
 
-  console.log(data);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

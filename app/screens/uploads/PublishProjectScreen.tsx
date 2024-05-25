@@ -129,9 +129,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                     });
                   
                     setData(projectData);
-                    if (Object.keys(projectData).length > 0) {
-                      console.log("projectData", projectData);
-                  
+                    if (Object.keys(projectData).length > 0) {                  
                       const firstDocKey = Object.keys(projectData)[0];
                       navigation.navigate("SuccesUpload", { item: projectData[firstDocKey] });
                     }
