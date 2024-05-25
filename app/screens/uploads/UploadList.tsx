@@ -33,7 +33,7 @@ export const UploadList = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={{ flex: 1, padding: 10, marginTop: 30 }}>
+      <View style={{ flex: 1, padding: 10, marginTop: 10 }}>
         <FlashList
           horizontal={false}
           data={data}

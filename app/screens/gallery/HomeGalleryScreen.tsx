@@ -13,7 +13,7 @@ export const HomeGalleryScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
 
-      <View style={[styles.switchContainer, {marginTop:30}]}>
+      <View style={[styles.switchContainer, {marginTop:10}]}>
         <TouchableOpacity
           style={[
             styles.switchButton,
