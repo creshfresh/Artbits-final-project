@@ -9,9 +9,9 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const CourseControler = () => {
   const currentDate = new Date().toISOString();
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([]);
   const pickImage = async () => {
-    setImage('');
+    setImage([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: false,
@@ -20,7 +20,10 @@ export const CourseControler = () => {
     });
 
     if (!result.canceled && result.assets.length > 0) {
-      setImage(result.assets[0].uri);
+      setImage((prevImages) => [
+        ...prevImages,
+        ...result.assets.map((asset) => asset.uri),
+      ]);
     }
   };
   const CourseState: CourseData = {
@@ -38,7 +41,6 @@ export const CourseControler = () => {
     schedule: "",
     price: "",
     weburl: "",
-    image:""
   };
 
   const [showErrors, setShowErrors] = useState(false);
@@ -58,7 +60,6 @@ export const CourseControler = () => {
       schedule,
       price,
       weburl,
-      image
     } = state;
     return (
       courseName &&
@@ -70,7 +71,6 @@ export const CourseControler = () => {
       finishDate &&
       spots &&
       schedule &&
-      image &&
       instructorName &&
       weburl &&
       price
@@ -81,67 +81,36 @@ export const CourseControler = () => {
     setState({ ...state, [name]: value });
   };
 
-  // const saveCourssse = async () => {
-  //   if (checkAllTextFields()) {
-  //     try {
-  //       const uploadImagePromises = image.map(async (imageUri) => {
-  //         try {
-  //           const response = await fetch(imageUri);
-  //           const blob = await response.blob();
-  //           const storageRef = ref(storage, "Images/" + new Date().getTime());
-  //           await uploadBytesResumable(storageRef, blob);
-  //           const downloadURL = await getDownloadURL(storageRef);
-  //           return downloadURL;
-  //         } catch (error) {
-  //           console.error("Error uploading image:", error);
-  //           return null;
-  //         }
-  //       });
-  //       const downloadURL = await getDownloadURL(uploadImagePromises);
-
-  //       const data = {
-  //         ...state,
-
-  //         image: imageDownloadURLs.filter((url) => url !== null),
-  //       };
-  //       await addDoc(collection(database, "Courses"), { ...data });
-  //       return true;
-  //     } catch (error) {
-  //       console.error("Error saving Course: ", error);
-  //       Alert.alert("Error", "Error saving Course.");
-  //       return false;
-  //     }
-  //   }
-  // };
   const saveCourse = async () => {
     if (checkAllTextFields()) {
       try {
-        if (image) {
-          const response = await fetch(image);
-          const blob = await response.blob();
-          const storageRef = ref(storage, "Images/" + new Date().getTime());
-          await uploadBytesResumable(storageRef, blob);
-          const downloadURL = await getDownloadURL(storageRef);
-  
-           const data = {
-          ...state,
-          image:downloadURL 
-           };
+        const uploadImagePromises = image.map(async (imageUri) => {
+          try {
+            const response = await fetch(imageUri);
+            const blob = await response.blob();
+            const storageRef = ref(storage, "Images/" + new Date().getTime());
+            await uploadBytesResumable(storageRef, blob);
+            const downloadURL = await getDownloadURL(storageRef);
+            return downloadURL;
+          } catch (error) {
+            console.error("Error uploading image:", error);
+            return null;
+          }
+        });
+        const imageDownloadURLs = await Promise.all(uploadImagePromises);
 
-  
-          await addDoc(collection(database, "Art_Grants"), data);
-          return true;
-        } else {
-          setShowErrors(true);
-          return false;
-        }
+        const data = {
+          ...state,
+
+          image: imageDownloadURLs.filter((url) => url !== null),
+        };
+        await addDoc(collection(database, "Courses"), { ...data });
+        return true;
       } catch (error) {
-        console.error("Error saving Art_Grants:", error);
+        console.error("Error saving Course: ", error);
+        Alert.alert("Error", "Error saving Course.");
         return false;
       }
-    } else {
-      setShowErrors(true);
-      return false;
     }
   };
 

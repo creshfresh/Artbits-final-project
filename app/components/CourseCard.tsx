@@ -1,23 +1,16 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
 import { colors } from "../theme/colors";
+import { Ionicons } from "@expo/vector-icons";
 const win = Dimensions.get("window");
-
+const defaulImage = require("../../assets/pollo-default.png");
 export const CourseCard = ({ data }) => {
-
-  const defaulImage = require("../../assets/pollo-default.png");
-  // const defaulImage = require("../../..//assets/pollo-default.png");
-
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
+     
         <Image
           resizeMode="cover"
-          source={{
-            uri: data.image === null 
-            ? defaulImage 
-            : data.image
-            
-          }}
+          source={{ uri: data.image[0] === null ? defaulImage : data.image[0] }}
           style={styles.position}
         />
         <View style={{ width: "75%", paddingStart: 10 }}>

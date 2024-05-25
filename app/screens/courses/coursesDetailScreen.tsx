@@ -27,7 +27,7 @@ export const CoursesDetailScreen = ({}) => {
       <View style={styles.container}>
         <View style={{ flexDirection: "column", top: 15 }}>
           <Image
-            source={{ uri: route.params.item.image }}
+            source={{ uri: route.params.item.image[0] }}
             style={[styles.image]}
           />
         </View>
@@ -181,7 +181,7 @@ export const CoursesDetailScreen = ({}) => {
             </Text>
           </View>
 
-          <View style={{ gap: 5, paddingBottom: 150 }}>
+          <View style={{ gap: 5, paddingBottom: 160 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
 
             <Text

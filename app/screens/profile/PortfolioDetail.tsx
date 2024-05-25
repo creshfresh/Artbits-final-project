@@ -350,6 +350,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     fontSize: 30,
     fontWeight: "800",
+    width:"85%",
     letterSpacing: 1.25,
     color: colors.text,
   },
