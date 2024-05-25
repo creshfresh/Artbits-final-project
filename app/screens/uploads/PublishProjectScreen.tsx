@@ -11,7 +11,16 @@ import {
 } from "react-native";
 import { colors } from "../../theme/colors";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapshot, doc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  doc,
+  query,
+  where,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 import React, { useState } from "react";
 import { database, storage } from "../../../firebaseConfig";
 import { Dropdown } from "react-native-element-dropdown";
@@ -28,6 +37,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const user = usePersonStore((state) => state.user);
+  const [data, setData] = useState(null);
 
   const { t } = useTranslation();
   const renderItem = (item) => {
@@ -37,7 +47,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
       </View>
     );
   };
-
 
   async function saveRecord(
     user_id,
@@ -75,9 +84,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
 
           uploadTask.on(
             "state_changed",
-            (snapshot) => {
-      
-            },
+            (snapshot) => {},
             (error) => {
               console.error("Upload failed:", error);
             },
@@ -98,8 +105,39 @@ export const PublishProjectScreen = ({ route, navigation }) => {
                     fileType,
                     value
                   );
-                  navigation.navigate("SuccesUpload", );
+
+                  const collectionRef = collection(database, "Projects");
+                  const q = query(
+                    collectionRef,
+                    where("user_id", "==", user.user_id),
+                    orderBy("publish_date", "desc"),
+                    limit(1) 
+                    //Se busca por todos en ordendes descendente, y se queda con el primer resultado porque queremos el último proyecto publicado
+                  
+                  );
+                  onSnapshot(q, (querySnapshot) => {
+                    const projectData = {};
+                    querySnapshot.docs.forEach((doc) => {
+                      projectData[doc.id] = {
+                        url: doc.data().url,
+                        title: doc.data().title,
+                        publish_date: doc.data().publish_date,
+                        medium_type: doc.data().medium_type,
+                        user_id: doc.data().user_id,
+                        description: doc.data().description,
+                      };
+                    });
+                  
+                    setData(projectData);
+                    if (Object.keys(projectData).length > 0) {
+                      console.log("projectData", projectData);
+                  
+                      const firstDocKey = Object.keys(projectData)[0];
+                      navigation.navigate("SuccesUpload", { item: projectData[firstDocKey] });
+                    }
+                  });
                 }
+                
               } catch (error) {
                 console.error("Error getting download URL:", error);
               }
@@ -164,22 +202,20 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View
-              style={{
-                marginVertical: 15,
-              }}
-            >
-              <Text
-                style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}
-              >
-                *{t("title")}
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={setTitle}
-                placeholder={t("title.placeholder")}
-                keyboardType="default"
-              />
-            </View>
+            style={{
+              marginVertical: 15,
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
+              *{t("title")}
+            </Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setTitle}
+              placeholder={t("title.placeholder")}
+              keyboardType="default"
+            />
+          </View>
           <View
             style={{
               marginTop: 15,
@@ -201,7 +237,7 @@ export const PublishProjectScreen = ({ route, navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "700", paddingStart: 10 }}>
-            *{t("medium.type")}
+              *{t("medium.type")}
             </Text>
             <Dropdown
               style={styles.dropdown}
@@ -220,7 +256,6 @@ export const PublishProjectScreen = ({ route, navigation }) => {
               }}
               renderItem={renderItem}
             />
-           
           </View>
           {title !== "" && value !== "" ? (
             <TouchableOpacity

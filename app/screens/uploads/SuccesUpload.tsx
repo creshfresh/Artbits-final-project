@@ -1,18 +1,18 @@
-import {
-  View,
-  Text,
-
-  ImageBackground,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
-import { colors } from "../../theme/colors";
-import { useTranslation } from "../../hooks/useTranslations";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useTranslation } from "../../hooks/useTranslations";
+import { colors } from "../../theme/colors";
 
 export const SuccesUpload = ({ navigation,route }) => {
+  const { item } = route.params;
+
   useEffect(() => {
       // android does not respect gestureEnabled flag
       navigation.addListener('beforeRemove', nav => {
@@ -139,9 +139,9 @@ export const SuccesUpload = ({ navigation,route }) => {
               borderColor: colors.main,
               height: "auto",
             }}
-            // onPress={()=> {
-            //   navigation.navigate("PorfolioDetail", { item: proyect })
-            // }}
+            onPress={()=> {
+              navigation.navigate("PorfolioDetail", { item: item })
+            }}
           >
             <Text
               style={{
