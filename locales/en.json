@@ -190,6 +190,7 @@
   "proyect.removed.saved": "Project removed from your favorites",
   "succesful.edit": "Data updated succesfully!",
   "go.home.gallery": "Go to home gallery",
-  "go.detail.screen":"Go to project detail"
+  "go.detail.screen":"Go to project detail",
+  "error.hmtl": "Field must be a valid url"
 
 }

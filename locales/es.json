@@ -194,6 +194,7 @@
  
    "error.image":"Imagen promocional no seleccionada",
    "go.home.gallery": "Ir a la galería principal",
-   "go.detail.screen":"Ir al detalle del proyecto"
+   "go.detail.screen":"Ir al detalle del proyecto",
+    "error.hmtl": "El valor debe ser una url válida"
 
   }
