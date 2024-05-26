@@ -78,16 +78,29 @@ export const CourseForm = ({ navigation }) => {
     checkAllTextFields,
     image,
     showErrors,
+    regex,
   } = CourseControler();
 
+  // const handleSave = async () => {
+  //   if (checkAllTextFields()) {
+  //     const success = await saveCourse();
+  //     if (success) await navigation.navigate("SuccesUploadNodetail");
+  //   } else {
+  //     setShowErrors(true);
+  //   }
+  // };
+
   const handleSave = async () => {
-    if (checkAllTextFields()) {
-      const success = await saveCourse();
-      if (success) await navigation.navigate("SuccesUploadNodetail");
-    } else {
+    if (!regex.test(state.weburl)) {
       setShowErrors(true);
+      return;
+    }
+    const success = await saveCourse();
+    if (success) {
+      await navigation.navigate("SuccesUploadNodetail");
     }
   };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -135,7 +148,9 @@ export const CourseForm = ({ navigation }) => {
           <Text style={styles.title}>{t("organization.centre")}</Text>
           <TextInput
             style={styles.text_intup}
-            onChangeText={(value) => handleChangeTex(value, "organizationCentre")}
+            onChangeText={(value) =>
+              handleChangeTex(value, "organizationCentre")
+            }
             value={state.organizationCentre}
             placeholder={t("organization.placeholder")}
             keyboardType="default"
@@ -147,7 +162,10 @@ export const CourseForm = ({ navigation }) => {
         <View style={styles.divided}>
           <Text style={styles.title}>{t("description")}</Text>
           <TextInput
-            style={[styles.text_intup, { minHeight: 60 , textAlignVertical:"top", paddingTop:5}]}
+            style={[
+              styles.text_intup,
+              { minHeight: 60, textAlignVertical: "top", paddingTop: 5 },
+            ]}
             onChangeText={(value) => handleChangeTex(value, "description")}
             value={state.description}
             multiline={true}
@@ -306,6 +324,9 @@ export const CourseForm = ({ navigation }) => {
           {showErrors && !state.weburl ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
+          {showErrors && !regex.test(state.weburl) && (
+            <Text style={grantContesttSyles.errors}>{t("error.hmtl")}</Text>
+          )}
         </View>
         <View
           style={{

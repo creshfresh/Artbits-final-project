@@ -5,6 +5,8 @@ import { Alert } from "react-native";
 import { JobData } from "../../../../types";
 
 export const JobControler = () => {
+  const regex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
   const currentDate = new Date().toISOString()
   const JobState: JobData = {
     user_id: "",
@@ -76,6 +78,7 @@ export const JobControler = () => {
     state,
     setShowErrors,
     showErrors,
+    regex,
     checkAllTextFields
   };
 };

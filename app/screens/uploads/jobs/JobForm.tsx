@@ -36,16 +36,28 @@ export const JobFormView = ({ navigation }) => {
     setShowErrors,
     checkAllTextFields,
     showErrors,
+    regex
   } = JobControler();
 
+  // const handleSave = async () => {
+  //   if (checkAllTextFields()) {
+  //     const success = await saveJob();
+  //     if (success) await navigation.navigate("SuccesUploadNodetail");
+  //   } else {
+  //     setShowErrors(true);
+  //   }
+  // };
   const handleSave = async () => {
-    if (checkAllTextFields()) {
-      const success = await saveJob();
-      if (success) await navigation.navigate("SuccesUploadNodetail");
-    } else {
+    if (!regex.test(state.weburl)) {
       setShowErrors(true);
+      return;
+    }
+    const success = await saveJob();
+    if (success) {
+      await navigation.navigate("SuccesUploadNodetail");
     }
   };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -234,9 +246,12 @@ export const JobFormView = ({ navigation }) => {
             placeholder={t("web.url.placeholder")}
             keyboardType="default"
           />
-          {showErrors && !state.weburl ? (
+           {showErrors && !state.weburl ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
+          {showErrors && !regex.test(state.weburl) && (
+            <Text style={grantContesttSyles.errors}>{t("error.hmtl")}</Text>
+          )}
         </View>
       </View>
 

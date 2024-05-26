@@ -48,6 +48,7 @@ export const ContestForm = ({ navigation }) => {
     pickedPdf,
     pickImage,
     image,
+    regex,
     // pickDocument,
   } = ConestControler(startDate, endDate, participants);
 
@@ -80,6 +81,11 @@ export const ContestForm = ({ navigation }) => {
   }, [state.minAge, state.maxAge]);
 
   const handleSave = async () => {
+    if (!regex.test(state.weburl)) {
+      setShowErrors(true); 
+      return; 
+    }
+
     const success = await saveContest(pickedPdf);
     if (success) {
       await navigation.navigate("SuccesUploadNodetail");
@@ -246,9 +252,9 @@ export const ContestForm = ({ navigation }) => {
           {startDateError ? (
             <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
-          {/* {showErrors && !state.startDate ? (
+          {showErrors && !state.startDate && !startDate ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
-          ) : null} */}
+          ) : null}
         </View>
 
         <View style={grantContesttSyles.divided}>
@@ -272,7 +278,7 @@ export const ContestForm = ({ navigation }) => {
           {endDateError ? (
             <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
-          {showErrors && !state.finishDate ? (
+          {showErrors && !state.finishDate && !endDate ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
@@ -386,9 +392,12 @@ export const ContestForm = ({ navigation }) => {
           placeholder={t("web.url.placeholder")}
           keyboardType="default"
         />
-        {showErrors && !state.terms ? (
+        {showErrors && !state.weburl ? (
           <Text style={grantContesttSyles.errors}>{t("error")}</Text>
         ) : null}
+        {showErrors && !regex.test(state.weburl) && (
+          <Text style={grantContesttSyles.errors}>{t("error.hmtl")}</Text>
+        )}
       </View>
       {/* <View
         style={{
@@ -438,23 +447,21 @@ export const ContestForm = ({ navigation }) => {
       >
         {showErrors && image === "" ? (
           <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
-        ) : (
-          null
+        ) : null}
+        {image != "" && (
+          <>
+            <Ionicons
+              name="image-outline"
+              size={20}
+              color={colors.main}
+            ></Ionicons>
+            <Text
+              style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+            >
+              {t("image.selected")}
+            </Text>
+          </>
         )}
-             {image != "" && (
-            <>
-              <Ionicons
-                name="image-outline"
-                size={20}
-                color={colors.main}
-              ></Ionicons>
-              <Text
-                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
-              >
-                {t("image.selected")}
-              </Text>
-            </>
-          )}
       </View>
       <View
         style={{

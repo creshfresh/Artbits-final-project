@@ -50,15 +50,27 @@ export const ArtGrantForm = ({ navigation }) => {
     image,
     pickImage,
     pickDocument,
+    regex,
   } = ArtGrantControler(startDate, endDate, participants);
 
-  const handleSave = async () => {
-    const success = await saveGrant(pickedPdf);
+  // const handleSave = async () => {
+  //   const success = await saveGrant(pickedPdf);
 
+  //   if (success) {
+  //     await navigation.navigate("SuccesUploadNodetail");
+  //   }
+  // };
+  const handleSave = async () => {
+    if (!regex.test(state.weburl)) {
+      setShowErrors(true);
+      return;
+    }
+    const success = await saveGrant(pickedPdf);
     if (success) {
       await navigation.navigate("SuccesUploadNodetail");
     }
   };
+
   const onChangeStartDate = (event, selectedDate) => {
     const currentDate: Date = selectedDate || startDate;
     setShowDatePicker(false);
@@ -340,9 +352,12 @@ export const ArtGrantForm = ({ navigation }) => {
             placeholder={t("web.url.placeholder")}
             keyboardType="default"
           />
-          {showErrors && !state.terms ? (
+          {showErrors && !state.weburl ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
+          {showErrors && !regex.test(state.weburl) && (
+            <Text style={grantContesttSyles.errors}>{t("error.hmtl")}</Text>
+          )}
         </View>
         {/* 
         <View

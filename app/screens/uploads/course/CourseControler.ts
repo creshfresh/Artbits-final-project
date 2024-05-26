@@ -8,6 +8,8 @@ import { CourseData } from "../../../../types";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const CourseControler = () => {
+  const regex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
   const currentDate = new Date().toISOString();
   const [image, setImage] = useState([]);
   const pickImage = async () => {
@@ -122,7 +124,7 @@ export const CourseControler = () => {
     setShowErrors,
     pickImage,
     showErrors,
-
+    regex,
     checkAllTextFields,
   };
 };

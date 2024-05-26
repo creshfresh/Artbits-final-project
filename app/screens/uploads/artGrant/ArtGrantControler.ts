@@ -7,6 +7,8 @@ import { database, storage } from "../../../../firebaseConfig";
 import { ArtGrantData } from "../../../../types";
 
 export const ArtGrantControler = (minDate, endDate, participants) => {
+  const regex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
   const currentDate = new Date().toISOString();
   const grantState: ArtGrantData = {
     user_id: "3232",
@@ -144,5 +146,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     image,
     pickDocument,
     pickImage,
+    regex
   };
 };

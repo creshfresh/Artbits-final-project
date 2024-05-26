@@ -8,6 +8,7 @@ import { ContestData } from "../../../../types";
 
 export const ConestControler = (minDate, endDate, participants) => {
   const [image, setImage] = useState("");
+  const regex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
 
   const currentDate = new Date().toISOString()
   const contestData: ContestData = {
@@ -164,6 +165,7 @@ export const ConestControler = (minDate, endDate, participants) => {
     setShowErrors,
     pickedPdf,
     image,
+    regex,
     // pickDocument,
     pickImage
   };
