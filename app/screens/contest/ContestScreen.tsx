@@ -22,7 +22,6 @@ export const ContestScreen = ({ navigation }) => {
   }, []);
 
   // Esta función recibe todos los datos de los concursos
-  //TODO: implementar filtros
 
   return (
     <View style={{ flex: 1, padding: 10, paddingTop:5 }}>
