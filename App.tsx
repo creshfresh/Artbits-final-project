@@ -1,23 +1,24 @@
-import "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { makeRedirectUri } from "expo-auth-session";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
 } from "firebase/auth";
-import { auth, database } from "./firebaseConfig";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import React, { useEffect, useState } from "react";
-import SignInScreen from "./app/screens/login/SignInScreen";
-import { CustomNavigator } from "./app/navigation/CustomNavigator";
-import { ActivityIndicator, StatusBar, StyleSheet, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { usePersonStore } from "./store/store";
-import { makeRedirectUri } from "expo-auth-session";
-import "./i18next"; // Ni se te ocurra borrar esto
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { AppUser } from "./types";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import "react-native-gesture-handler";
+import { CustomNavigator } from "./app/navigation/CustomNavigator";
+import SignInScreen from "./app/screens/login/SignInScreen";
 import { colors } from "./app/theme/colors";
+import { auth, database } from "./firebaseConfig";
+import "./i18next"; // Ni se te ocurra borrar esto
+import { usePersonStore } from "./store/store";
+import { AppUser } from "./types";
+
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
@@ -91,10 +92,9 @@ export default function App() {
               AsyncStorage.setItem("@user", JSON.stringify(appUser));
             });
           } else {
-            
             console.log("No user data found");
           }
-          setLoading(false); 
+          setLoading(false);
         });
 
         return () => unsubscribe();
@@ -108,7 +108,14 @@ export default function App() {
 
   if (loading) {
     return (
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 , backgroundColor:colors.main}}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          backgroundColor: colors.main,
+        }}
+      >
         <ActivityIndicator size={100} color={"white"} />
       </View>
     );
@@ -116,14 +123,12 @@ export default function App() {
 
   return user ? (
     <>
-      {/* <StatusBar barStyle="default" animated/> */}
-
       <CustomNavigator />
     </>
   ) : (
     <View style={styles.container}>
       <SignInScreen />
-      <StatusBar barStyle="default" />
+      {/* <StatusBar barStyle="default" /> */}
     </View>
   );
 }

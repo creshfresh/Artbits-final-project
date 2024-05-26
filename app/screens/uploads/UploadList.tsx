@@ -4,28 +4,45 @@ import React from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "../../hooks/useTranslations";
 import { colors } from "../../theme/colors";
+import { usePersonStore } from "../../../store/store";
 
-/*En esta vista se tendrá que evalua
- El tipo de usuario, y dependiendo el tipo se mostrará una lista u otra
- Listas de subir proyecto, beca o concurso
-Para los usuarios de academia subir cursos
- y las empresas subir ofertas de trabajo*/
 export const UploadList = ({ navigation }) => {
   const { t } = useTranslation();
+  const user = usePersonStore((state) => state.user);
 
-  const data: string[] = [
+  // Definir listas para diferentes roles
+  const artistData = [
     t("upload.contest.artGrant"),
     t("upload.project"),
-    t("upload.course"),
-    t("upload.job"),
   ];
+
+  const companyData = [
+    t("upload.job"),
+    t("upload.project"),
+  ];
+
+  const artAcademyData = [
+    t("upload.course"),
+    t("upload.project"),
+  ];
+
+  // Asignar la lista correcta basada en el rol del usuario
+  let data = [];
+  if (user.rol === "artist") {
+    data = artistData;
+  } else if (user.rol === "company") {
+    data = companyData;
+  } else if (user.rol === "art_academy") {
+    data = artAcademyData;
+  }
 
   const handleNavigation = (item) => {
     if (item === t("upload.project"))
       navigation.navigate("ProjectUploadScreen");
     else if (item === t("upload.contest.artGrant"))
       navigation.navigate("ContestArtGrantViewForms");
-    else if (item === t("upload.course")) navigation.navigate("CourseForm");
+    else if (item === t("upload.course"))
+      navigation.navigate("CourseForm");
     else {
       navigation.navigate("JobFormView");
     }
@@ -57,6 +74,7 @@ export const UploadList = ({ navigation }) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     display: "flex",

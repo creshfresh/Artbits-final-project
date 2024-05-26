@@ -2,11 +2,18 @@ import {
   Montserrat_600SemiBold,
   useFonts,
 } from "@expo-google-fonts/montserrat";
-import {  Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
@@ -16,14 +23,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import { auth, database } from "../../../firebaseConfig";
+import { usePersonStore } from "../../../store/store";
+import { AppUser } from "../../../types";
 import { colors } from "../../theme/colors";
 import { LoginControler } from "./LoginControler";
-import { usePersonStore } from "../../../store/store";
-import { addDoc, collection, onSnapshot, query, setDoc, where } from "firebase/firestore";
-import { AppUser } from "../../../types";
 const win = Dimensions.get("window");
 
 export default function SignInScreen({}) {
@@ -43,45 +49,26 @@ export default function SignInScreen({}) {
   const [showPasswordError, setShowPasswordError] = useState(false);
   const setUser = usePersonStore((state) => state.setUser);
 
-  // const handleSignUp = () => {
-  //   if (isValidPassword(password) && isValidEmail(email)) {
-  //     createUserWithEmailAndPassword(auth, email, password)
-  //       .then((userCreds) => {
-  //         const user = userCreds.user;
-  //       })
-  //       .catch((error) => {
-  //         alert("Email already registered");
-  //       });
-  //   } else {
-  //     setShowEmailError(!isValidEmail(email));
-  //     setShowPasswordError(!isValidPassword(password));
-  //   }
-  // };
-
-  const handleSignUp = () => {
+  const handleSignUp = (rol: string) => {
     if (isValidPassword(password) && isValidEmail(email)) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCreds) => {
           const user = userCreds.user;
-          const appUser: AppUser | any= {
-            displayName:"Giotto Gúrpide",
+          const appUser: AppUser | any = {
+            displayName: "Giotto Gúrpide",
             email: user.email,
-            country: "España", 
-            city: "Zaramordor", 
-            about_description: "Tell something about you", 
+            country: "España",
+            city: "Zaramordor",
+            about_description: "Tell something about you",
             avatar: user.photoURL,
             web_url: "google.com",
-            rol: "artist", 
+            rol: rol,
             user_id: user.uid,
-          
-          }
-          setUser(appUser)
-          
-          ;
-            try {
+          };
+          setUser(appUser);
+          try {
             const docRef = await addDoc(collection(database, "Users"), appUser);
-          } catch (error) {
-          }
+          } catch (error) {}
         })
         .catch((error) => {
           alert("Email already registered");
@@ -91,32 +78,19 @@ export default function SignInScreen({}) {
       setShowPasswordError(!isValidPassword(password));
     }
   };
-  // const handleLogin = () => {
-  //   if (isValidPassword(password) && isValidEmail(email)) {
-  //     signInWithEmailAndPassword(auth, email, password)
-  //       .then((userCreds) => {
-  //         const user = userCreds.user;
-  //         setUser(user)
-  //       })
-  //       .catch((error) => alert(error.message));
-  //   } else {
-  //     setShowEmailError(!isValidEmail(email));
-  //     setShowPasswordError(!isValidPassword(password));
-  //   }
-  // };
 
   const handleLogin = () => {
     if (isValidPassword(password) && isValidEmail(email)) {
       signInWithEmailAndPassword(auth, email, password)
         .then(async (userCreds) => {
           const user = userCreds.user;
-  
+
           // Consulta Firestore para obtener los datos del usuario
           const userQuery = query(
             collection(database, "Users"),
             where("user_id", "==", user.uid)
           );
-  
+
           const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
               const userData = doc.data();
@@ -131,11 +105,11 @@ export default function SignInScreen({}) {
                 rol: userData.rol,
                 user_id: userData.user_id,
               };
-  
+
               setUser(appUser);
             });
           });
-  
+
           // Desuscribirse de la consulta cuando ya no sea necesario
           return unsubscribe;
         })
@@ -172,7 +146,7 @@ export default function SignInScreen({}) {
           <Image
             source={background}
             resizeMode="contain"
-            style={{ position: "absolute", top: 0, height:win.height }}
+            style={{ position: "absolute", top: 0, height: win.height }}
           ></Image>
           <View>
             <Text
@@ -188,7 +162,10 @@ export default function SignInScreen({}) {
             >
               Welcome back to
             </Text>
-            <Image style={styles.logo} source={welcomeLogo} />
+            <Image
+              style={[styles.logo, { height: isLogin ? "65%" : "60%" }]}
+              source={welcomeLogo}
+            />
           </View>
         </SafeAreaView>
         <View style={[styles.loginCard, styles.shadowProp]}>
@@ -196,7 +173,7 @@ export default function SignInScreen({}) {
             style={{
               color: colors.text,
               fontSize: 24,
-              textAlign:"center",
+              textAlign: "center",
               fontWeight: "bold",
               marginVertical: 20,
               letterSpacing: 1,
@@ -251,26 +228,93 @@ export default function SignInScreen({}) {
               numbers
             </Text>
           )}
-          <Pressable
-            disabled={disabled}
-            style={[
-              styles.basebutton,
-              disabled ? styles.buttonDisabled : styles.buttonEnabled,
-            ]}
-            onPress={isLogin ? handleLogin : handleSignUp}
-          >
-            <Text
-              style={{
-                color: "white",
-                fontSize: 18,
-                fontWeight: "600",
-                alignContent: "center",
-                textAlign: "center",
-              }}
+          {isLogin && (
+            <Pressable
+              disabled={disabled}
+              style={[
+                styles.basebutton,
+                disabled ? styles.buttonDisabled : styles.buttonEnabled,
+              ]}
+              onPress={handleLogin}
             >
-              {isLogin ? "Log in" : "Sign up"}
-            </Text>
-          </Pressable>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 18,
+                  fontWeight: "600",
+                  alignContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                Login
+              </Text>
+            </Pressable>
+          )}
+
+          {!isLogin && (
+            <>
+              <Pressable
+                disabled={disabled}
+                style={[
+                  styles.basebutton,
+                  disabled ? styles.buttonDisabled : styles.buttonEnabled,
+                ]}
+                onPress={() => handleSignUp("artist")}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: "600",
+                    alignContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  Sign up as an artist
+                </Text>
+              </Pressable>
+              <Pressable
+                disabled={disabled}
+                style={[
+                  styles.basebutton,
+                  disabled ? styles.buttonDisabled : styles.buttonEnabled,
+                ]}
+                onPress={() => handleSignUp("company")}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: "600",
+                    alignContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  Sign up as a company
+                </Text>
+              </Pressable>
+              <Pressable
+                disabled={disabled}
+                style={[
+                  styles.basebutton,
+                  disabled ? styles.buttonDisabled : styles.buttonEnabled,
+                ]}
+                onPress={() => handleSignUp("art_academy")}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: "600",
+                    alignContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  Sign up as an Art Academy
+                </Text>
+              </Pressable>
+            </>
+          )}
           <View
             style={{
               alignItems: "center",
@@ -278,6 +322,7 @@ export default function SignInScreen({}) {
               justifyContent: "space-between",
               flexDirection: "row",
               marginTop: 20,
+              marginBottom: isLogin ? 0 : 60,
             }}
           >
             <Text style={{ textAlign: "left" }}>
@@ -310,24 +355,26 @@ export default function SignInScreen({}) {
             </View>
           </View>
           <View>
-            <Text
-              style={{
-                textAlign: "center",
-                marginTop: 30,
-                color: "grey",
-                fontSize: 11,
-              }}
-            >
-              {"Developed with "}
-              <Ionicons
-                name="heart"
+            {isLogin && (
+              <Text
                 style={{
-                  alignItems: "center",
-                  color: colors.dateText,
+                  textAlign: "center",
+                  marginTop: 30,
+                  color: "grey",
+                  fontSize: 11,
                 }}
-              />
-              {" by @creshSofresh"}
-            </Text>
+              >
+                {"Developed with "}
+                <Ionicons
+                  name="heart"
+                  style={{
+                    alignItems: "center",
+                    color: colors.dateText,
+                  }}
+                />
+                {" by @creshSofresh"}
+              </Text>
+            )}
           </View>
         </View>
       </>
@@ -342,7 +389,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    height: "65%",
     width: 500,
     marginTop: 30,
     resizeMode: "contain",
@@ -408,4 +454,3 @@ const styles = StyleSheet.create({
 function setData(arg0: any) {
   throw new Error("Function not implemented.");
 }
-
