@@ -70,7 +70,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     return (
       name &&
       organization &&
-     
+      destinyCentre &&
+      finishDate &&
       minAge &&
       maxAge &&
       minAge < maxAge &&
