@@ -14,8 +14,8 @@ export const UploadList = ({ navigation }) => {
   const artistData = [
     t("upload.contest.artGrant"),
     t("upload.project"),
-    t("upload.job"),
-    t("upload.course"),
+
+
 
   ];
 
