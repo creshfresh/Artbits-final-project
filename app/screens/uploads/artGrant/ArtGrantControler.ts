@@ -22,7 +22,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     participants: "Spain",
     specifications: "",
     terms: "",
-    urlbases: null,
     publishDate: currentDate,
     weburl: "",
     destinyCentre: "",
@@ -49,7 +48,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       participants,
       specifications,
       terms,
-      urlbases,
       weburl,
       image
 
@@ -66,26 +64,25 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       participants &&
       specifications &&
       terms &&
-      urlbases &&
       weburl &&
       image
     );
   };
 
-  const pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      if (result && result.assets) {
-        handleChangeTex(result, "urlbases");
-        setPickedPDF(result);
+  // const pickDocument = async () => {
+  //   try {
+  //     let result = await DocumentPicker.getDocumentAsync({});
+  //     if (result && result.assets) {
+  //       handleChangeTex(result, "urlbases");
+  //       setPickedPDF(result);
 
-      } else {
-        console.log("No se seleccionó ningún documento.");
-      }
-    } catch (error) {
-      console.error("Error al seleccionar el documento:", error);
-    }
-  }
+  //     } else {
+  //       console.log("No se seleccionó ningún documento.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al seleccionar el documento:", error);
+  //   }
+  // }
   const pickImage = async () => {
     setImage('');
   
@@ -102,7 +99,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
   };
 
   const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
-    if (checkAllTextFields()) {
+  
       try {
         if (image) {
           const response = await fetch(image);
@@ -116,7 +113,6 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
             startDate: minDate,
             finishDate: endDate,
             participants: participants,
-            urlbases: url,
             publishDate: currentDate,
             image: downloadURL, 
           };
@@ -131,10 +127,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
         console.error("Error saving Art_Grants:", error);
         return false;
       }
-    } else {
-      setShowErrors(true);
-      return false;
-    }
+ 
   };
   return {
     handleChangeTex,
@@ -144,7 +137,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     setShowErrors,
     pickedPdf,
     image,
-    pickDocument,
+    // pickDocument,
     pickImage,
     regex
   };

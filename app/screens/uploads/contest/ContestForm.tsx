@@ -81,6 +81,7 @@ export const ContestForm = ({ navigation }) => {
   }, [state.minAge, state.maxAge]);
 
   const handleSave = async () => {
+    console.log(state)
     if (!regex.test(state.weburl)) {
       setShowErrors(true); 
       return; 

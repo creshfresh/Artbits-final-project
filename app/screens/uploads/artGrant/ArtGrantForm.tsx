@@ -1,24 +1,21 @@
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useEffect, useRef, useState } from "react";
 import {
-  View,
+  Alert,
+  Pressable,
+  ScrollView,
   Text,
   TextInput,
-  StyleSheet,
-  Image,
-  Pressable,
-  ToastAndroid,
+  View
 } from "react-native";
-import { ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../../../theme/colors";
-import { ArtGrantControler } from "./ArtGrantControler";
-import { useTranslation } from "../../../hooks/useTranslations";
-import { useEffect, useRef, useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { Dropdown } from "react-native-element-dropdown";
-import { options, participantsOptions } from "../../../../Constants";
+import { participantsOptions } from "../../../../Constants";
 import { futureDate } from "../../../../helpers";
+import { useTranslation } from "../../../hooks/useTranslations";
+import { colors } from "../../../theme/colors";
 import { grantContesttSyles } from "../../styles/styles";
+import { ArtGrantControler } from "./ArtGrantControler";
 
 export const ArtGrantForm = ({ navigation }) => {
   const renderItem = (item) => {
@@ -49,7 +46,7 @@ export const ArtGrantForm = ({ navigation }) => {
     pickedPdf,
     image,
     pickImage,
-    pickDocument,
+    // pickDocument,
     regex,
   } = ArtGrantControler(startDate, endDate, participants);
 
@@ -61,14 +58,24 @@ export const ArtGrantForm = ({ navigation }) => {
   //   }
   // };
   const handleSave = async () => {
+
     if (!regex.test(state.weburl)) {
       setShowErrors(true);
       return;
     }
-    const success = await saveGrant(pickedPdf);
-    if (success) {
-      await navigation.navigate("SuccesUploadNodetail");
+    try {
+    
+      const success = await saveGrant(pickedPdf);
+      if (success) {
+        await navigation.navigate("SuccesUploadNodetail");
+      }
+      else{
+        console.log(success)
+      }
+    } catch (error) {
+      Alert.alert(error.message)
     }
+  
   };
 
   const onChangeStartDate = (event, selectedDate) => {
@@ -224,14 +231,14 @@ export const ArtGrantForm = ({ navigation }) => {
             <DateTimePicker
               mode="date"
               display="calendar"
-              value={startDate}
+              value={new Date()}
               onChange={onChangeStartDate}
             />
           ) : null}
           {startDateError ? (
             <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
-          {showErrors && !state.startDate ? (
+          {showErrors && !state.startDate && !startDate ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
@@ -256,7 +263,7 @@ export const ArtGrantForm = ({ navigation }) => {
           {endDateError ? (
             <Text style={grantContesttSyles.errors}>{t("error.date")}</Text>
           ) : null}
-          {showErrors && !state.finishDate ? (
+          {showErrors && !state.finishDate && !endDate ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>

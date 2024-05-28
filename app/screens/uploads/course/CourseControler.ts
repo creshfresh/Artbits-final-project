@@ -43,6 +43,7 @@ export const CourseControler = () => {
     schedule: "",
     price: "",
     weburl: "",
+    image:""
   };
 
   const [showErrors, setShowErrors] = useState(false);
@@ -72,6 +73,7 @@ export const CourseControler = () => {
       organizationCentre &&
       finishDate &&
       spots &&
+      image &&
       schedule &&
       instructorName &&
       weburl &&

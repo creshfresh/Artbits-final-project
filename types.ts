@@ -85,6 +85,7 @@ export interface CourseData {
   price:string,
   spots:string,
   weburl: string,
+  image:string
 
 }
   export interface ArtGrantData {
@@ -100,7 +101,6 @@ export interface CourseData {
     participants: string;
     specifications: string;
     terms: string;
-    urlbases: DocumentPicker.DocumentPickerResult | null;
     publishDate: string | null;
     weburl:string,
     image:string
