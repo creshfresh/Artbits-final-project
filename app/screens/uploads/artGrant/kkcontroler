@@ -7,14 +7,12 @@ import { database, storage } from "../../../../firebaseConfig";
 import { ArtGrantData } from "../../../../types";
 
 export const ArtGrantControler = (minDate, endDate, participants) => {
-  const [image, setImage] = useState("");
   const regex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
 
   const currentDate = new Date().toISOString();
-  const artGrantData: ArtGrantData = {
+  const grantState: ArtGrantData = {
     user_id: "3232",
     name: "",
-    image: "",
     organization: "",
     totalGranted: "",
     startDate: null,
@@ -24,31 +22,17 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     participants: "Spain",
     specifications: "",
     terms: "",
-    destinyCentre: "",
     publishDate: currentDate,
     weburl: "",
+    destinyCentre: "",
+    image:"",
   };
 
-  const pickImage = async () => {
-    setImage("");
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false,
-      quality: 0.2,
-      aspect: [3, 4],
-    });
-
-    if (!result.canceled && result.assets.length > 0) {
-      setImage(result.assets[0].uri);
-    }
-  };
-
+  const [image, setImage] = useState("");
   const [showErrors, setShowErrors] = useState(false);
-  const [pickedPdf, setPickedPDF] =
-    useState<DocumentPicker.DocumentPickerResult>();
+  const [pickedPdf, setPickedPDF] = useState<DocumentPicker.DocumentPickerResult>();
+  const [state, setState] = useState(grantState);
 
-  const [state, setState] = useState(artGrantData);
   const handleChangeTex = (value, name) => {
     setState({ ...state, [name]: value });
   };
@@ -57,20 +41,22 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     const {
       name,
       organization,
+      destinyCentre,
       finishDate,
       minAge,
       maxAge,
       participants,
       specifications,
       terms,
-      destinyCentre,
-      totalGranted,
       weburl,
+      image
+
     } = state;
     return (
       name &&
       organization &&
-     
+      destinyCentre &&
+      finishDate &&
       minAge &&
       maxAge &&
       minAge < maxAge &&
@@ -78,51 +64,42 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
       participants &&
       specifications &&
       terms &&
-      destinyCentre &&
-      totalGranted &&
-      weburl
+      weburl &&
+      image
     );
   };
+
   // const pickDocument = async () => {
   //   try {
   //     let result = await DocumentPicker.getDocumentAsync({});
   //     if (result && result.assets) {
   //       handleChangeTex(result, "urlbases");
   //       setPickedPDF(result);
+
   //     } else {
   //       console.log("No se seleccionó ningún documento.");
   //     }
   //   } catch (error) {
   //     console.error("Error al seleccionar el documento:", error);
   //   }
-  // };
-  // const saveContest = async (url: DocumentPicker.DocumentPickerResult) => {
-  //   if (checkAllTextFields()) {
-  //     try {
-  //       const data = {
-  //         ...state,
-  //         startDate: minDate,
-  //         finishDate: endDate,
-  //         participants: participants,
-  //         urlbases: url,
-  //         publishDate: currentDate
-  //       };
-  //       console.log("data", data);
-  //       await addDoc(collection(database, "Contest"), data);
-  //       return true;
-  //     } catch (error) {
-  //       console.error("Error al guardar el concurso:", error);
-  //       return false;
-  //     }
-  //   } else {
-  //     setShowErrors(true);
-  //     Alert.alert("Error en validaciones ");
-  //     console.error("Error en las validaciones");
-  //     return false;
-  //   }
-  // };
-  const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
+  // }
+  const pickImage = async () => {
+    setImage('');
+  
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false, 
+      quality: 0.2,
+      aspect: [3, 4],
+    });
+  
+    if (!result.canceled && result.assets.length > 0) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
+  const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
+  
       try {
         if (image) {
           const response = await fetch(image);
@@ -130,17 +107,16 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
           const storageRef = ref(storage, "Images/" + new Date().getTime());
           await uploadBytesResumable(storageRef, blob);
           const downloadURL = await getDownloadURL(storageRef);
-
+  
           const data = {
             ...state,
             startDate: minDate,
             finishDate: endDate,
             participants: participants,
-            // urlbases: url,
             publishDate: currentDate,
-            image: downloadURL,
+            image: downloadURL, 
           };
-
+  
           await addDoc(collection(database, "Art_Grants"), data);
           return true;
         } else {
@@ -148,11 +124,11 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
           return false;
         }
       } catch (error) {
-        console.error("Error saving Contest:", error);
+        console.error("Error saving Art_Grants:", error);
         return false;
       }
-    } 
-
+ 
+  };
   return {
     handleChangeTex,
     saveGrant,
@@ -161,8 +137,8 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
     setShowErrors,
     pickedPdf,
     image,
-    regex,
     // pickDocument,
     pickImage,
+    regex
   };
 };
