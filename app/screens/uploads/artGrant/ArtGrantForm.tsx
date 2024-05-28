@@ -159,7 +159,7 @@ export const ArtGrantForm = ({ navigation }) => {
             value={state.name}
             placeholder={t("name.placeholder.grant")}
             keyboardType="default"
-            onFocus={() => setShowErrors(false)}
+            
           />
           {showErrors && !state.name ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -172,7 +172,6 @@ export const ArtGrantForm = ({ navigation }) => {
             onChangeText={(value) => handleChangeTex(value, "destinyCentre")}
             value={state.destinyCentre}
             placeholder={t("destinty.centre.placeholder")}
-            onFocus={() => setShowErrors(false)}
             keyboardType="default"
           />
           {showErrors && !state.destinyCentre ? (
@@ -188,7 +187,6 @@ export const ArtGrantForm = ({ navigation }) => {
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
             placeholder={t("organization.placeholder")}
-            onFocus={() => setShowErrors(false)}
             keyboardType="default"
           />
           {showErrors && !state.organization ? (

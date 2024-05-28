@@ -123,7 +123,7 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
   //   }
   // };
   const saveGrant = async (url: DocumentPicker.DocumentPickerResult) => {
-
+    if (checkAllTextFields()) {
       try {
         if (image) {
           const response = await fetch(image);
@@ -152,6 +152,11 @@ export const ArtGrantControler = (minDate, endDate, participants) => {
         console.error("Error saving Contest:", error);
         return false;
       }
+    }
+    else {
+      setShowErrors(true);
+      return false;
+    }
     } 
 
   return {

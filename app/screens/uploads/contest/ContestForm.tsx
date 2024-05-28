@@ -157,7 +157,7 @@ export const ContestForm = ({ navigation }) => {
             value={state.name}
             placeholder={t("name.placeholder.contest")}
             keyboardType="default"
-            onFocus={() => setShowErrors(false)}
+          
           />
           {showErrors && !state.name ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -173,7 +173,7 @@ export const ContestForm = ({ navigation }) => {
             onChangeText={(value) => handleChangeTex(value, "organization")}
             value={state.organization}
             placeholder={t("organization.placeholder")}
-            onFocus={() => setShowErrors(false)}
+          
             keyboardType="default"
           />
           {showErrors && !state.organization ? (
@@ -224,7 +224,7 @@ export const ContestForm = ({ navigation }) => {
             value={state.totalCash.toString()}
             placeholder={t("cash.price.placeholder")}
             placeholderTextColor={!isChecked ? "#b8b8b8" : colors.text}
-            onFocus={() => setShowErrors(false)}
+          
             keyboardType="numeric"
             editable={isChecked}
           />
