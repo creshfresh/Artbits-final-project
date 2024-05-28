@@ -1,11 +1,5 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  ScrollView,
-  View
-} from "react-native";
+import { Dimensions, Image, Pressable, ScrollView, View } from "react-native";
 
 import { FlashList } from "@shopify/flash-list";
 import {
@@ -27,7 +21,7 @@ export const GalleryCarousel = ({
   navigation;
 }) => {
   const [data, setData] = useState([]);
-  const [column, setColums]= useState(2);
+  const [column, setColums] = useState(2);
 
   let filter = viewMode.toLowerCase();
 
@@ -62,22 +56,23 @@ export const GalleryCarousel = ({
           bottom: 50,
           left: "85%",
           right: 0,
-          height:50,
-          width:45,
-          zIndex: 1, 
-          borderRadius:5,
-          borderColor:colors.dateText,
-          borderWidth:1,
+          height: 50,
+          width: 45,
+          zIndex: 1,
+          borderRadius: 5,
+          borderColor: colors.dateText,
+          borderWidth: 1,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor:"#rgba(222, 222, 222, 0.5)"
+          backgroundColor: "#rgba(222, 222, 222, 0.5)",
         }}
-        onPress={()=>setColums(column == 1 ? 2 : 1)}
+        onPress={() => setColums(column == 1 ? 2 : 1)}
       >
-        {column === 1 ? 
-       <Feather name="columns" size={30} color={colors.main}/> : 
-       <Ionicons name="browsers-sharp" size={30} color={colors.main}/> 
-        }
+        {column === 1 ? (
+          <Feather name="columns" size={30} color={colors.main} />
+        ) : (
+          <Ionicons name="browsers-sharp" size={30} color={colors.main} />
+        )}
       </Pressable>
 
       <ScrollView
@@ -95,11 +90,9 @@ export const GalleryCarousel = ({
           renderItem={({ item }) => (
             <View style={{ flex: 1, margin: 2 }}>
               <Pressable
-                onPress={() =>{
-                  navigation.navigate("PorfolioDetail", { item: item })
-
-                }
-                }
+                onPress={() => {
+                  navigation.navigate("PorfolioDetail", { item: item });
+                }}
               >
                 <Image
                   source={{ uri: item.url[0] }}

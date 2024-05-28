@@ -33,7 +33,7 @@ const win = Dimensions.get("window");
 
 export const PublishProjectScreen = ({ route, navigation }) => {
   const { image } = route.params;
-  const [value, setValue] = useState("Traditional");
+  const [value, setValue] = useState("traditional");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const user = usePersonStore((state) => state.user);

@@ -341,8 +341,8 @@ export const ContestForm = ({ navigation }) => {
       <View style={grantContesttSyles.divided}>
         <Text style={grantContesttSyles.title}>{t("work.specifications")}</Text>
         <TextInput
-          style={grantContesttSyles.text_intup}
-          onChangeText={(value) => handleChangeTex(value, "specifications")}
+             style={[grantContesttSyles.text_intup, { minHeight: 80 , textAlignVertical:"top", paddingTop:5}]}
+             onChangeText={(value) => handleChangeTex(value, "specifications")}
           value={state.specifications}
           placeholder={t("work.specifications.placeholder")}
           keyboardType="default"
@@ -352,11 +352,11 @@ export const ContestForm = ({ navigation }) => {
         ) : null}
       </View>
       <View>
-        <View style={grantContesttSyles.divided}>
+      <View style={[grantContesttSyles.divided,  { marginTop: 30 }]}>
           <Text style={grantContesttSyles.title}>{t("terms")}</Text>
           <TextInput
             multiline={true}
-            style={grantContesttSyles.text_intup}
+            style={[grantContesttSyles.text_intup, { minHeight: 80 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "terms")}
             value={state.terms}
             placeholder={t("bases.placeholder")}
@@ -366,13 +366,13 @@ export const ContestForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={grantContesttSyles.divided}>
+        <View style={[grantContesttSyles.divided,  { marginTop: 30 }]}>
           <Text style={grantContesttSyles.title}>
             {t("object.and.purpose")}
           </Text>
           <TextInput
             multiline={true}
-            style={grantContesttSyles.text_intup}
+            style={[grantContesttSyles.text_intup, { minHeight: 80 , textAlignVertical:"top", paddingTop:5}]}
             onChangeText={(value) => handleChangeTex(value, "objetive")}
             value={state.objetive}
             placeholder={t("object.and.purpose.placeholder")}
@@ -383,7 +383,7 @@ export const ContestForm = ({ navigation }) => {
           ) : null}
         </View>
       </View>
-      <View style={grantContesttSyles.divided}>
+      <View style={[grantContesttSyles.divided,  { marginTop: 30 }]}>
         <Text style={grantContesttSyles.title}>{t("web.url")}</Text>
         <TextInput
           style={grantContesttSyles.text_intup}

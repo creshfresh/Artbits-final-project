@@ -10,7 +10,7 @@ export const CourseCard = ({ data }) => {
      
         <Image
           resizeMode="cover"
-          source={{ uri: data.image[0] === null ? defaulImage : data.image[0] }}
+          source={{ uri: data.image[0] === "" ? defaulImage : data.image[0] }}
           style={styles.position}
         />
         <View style={{ width: "75%", paddingStart: 10 }}>

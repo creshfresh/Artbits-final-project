@@ -22,12 +22,15 @@ export const ContestDetailScreen = ({}) => {
   //   const data = ContestDetailScreenControler(name);
   const { t } = useTranslation();
 
-  const finishDateFormated = new Date(route.params.item.finishDate.seconds * 1000);;
-  const startDateFormated = new Date(route.params.item.startDate.seconds * 1000);;
+  const finishDateFormated = new Date(
+    route.params.item.finishDate.seconds * 1000
+  );
+  const startDateFormated = new Date(
+    route.params.item.startDate.seconds * 1000
+  );
 
   const newFinishDate = formatDateTranslated(finishDateFormated);
   const newStarthDate = formatDateTranslated(startDateFormated);
-
 
   return (
     <ScrollView
@@ -42,28 +45,28 @@ export const ContestDetailScreen = ({}) => {
           />
         </View>
         <View
-                style={{
-                  position:"absolute",
-                  borderColor: colors.secondary,
-                  borderWidth: 2,
-                  alignItems: "center",
-                  padding: 3,
-                  top:170,
-                  zIndex:1,
-                  left:20,
-                  paddingHorizontal: 12,
-                  borderRadius: 30,
-                }}
-              >
-                <Text
-                  style={[
-                    styles.body,
-                    { color: colors.secondary, fontWeight: "700" , fontSize:10},
-                  ]}
-                >
-                  {route.params.item.participants}
-                </Text>
-              </View>
+          style={{
+            position: "absolute",
+            borderColor: colors.secondary,
+            borderWidth: 2,
+            alignItems: "center",
+            padding: 3,
+            top: 170,
+            zIndex: 1,
+            left: 20,
+            paddingHorizontal: 12,
+            borderRadius: 30,
+          }}
+        >
+          <Text
+            style={[
+              styles.body,
+              { color: colors.secondary, fontWeight: "700", fontSize: 10 },
+            ]}
+          >
+            {route.params.item.participants}
+          </Text>
+        </View>
         <View
           style={[styles.loginCard, { shadowColor: "#000000", elevation: 20 }]}
         >
@@ -79,11 +82,10 @@ export const ContestDetailScreen = ({}) => {
                 <Text style={styles.title}>{route.params.item.name}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems:"center"}}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={styles.body}>
                   {route.params.item.organization}
                 </Text>
-        
               </View>
 
               <View
@@ -103,9 +105,7 @@ export const ContestDetailScreen = ({}) => {
                   <Text style={styles.subtitle}>{t("dead.line")}</Text>
                   <Text style={styles.body}>{newFinishDate}</Text>
                 </View>
-         
               </View>
-              
             </View>
           </View>
           <View
@@ -119,21 +119,29 @@ export const ContestDetailScreen = ({}) => {
               width: win.width,
             }}
           ></View>
-             <View
+          <View
             style={{
               flexDirection: "row",
               justifyContent: "flex-start",
               gap: 40,
             }}
           >
-          <View style={{ gap: 10, paddingBottom: 15 }}>
-            <Text style={styles.titleBody}>{t("min.age")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.minAge}</Text>
-          </View>
-          <View style={{ gap: 10, paddingBottom: 15 }}>
-            <Text style={styles.titleBody}>{t("max.age")}</Text>
-            <Text style={styles.bodybody}>{route.params.item.maxAge}</Text>
-          </View>
+            <View style={{ gap: 10, paddingBottom: 15 }}>
+              <Text style={styles.titleBody}>{t("min.age")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.minAge}</Text>
+            </View>
+            <View style={{ gap: 10, paddingBottom: 15 }}>
+              <Text style={styles.titleBody}>{t("max.age")}</Text>
+              <Text style={styles.bodybody}>{route.params.item.maxAge}</Text>
+            </View>
+            <View style={{ gap: 10, paddingBottom: 15 }}>
+              <Text style={styles.titleBody}>{t("cash.price")}</Text>
+              <Text style={styles.bodybody}>
+                {route.params.item.totalCash
+                  ? route.params.item.totalCash
+                  : "none"}
+              </Text>
+            </View>
           </View>
           <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("work.specifications")}</Text>
@@ -141,7 +149,7 @@ export const ContestDetailScreen = ({}) => {
               {route.params.item.specifications}
             </Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 15}}>
+          <View style={{ gap: 10, paddingBottom: 15 }}>
             <Text style={styles.titleBody}>{t("object.and.purpose")}</Text>
             <Text style={styles.bodybody}>{route.params.item.objetive}</Text>
           </View>
@@ -149,8 +157,7 @@ export const ContestDetailScreen = ({}) => {
             <Text style={styles.titleBody}>{t("terms")}</Text>
             <Text style={styles.bodybody}>{route.params.item.terms}</Text>
           </View>
-          <View style={{ gap: 10, paddingBottom: 220
-           }}>
+          <View style={{ gap: 10, paddingBottom: 220 }}>
             <Text style={styles.titleBody}>{t("web.url")}</Text>
             <Text
               style={styles.link}
@@ -176,7 +183,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    minHeight:80,
+    minHeight: 80,
     backgroundColor: "#D7E2F4",
   },
   division: {

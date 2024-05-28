@@ -25,7 +25,6 @@ export const ConestControler = (minDate, endDate, participants) => {
     specifications: "",
     terms: "",
     objetive: "",
-
     publishDate: currentDate,
     weburl: "",
   };

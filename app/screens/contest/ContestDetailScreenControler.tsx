@@ -20,6 +20,7 @@ export const ContestDetailScreenControler = (name:string) => {
           id: doc.id,
           maxAge:doc.data().maxAge,
           minAge:doc.data().minAge,
+          totalCash:doc.data().totalCash,
           organization:doc.data().organization,
           participants:doc.data().participants,
           publishDate:doc.data().publishDate,

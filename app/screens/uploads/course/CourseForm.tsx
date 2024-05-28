@@ -307,7 +307,7 @@ export const CourseForm = ({ navigation }) => {
             onChangeText={(value) => handleChangeTex(value, "spots")}
             value={state.spots}
             placeholder={t("spots.placeholder")}
-            keyboardType="default"
+            keyboardType="numeric"
           />
           {showErrors && !state.spots ? (
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
@@ -346,6 +346,29 @@ export const CourseForm = ({ navigation }) => {
             color={colors.secondary}
             onPress={pickImage}
           />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
+            marginEnd: 5,
+            justifyContent: "flex-end",
+          }}
+        >
+          {showErrors && (!image || image.length === 0) ? (
+            <Text style={grantContesttSyles.errors}>{t("error.image")}</Text>
+          ) : null}
+          {image && image.length > 0 ? (
+            <>
+              <Ionicons name="image-outline" size={20} color={colors.main} />
+              <Text
+                style={{ color: colors.main, fontWeight: "500", marginLeft: 5 }}
+              >
+                {t("image.selected")}
+              </Text>
+            </>
+          ) : null}
         </View>
       </View>
 
