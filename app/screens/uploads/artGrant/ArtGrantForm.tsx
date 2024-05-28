@@ -7,7 +7,7 @@ import {
   ScrollView,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { participantsOptions } from "../../../../Constants";
@@ -58,24 +58,20 @@ export const ArtGrantForm = ({ navigation }) => {
   //   }
   // };
   const handleSave = async () => {
-
     if (!regex.test(state.weburl)) {
       setShowErrors(true);
       return;
     }
     try {
-    
       const success = await saveGrant(pickedPdf);
       if (success) {
         await navigation.navigate("SuccesUploadNodetail");
-      }
-      else{
-        console.log(success)
+      } else {
+        console.log(success);
       }
     } catch (error) {
-      Alert.alert(error.message)
+      Alert.alert(error.message);
     }
-  
   };
 
   const onChangeStartDate = (event, selectedDate) => {
@@ -327,7 +323,10 @@ export const ArtGrantForm = ({ navigation }) => {
             {t("work.specifications")}
           </Text>
           <TextInput
-            style={grantContesttSyles.text_intup}
+            style={[
+              grantContesttSyles.text_intup,
+              { minHeight: 80, textAlignVertical: "top", paddingTop: 5 },
+            ]}
             onChangeText={(value) => handleChangeTex(value, "specifications")}
             value={state.specifications}
             placeholder={t("description.placeholder")}
@@ -337,10 +336,13 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={grantContesttSyles.divided}>
+        <View style={[grantContesttSyles.divided, { marginTop: 30 }]}>
           <Text style={grantContesttSyles.title}>{t("terms")}</Text>
           <TextInput
-            style={grantContesttSyles.text_intup}
+            style={[
+              grantContesttSyles.text_intup,
+              { minHeight: 80, textAlignVertical: "top", paddingTop: 5 },
+            ]}
             onChangeText={(value) => handleChangeTex(value, "terms")}
             value={state.terms}
             placeholder={t("bases.placeholder")}
@@ -350,7 +352,7 @@ export const ArtGrantForm = ({ navigation }) => {
             <Text style={grantContesttSyles.errors}>{t("error")}</Text>
           ) : null}
         </View>
-        <View style={grantContesttSyles.divided}>
+        <View style={[grantContesttSyles.divided, { marginTop: 30 }]}>
           <Text style={grantContesttSyles.title}>{t("web.url")}</Text>
           <TextInput
             style={grantContesttSyles.text_intup}
