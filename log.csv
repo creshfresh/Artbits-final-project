@@ -1,97 +1,108 @@
-"2024-05-25","small changes",
-"2024-05-25","fixed error, time to roll back",
-"2024-05-25","done new icons, time to build",
-"2024-05-25","almost, need to fix adaptative icon",
-"2024-05-25","fixed error, almost time to publish",
-"2024-05-25","ver imagen concurso",
-"2024-05-25","funciona ir al proyecto",
-"2024-05-25","arreglado eliminar proyectos",
-"2024-05-25","small fixes",
-"2024-05-25","fixed portofolio carraussel",
-"2024-05-24","small changes",
-"2024-05-24","preventing go back",
-"2024-05-24","fucked up on delete own project",
-"2024-05-24","wip if not created project, show message",
-"2024-05-24","handle sign out",
-"2024-05-24","now trully works",
-"2024-05-24","it works",
-"2024-05-23","not getting anywhere",
-"2024-05-23","more fixes",
-"2024-05-23","more fixes",
-"2024-05-23","more fixes",
-"2024-05-23","clean up errors",
-"2024-05-22","fix build",
-"2024-05-22","updated small details",
-"2024-05-21","wip navigation edit profile",
-"2024-05-21","almost good",
-"2024-05-21","chorrada",
-"2024-05-21","solo queda poder editar. Tambien revisar ir al detalle al subir o ir a la galeria",
-"2024-05-21","finished saved artwork",
-"2024-05-21","aaaaaaaaaaaalmost",
-"2024-05-20","almossssst",
-"2024-05-20","almost there",
-"2024-05-20","setting saved proyects",
-"2024-05-20","able to delete projects",
-"2024-05-20","added status bar",
-"2024-05-20","HABEMUS PERSISTENCIA AAAAAAAAAAHHHHH",
-"2024-05-20","changed splash and icons",
-"2024-05-20","wip",
-"2024-05-20","retoches, tomrrow finish this plis",
-"2024-05-20","wip",
-"2024-05-19","wip",
-"2024-05-19","DONE, next step",
-"2024-05-19","done adding promotional picture",
-"2024-05-19","wip que si no me lio",
-"2024-05-19","better form, now to everything",
-"2024-05-19","wip new details view",
-"2024-05-19","finished view",
-"2024-05-19","making edit page",
-"2024-05-19","i colud upload image and still too tired",
-"2024-05-19","wip",
-"2024-05-19","cannot upload image, too tired",
-"2024-05-19","wip",
-"2024-05-19","wip",
-"2024-05-18","wip",
-"2024-05-18","something is fucked up",
-"2024-05-18","por lo que sea medio fuciona",
-"2024-05-18","cant  create my own user",
-"2024-05-18","wip and rip",
-"2024-05-18","persistin user",
-"2024-05-18","login validation",
-"2024-05-18","HABEMUS LOGIN Y REGISTRO",
-"2024-05-18","before disaster with auth",
-"2024-05-17","Merge branch 'main' of https://github.com/creshfresh/Artbits-final-project",
-"2024-05-17","implemented saved images,",
-"2024-05-16","commit de esta basura: puedo navegar del detalle de la galería al usuario correspondiente",
-"2024-05-15","Create README.md",
-"2024-05-15","retouches",
-"2024-05-15","before masonrylist",
-"2024-05-14","wip and rip",
-"2024-05-14","done art grants",
-"2024-05-14","clean up code",
-"2024-05-14","improvements in contests, added fields and art grant",
-"2024-05-14","se puede ir al detalle, falta la fecha formateada",
-"2024-05-14","formateada fecha, wip and rip",
-"2024-05-13","added publishdate",
-"2024-05-13","finish upload contest",
-"2024-05-13","upload art grants and contests. Need to validate start date, ages an upload an image",
-"2024-05-12","wip",
-"2024-05-11","done forms, now logic",
-"2024-05-11","wip contest upload form",
-"2024-05-11","added translation hook",
-"2024-05-09","wip contest and art form",
-"2024-05-09","well, at least i can upload and fetch images",
-"2024-05-08","before disaster",
-"2024-05-05","wip navigation",
-"2024-05-05","wip navigation",
-"2024-05-02","wip card for contest and art grants",
-"2024-05-02","added user and images. Some navigation too",
-"2024-05-01","added user and images. Some navigation too",
-"2024-04-28","tried redux, dont like",
-"2024-04-28","done navigation and login, need to keep user globally",
-"2024-04-16","at least i cant sign in with google in android",
-"2024-04-15","wip and rip",
-"2024-04-15","semi working, outh errors but works in web",
-"2024-04-14","semi working, outh errors",
-"2024-04-14","initial commit",
-"2024-04-14","Initial commit",
+"ee5aad8","Cristina Ramos","Tue, 28 May 2024 03:26:49 +0200","minor changes",	 3 files changed, 10 insertions(+), 7 deletions(-)	
+"e39e6df","Cristina Ramos","Tue, 28 May 2024 03:03:26 +0200","added again roles",	 1 file changed, 2 insertions(+), 2 deletions(-)	
+"4bce883","Cristina Ramos","Tue, 28 May 2024 03:02:55 +0200","need a validation",	 1 file changed, 2 insertions(+), 1 deletion(-)	
+"a8495f4","Cristina Ramos","Tue, 28 May 2024 02:58:40 +0200","added styles",	 1 file changed, 14 insertions(+), 12 deletions(-)	
+"3a6b422","Cristina Ramos","Tue, 28 May 2024 02:52:49 +0200","ITS SOLVED AAAAAAAAAA",	 3 files changed, 654 insertions(+), 486 deletions(-)	
+"1b85509","Cristina Ramos","Tue, 28 May 2024 02:41:45 +0200","wip, not yet done",	 5 files changed, 48 insertions(+), 45 deletions(-)	
+"5246980","Cristina Ramos","Tue, 28 May 2024 02:19:49 +0200","wip, need to fix art grant error",	 11 files changed, 581 insertions(+), 78 deletions(-)	
+"5f8f4b6","Cristina Ramos","Mon, 27 May 2024 00:19:34 +0200","deleted unused files",	 3 files changed, 605 deletions(-)	
+"fb45ee8","Cristina Ramos","Sun, 26 May 2024 22:15:40 +0200","added traductions",	 2 files changed, 4 insertions(+), 2 deletions(-)	
+"d000010","Cristina Ramos","Sun, 26 May 2024 22:14:15 +0200","added refgex and fixed some erros",	 8 files changed, 103 insertions(+), 35 deletions(-)	
+"a9f2663","Cristina Ramos","Sun, 26 May 2024 19:12:31 +0200","implemented roles",	 5 files changed, 485 insertions(+), 117 deletions(-)	
+"fdd663e","Cristina Ramos","Sun, 26 May 2024 18:05:35 +0200","small changes",	 2 files changed, 98 insertions(+), 1 deletion(-)	
+"add0602","Cristina Ramos","Sat, 25 May 2024 21:07:34 +0200","small changes",	 4 files changed, 5 insertions(+), 5 deletions(-)	
+"fa62bd4","Cristina Ramos","Sat, 25 May 2024 21:02:11 +0200","fixed error, time to roll back",	 6 files changed, 61 insertions(+), 131 deletions(-)	
+"777451a","Cristina Ramos","Sat, 25 May 2024 19:23:50 +0200","done new icons, time to build",	 2 files changed, 0 insertions(+), 0 deletions(-)	
+"d2f7b62","Cristina Ramos","Sat, 25 May 2024 19:00:13 +0200","almost, need to fix adaptative icon",	 7 files changed, 5 insertions(+), 9 deletions(-)	
+"2220af5","Cristina Ramos","Sat, 25 May 2024 18:45:44 +0200","fixed error, almost time to publish",	 12 files changed, 188 insertions(+), 128 deletions(-)	
+"f326bbf","Cristina Ramos","Sat, 25 May 2024 18:06:41 +0200","ver imagen concurso",	 2 files changed, 2 insertions(+), 2 deletions(-)	
+"f1a6157","Cristina Ramos","Sat, 25 May 2024 18:00:46 +0200","funciona ir al proyecto",	 3 files changed, 71 insertions(+), 36 deletions(-)	
+"c1f045e","Cristina Ramos","Sat, 25 May 2024 01:19:51 +0200","arreglado eliminar proyectos",	 2 files changed, 44 insertions(+), 21 deletions(-)	
+"c9081db","Cristina Ramos","Sat, 25 May 2024 00:40:15 +0200","small fixes",	 5 files changed, 387 insertions(+), 63 deletions(-)	
+"82b539c","Cristina Ramos","Sat, 25 May 2024 00:02:24 +0200","fixed portofolio carraussel",	 4 files changed, 383 insertions(+), 85 deletions(-)	
+"8dc00b1","Cristina Ramos","Fri, 24 May 2024 22:09:58 +0200","small changes",	 7 files changed, 199 insertions(+), 42 deletions(-)	
+"8df1789","Cristina Ramos","Fri, 24 May 2024 21:18:16 +0200","preventing go back",	 9 files changed, 44 insertions(+), 103 deletions(-)	
+"d6930a9","Cristina Ramos","Fri, 24 May 2024 20:37:03 +0200","fucked up on delete own project",	 7 files changed, 110 insertions(+), 37 deletions(-)	
+"3753953","Cristina Ramos","Fri, 24 May 2024 19:13:43 +0200","wip if not created project, show message",	 6 files changed, 219 insertions(+), 110 deletions(-)	
+"06822de","Cristina Ramos","Fri, 24 May 2024 00:57:29 +0200","handle sign out",	 2 files changed, 4 insertions(+), 1 deletion(-)	
+"7b77090","Cristina Ramos","Fri, 24 May 2024 00:54:28 +0200","now trully works",	 1 file changed, 29 insertions(+), 1 deletion(-)	
+"c63a9a3","Cristina Ramos","Fri, 24 May 2024 00:40:18 +0200","it works",	 3 files changed, 96 insertions(+), 25 deletions(-)	
+"ce8ba46","Cristina Ramos","Thu, 23 May 2024 23:30:44 +0200","not getting anywhere",	 8 files changed, 42 insertions(+), 13 deletions(-)	
+"fe70441","Cristina Ramos","Thu, 23 May 2024 20:22:44 +0200","more fixes",	 6 files changed, 40 insertions(+), 48 deletions(-)	
+"abea282","Cristina Ramos","Thu, 23 May 2024 20:03:52 +0200","more fixes",	 4 files changed, 69 insertions(+), 55 deletions(-)	
+"d43f3a1","Cristina Ramos","Thu, 23 May 2024 19:47:43 +0200","more fixes",	 7 files changed, 43 insertions(+), 27 deletions(-)	
+"7176f33","Cristina Ramos","Thu, 23 May 2024 19:20:39 +0200","clean up errors",	 11 files changed, 90 insertions(+), 60 deletions(-)	
+"1f7bb83","Cristina Ramos","Wed, 22 May 2024 21:58:30 +0200","fix build",	 2 files changed, 21 insertions(+), 9 deletions(-)	
+"2b1acfa","Cristina Ramos","Wed, 22 May 2024 18:18:06 +0200","updated small details",	 6 files changed, 9 insertions(+), 42 deletions(-)	
+"596be82","Cristina Ramos","Tue, 21 May 2024 22:55:08 +0200","wip navigation edit profile",	 33 files changed, 103 insertions(+), 37 deletions(-)	
+"842176b","Cristina Ramos","Tue, 21 May 2024 20:16:32 +0200","almost good",	 4 files changed, 156 insertions(+), 34 deletions(-)	
+"ccfa94f","Cristina Ramos","Tue, 21 May 2024 01:05:15 +0200","chorrada",	 1 file changed, 1 insertion(+), 2 deletions(-)	
+"64affe2","Cristina Ramos","Tue, 21 May 2024 01:04:50 +0200","solo queda poder editar. Tambien revisar ir al detalle al subir o ir a la galeria",	 13 files changed, 20 insertions(+), 32 deletions(-)	
+"294740b","Cristina Ramos","Tue, 21 May 2024 00:51:19 +0200","finished saved artwork",	 3 files changed, 109 insertions(+), 10 deletions(-)	
+"de5ace1","Cristina Ramos","Tue, 21 May 2024 00:26:32 +0200","aaaaaaaaaaaalmost",	 8 files changed, 173 insertions(+), 56 deletions(-)	
+"59dec06","Cristina Ramos","Mon, 20 May 2024 23:41:11 +0200","almossssst",	 4 files changed, 54 insertions(+), 44 deletions(-)	
+"b95e7b2","Cristina Ramos","Mon, 20 May 2024 22:21:33 +0200","almost there",	 8 files changed, 92 insertions(+), 70 deletions(-)	
+"08c639d","Cristina Ramos","Mon, 20 May 2024 21:07:42 +0200","setting saved proyects",	 2 files changed, 33 insertions(+), 10 deletions(-)	
+"1f25bd4","Cristina Ramos","Mon, 20 May 2024 20:40:48 +0200","able to delete projects",	 5 files changed, 55 insertions(+), 33 deletions(-)	
+"57026fd","Cristina Ramos","Mon, 20 May 2024 19:25:21 +0200","added status bar",	 1 file changed, 7 insertions(+), 3 deletions(-)	
+"7893b0c","Cristina Ramos","Mon, 20 May 2024 19:09:37 +0200","HABEMUS PERSISTENCIA AAAAAAAAAAHHHHH",	 2 files changed, 57 insertions(+), 28 deletions(-)	
+"aa18240","Cristina Ramos","Mon, 20 May 2024 01:59:34 +0200","changed splash and icons",	 4 files changed, 2 insertions(+), 2 deletions(-)	
+"e7d2813","Cristina Ramos","Mon, 20 May 2024 01:53:35 +0200","wip",	 3 files changed, 3 insertions(+), 4 deletions(-)	
+"e334d6f","Cristina Ramos","Mon, 20 May 2024 01:51:24 +0200","retoches, tomrrow finish this plis",	 10 files changed, 331 insertions(+), 249 deletions(-)	
+"db73923","Cristina Ramos","Mon, 20 May 2024 00:56:17 +0200","wip",	 14 files changed, 167 insertions(+), 81 deletions(-)	
+"6d54659","Cristina Ramos","Sun, 19 May 2024 23:46:00 +0200","wip",	 4 files changed, 236 insertions(+), 230 deletions(-)	
+"6d197b7","Cristina Ramos","Sun, 19 May 2024 22:08:36 +0200","DONE, next step",	 6 files changed, 126 insertions(+), 7 deletions(-)	
+"d94fd6a","Cristina Ramos","Sun, 19 May 2024 21:52:00 +0200","done adding promotional picture",	 10 files changed, 378 insertions(+), 23 deletions(-)	
+"6cebcdd","Cristina Ramos","Sun, 19 May 2024 21:14:31 +0200","wip que si no me lio",	 1 file changed, 106 insertions(+), 64 deletions(-)	
+"da2b6e7","Cristina Ramos","Sun, 19 May 2024 21:07:37 +0200","better form, now to everything",	 3 files changed, 81 insertions(+), 65 deletions(-)	
+"943c021","Cristina Ramos","Sun, 19 May 2024 20:19:48 +0200","wip new details view",	 9 files changed, 173 insertions(+), 121 deletions(-)	
+"73fec0a","Cristina Ramos","Sun, 19 May 2024 19:11:06 +0200","finished view",	 2 files changed, 178 insertions(+), 106 deletions(-)	
+"fc352f3","Cristina Ramos","Sun, 19 May 2024 18:19:54 +0200","making edit page",	 8 files changed, 228 insertions(+), 94 deletions(-)	
+"1627f8a","Cristina Ramos","Sun, 19 May 2024 15:22:36 +0200","i colud upload image and still too tired",	 12 files changed, 217 insertions(+), 228 deletions(-)	
+"7df395a","Cristina Ramos","Sun, 19 May 2024 13:55:07 +0200","wip",	 9 files changed, 340 insertions(+), 113 deletions(-)	
+"fbadb18","Cristina Ramos","Sun, 19 May 2024 04:48:28 +0200","cannot upload image, too tired",	 15 files changed, 357 insertions(+), 194 deletions(-)	
+"86ca645","Cristina Ramos","Sun, 19 May 2024 03:38:55 +0200","wip",	 9 files changed, 406 insertions(+), 277 deletions(-)	
+"6a1d711","Cristina Ramos","Sun, 19 May 2024 02:31:32 +0200","wip",	 18 files changed, 1146 insertions(+), 279 deletions(-)	
+"62ab6d6","Cristina Ramos","Sat, 18 May 2024 23:20:39 +0200","wip",	 8 files changed, 350 insertions(+), 272 deletions(-)	
+"b7997e0","Cristina Ramos","Sat, 18 May 2024 22:25:26 +0200","something is fucked up",	 6 files changed, 15 insertions(+), 9 deletions(-)	
+"8b97328","Cristina Ramos","Sat, 18 May 2024 22:06:06 +0200","por lo que sea medio fuciona",	 6 files changed, 170 insertions(+), 28 deletions(-)	
+"446b597","Cristina Ramos","Sat, 18 May 2024 21:10:44 +0200","cant  create my own user",	 5 files changed, 29 insertions(+), 46 deletions(-)	
+"79cc023","Cristina Ramos","Sat, 18 May 2024 20:03:12 +0200","wip and rip",	 11 files changed, 46 insertions(+), 137 deletions(-)	
+"215b988","Cristina Ramos","Sat, 18 May 2024 19:20:47 +0200","persistin user",	 10 files changed, 122 insertions(+), 106 deletions(-)	
+"38866f1","Cristina Ramos","Sat, 18 May 2024 17:46:58 +0200","login validation",	 4 files changed, 285 insertions(+), 98 deletions(-)	
+"b07695e","Cristina Ramos","Sat, 18 May 2024 13:48:21 +0200","HABEMUS LOGIN Y REGISTRO",	 3 files changed, 113 insertions(+), 56 deletions(-)	
+"577463e","Cristina Ramos","Sat, 18 May 2024 12:18:25 +0200","before disaster with auth",	 12 files changed, 368 insertions(+), 71 deletions(-)	
+"0430edb","Cristina Ramos","Fri, 17 May 2024 02:06:53 +0200","implemented saved images,",	 8 files changed, 210 insertions(+), 59 deletions(-)	
+"3dbf1b3","Cristina Ramos","Thu, 16 May 2024 22:34:24 +0200","commit de esta basura: puedo navegar del detalle de la galería al usuario correspondiente",	 13 files changed, 350 insertions(+), 210 deletions(-)	
+"89db239","creshfresh","Wed, 15 May 2024 23:45:45 +0200","Create README.md",	 1 file changed, 11 insertions(+)	
+"0c76f2b","Cristina Ramos","Wed, 15 May 2024 02:30:20 +0200","retouches",	 7 files changed, 159 insertions(+), 23 deletions(-)	
+"da328db","Cristina Ramos","Wed, 15 May 2024 01:03:34 +0200","before masonrylist",	 10 files changed, 79 insertions(+), 50 deletions(-)	
+"44f9d0b","Cristina Ramos","Tue, 14 May 2024 23:18:04 +0200","wip and rip",	 22 files changed, 194 insertions(+), 115 deletions(-)	
+"9beb02e","Cristina Ramos","Tue, 14 May 2024 22:13:12 +0200","done art grants",	 14 files changed, 466 insertions(+), 201 deletions(-)	
+"14d7def","Cristina Ramos","Tue, 14 May 2024 21:02:12 +0200","clean up code",	 4 files changed, 33 insertions(+), 5 deletions(-)	
+"a4daa13","Cristina Ramos","Tue, 14 May 2024 19:00:49 +0200","improvements in contests, added fields and art grant",	 8 files changed, 343 insertions(+), 358 deletions(-)	
+"2384f78","Cristina Ramos","Tue, 14 May 2024 04:24:33 +0200","se puede ir al detalle, falta la fecha formateada",	 9 files changed, 263 insertions(+), 17 deletions(-)	
+"1743239","Cristina Ramos","Tue, 14 May 2024 01:54:54 +0200","formateada fecha, wip and rip",	 11 files changed, 326 insertions(+), 228 deletions(-)	
+"581198c","Cristina Ramos","Mon, 13 May 2024 22:31:57 +0200","added publishdate",	 9 files changed, 153 insertions(+), 98 deletions(-)	
+"f1c2767","Cristina Ramos","Mon, 13 May 2024 21:58:54 +0200","finish upload contest",	 10 files changed, 377 insertions(+), 122 deletions(-)	
+"bb1f24b","Cristina Ramos","Mon, 13 May 2024 00:39:53 +0200","upload art grants and contests. Need to validate start date, ages an upload an image",	 18 files changed, 864 insertions(+), 428 deletions(-)	
+"b265757","Cristina Ramos","Sun, 12 May 2024 01:49:43 +0200","wip",	 15 files changed, 753 insertions(+), 105 deletions(-)	
+"dbdafe6","Cristina Ramos","Sat, 11 May 2024 20:40:34 +0200","done forms, now logic",	 17 files changed, 680 insertions(+), 245 deletions(-)	
+"17c22a7","Cristina Ramos","Sat, 11 May 2024 13:15:30 +0200","wip contest upload form",	 14 files changed, 312 insertions(+), 111 deletions(-)	
+"498773f","Cristina Ramos","Sat, 11 May 2024 00:48:30 +0200","added translation hook",	 14 files changed, 296 insertions(+), 36 deletions(-)	
+"62c8576","Cristina Ramos","Thu, 9 May 2024 23:48:56 +0200","wip contest and art form",	 9 files changed, 329 insertions(+), 487 deletions(-)	
+"cdb57cc","Cristina Ramos","Thu, 9 May 2024 05:25:25 +0200","well, at least i can upload and fetch images",	 14 files changed, 359 insertions(+), 149 deletions(-)	
+"319b2a0","Cristina Ramos","Wed, 8 May 2024 21:43:29 +0200","before disaster",	 17 files changed, 1635 insertions(+), 2353 deletions(-)	
+"1b510c0","Cristina Ramos","Sun, 5 May 2024 23:21:47 +0200","wip navigation",	 11 files changed, 737 insertions(+), 340 deletions(-)	
+"dfd1f67","Cristina Ramos","Sun, 5 May 2024 16:48:12 +0200","wip navigation",	 16 files changed, 675 insertions(+), 149 deletions(-)	
+"46a16cd","Cristina Ramos","Thu, 2 May 2024 23:57:27 +0200","wip card for contest and art grants",	 4 files changed, 100 insertions(+), 1 deletion(-)	
+"c23cb74","Cristina Ramos","Thu, 2 May 2024 07:47:22 +0200","added user and images. Some navigation too",	 10 files changed, 223 insertions(+), 117 deletions(-)	
+"d8ae43e","Cristina Ramos","Wed, 1 May 2024 01:39:34 +0200","added user and images. Some navigation too",	 10 files changed, 366 insertions(+), 32 deletions(-)	
+"dd638d6","Cristina Ramos","Sun, 28 Apr 2024 23:08:14 +0200","tried redux, dont like",	 2 files changed, 11 insertions(+), 17 deletions(-)	
+"a0f8556","Cristina Ramos","Sun, 28 Apr 2024 00:34:27 +0200","done navigation and login, need to keep user globally",	 10 files changed, 737 insertions(+), 91 deletions(-)	
+"5b8394a","Cristina Ramos","Tue, 16 Apr 2024 17:27:10 +0200","at least i cant sign in with google in android",	 4 files changed, 578 insertions(+), 34 deletions(-)	
+"6b3adae","Cristina Ramos","Mon, 15 Apr 2024 19:19:35 +0200","wip and rip",	 3 files changed, 155 insertions(+), 33 deletions(-)	
+"a55ffa9","Cristina Ramos","Mon, 15 Apr 2024 15:59:41 +0200","semi working, outh errors but works in web",	 5 files changed, 111 insertions(+), 7 deletions(-)	
+"5ac7962","Cristina Ramos","Sun, 14 Apr 2024 17:51:04 +0200","semi working, outh errors",	 6 files changed, 126 insertions(+), 11 deletions(-)	
+"cafbdb4","Cristina Ramos","Sun, 14 Apr 2024 16:43:33 +0200","initial commit",	 53 files changed, 2037 insertions(+), 6 deletions(-)	
+"6842685","Cristina Ramos","Sun, 14 Apr 2024 15:49:36 +0200","Initial commit",	 10 files changed, 14175 insertions(+)	

@@ -203,7 +203,7 @@ export default function SignInScreen({}) {
                 setPassword(pwd);
                 setShowPasswordError(false);
               }}
-              placeholder="Password"
+              placeholder="Password                                   "
               keyboardType="default"
             />
             {viewPassword ? (
